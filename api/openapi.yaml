@@ -1,0 +1,3923 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: hello@merge.dev
+    name: Merge Team
+    url: https://www.merge.dev/
+  description: The unified API for building rich integrations with multiple HR Information
+    System platforms.
+  title: Merge HRIS API
+  version: "1.0"
+servers:
+- description: Production
+  url: https://api.merge.dev/api/hris/v1
+- description: Sandbox
+  url: https://api-sandbox.merge.dev/api/hris/v1
+paths:
+  /account-token/{public_token}:
+    get:
+      description: Returns the account token for the end user with the provided public
+        token.
+      operationId: account_token_retrieve
+      parameters:
+      - explode: false
+        in: path
+        name: public_token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountToken'
+      security:
+      - tokenAuth: []
+      tags:
+      - account-token
+  /benefits:
+    get:
+      description: Returns a list of `Benefit` objects.
+      operationId: benefits_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return time off for this employee.
+        examples:
+          EmployeeId:
+            summary: employee_id
+        explode: true
+        in: query
+        name: employee_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Which relations should be returned in expanded form. Multiple
+          relation names should be comma separated without spaces.
+        examples:
+          ExpandEmployee:
+            summary: Expand Employee
+            value: employee
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          enum:
+          - employee
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBenefitList'
+      security:
+      - tokenAuth: []
+      tags:
+      - benefits
+  /benefits/{id}:
+    get:
+      description: Returns a `Benefit` object with the given `id`.
+      operationId: benefits_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Which relations should be returned in expanded form. Multiple
+          relation names should be comma separated without spaces.
+        examples:
+          ExpandEmployee:
+            summary: Expand Employee
+            value: employee
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          enum:
+          - employee
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit'
+      security:
+      - tokenAuth: []
+      tags:
+      - benefits
+  /companies:
+    get:
+      description: Returns a list of `Company` objects.
+      operationId: companies_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCompanyList'
+      security:
+      - tokenAuth: []
+      tags:
+      - companies
+  /companies/{id}:
+    get:
+      description: Returns a `Company` object with the given `id`.
+      operationId: companies_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+      security:
+      - tokenAuth: []
+      tags:
+      - companies
+  /documents:
+    get:
+      description: Returns a list of `Document` objects.
+      operationId: documents_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return documents for this employee.
+        examples:
+          EmployeeId:
+            summary: employee_id
+        explode: true
+        in: query
+        name: employee_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDocumentList'
+      security:
+      - tokenAuth: []
+      tags:
+      - documents
+  /documents/{id}:
+    get:
+      description: Returns a `Document` object with the given `id`.
+      operationId: documents_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+      security:
+      - tokenAuth: []
+      tags:
+      - documents
+  /employee-payroll-runs:
+    get:
+      description: Returns a list of `EmployeePayrollRun` objects.
+      operationId: employee_payroll_runs_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return time off for this employee.
+        examples:
+          EmployeeId:
+            summary: employee_id
+        explode: true
+        in: query
+        name: employee_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Which relations should be returned in expanded form. Multiple
+          relation names should be comma separated without spaces.
+        examples:
+          ExpandEmployee,PayrollRun:
+            summary: Expand Employee, Payroll_run
+            value: employee,payroll_run
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          enum:
+          - employee
+          - employee,payroll_run
+          - payroll_run
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: If provided, will only return employee payroll runs for this
+          employee.
+        examples:
+          PayrollRunId:
+            summary: payroll_run_id
+        explode: true
+        in: query
+        name: payroll_run_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmployeePayrollRunList'
+      security:
+      - tokenAuth: []
+      tags:
+      - employee-payroll-runs
+  /employee-payroll-runs/{id}:
+    get:
+      description: Returns an `EmployeePayrollRun` object with the given `id`.
+      operationId: employee_payroll_runs_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Which relations should be returned in expanded form. Multiple
+          relation names should be comma separated without spaces.
+        examples:
+          ExpandEmployee,PayrollRun:
+            summary: Expand Employee, Payroll_run
+            value: employee,payroll_run
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          enum:
+          - employee
+          - employee,payroll_run
+          - payroll_run
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeePayrollRun'
+      security:
+      - tokenAuth: []
+      tags:
+      - employee-payroll-runs
+  /employees:
+    get:
+      description: Returns a list of `Employee` objects.
+      operationId: employees_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return employees for this company.
+        examples:
+          CompanyId:
+            summary: company_id
+        explode: true
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Which relations should be returned in expanded form. Multiple
+          relation names should be comma separated without spaces.
+        examples:
+          ExpandEmployments,Documents,HomeLocation,WorkLocation,Manager,Team,Company:
+            summary: Expand Employments, Documents, Home_location, Work_location,
+              Manager, Team, Company
+            value: employments,documents,home_location,work_location,manager,team,company
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          enum:
+          - company
+          - documents
+          - documents,company
+          - documents,home_location
+          - documents,home_location,company
+          - documents,home_location,manager
+          - documents,home_location,manager,company
+          - documents,home_location,manager,team
+          - documents,home_location,manager,team,company
+          - documents,home_location,team
+          - documents,home_location,team,company
+          - documents,home_location,work_location
+          - documents,home_location,work_location,company
+          - documents,home_location,work_location,manager
+          - documents,home_location,work_location,manager,company
+          - documents,home_location,work_location,manager,team
+          - documents,home_location,work_location,manager,team,company
+          - documents,home_location,work_location,team
+          - documents,home_location,work_location,team,company
+          - documents,manager
+          - documents,manager,company
+          - documents,manager,team
+          - documents,manager,team,company
+          - documents,team
+          - documents,team,company
+          - documents,work_location
+          - documents,work_location,company
+          - documents,work_location,manager
+          - documents,work_location,manager,company
+          - documents,work_location,manager,team
+          - documents,work_location,manager,team,company
+          - documents,work_location,team
+          - documents,work_location,team,company
+          - employments
+          - employments,company
+          - employments,documents
+          - employments,documents,company
+          - employments,documents,home_location
+          - employments,documents,home_location,company
+          - employments,documents,home_location,manager
+          - employments,documents,home_location,manager,company
+          - employments,documents,home_location,manager,team
+          - employments,documents,home_location,manager,team,company
+          - employments,documents,home_location,team
+          - employments,documents,home_location,team,company
+          - employments,documents,home_location,work_location
+          - employments,documents,home_location,work_location,company
+          - employments,documents,home_location,work_location,manager
+          - employments,documents,home_location,work_location,manager,company
+          - employments,documents,home_location,work_location,manager,team
+          - employments,documents,home_location,work_location,manager,team,company
+          - employments,documents,home_location,work_location,team
+          - employments,documents,home_location,work_location,team,company
+          - employments,documents,manager
+          - employments,documents,manager,company
+          - employments,documents,manager,team
+          - employments,documents,manager,team,company
+          - employments,documents,team
+          - employments,documents,team,company
+          - employments,documents,work_location
+          - employments,documents,work_location,company
+          - employments,documents,work_location,manager
+          - employments,documents,work_location,manager,company
+          - employments,documents,work_location,manager,team
+          - employments,documents,work_location,manager,team,company
+          - employments,documents,work_location,team
+          - employments,documents,work_location,team,company
+          - employments,home_location
+          - employments,home_location,company
+          - employments,home_location,manager
+          - employments,home_location,manager,company
+          - employments,home_location,manager,team
+          - employments,home_location,manager,team,company
+          - employments,home_location,team
+          - employments,home_location,team,company
+          - employments,home_location,work_location
+          - employments,home_location,work_location,company
+          - employments,home_location,work_location,manager
+          - employments,home_location,work_location,manager,company
+          - employments,home_location,work_location,manager,team
+          - employments,home_location,work_location,manager,team,company
+          - employments,home_location,work_location,team
+          - employments,home_location,work_location,team,company
+          - employments,manager
+          - employments,manager,company
+          - employments,manager,team
+          - employments,manager,team,company
+          - employments,team
+          - employments,team,company
+          - employments,work_location
+          - employments,work_location,company
+          - employments,work_location,manager
+          - employments,work_location,manager,company
+          - employments,work_location,manager,team
+          - employments,work_location,manager,team,company
+          - employments,work_location,team
+          - employments,work_location,team,company
+          - home_location
+          - home_location,company
+          - home_location,manager
+          - home_location,manager,company
+          - home_location,manager,team
+          - home_location,manager,team,company
+          - home_location,team
+          - home_location,team,company
+          - home_location,work_location
+          - home_location,work_location,company
+          - home_location,work_location,manager
+          - home_location,work_location,manager,company
+          - home_location,work_location,manager,team
+          - home_location,work_location,manager,team,company
+          - home_location,work_location,team
+          - home_location,work_location,team,company
+          - manager
+          - manager,company
+          - manager,team
+          - manager,team,company
+          - team
+          - team,company
+          - work_location
+          - work_location,company
+          - work_location,manager
+          - work_location,manager,company
+          - work_location,manager,team
+          - work_location,manager,team,company
+          - work_location,team
+          - work_location,team,company
+          type: string
+        style: form
+      - description: If provided, will only return employees for this manager.
+        examples:
+          ManagerId:
+            summary: manager_id
+        explode: true
+        in: query
+        name: manager_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      - description: If provided, will only return employees for this team.
+        examples:
+          TeamId:
+            summary: team_id
+        explode: true
+        in: query
+        name: team_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return employees for this location.
+        examples:
+          WorkLocationId:
+            summary: work_location_id
+        explode: true
+        in: query
+        name: work_location_id
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmployeeList'
+      security:
+      - tokenAuth: []
+      tags:
+      - employees
+  /employees/{id}:
+    get:
+      description: Returns an `Employee` object with the given `id`.
+      operationId: employees_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Which relations should be returned in expanded form. Multiple
+          relation names should be comma separated without spaces.
+        examples:
+          ExpandEmployments,Documents,HomeLocation,WorkLocation,Manager,Team,Company:
+            summary: Expand Employments, Documents, Home_location, Work_location,
+              Manager, Team, Company
+            value: employments,documents,home_location,work_location,manager,team,company
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          enum:
+          - company
+          - documents
+          - documents,company
+          - documents,home_location
+          - documents,home_location,company
+          - documents,home_location,manager
+          - documents,home_location,manager,company
+          - documents,home_location,manager,team
+          - documents,home_location,manager,team,company
+          - documents,home_location,team
+          - documents,home_location,team,company
+          - documents,home_location,work_location
+          - documents,home_location,work_location,company
+          - documents,home_location,work_location,manager
+          - documents,home_location,work_location,manager,company
+          - documents,home_location,work_location,manager,team
+          - documents,home_location,work_location,manager,team,company
+          - documents,home_location,work_location,team
+          - documents,home_location,work_location,team,company
+          - documents,manager
+          - documents,manager,company
+          - documents,manager,team
+          - documents,manager,team,company
+          - documents,team
+          - documents,team,company
+          - documents,work_location
+          - documents,work_location,company
+          - documents,work_location,manager
+          - documents,work_location,manager,company
+          - documents,work_location,manager,team
+          - documents,work_location,manager,team,company
+          - documents,work_location,team
+          - documents,work_location,team,company
+          - employments
+          - employments,company
+          - employments,documents
+          - employments,documents,company
+          - employments,documents,home_location
+          - employments,documents,home_location,company
+          - employments,documents,home_location,manager
+          - employments,documents,home_location,manager,company
+          - employments,documents,home_location,manager,team
+          - employments,documents,home_location,manager,team,company
+          - employments,documents,home_location,team
+          - employments,documents,home_location,team,company
+          - employments,documents,home_location,work_location
+          - employments,documents,home_location,work_location,company
+          - employments,documents,home_location,work_location,manager
+          - employments,documents,home_location,work_location,manager,company
+          - employments,documents,home_location,work_location,manager,team
+          - employments,documents,home_location,work_location,manager,team,company
+          - employments,documents,home_location,work_location,team
+          - employments,documents,home_location,work_location,team,company
+          - employments,documents,manager
+          - employments,documents,manager,company
+          - employments,documents,manager,team
+          - employments,documents,manager,team,company
+          - employments,documents,team
+          - employments,documents,team,company
+          - employments,documents,work_location
+          - employments,documents,work_location,company
+          - employments,documents,work_location,manager
+          - employments,documents,work_location,manager,company
+          - employments,documents,work_location,manager,team
+          - employments,documents,work_location,manager,team,company
+          - employments,documents,work_location,team
+          - employments,documents,work_location,team,company
+          - employments,home_location
+          - employments,home_location,company
+          - employments,home_location,manager
+          - employments,home_location,manager,company
+          - employments,home_location,manager,team
+          - employments,home_location,manager,team,company
+          - employments,home_location,team
+          - employments,home_location,team,company
+          - employments,home_location,work_location
+          - employments,home_location,work_location,company
+          - employments,home_location,work_location,manager
+          - employments,home_location,work_location,manager,company
+          - employments,home_location,work_location,manager,team
+          - employments,home_location,work_location,manager,team,company
+          - employments,home_location,work_location,team
+          - employments,home_location,work_location,team,company
+          - employments,manager
+          - employments,manager,company
+          - employments,manager,team
+          - employments,manager,team,company
+          - employments,team
+          - employments,team,company
+          - employments,work_location
+          - employments,work_location,company
+          - employments,work_location,manager
+          - employments,work_location,manager,company
+          - employments,work_location,manager,team
+          - employments,work_location,manager,team,company
+          - employments,work_location,team
+          - employments,work_location,team,company
+          - home_location
+          - home_location,company
+          - home_location,manager
+          - home_location,manager,company
+          - home_location,manager,team
+          - home_location,manager,team,company
+          - home_location,team
+          - home_location,team,company
+          - home_location,work_location
+          - home_location,work_location,company
+          - home_location,work_location,manager
+          - home_location,work_location,manager,company
+          - home_location,work_location,manager,team
+          - home_location,work_location,manager,team,company
+          - home_location,work_location,team
+          - home_location,work_location,team,company
+          - manager
+          - manager,company
+          - manager,team
+          - manager,team,company
+          - team
+          - team,company
+          - work_location
+          - work_location,company
+          - work_location,manager
+          - work_location,manager,company
+          - work_location,manager,team
+          - work_location,manager,team,company
+          - work_location,team
+          - work_location,team,company
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+      security:
+      - tokenAuth: []
+      tags:
+      - employees
+  /employments:
+    get:
+      description: Returns a list of `Employment` objects.
+      operationId: employments_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return employments for this employee.
+        examples:
+          EmployeeId:
+            summary: employee_id
+        explode: true
+        in: query
+        name: employee_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmploymentList'
+      security:
+      - tokenAuth: []
+      tags:
+      - employments
+  /employments/{id}:
+    get:
+      description: Returns an `Employment` object with the given `id`.
+      operationId: employments_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employment'
+      security:
+      - tokenAuth: []
+      tags:
+      - employments
+  /link-token:
+    post:
+      description: Creates a link token to be used when linking a new end user.
+      operationId: link_token_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EndUserDetails'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EndUserDetails'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EndUserDetails'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkToken'
+      security:
+      - tokenAuth: []
+      tags:
+      - link-token
+  /locations:
+    get:
+      description: Returns a list of `Location` objects.
+      operationId: locations_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLocationList'
+      security:
+      - tokenAuth: []
+      tags:
+      - locations
+  /locations/{id}:
+    get:
+      description: Returns a `Location` object with the given `id`.
+      operationId: locations_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      security:
+      - tokenAuth: []
+      tags:
+      - locations
+  /payroll-runs:
+    get:
+      description: Returns a list of `PayrollRun` objects.
+      operationId: payroll_runs_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPayrollRunList'
+      security:
+      - tokenAuth: []
+      tags:
+      - payroll-runs
+  /payroll-runs/{id}:
+    get:
+      description: Returns a `PayrollRun` object with the given `id`.
+      operationId: payroll_runs_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayrollRun'
+      security:
+      - tokenAuth: []
+      tags:
+      - payroll-runs
+  /reports:
+    get:
+      description: Returns a list of `Report` objects.
+      operationId: reports_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReportList'
+      security:
+      - tokenAuth: []
+      tags:
+      - reports
+  /reports/{id}:
+    get:
+      description: Returns a `Report` object with the given `id`.
+      operationId: reports_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+      security:
+      - tokenAuth: []
+      tags:
+      - reports
+  /teams:
+    get:
+      description: Returns a list of `Team` objects.
+      operationId: teams_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTeamList'
+      security:
+      - tokenAuth: []
+      tags:
+      - teams
+  /teams/{id}:
+    get:
+      description: Returns a `Team` object with the given `id`.
+      operationId: teams_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+      security:
+      - tokenAuth: []
+      tags:
+      - teams
+  /time-off:
+    get:
+      description: Returns a list of `TimeOff` objects.
+      operationId: time_off_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return time off for this approver.
+        examples:
+          ApproverId:
+            summary: approver_id
+        explode: true
+        in: query
+        name: approver_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return time off for this employee.
+        examples:
+          EmployeeId:
+            summary: employee_id
+        explode: true
+        in: query
+        name: employee_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Which relations should be returned in expanded form. Multiple
+          relation names should be comma separated without spaces.
+        examples:
+          ExpandEmployee,Approver:
+            summary: Expand Employee, Approver
+            value: employee,approver
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          enum:
+          - approver
+          - employee
+          - employee,approver
+          type: string
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTimeOffList'
+      security:
+      - tokenAuth: []
+      tags:
+      - time-off
+  /time-off/{id}:
+    get:
+      description: Returns an `TimeOff` object with the given `id`.
+      operationId: time_off_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Which relations should be returned in expanded form. Multiple
+          relation names should be comma separated without spaces.
+        examples:
+          ExpandEmployee,Approver:
+            summary: Expand Employee, Approver
+            value: employee,approver
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          enum:
+          - approver
+          - employee
+          - employee,approver
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOff'
+      security:
+      - tokenAuth: []
+      tags:
+      - time-off
+components:
+  schemas:
+    AccountToken:
+      example:
+        account_token: T9klMDQrcHdm9jrtHuOS2Nf06BIHwMNjpPXPMB
+      properties:
+        account_token:
+          example: T9klMDQrcHdm9jrtHuOS2Nf06BIHwMNjpPXPMB
+          type: string
+      required:
+      - account_token
+      type: object
+    Benefit:
+      description: |-
+        # The Benefit Object
+        ### Description
+        The `Benefit` object is used to represent a Benefit for an employee.
+
+        ### Usage Example
+        Fetch from the `LIST Benefits` endpoint and filter by `ID` to show all benefits.
+      example:
+        employee_contribution: 23.65
+        remote_id: "19202938"
+        benefit_plan_type: MEDICAL
+        company_contribution: 150.0
+        id: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
+        employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+        provider_name: Blue Shield of California
+      properties:
+        id:
+          example: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        employee:
+          description: The employee on the plan.
+          example: d2f972d0-2526-434b-9409-4c3b468e08f0
+          format: uuid
+          nullable: true
+          type: string
+        provider_name:
+          description: The name of the benefit provider.
+          example: Blue Shield of California
+          nullable: true
+          type: string
+        benefit_plan_type:
+          allOf:
+          - $ref: '#/components/schemas/BenefitPlanTypeEnum'
+          description: The type of benefit plan
+          example: MEDICAL
+          nullable: true
+        employee_contribution:
+          description: The employee's contribution.
+          example: 23.65
+          format: float
+          nullable: true
+          type: number
+        company_contribution:
+          description: The company's contribution.
+          example: 150.0
+          format: float
+          nullable: true
+          type: number
+      type: object
+    BenefitPlanTypeEnum:
+      enum:
+      - MEDICAL
+      - DENTAL
+      - VISION
+      - HSA
+      - FSA_MEDICAL
+      - FSA_DEPENDENT_CARE
+      - SIMPLE_IRA
+      - _401K
+      - ROTH_401K
+      - OTHER_NON_TAXABLE
+      - COMMUTER_TRANSIT
+      - COMMUTER_PARKING
+      - _401K_LOAN_PAYMENT
+      - SHORT_DISABILITY
+      - LONG_DISABILITY
+      - LIFE
+      - SEP_IRA
+      - SARSEP
+      - CUSTOM_TAXABLE
+      - _403B
+      - ROTH_403B
+      - STUDENT_LOAN
+      type: string
+    Company:
+      description: |-
+        # The Company Object
+        ### Description
+        The `Company` object is used to represent a Company.
+
+        ### Usage Example
+        Fetch from the `LIST Companies` endpoint and filter by `ID` to show all companies.
+      example:
+        eins:
+        - 12-3456789
+        - 12-3451111
+        - 11-0011000
+        remote_id: "19202938"
+        id: 1b998423-db0a-4037-a4cf-f79c60cb67b3
+        legal_name: We Love Integrations Inc.
+        display_name: We Love Integrations
+      properties:
+        id:
+          example: 1b998423-db0a-4037-a4cf-f79c60cb67b3
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        legal_name:
+          description: The company's legal name.
+          example: We Love Integrations Inc.
+          nullable: true
+          type: string
+        display_name:
+          description: The company's display name.
+          example: We Love Integrations
+          nullable: true
+          type: string
+        eins:
+          description: The company's Employer Identification Numbers.
+          example:
+          - 12-3456789
+          - 12-3451111
+          - 11-0011000
+          items:
+            nullable: true
+            type: string
+          nullable: true
+          type: array
+      type: object
+    CountryEnum:
+      enum:
+      - AF
+      - AX
+      - AL
+      - DZ
+      - AS
+      - AD
+      - AO
+      - AI
+      - AQ
+      - AG
+      - AR
+      - AM
+      - AW
+      - AU
+      - AT
+      - AZ
+      - BS
+      - BH
+      - BD
+      - BB
+      - BY
+      - BE
+      - BZ
+      - BJ
+      - BM
+      - BT
+      - BO
+      - BQ
+      - BA
+      - BW
+      - BV
+      - BR
+      - IO
+      - BN
+      - BG
+      - BF
+      - BI
+      - CV
+      - KH
+      - CM
+      - CA
+      - KY
+      - CF
+      - TD
+      - CL
+      - CN
+      - CX
+      - CC
+      - CO
+      - KM
+      - CG
+      - CD
+      - CK
+      - CR
+      - CI
+      - HR
+      - CU
+      - CW
+      - CY
+      - CZ
+      - DK
+      - DJ
+      - DM
+      - DO
+      - EC
+      - EG
+      - SV
+      - GQ
+      - ER
+      - EE
+      - SZ
+      - ET
+      - FK
+      - FO
+      - FJ
+      - FI
+      - FR
+      - GF
+      - PF
+      - TF
+      - GA
+      - GM
+      - GE
+      - DE
+      - GH
+      - GI
+      - GR
+      - GL
+      - GD
+      - GP
+      - GU
+      - GT
+      - GG
+      - GN
+      - GW
+      - GY
+      - HT
+      - HM
+      - VA
+      - HN
+      - HK
+      - HU
+      - IS
+      - IN
+      - ID
+      - IR
+      - IQ
+      - IE
+      - IM
+      - IL
+      - IT
+      - JM
+      - JP
+      - JE
+      - JO
+      - KZ
+      - KE
+      - KI
+      - KW
+      - KG
+      - LA
+      - LV
+      - LB
+      - LS
+      - LR
+      - LY
+      - LI
+      - LT
+      - LU
+      - MO
+      - MG
+      - MW
+      - MY
+      - MV
+      - ML
+      - MT
+      - MH
+      - MQ
+      - MR
+      - MU
+      - YT
+      - MX
+      - FM
+      - MD
+      - MC
+      - MN
+      - ME
+      - MS
+      - MA
+      - MZ
+      - MM
+      - NA
+      - NR
+      - NP
+      - NL
+      - NC
+      - NZ
+      - NI
+      - NE
+      - NG
+      - NU
+      - NF
+      - KP
+      - MK
+      - MP
+      - "NO"
+      - OM
+      - PK
+      - PW
+      - PS
+      - PA
+      - PG
+      - PY
+      - PE
+      - PH
+      - PN
+      - PL
+      - PT
+      - PR
+      - QA
+      - RE
+      - RO
+      - RU
+      - RW
+      - BL
+      - SH
+      - KN
+      - LC
+      - MF
+      - PM
+      - VC
+      - WS
+      - SM
+      - ST
+      - SA
+      - SN
+      - RS
+      - SC
+      - SL
+      - SG
+      - SX
+      - SK
+      - SI
+      - SB
+      - SO
+      - ZA
+      - GS
+      - KR
+      - SS
+      - ES
+      - LK
+      - SD
+      - SR
+      - SJ
+      - SE
+      - CH
+      - SY
+      - TW
+      - TJ
+      - TZ
+      - TH
+      - TL
+      - TG
+      - TK
+      - TO
+      - TT
+      - TN
+      - TR
+      - TM
+      - TC
+      - TV
+      - UG
+      - UA
+      - AE
+      - GB
+      - UM
+      - US
+      - UY
+      - UZ
+      - VU
+      - VE
+      - VN
+      - VG
+      - VI
+      - WF
+      - EH
+      - YE
+      - ZM
+      - ZW
+      type: string
+    Deduction:
+      description: |-
+        # The Deduction Object
+        ### Description
+        The `Deduction` object is used to represent a deduction for a given employee's payroll run. One run could include several deductions.
+
+        ### Usage Example
+        Fetch from the `LIST Deductions` endpoint and filter by `ID` to show all deductions.
+      properties:
+        id:
+          example: 5fd439fc-1b64-4755-b275-64918936c365
+          format: uuid
+          readOnly: true
+          type: string
+        employee_payroll_run:
+          description: The deduction's employee payroll run.
+          example: 35347df1-95e7-46e2-93cc-66f1191edca5
+          format: uuid
+          nullable: true
+          type: string
+        name:
+          description: The deduction's name.
+          example: Social Security
+          nullable: true
+          type: string
+        employee_deduction:
+          description: The amount the employee is deducting.
+          example: 34.54
+          format: float
+          nullable: true
+          type: number
+        company_deduction:
+          description: The amount the company is deducting.
+          example: 78.78
+          format: float
+          nullable: true
+          type: number
+      type: object
+    Document:
+      description: |-
+        # The Document Object
+        ### Description
+        The `Document` object is used to represent a Document for an employee.
+
+        ### Usage Example
+        Fetch from the `LIST Documents` endpoint and filter by `ID` to show all documents.
+      example:
+        file_url: http://alturl.com/p749b
+        file_name: Merge Company Secrets
+        id: 1dc27860-396c-4d9a-9896-d914e3577ada
+        employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+      properties:
+        id:
+          example: 1dc27860-396c-4d9a-9896-d914e3577ada
+          format: uuid
+          readOnly: true
+          type: string
+        employee:
+          description: The employee this document belongs to.
+          example: d2f972d0-2526-434b-9409-4c3b468e08f0
+          format: uuid
+          nullable: true
+          type: string
+        file_name:
+          description: The document's filename.
+          example: Merge Company Secrets
+          nullable: true
+          type: string
+        file_url:
+          description: The URL from which the document can be retrieved.
+          example: http://alturl.com/p749b
+          format: uri
+          maxLength: 200
+          nullable: true
+          type: string
+      type: object
+    Earning:
+      description: |-
+        # The Earning Object
+        ### Description
+        The `Earning` object is used to represent an earning for a given employee's payroll run. One run could include several earnings.
+
+        ### Usage Example
+        Fetch from the `LIST Earnings` endpoint and filter by `ID` to show all earnings.
+      properties:
+        id:
+          example: babbced6-3a81-4775-8da2-490dc6385259
+          format: uuid
+          readOnly: true
+          type: string
+        employee_payroll_run:
+          description: The earning's employee payroll run.
+          example: 35347df1-95e7-46e2-93cc-66f1191edca5
+          format: uuid
+          nullable: true
+          type: string
+        amount:
+          description: The amount earned.
+          example: 1002.34
+          format: float
+          nullable: true
+          type: number
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeEnum'
+          description: The type of earning.
+          example: SALARY
+          nullable: true
+      type: object
+    Employee:
+      description: |-
+        # The Employee Object
+        ### Description
+        The `Employee` object is used to represent an Employee for a company.
+
+        ### Usage Example
+        Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
+      example:
+        display_full_name: Jane Doe
+        work_email: jane@merge.dev
+        manager: 0048ea5b-911e-4dff-9364-92070dea62ff
+        gender: FEMALE
+        ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+        documents:
+        - 35347df1-95e7-46e2-93cc-66f1191edca5
+        date_of_birth: 2000-01-23T04:56:07.000+00:00
+        remote_id: "19202938"
+        last_name: Doe
+        employments:
+        - 17a54124-287f-494d-965e-3c5b330c9a68
+        team: 249c9faa-3045-4a31-953b-8f22d3613301
+        hire_date: 2000-01-23T04:56:07.000+00:00
+        avatar: http://alturl.com/h2h8m
+        work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+        mobile_phone_number: +1234567890
+        ssn: "1234567890"
+        marital_status: SINGLE
+        termination_date: 2000-01-23T04:56:07.000+00:00
+        company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
+        home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
+        id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        employment_status: ACTIVE
+        first_name: Jane
+        personal_email: jane@gmail.com
+      properties:
+        id:
+          example: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        company:
+          description: The ID of the Employee's company.
+          example: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
+          format: uuid
+          nullable: true
+          type: string
+        first_name:
+          description: The employee's first name.
+          example: Jane
+          nullable: true
+          type: string
+        last_name:
+          description: The employee's last name.
+          example: Doe
+          nullable: true
+          type: string
+        display_full_name:
+          description: The employee's full name, to use for display purposes.
+          example: Jane Doe
+          nullable: true
+          type: string
+        work_email:
+          description: The employee's work email.
+          example: jane@merge.dev
+          format: email
+          maxLength: 254
+          nullable: true
+          type: string
+        personal_email:
+          description: The employee's personal email.
+          example: jane@gmail.com
+          format: email
+          maxLength: 254
+          nullable: true
+          type: string
+        mobile_phone_number:
+          description: The employee's mobile phone number.
+          example: +1234567890
+          nullable: true
+          type: string
+        employments:
+          example:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          items:
+            format: uuid
+            type: string
+          readOnly: true
+          type: array
+        home_location:
+          description: The employee's home address.
+          example: d2f972d0-2526-434b-9409-4c3b468e08f0
+          format: uuid
+          nullable: true
+          type: string
+        work_location:
+          description: The employee's work address.
+          example: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          format: uuid
+          nullable: true
+          type: string
+        manager:
+          description: The employeee ID of the employee's manager.
+          example: 0048ea5b-911e-4dff-9364-92070dea62ff
+          format: uuid
+          nullable: true
+          type: string
+        team:
+          description: The employee's team.
+          example: 249c9faa-3045-4a31-953b-8f22d3613301
+          format: uuid
+          nullable: true
+          type: string
+        ssn:
+          description: The employee's social security number.
+          example: "1234567890"
+          maxLength: 100
+          nullable: true
+          type: string
+        gender:
+          allOf:
+          - $ref: '#/components/schemas/GenderEnum'
+          description: The employee's gender.
+          example: FEMALE
+          nullable: true
+        ethnicity:
+          allOf:
+          - $ref: '#/components/schemas/EthnicityEnum'
+          description: The employee's ethnicity.
+          example: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+          nullable: true
+        marital_status:
+          allOf:
+          - $ref: '#/components/schemas/MaritalStatusEnum'
+          description: The employee's marital status.
+          example: SINGLE
+          nullable: true
+        date_of_birth:
+          description: The employee's date of birth.
+          format: date-time
+          nullable: true
+          type: string
+        hire_date:
+          description: The employee's hire date.
+          format: date-time
+          nullable: true
+          type: string
+        employment_status:
+          allOf:
+          - $ref: '#/components/schemas/EmploymentStatusEnum'
+          description: The employment status of the employee.
+          example: ACTIVE
+          nullable: true
+        termination_date:
+          description: The employee's termination date.
+          format: date-time
+          nullable: true
+          type: string
+        avatar:
+          description: The URL of the employee's avatar image.
+          example: http://alturl.com/h2h8m
+          format: uri
+          maxLength: 700
+          nullable: true
+          type: string
+        documents:
+          example:
+          - 35347df1-95e7-46e2-93cc-66f1191edca5
+          items:
+            format: uuid
+            type: string
+          readOnly: true
+          type: array
+      type: object
+    EmployeePayrollRun:
+      description: |-
+        # The EmployeePayrollRun Object
+        ### Description
+        The `EmployeePayrollRun` object is used to represent a payroll run for a specific employee.
+
+        ### Usage Example
+        Fetch from the `LIST EmployeePayrollRun` endpoint and filter by `ID` to show all employee payroll runs.
+      example:
+        net_pay: 865.78
+        end_date: 2000-01-23T04:56:07.000+00:00
+        earnings:
+        - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+          amount: 1002.34
+          type: SALARY
+        - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+          amount: 8342.34
+          type: OVERTIME
+        check_date: 2000-01-23T04:56:07.000+00:00
+        remote_id: "19202938"
+        taxes:
+        - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+          name: California State Income Tax
+          amount: 100.25
+          employer_tax: "False"
+        id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+        employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+        gross_pay: 1342.67
+        deductions:
+        - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+          name: Social Security
+          employee_deduction: 34.54
+          company_deduction: 78.78
+        payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+        start_date: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          example: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        employee:
+          description: The employee who's payroll is being run.
+          example: d2f972d0-2526-434b-9409-4c3b468e08f0
+          format: uuid
+          nullable: true
+          type: string
+        payroll_run:
+          description: The payroll being run.
+          example: 35347df1-95e7-46e2-93cc-66f1191edca5
+          format: uuid
+          nullable: true
+          type: string
+        gross_pay:
+          description: The gross pay from the run.
+          example: 1342.67
+          format: float
+          nullable: true
+          type: number
+        net_pay:
+          description: The net pay from the run.
+          example: 865.78
+          format: float
+          nullable: true
+          type: number
+        start_date:
+          description: The day and time the payroll run started.
+          format: date-time
+          nullable: true
+          type: string
+        end_date:
+          description: The day and time the payroll run ended.
+          format: date-time
+          nullable: true
+          type: string
+        check_date:
+          description: The day and time the payroll run was checked.
+          format: date-time
+          nullable: true
+          type: string
+        earnings:
+          example:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            amount: 1002.34
+            type: SALARY
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            amount: 8342.34
+            type: OVERTIME
+          items:
+            $ref: '#/components/schemas/Earning'
+          readOnly: true
+          type: array
+        deductions:
+          example:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            name: Social Security
+            employee_deduction: 34.54
+            company_deduction: 78.78
+          items:
+            $ref: '#/components/schemas/Deduction'
+          readOnly: true
+          type: array
+        taxes:
+          example:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            name: California State Income Tax
+            amount: 100.25
+            employer_tax: "False"
+          items:
+            $ref: '#/components/schemas/Tax'
+          readOnly: true
+          type: array
+      type: object
+    Employment:
+      description: |-
+        # The Employment Object
+        ### Description
+        The `Employment` object is used to represent an employment position at a company. These are associated with the employee filling the role.
+
+        ### Usage Example
+        Fetch from the `LIST Employments` endpoint and filter by `ID` to show all employees.
+      example:
+        employment_type: FULL TIME
+        flsa_status: EXEMPT
+        remote_id: "19202938"
+        effective_date: 2000-01-23T04:56:07.000+00:00
+        pay_period: YEAR
+        pay_frequency: BIWEEKLY
+        id: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
+        job_title: Software Engineer
+        pay_rate: 80000.00
+        pay_currency: USD
+      properties:
+        id:
+          example: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        job_title:
+          description: The position's title.
+          example: Software Engineer
+          nullable: true
+          type: string
+        pay_rate:
+          description: The position's pay rate in dollars.
+          example: 80000.00
+          format: float
+          nullable: true
+          type: number
+        pay_period:
+          allOf:
+          - $ref: '#/components/schemas/PayPeriodEnum'
+          description: The time period this pay rate encompasses.
+          example: YEAR
+          nullable: true
+        pay_frequency:
+          allOf:
+          - $ref: '#/components/schemas/PayFrequencyEnum'
+          description: The position's pay frequency.
+          example: BIWEEKLY
+          nullable: true
+        pay_currency:
+          allOf:
+          - $ref: '#/components/schemas/PayCurrencyEnum'
+          description: The position's currency code.
+          example: USD
+          nullable: true
+        flsa_status:
+          allOf:
+          - $ref: '#/components/schemas/FlsaStatusEnum'
+          description: The position's FLSA status.
+          example: EXEMPT
+          nullable: true
+        effective_date:
+          description: The position's effective date.
+          format: date-time
+          nullable: true
+          type: string
+        employment_type:
+          allOf:
+          - $ref: '#/components/schemas/EmploymentTypeEnum'
+          description: The position's type of employment.
+          example: FULL TIME
+          nullable: true
+      type: object
+    EmploymentStatusEnum:
+      enum:
+      - ACTIVE
+      - PENDING
+      - INACTIVE
+      type: string
+    EmploymentTypeEnum:
+      enum:
+      - FULL_TIME
+      - PART_TIME
+      - INTERN
+      - CONTRACTOR
+      - FREELANCE
+      type: string
+    EndUserDetails:
+      example:
+        end_user_organization_name: end_user_organization_name
+        end_user_email_address: end_user_email_address
+        categories:
+        - hris
+        - hris
+        end_user_origin_id: end_user_origin_id
+      properties:
+        end_user_email_address:
+          type: string
+        end_user_organization_name:
+          type: string
+        end_user_origin_id:
+          type: string
+        categories:
+          items:
+            enum:
+            - hris
+            - ats
+            type: string
+          type: array
+      required:
+      - categories
+      - end_user_email_address
+      - end_user_organization_name
+      - end_user_origin_id
+      type: object
+    EthnicityEnum:
+      enum:
+      - AMERICAN_INDIAN_OR_ALASKA_NATIVE
+      - ASIAN_OR_INDIAN_SUBCONTINENT
+      - BLACK_OR_AFRICAN_AMERICAN
+      - HISPANIC_OR_LATINO
+      - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER
+      - TWO_OR_MORE_RACES
+      - WHITE
+      - PREFER_NOT_TO_DISCLOSE
+      type: string
+    FlsaStatusEnum:
+      enum:
+      - EXEMPT
+      - SALARIED_NONEXEMPT
+      - NONEXEMPT
+      - OWNER
+      type: string
+    GenderEnum:
+      enum:
+      - MALE
+      - FEMALE
+      - NON-BINARY
+      - OTHER
+      - PREFER_NOT_TO_DISCLOSE
+      type: string
+    LinkToken:
+      example:
+        integration_name: Lever
+        link_token: necdP7FtdASl1fQwm62be2_dM4wBG8_GactqoUV0
+      properties:
+        link_token:
+          example: necdP7FtdASl1fQwm62be2_dM4wBG8_GactqoUV0
+          type: string
+        integration_name:
+          example: Lever
+          type: string
+      required:
+      - integration_name
+      - link_token
+      type: object
+    Location:
+      description: |-
+        # The Location Object
+        ### Description
+        The `Location` object is used to represent a Location for a company. This is shared across many models and is referenced whenever a location is stored.
+
+        ### Usage Example
+        Fetch from the `LIST Locations` endpoint and filter by `ID` to show all office locations.
+      example:
+        country: USA
+        street_1: 2920 Broadway
+        city: 'New York '
+        remote_id: "93018402"
+        street_2: 2nd Floor
+        phone_number: +1111111111
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        state: NY
+        zip_code: "10027"
+      properties:
+        id:
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "93018402"
+          nullable: true
+          type: string
+        phone_number:
+          description: The location's phone number.
+          example: +1111111111
+          nullable: true
+          type: string
+        street_1:
+          description: Line 1 of the location's street address.
+          example: 2920 Broadway
+          nullable: true
+          type: string
+        street_2:
+          description: Line 2 of the location's street address.
+          example: 2nd Floor
+          nullable: true
+          type: string
+        city:
+          description: The location's city.
+          example: 'New York '
+          nullable: true
+          type: string
+        state:
+          allOf:
+          - $ref: '#/components/schemas/StateEnum'
+          description: The location's state.
+          example: NY
+          nullable: true
+        zip_code:
+          description: The location's zip code.
+          example: "10027"
+          nullable: true
+          type: string
+        country:
+          allOf:
+          - $ref: '#/components/schemas/CountryEnum'
+          description: The location's country.
+          example: USA
+          nullable: true
+      type: object
+    MaritalStatusEnum:
+      enum:
+      - SINGLE
+      - MARRIED_FILING_JOINTLY
+      - MARRIED_FILING_SEPARATELY
+      - HEAD_OF_HOUSEHOLD
+      - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
+      type: string
+    PaginatedBenefitList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - employee_contribution: 23.65
+          remote_id: "19202938"
+          benefit_plan_type: MEDICAL
+          company_contribution: 150.0
+          id: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+          provider_name: Blue Shield of California
+        - employee_contribution: 23.65
+          remote_id: "19202938"
+          benefit_plan_type: MEDICAL
+          company_contribution: 150.0
+          id: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+          provider_name: Blue Shield of California
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Benefit'
+          type: array
+      type: object
+    PaginatedCompanyList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - eins:
+          - 12-3456789
+          - 12-3451111
+          - 11-0011000
+          remote_id: "19202938"
+          id: 1b998423-db0a-4037-a4cf-f79c60cb67b3
+          legal_name: We Love Integrations Inc.
+          display_name: We Love Integrations
+        - eins:
+          - 12-3456789
+          - 12-3451111
+          - 11-0011000
+          remote_id: "19202938"
+          id: 1b998423-db0a-4037-a4cf-f79c60cb67b3
+          legal_name: We Love Integrations Inc.
+          display_name: We Love Integrations
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Company'
+          type: array
+      type: object
+    PaginatedDocumentList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - file_url: http://alturl.com/p749b
+          file_name: Merge Company Secrets
+          id: 1dc27860-396c-4d9a-9896-d914e3577ada
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+        - file_url: http://alturl.com/p749b
+          file_name: Merge Company Secrets
+          id: 1dc27860-396c-4d9a-9896-d914e3577ada
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Document'
+          type: array
+      type: object
+    PaginatedEmployeeList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - display_full_name: Jane Doe
+          work_email: jane@merge.dev
+          manager: 0048ea5b-911e-4dff-9364-92070dea62ff
+          gender: FEMALE
+          ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+          documents:
+          - 35347df1-95e7-46e2-93cc-66f1191edca5
+          date_of_birth: 2000-01-23T04:56:07.000+00:00
+          remote_id: "19202938"
+          last_name: Doe
+          employments:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          team: 249c9faa-3045-4a31-953b-8f22d3613301
+          hire_date: 2000-01-23T04:56:07.000+00:00
+          avatar: http://alturl.com/h2h8m
+          work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          mobile_phone_number: +1234567890
+          ssn: "1234567890"
+          marital_status: SINGLE
+          termination_date: 2000-01-23T04:56:07.000+00:00
+          company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
+          home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          employment_status: ACTIVE
+          first_name: Jane
+          personal_email: jane@gmail.com
+        - display_full_name: Jane Doe
+          work_email: jane@merge.dev
+          manager: 0048ea5b-911e-4dff-9364-92070dea62ff
+          gender: FEMALE
+          ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+          documents:
+          - 35347df1-95e7-46e2-93cc-66f1191edca5
+          date_of_birth: 2000-01-23T04:56:07.000+00:00
+          remote_id: "19202938"
+          last_name: Doe
+          employments:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          team: 249c9faa-3045-4a31-953b-8f22d3613301
+          hire_date: 2000-01-23T04:56:07.000+00:00
+          avatar: http://alturl.com/h2h8m
+          work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          mobile_phone_number: +1234567890
+          ssn: "1234567890"
+          marital_status: SINGLE
+          termination_date: 2000-01-23T04:56:07.000+00:00
+          company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
+          home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          employment_status: ACTIVE
+          first_name: Jane
+          personal_email: jane@gmail.com
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Employee'
+          type: array
+      type: object
+    PaginatedEmployeePayrollRunList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - net_pay: 865.78
+          end_date: 2000-01-23T04:56:07.000+00:00
+          earnings:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            amount: 1002.34
+            type: SALARY
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            amount: 8342.34
+            type: OVERTIME
+          check_date: 2000-01-23T04:56:07.000+00:00
+          remote_id: "19202938"
+          taxes:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            name: California State Income Tax
+            amount: 100.25
+            employer_tax: "False"
+          id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+          gross_pay: 1342.67
+          deductions:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            name: Social Security
+            employee_deduction: 34.54
+            company_deduction: 78.78
+          payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+          start_date: 2000-01-23T04:56:07.000+00:00
+        - net_pay: 865.78
+          end_date: 2000-01-23T04:56:07.000+00:00
+          earnings:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            amount: 1002.34
+            type: SALARY
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            amount: 8342.34
+            type: OVERTIME
+          check_date: 2000-01-23T04:56:07.000+00:00
+          remote_id: "19202938"
+          taxes:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            name: California State Income Tax
+            amount: 100.25
+            employer_tax: "False"
+          id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+          gross_pay: 1342.67
+          deductions:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            name: Social Security
+            employee_deduction: 34.54
+            company_deduction: 78.78
+          payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+          start_date: 2000-01-23T04:56:07.000+00:00
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/EmployeePayrollRun'
+          type: array
+      type: object
+    PaginatedEmploymentList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - employment_type: FULL TIME
+          flsa_status: EXEMPT
+          remote_id: "19202938"
+          effective_date: 2000-01-23T04:56:07.000+00:00
+          pay_period: YEAR
+          pay_frequency: BIWEEKLY
+          id: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
+          job_title: Software Engineer
+          pay_rate: 80000.00
+          pay_currency: USD
+        - employment_type: FULL TIME
+          flsa_status: EXEMPT
+          remote_id: "19202938"
+          effective_date: 2000-01-23T04:56:07.000+00:00
+          pay_period: YEAR
+          pay_frequency: BIWEEKLY
+          id: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
+          job_title: Software Engineer
+          pay_rate: 80000.00
+          pay_currency: USD
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Employment'
+          type: array
+      type: object
+    PaginatedLocationList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - country: USA
+          street_1: 2920 Broadway
+          city: 'New York '
+          remote_id: "93018402"
+          street_2: 2nd Floor
+          phone_number: +1111111111
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: NY
+          zip_code: "10027"
+        - country: USA
+          street_1: 2920 Broadway
+          city: 'New York '
+          remote_id: "93018402"
+          street_2: 2nd Floor
+          phone_number: +1111111111
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          state: NY
+          zip_code: "10027"
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Location'
+          type: array
+      type: object
+    PaginatedPayrollRunList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - end_date: 2000-01-23T04:56:07.000+00:00
+          check_date: 2000-01-23T04:56:07.000+00:00
+          remote_id: "19202938"
+          run_state: PAID
+          id: 37336947-b3d4-4a4c-a310-ab6ab510e079
+          run_type: REGULAR
+          start_date: 2000-01-23T04:56:07.000+00:00
+        - end_date: 2000-01-23T04:56:07.000+00:00
+          check_date: 2000-01-23T04:56:07.000+00:00
+          remote_id: "19202938"
+          run_state: PAID
+          id: 37336947-b3d4-4a4c-a310-ab6ab510e079
+          run_type: REGULAR
+          start_date: 2000-01-23T04:56:07.000+00:00
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/PayrollRun'
+          type: array
+      type: object
+    PaginatedReportList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - name: Merge Employee Data
+          id: 9244fe3b-9055-4674-948f-50e1e45c49c6
+          content: '{''title'': ''this is my report'', ''fields'': [''id'': ''firstName'',
+            ''type'': ''text'', ''name'': ''First Name''], ''employees'': [''firstName'':
+            ''John'', ''lastName'': ''Doe'', ''91'': ''Jane Doe'']}'
+        - name: Merge Employee Data
+          id: 9244fe3b-9055-4674-948f-50e1e45c49c6
+          content: '{''title'': ''this is my report'', ''fields'': [''id'': ''firstName'',
+            ''type'': ''text'', ''name'': ''First Name''], ''employees'': [''firstName'':
+            ''John'', ''lastName'': ''Doe'', ''91'': ''Jane Doe'']}'
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Report'
+          type: array
+      type: object
+    PaginatedTeamList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - remote_id: "19202938"
+          name: Engineering
+          id: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
+        - remote_id: "19202938"
+          name: Engineering
+          id: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Team'
+          type: array
+      type: object
+    PaginatedTimeOffList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          amount: 13
+          request_type: VACATION
+          employee_note: Trip to Iowa. Miss those cornfields!
+          remote_id: "19202938"
+          id: 91b2b905-e866-40c8-8be2-efe53827a0aa
+          units: DAYS
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+          status: APPROVED
+        - approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          amount: 13
+          request_type: VACATION
+          employee_note: Trip to Iowa. Miss those cornfields!
+          remote_id: "19202938"
+          id: 91b2b905-e866-40c8-8be2-efe53827a0aa
+          units: DAYS
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+          status: APPROVED
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/TimeOff'
+          type: array
+      type: object
+    PayCurrencyEnum:
+      enum:
+      - XUA
+      - AFN
+      - DZD
+      - ARS
+      - AMD
+      - AWG
+      - AUD
+      - AZN
+      - BSD
+      - BHD
+      - THB
+      - PAB
+      - BBD
+      - BYN
+      - BYR
+      - BZD
+      - BMD
+      - BTN
+      - VEF
+      - BOB
+      - XBA
+      - BRL
+      - BND
+      - BGN
+      - BIF
+      - XOF
+      - XAF
+      - XPF
+      - CAD
+      - CVE
+      - KYD
+      - CLP
+      - XTS
+      - COP
+      - KMF
+      - CDF
+      - BAM
+      - NIO
+      - CRC
+      - HRK
+      - CUP
+      - CUC
+      - CZK
+      - GMD
+      - DKK
+      - MKD
+      - DJF
+      - STD
+      - DOP
+      - VND
+      - XCD
+      - EGP
+      - SVC
+      - ETB
+      - EUR
+      - XBB
+      - XBD
+      - XBC
+      - FKP
+      - FJD
+      - HUF
+      - GHS
+      - GIP
+      - XAU
+      - XFO
+      - PYG
+      - GNF
+      - GYD
+      - HTG
+      - HKD
+      - UAH
+      - ISK
+      - INR
+      - IRR
+      - IQD
+      - IMP
+      - JMD
+      - JOD
+      - KES
+      - PGK
+      - LAK
+      - KWD
+      - AOA
+      - MMK
+      - GEL
+      - LVL
+      - LBP
+      - ALL
+      - HNL
+      - SLL
+      - LSL
+      - LRD
+      - LYD
+      - SZL
+      - LTL
+      - MGA
+      - MWK
+      - MYR
+      - TMM
+      - MUR
+      - MZN
+      - MXV
+      - MXN
+      - MDL
+      - MAD
+      - BOV
+      - NGN
+      - ERN
+      - NAD
+      - NPR
+      - ANG
+      - ILS
+      - RON
+      - TWD
+      - NZD
+      - KPW
+      - NOK
+      - PEN
+      - MRO
+      - TOP
+      - PKR
+      - XPD
+      - MOP
+      - PHP
+      - XPT
+      - GBP
+      - BWP
+      - QAR
+      - GTQ
+      - ZAR
+      - OMR
+      - KHR
+      - MVR
+      - IDR
+      - RUB
+      - RWF
+      - XDR
+      - SHP
+      - SAR
+      - RSD
+      - SCR
+      - XAG
+      - SGD
+      - SBD
+      - KGS
+      - SOS
+      - TJS
+      - SSP
+      - LKR
+      - XSU
+      - SDG
+      - SRD
+      - SEK
+      - CHF
+      - SYP
+      - BDT
+      - WST
+      - TZS
+      - KZT
+      - XXX
+      - TTD
+      - MNT
+      - TND
+      - TRY
+      - TMT
+      - TVD
+      - AED
+      - XFU
+      - USD
+      - USN
+      - UGX
+      - CLF
+      - COU
+      - UYI
+      - UYU
+      - UZS
+      - VUV
+      - CHE
+      - CHW
+      - KRW
+      - YER
+      - JPY
+      - CNY
+      - ZMK
+      - ZMW
+      - ZWD
+      - ZWN
+      - ZWL
+      - PLN
+      type: string
+    PayFrequencyEnum:
+      enum:
+      - WEEKLY
+      - BIWEEKLY
+      - MONTHLY
+      - QUARTERLY
+      - SEMIANNUALLY
+      - ANNUALLY
+      - THIRTEEN-MONTHLY
+      - PRO_RATA
+      - "NULL"
+      type: string
+    PayPeriodEnum:
+      enum:
+      - HOUR
+      - DAY
+      - WEEK
+      - EVERY_TWO_WEEKS
+      - MONTH
+      - QUARTER
+      - EVERY_SIX_MONTHS
+      - YEAR
+      type: string
+    PayrollRun:
+      description: |-
+        # The PayrollRun Object
+        ### Description
+        The `PayrollRun` object is used to represent a payroll run.
+
+        ### Usage Example
+        Fetch from the `LIST PayrollRuns` endpoint and filter by `ID` to show all payroll runs.
+      example:
+        end_date: 2000-01-23T04:56:07.000+00:00
+        check_date: 2000-01-23T04:56:07.000+00:00
+        remote_id: "19202938"
+        run_state: PAID
+        id: 37336947-b3d4-4a4c-a310-ab6ab510e079
+        run_type: REGULAR
+        start_date: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          example: 37336947-b3d4-4a4c-a310-ab6ab510e079
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        run_state:
+          allOf:
+          - $ref: '#/components/schemas/RunStateEnum'
+          description: The state of the payroll run
+          example: PAID
+          nullable: true
+        run_type:
+          allOf:
+          - $ref: '#/components/schemas/RunTypeEnum'
+          description: The type of the payroll run
+          example: REGULAR
+          nullable: true
+        start_date:
+          description: The day and time the payroll run started.
+          format: date-time
+          nullable: true
+          type: string
+        end_date:
+          description: The day and time the payroll run ended.
+          format: date-time
+          nullable: true
+          type: string
+        check_date:
+          description: The day and time the payroll run was checked.
+          format: date-time
+          nullable: true
+          type: string
+      type: object
+    Report:
+      description: |-
+        # The Report Object
+        ### Description
+        The `Report` object is used to represent a Report.
+
+        ### Usage Example
+        Fetch from the `LIST Reports` endpoint and filter by `ID` to show all reports.
+      example:
+        name: Merge Employee Data
+        id: 9244fe3b-9055-4674-948f-50e1e45c49c6
+        content: '{''title'': ''this is my report'', ''fields'': [''id'': ''firstName'',
+          ''type'': ''text'', ''name'': ''First Name''], ''employees'': [''firstName'':
+          ''John'', ''lastName'': ''Doe'', ''91'': ''Jane Doe'']}'
+      properties:
+        id:
+          example: 9244fe3b-9055-4674-948f-50e1e45c49c6
+          format: uuid
+          readOnly: true
+          type: string
+        name:
+          description: The report's name.
+          example: Merge Employee Data
+          nullable: true
+          type: string
+        content:
+          description: The report's content JSON.
+          example: '{''title'': ''this is my report'', ''fields'': [''id'': ''firstName'',
+            ''type'': ''text'', ''name'': ''First Name''], ''employees'': [''firstName'':
+            ''John'', ''lastName'': ''Doe'', ''91'': ''Jane Doe'']}'
+          nullable: true
+          type: string
+      type: object
+    RequestTypeEnum:
+      enum:
+      - VACATION
+      - SICK
+      - PERSONAL
+      - JURY_DUTY
+      type: string
+    RunStateEnum:
+      enum:
+      - PAID
+      - DRAFT
+      - APPROVED
+      - FAILED
+      - CLOSED
+      type: string
+    RunTypeEnum:
+      enum:
+      - INIT
+      - REGULAR
+      - OFF_CYCLE
+      - CORRECTION
+      - TERMINATION
+      - RECONCILIATION
+      - NEW_HIRE
+      - POP
+      - TRANSITION
+      - CORRECTION_DISPLAY
+      - EXCESS_HOURS
+      - SIGN_ON_BONUS
+      - S_CORP
+      - FRINGE_BENEFITS
+      - CONTRACTOR_LATE_PAYMENTS
+      type: string
+    StateEnum:
+      enum:
+      - AL
+      - AK
+      - AS
+      - AZ
+      - AR
+      - AA
+      - AE
+      - AP
+      - CA
+      - CO
+      - CT
+      - DE
+      - DC
+      - FL
+      - GA
+      - GU
+      - HI
+      - ID
+      - IL
+      - IN
+      - IA
+      - KS
+      - KY
+      - LA
+      - ME
+      - MD
+      - MA
+      - MI
+      - MN
+      - MS
+      - MO
+      - MT
+      - NE
+      - NV
+      - NH
+      - NJ
+      - NM
+      - NY
+      - NC
+      - ND
+      - MP
+      - OH
+      - OK
+      - OR
+      - PA
+      - PR
+      - RI
+      - SC
+      - SD
+      - TN
+      - TX
+      - UT
+      - VT
+      - VI
+      - VA
+      - WA
+      - WV
+      - WI
+      - WY
+      type: string
+    Tax:
+      description: |-
+        # The Tax Object
+        ### Description
+        The `Tax` object is used to represent a tax for a given employee's payroll run. One run could include several taxes.
+
+        ### Usage Example
+        Fetch from the `LIST Taxes` endpoint and filter by `ID` to show all taxes.
+      properties:
+        id:
+          example: e3a825fd-c38d-4095-a717-df98c4cb9ebc
+          format: uuid
+          readOnly: true
+          type: string
+        employee_payroll_run:
+          description: The tax's employee payroll run.
+          example: 35347df1-95e7-46e2-93cc-66f1191edca5
+          format: uuid
+          nullable: true
+          type: string
+        name:
+          description: The deduction's name.
+          example: California State Income Tax
+          nullable: true
+          type: string
+        amount:
+          description: The tax amount.
+          example: 100.25
+          format: float
+          nullable: true
+          type: number
+        employer_tax:
+          description: Whether or not the employer is responsible for paying the tax.
+          example: false
+          nullable: true
+          type: boolean
+      type: object
+    Team:
+      description: |-
+        # The Team Object
+        ### Description
+        The `Team` object is used to represent a Team within a company. `Employee` objects are often grouped this way. Note that in the Merge HRIS API, company subdivisions are all represented with `Teams`, rather than `Teams` and `Departments`.
+
+        ### Usage Example
+        If you're building a way to filter by `Team`, you'd hit the `GET Teams` endpoint to fetch the `Teams`, and then use the `ID` of the team your user selects to filter the `GET Employees` endpoint.
+      example:
+        remote_id: "19202938"
+        name: Engineering
+        id: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
+      properties:
+        id:
+          example: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        name:
+          description: The team's name.
+          example: Engineering
+          nullable: true
+          type: string
+      type: object
+    TimeOff:
+      description: |-
+        # The TimeOff Object
+        ### Description
+        The `TimeOff` object is used to represent a Time Off Request filed by an employee.
+
+        ### Usage Example
+        Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
+      example:
+        approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+        amount: 13
+        request_type: VACATION
+        employee_note: Trip to Iowa. Miss those cornfields!
+        remote_id: "19202938"
+        id: 91b2b905-e866-40c8-8be2-efe53827a0aa
+        units: DAYS
+        employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+        status: APPROVED
+      properties:
+        id:
+          example: 91b2b905-e866-40c8-8be2-efe53827a0aa
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        employee:
+          description: The employee requesting time off.
+          example: d2f972d0-2526-434b-9409-4c3b468e08f0
+          format: uuid
+          nullable: true
+          type: string
+        approver:
+          description: The employee approving the time off request.
+          example: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          format: uuid
+          nullable: true
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/TimeOffStatusEnum'
+          description: The status of this time off request.
+          example: APPROVED
+          nullable: true
+        employee_note:
+          description: The status of this time off request.
+          example: Trip to Iowa. Miss those cornfields!
+          nullable: true
+          type: string
+        units:
+          allOf:
+          - $ref: '#/components/schemas/UnitsEnum'
+          description: The unit of time requested.
+          example: DAYS
+          nullable: true
+        amount:
+          description: The number of time off units requested.
+          example: 13
+          format: float
+          nullable: true
+          type: number
+        request_type:
+          allOf:
+          - $ref: '#/components/schemas/RequestTypeEnum'
+          description: The type of time off request.
+          example: VACATION
+          nullable: true
+      type: object
+    TimeOffStatusEnum:
+      enum:
+      - REQUESTED
+      - APPROVED
+      - DECLINED
+      - CANCELLED
+      - DELETED
+      type: string
+    TypeEnum:
+      enum:
+      - SALARY
+      - REIMBURSEMENT
+      - OVERTIME
+      - BONUS
+      type: string
+    UnitsEnum:
+      enum:
+      - HOURS
+      - DAYS
+      type: string
+  securitySchemes:
+    tokenAuth:
+      description: Token-based authentication with required prefix "Token"
+      in: header
+      name: Authorization
+      type: apiKey
