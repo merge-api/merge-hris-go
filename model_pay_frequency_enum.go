@@ -21,15 +21,15 @@ type PayFrequencyEnum string
 
 // List of PayFrequencyEnum
 const (
-	WEEKLY PayFrequencyEnum = "WEEKLY"
-	BIWEEKLY PayFrequencyEnum = "BIWEEKLY"
-	MONTHLY PayFrequencyEnum = "MONTHLY"
-	QUARTERLY PayFrequencyEnum = "QUARTERLY"
-	SEMIANNUALLY PayFrequencyEnum = "SEMIANNUALLY"
-	ANNUALLY PayFrequencyEnum = "ANNUALLY"
-	THIRTEEN_MONTHLY PayFrequencyEnum = "THIRTEEN-MONTHLY"
-	PRO_RATA PayFrequencyEnum = "PRO_RATA"
-	NULL PayFrequencyEnum = "NULL"
+	PAYFREQUENCYENUM_WEEKLY PayFrequencyEnum = "WEEKLY"
+	PAYFREQUENCYENUM_BIWEEKLY PayFrequencyEnum = "BIWEEKLY"
+	PAYFREQUENCYENUM_MONTHLY PayFrequencyEnum = "MONTHLY"
+	PAYFREQUENCYENUM_QUARTERLY PayFrequencyEnum = "QUARTERLY"
+	PAYFREQUENCYENUM_SEMIANNUALLY PayFrequencyEnum = "SEMIANNUALLY"
+	PAYFREQUENCYENUM_ANNUALLY PayFrequencyEnum = "ANNUALLY"
+	PAYFREQUENCYENUM_THIRTEEN_MONTHLY PayFrequencyEnum = "THIRTEEN-MONTHLY"
+	PAYFREQUENCYENUM_PRO_RATA PayFrequencyEnum = "PRO_RATA"
+	PAYFREQUENCYENUM_NULL PayFrequencyEnum = "NULL"
 )
 
 func (v *PayFrequencyEnum) UnmarshalJSON(src []byte) error {

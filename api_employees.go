@@ -37,7 +37,6 @@ type ApiEmployeesListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
-	expand *string
 	managerId *string
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
@@ -65,10 +64,6 @@ func (r ApiEmployeesListRequest) CreatedBefore(createdBefore time.Time) ApiEmplo
 }
 func (r ApiEmployeesListRequest) Cursor(cursor string) ApiEmployeesListRequest {
 	r.cursor = &cursor
-	return r
-}
-func (r ApiEmployeesListRequest) Expand(expand string) ApiEmployeesListRequest {
-	r.expand = &expand
 	return r
 }
 func (r ApiEmployeesListRequest) ManagerId(managerId string) ApiEmployeesListRequest {
@@ -159,9 +154,6 @@ func (a *EmployeesApiService) EmployeesListExecute(r ApiEmployeesListRequest) (P
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
-	}
-	if r.expand != nil {
-		localVarQueryParams.Add("expand", parameterToString(*r.expand, ""))
 	}
 	if r.managerId != nil {
 		localVarQueryParams.Add("manager_id", parameterToString(*r.managerId, ""))
@@ -261,15 +253,10 @@ type ApiEmployeesRetrieveRequest struct {
 	ApiService *EmployeesApiService
 	xAccountToken *string
 	id string
-	expand *string
 }
 
 func (r ApiEmployeesRetrieveRequest) XAccountToken(xAccountToken string) ApiEmployeesRetrieveRequest {
 	r.xAccountToken = &xAccountToken
-	return r
-}
-func (r ApiEmployeesRetrieveRequest) Expand(expand string) ApiEmployeesRetrieveRequest {
-	r.expand = &expand
 	return r
 }
 
@@ -324,9 +311,6 @@ func (a *EmployeesApiService) EmployeesRetrieveExecute(r ApiEmployeesRetrieveReq
 		return localVarReturnValue, nil, executionError
 	}
 
-	if r.expand != nil {
-		localVarQueryParams.Add("expand", parameterToString(*r.expand, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

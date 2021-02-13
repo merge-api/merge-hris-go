@@ -21,11 +21,11 @@ type GenderEnum string
 
 // List of GenderEnum
 const (
-	MALE GenderEnum = "MALE"
-	FEMALE GenderEnum = "FEMALE"
-	NON_BINARY GenderEnum = "NON-BINARY"
-	OTHER GenderEnum = "OTHER"
-	PREFER_NOT_TO_DISCLOSE GenderEnum = "PREFER_NOT_TO_DISCLOSE"
+	GENDERENUM_MALE GenderEnum = "MALE"
+	GENDERENUM_FEMALE GenderEnum = "FEMALE"
+	GENDERENUM_NON_BINARY GenderEnum = "NON-BINARY"
+	GENDERENUM_OTHER GenderEnum = "OTHER"
+	GENDERENUM_PREFER_NOT_TO_DISCLOSE GenderEnum = "PREFER_NOT_TO_DISCLOSE"
 )
 
 func (v *GenderEnum) UnmarshalJSON(src []byte) error {

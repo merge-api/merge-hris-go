@@ -21,8 +21,8 @@ type UnitsEnum string
 
 // List of UnitsEnum
 const (
-	HOURS UnitsEnum = "HOURS"
-	DAYS UnitsEnum = "DAYS"
+	UNITSENUM_HOURS UnitsEnum = "HOURS"
+	UNITSENUM_DAYS UnitsEnum = "DAYS"
 )
 
 func (v *UnitsEnum) UnmarshalJSON(src []byte) error {

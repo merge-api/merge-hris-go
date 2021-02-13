@@ -21,9 +21,9 @@ type EmploymentStatusEnum string
 
 // List of EmploymentStatusEnum
 const (
-	ACTIVE EmploymentStatusEnum = "ACTIVE"
-	PENDING EmploymentStatusEnum = "PENDING"
-	INACTIVE EmploymentStatusEnum = "INACTIVE"
+	EMPLOYMENTSTATUSENUM_ACTIVE EmploymentStatusEnum = "ACTIVE"
+	EMPLOYMENTSTATUSENUM_PENDING EmploymentStatusEnum = "PENDING"
+	EMPLOYMENTSTATUSENUM_INACTIVE EmploymentStatusEnum = "INACTIVE"
 )
 
 func (v *EmploymentStatusEnum) UnmarshalJSON(src []byte) error {

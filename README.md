@@ -80,6 +80,7 @@ All URIs are relative to *https://api.merge.dev/api/hris/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AccountTokenApi* | [**AccountTokenRetrieve**](docs/AccountTokenApi.md#accounttokenretrieve) | **Get** /account-token/{public_token} | 
+*AvailableActionsApi* | [**AvailableActionsRetrieve**](docs/AvailableActionsApi.md#availableactionsretrieve) | **Get** /available-actions | 
 *BenefitsApi* | [**BenefitsList**](docs/BenefitsApi.md#benefitslist) | **Get** /benefits | 
 *BenefitsApi* | [**BenefitsRetrieve**](docs/BenefitsApi.md#benefitsretrieve) | **Get** /benefits/{id} | 
 *CompaniesApi* | [**CompaniesList**](docs/CompaniesApi.md#companieslist) | **Get** /companies | 
@@ -108,6 +109,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AccountToken](docs/AccountToken.md)
+ - [AvailableActions](docs/AvailableActions.md)
  - [Benefit](docs/Benefit.md)
  - [BenefitPlanTypeEnum](docs/BenefitPlanTypeEnum.md)
  - [Company](docs/Company.md)

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## EmployeePayrollRunsList
 
-> PaginatedEmployeePayrollRunList EmployeePayrollRunsList(ctx).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).Expand(expand).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayrollRunId(payrollRunId).RemoteId(remoteId).Execute()
+> PaginatedEmployeePayrollRunList EmployeePayrollRunsList(ctx).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayrollRunId(payrollRunId).RemoteId(remoteId).Execute()
 
 
 
@@ -36,7 +36,6 @@ func main() {
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     employeeId := "employeeId_example" // string | If provided, will only return time off for this employee. (optional)
-    expand := "employee,payroll_run" // string | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
@@ -45,7 +44,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeePayrollRunsApi.EmployeePayrollRunsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).Expand(expand).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayrollRunId(payrollRunId).RemoteId(remoteId).Execute()
+    resp, r, err := api_client.EmployeePayrollRunsApi.EmployeePayrollRunsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayrollRunId(payrollRunId).RemoteId(remoteId).Execute()
     if err.Error() != "" {
         fmt.Fprintf(os.Stderr, "Error when calling `EmployeePayrollRunsApi.EmployeePayrollRunsList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -71,7 +70,6 @@ Name | Type | Description  | Notes
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
  **employeeId** | **string** | If provided, will only return time off for this employee. | 
- **expand** | **string** | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
  **pageSize** | **int32** | Number of results to return per page. | 
@@ -98,7 +96,7 @@ Name | Type | Description  | Notes
 
 ## EmployeePayrollRunsRetrieve
 
-> EmployeePayrollRun EmployeePayrollRunsRetrieve(ctx, id).XAccountToken(xAccountToken).Expand(expand).Execute()
+> EmployeePayrollRun EmployeePayrollRunsRetrieve(ctx, id).XAccountToken(xAccountToken).Execute()
 
 
 
@@ -119,11 +117,10 @@ import (
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     id := TODO // string | 
-    expand := "employee,payroll_run" // string | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeePayrollRunsApi.EmployeePayrollRunsRetrieve(context.Background(), id).XAccountToken(xAccountToken).Expand(expand).Execute()
+    resp, r, err := api_client.EmployeePayrollRunsApi.EmployeePayrollRunsRetrieve(context.Background(), id).XAccountToken(xAccountToken).Execute()
     if err.Error() != "" {
         fmt.Fprintf(os.Stderr, "Error when calling `EmployeePayrollRunsApi.EmployeePayrollRunsRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -150,7 +147,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
 
- **expand** | **string** | Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. | 
 
 ### Return type
 

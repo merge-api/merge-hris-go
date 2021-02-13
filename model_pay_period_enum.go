@@ -21,14 +21,14 @@ type PayPeriodEnum string
 
 // List of PayPeriodEnum
 const (
-	HOUR PayPeriodEnum = "HOUR"
-	DAY PayPeriodEnum = "DAY"
-	WEEK PayPeriodEnum = "WEEK"
-	EVERY_TWO_WEEKS PayPeriodEnum = "EVERY_TWO_WEEKS"
-	MONTH PayPeriodEnum = "MONTH"
-	QUARTER PayPeriodEnum = "QUARTER"
-	EVERY_SIX_MONTHS PayPeriodEnum = "EVERY_SIX_MONTHS"
-	YEAR PayPeriodEnum = "YEAR"
+	PAYPERIODENUM_HOUR PayPeriodEnum = "HOUR"
+	PAYPERIODENUM_DAY PayPeriodEnum = "DAY"
+	PAYPERIODENUM_WEEK PayPeriodEnum = "WEEK"
+	PAYPERIODENUM_EVERY_TWO_WEEKS PayPeriodEnum = "EVERY_TWO_WEEKS"
+	PAYPERIODENUM_MONTH PayPeriodEnum = "MONTH"
+	PAYPERIODENUM_QUARTER PayPeriodEnum = "QUARTER"
+	PAYPERIODENUM_EVERY_SIX_MONTHS PayPeriodEnum = "EVERY_SIX_MONTHS"
+	PAYPERIODENUM_YEAR PayPeriodEnum = "YEAR"
 )
 
 func (v *PayPeriodEnum) UnmarshalJSON(src []byte) error {

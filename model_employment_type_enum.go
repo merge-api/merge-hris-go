@@ -21,11 +21,11 @@ type EmploymentTypeEnum string
 
 // List of EmploymentTypeEnum
 const (
-	FULL_TIME EmploymentTypeEnum = "FULL_TIME"
-	PART_TIME EmploymentTypeEnum = "PART_TIME"
-	INTERN EmploymentTypeEnum = "INTERN"
-	CONTRACTOR EmploymentTypeEnum = "CONTRACTOR"
-	FREELANCE EmploymentTypeEnum = "FREELANCE"
+	EMPLOYMENTTYPEENUM_FULL_TIME EmploymentTypeEnum = "FULL_TIME"
+	EMPLOYMENTTYPEENUM_PART_TIME EmploymentTypeEnum = "PART_TIME"
+	EMPLOYMENTTYPEENUM_INTERN EmploymentTypeEnum = "INTERN"
+	EMPLOYMENTTYPEENUM_CONTRACTOR EmploymentTypeEnum = "CONTRACTOR"
+	EMPLOYMENTTYPEENUM_FREELANCE EmploymentTypeEnum = "FREELANCE"
 )
 
 func (v *EmploymentTypeEnum) UnmarshalJSON(src []byte) error {

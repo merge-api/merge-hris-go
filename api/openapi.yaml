@@ -37,6 +37,29 @@ paths:
       - tokenAuth: []
       tags:
       - account-token
+  /available-actions:
+    get:
+      description: Returns a list of models and actions available for an account.
+      operationId: available_actions_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailableActions'
+      security:
+      - tokenAuth: []
+      tags:
+      - available-actions
   /benefits:
     get:
       description: Returns a list of `Benefit` objects.
@@ -89,21 +112,6 @@ paths:
         name: employee_id
         required: false
         schema:
-          type: string
-        style: form
-      - description: Which relations should be returned in expanded form. Multiple
-          relation names should be comma separated without spaces.
-        examples:
-          ExpandEmployee:
-            summary: Expand Employee
-            value: employee
-        explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          enum:
-          - employee
           type: string
         style: form
       - description: If provided, will only return objects modified after this datetime.
@@ -165,21 +173,6 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Which relations should be returned in expanded form. Multiple
-          relation names should be comma separated without spaces.
-        examples:
-          ExpandEmployee:
-            summary: Expand Employee
-            value: employee
-        explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          enum:
-          - employee
-          type: string
-        style: form
       - explode: false
         in: path
         name: id
@@ -503,23 +496,6 @@ paths:
         schema:
           type: string
         style: form
-      - description: Which relations should be returned in expanded form. Multiple
-          relation names should be comma separated without spaces.
-        examples:
-          ExpandEmployee,PayrollRun:
-            summary: Expand Employee, Payroll_run
-            value: employee,payroll_run
-        explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          enum:
-          - employee
-          - employee,payroll_run
-          - payroll_run
-          type: string
-        style: form
       - description: If provided, will only return objects modified after this datetime.
         explode: true
         in: query
@@ -591,23 +567,6 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Which relations should be returned in expanded form. Multiple
-          relation names should be comma separated without spaces.
-        examples:
-          ExpandEmployee,PayrollRun:
-            summary: Expand Employee, Payroll_run
-            value: employee,payroll_run
-        explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          enum:
-          - employee
-          - employee,payroll_run
-          - payroll_run
-          type: string
-        style: form
       - explode: false
         in: path
         name: id
@@ -678,148 +637,6 @@ paths:
         name: cursor
         required: false
         schema:
-          type: string
-        style: form
-      - description: Which relations should be returned in expanded form. Multiple
-          relation names should be comma separated without spaces.
-        examples:
-          ExpandEmployments,Documents,HomeLocation,WorkLocation,Manager,Team,Company:
-            summary: Expand Employments, Documents, Home_location, Work_location,
-              Manager, Team, Company
-            value: employments,documents,home_location,work_location,manager,team,company
-        explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          enum:
-          - company
-          - documents
-          - documents,company
-          - documents,home_location
-          - documents,home_location,company
-          - documents,home_location,manager
-          - documents,home_location,manager,company
-          - documents,home_location,manager,team
-          - documents,home_location,manager,team,company
-          - documents,home_location,team
-          - documents,home_location,team,company
-          - documents,home_location,work_location
-          - documents,home_location,work_location,company
-          - documents,home_location,work_location,manager
-          - documents,home_location,work_location,manager,company
-          - documents,home_location,work_location,manager,team
-          - documents,home_location,work_location,manager,team,company
-          - documents,home_location,work_location,team
-          - documents,home_location,work_location,team,company
-          - documents,manager
-          - documents,manager,company
-          - documents,manager,team
-          - documents,manager,team,company
-          - documents,team
-          - documents,team,company
-          - documents,work_location
-          - documents,work_location,company
-          - documents,work_location,manager
-          - documents,work_location,manager,company
-          - documents,work_location,manager,team
-          - documents,work_location,manager,team,company
-          - documents,work_location,team
-          - documents,work_location,team,company
-          - employments
-          - employments,company
-          - employments,documents
-          - employments,documents,company
-          - employments,documents,home_location
-          - employments,documents,home_location,company
-          - employments,documents,home_location,manager
-          - employments,documents,home_location,manager,company
-          - employments,documents,home_location,manager,team
-          - employments,documents,home_location,manager,team,company
-          - employments,documents,home_location,team
-          - employments,documents,home_location,team,company
-          - employments,documents,home_location,work_location
-          - employments,documents,home_location,work_location,company
-          - employments,documents,home_location,work_location,manager
-          - employments,documents,home_location,work_location,manager,company
-          - employments,documents,home_location,work_location,manager,team
-          - employments,documents,home_location,work_location,manager,team,company
-          - employments,documents,home_location,work_location,team
-          - employments,documents,home_location,work_location,team,company
-          - employments,documents,manager
-          - employments,documents,manager,company
-          - employments,documents,manager,team
-          - employments,documents,manager,team,company
-          - employments,documents,team
-          - employments,documents,team,company
-          - employments,documents,work_location
-          - employments,documents,work_location,company
-          - employments,documents,work_location,manager
-          - employments,documents,work_location,manager,company
-          - employments,documents,work_location,manager,team
-          - employments,documents,work_location,manager,team,company
-          - employments,documents,work_location,team
-          - employments,documents,work_location,team,company
-          - employments,home_location
-          - employments,home_location,company
-          - employments,home_location,manager
-          - employments,home_location,manager,company
-          - employments,home_location,manager,team
-          - employments,home_location,manager,team,company
-          - employments,home_location,team
-          - employments,home_location,team,company
-          - employments,home_location,work_location
-          - employments,home_location,work_location,company
-          - employments,home_location,work_location,manager
-          - employments,home_location,work_location,manager,company
-          - employments,home_location,work_location,manager,team
-          - employments,home_location,work_location,manager,team,company
-          - employments,home_location,work_location,team
-          - employments,home_location,work_location,team,company
-          - employments,manager
-          - employments,manager,company
-          - employments,manager,team
-          - employments,manager,team,company
-          - employments,team
-          - employments,team,company
-          - employments,work_location
-          - employments,work_location,company
-          - employments,work_location,manager
-          - employments,work_location,manager,company
-          - employments,work_location,manager,team
-          - employments,work_location,manager,team,company
-          - employments,work_location,team
-          - employments,work_location,team,company
-          - home_location
-          - home_location,company
-          - home_location,manager
-          - home_location,manager,company
-          - home_location,manager,team
-          - home_location,manager,team,company
-          - home_location,team
-          - home_location,team,company
-          - home_location,work_location
-          - home_location,work_location,company
-          - home_location,work_location,manager
-          - home_location,work_location,manager,company
-          - home_location,work_location,manager,team
-          - home_location,work_location,manager,team,company
-          - home_location,work_location,team
-          - home_location,work_location,team,company
-          - manager
-          - manager,company
-          - manager,team
-          - manager,team,company
-          - team
-          - team,company
-          - work_location
-          - work_location,company
-          - work_location,manager
-          - work_location,manager,company
-          - work_location,manager,team
-          - work_location,manager,team,company
-          - work_location,team
-          - work_location,team,company
           type: string
         style: form
       - description: If provided, will only return employees for this manager.
@@ -914,148 +731,6 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Which relations should be returned in expanded form. Multiple
-          relation names should be comma separated without spaces.
-        examples:
-          ExpandEmployments,Documents,HomeLocation,WorkLocation,Manager,Team,Company:
-            summary: Expand Employments, Documents, Home_location, Work_location,
-              Manager, Team, Company
-            value: employments,documents,home_location,work_location,manager,team,company
-        explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          enum:
-          - company
-          - documents
-          - documents,company
-          - documents,home_location
-          - documents,home_location,company
-          - documents,home_location,manager
-          - documents,home_location,manager,company
-          - documents,home_location,manager,team
-          - documents,home_location,manager,team,company
-          - documents,home_location,team
-          - documents,home_location,team,company
-          - documents,home_location,work_location
-          - documents,home_location,work_location,company
-          - documents,home_location,work_location,manager
-          - documents,home_location,work_location,manager,company
-          - documents,home_location,work_location,manager,team
-          - documents,home_location,work_location,manager,team,company
-          - documents,home_location,work_location,team
-          - documents,home_location,work_location,team,company
-          - documents,manager
-          - documents,manager,company
-          - documents,manager,team
-          - documents,manager,team,company
-          - documents,team
-          - documents,team,company
-          - documents,work_location
-          - documents,work_location,company
-          - documents,work_location,manager
-          - documents,work_location,manager,company
-          - documents,work_location,manager,team
-          - documents,work_location,manager,team,company
-          - documents,work_location,team
-          - documents,work_location,team,company
-          - employments
-          - employments,company
-          - employments,documents
-          - employments,documents,company
-          - employments,documents,home_location
-          - employments,documents,home_location,company
-          - employments,documents,home_location,manager
-          - employments,documents,home_location,manager,company
-          - employments,documents,home_location,manager,team
-          - employments,documents,home_location,manager,team,company
-          - employments,documents,home_location,team
-          - employments,documents,home_location,team,company
-          - employments,documents,home_location,work_location
-          - employments,documents,home_location,work_location,company
-          - employments,documents,home_location,work_location,manager
-          - employments,documents,home_location,work_location,manager,company
-          - employments,documents,home_location,work_location,manager,team
-          - employments,documents,home_location,work_location,manager,team,company
-          - employments,documents,home_location,work_location,team
-          - employments,documents,home_location,work_location,team,company
-          - employments,documents,manager
-          - employments,documents,manager,company
-          - employments,documents,manager,team
-          - employments,documents,manager,team,company
-          - employments,documents,team
-          - employments,documents,team,company
-          - employments,documents,work_location
-          - employments,documents,work_location,company
-          - employments,documents,work_location,manager
-          - employments,documents,work_location,manager,company
-          - employments,documents,work_location,manager,team
-          - employments,documents,work_location,manager,team,company
-          - employments,documents,work_location,team
-          - employments,documents,work_location,team,company
-          - employments,home_location
-          - employments,home_location,company
-          - employments,home_location,manager
-          - employments,home_location,manager,company
-          - employments,home_location,manager,team
-          - employments,home_location,manager,team,company
-          - employments,home_location,team
-          - employments,home_location,team,company
-          - employments,home_location,work_location
-          - employments,home_location,work_location,company
-          - employments,home_location,work_location,manager
-          - employments,home_location,work_location,manager,company
-          - employments,home_location,work_location,manager,team
-          - employments,home_location,work_location,manager,team,company
-          - employments,home_location,work_location,team
-          - employments,home_location,work_location,team,company
-          - employments,manager
-          - employments,manager,company
-          - employments,manager,team
-          - employments,manager,team,company
-          - employments,team
-          - employments,team,company
-          - employments,work_location
-          - employments,work_location,company
-          - employments,work_location,manager
-          - employments,work_location,manager,company
-          - employments,work_location,manager,team
-          - employments,work_location,manager,team,company
-          - employments,work_location,team
-          - employments,work_location,team,company
-          - home_location
-          - home_location,company
-          - home_location,manager
-          - home_location,manager,company
-          - home_location,manager,team
-          - home_location,manager,team,company
-          - home_location,team
-          - home_location,team,company
-          - home_location,work_location
-          - home_location,work_location,company
-          - home_location,work_location,manager
-          - home_location,work_location,manager,company
-          - home_location,work_location,manager,team
-          - home_location,work_location,manager,team,company
-          - home_location,work_location,team
-          - home_location,work_location,team,company
-          - manager
-          - manager,company
-          - manager,team
-          - manager,team,company
-          - team
-          - team,company
-          - work_location
-          - work_location,company
-          - work_location,manager
-          - work_location,manager,company
-          - work_location,manager,team
-          - work_location,manager,team,company
-          - work_location,team
-          - work_location,team,company
-          type: string
-        style: form
       - explode: false
         in: path
         name: id
@@ -1776,23 +1451,6 @@ paths:
         schema:
           type: string
         style: form
-      - description: Which relations should be returned in expanded form. Multiple
-          relation names should be comma separated without spaces.
-        examples:
-          ExpandEmployee,Approver:
-            summary: Expand Employee, Approver
-            value: employee,approver
-        explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          enum:
-          - approver
-          - employee
-          - employee,approver
-          type: string
-        style: form
       - description: If provided, will only return objects modified after this datetime.
         explode: true
         in: query
@@ -1852,23 +1510,6 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Which relations should be returned in expanded form. Multiple
-          relation names should be comma separated without spaces.
-        examples:
-          ExpandEmployee,Approver:
-            summary: Expand Employee, Approver
-            value: employee,approver
-        explode: true
-        in: query
-        name: expand
-        required: false
-        schema:
-          enum:
-          - approver
-          - employee
-          - employee,approver
-          type: string
-        style: form
       - explode: false
         in: path
         name: id
@@ -1898,6 +1539,27 @@ components:
           type: string
       required:
       - account_token
+      type: object
+    AvailableActions:
+      example:
+        model_name: Candidate
+        available_operations:
+        - FETCH
+        - CREATE
+      properties:
+        model_name:
+          example: Candidate
+          type: string
+        available_operations:
+          example:
+          - FETCH
+          - CREATE
+          items:
+            type: string
+          type: array
+      required:
+      - available_operations
+      - model_name
       type: object
     Benefit:
       description: |-

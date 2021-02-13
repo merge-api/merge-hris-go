@@ -37,7 +37,6 @@ type ApiEmployeePayrollRunsListRequest struct {
 	createdBefore *time.Time
 	cursor *string
 	employeeId *string
-	expand *string
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -63,10 +62,6 @@ func (r ApiEmployeePayrollRunsListRequest) Cursor(cursor string) ApiEmployeePayr
 }
 func (r ApiEmployeePayrollRunsListRequest) EmployeeId(employeeId string) ApiEmployeePayrollRunsListRequest {
 	r.employeeId = &employeeId
-	return r
-}
-func (r ApiEmployeePayrollRunsListRequest) Expand(expand string) ApiEmployeePayrollRunsListRequest {
-	r.expand = &expand
 	return r
 }
 func (r ApiEmployeePayrollRunsListRequest) ModifiedAfter(modifiedAfter time.Time) ApiEmployeePayrollRunsListRequest {
@@ -149,9 +144,6 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsListExecute(r ApiEmpl
 	}
 	if r.employeeId != nil {
 		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
-	}
-	if r.expand != nil {
-		localVarQueryParams.Add("expand", parameterToString(*r.expand, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -245,15 +237,10 @@ type ApiEmployeePayrollRunsRetrieveRequest struct {
 	ApiService *EmployeePayrollRunsApiService
 	xAccountToken *string
 	id string
-	expand *string
 }
 
 func (r ApiEmployeePayrollRunsRetrieveRequest) XAccountToken(xAccountToken string) ApiEmployeePayrollRunsRetrieveRequest {
 	r.xAccountToken = &xAccountToken
-	return r
-}
-func (r ApiEmployeePayrollRunsRetrieveRequest) Expand(expand string) ApiEmployeePayrollRunsRetrieveRequest {
-	r.expand = &expand
 	return r
 }
 
@@ -308,9 +295,6 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsRetrieveExecute(r Api
 		return localVarReturnValue, nil, executionError
 	}
 
-	if r.expand != nil {
-		localVarQueryParams.Add("expand", parameterToString(*r.expand, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

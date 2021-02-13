@@ -21,10 +21,10 @@ type RequestTypeEnum string
 
 // List of RequestTypeEnum
 const (
-	VACATION RequestTypeEnum = "VACATION"
-	SICK RequestTypeEnum = "SICK"
-	PERSONAL RequestTypeEnum = "PERSONAL"
-	JURY_DUTY RequestTypeEnum = "JURY_DUTY"
+	REQUESTTYPEENUM_VACATION RequestTypeEnum = "VACATION"
+	REQUESTTYPEENUM_SICK RequestTypeEnum = "SICK"
+	REQUESTTYPEENUM_PERSONAL RequestTypeEnum = "PERSONAL"
+	REQUESTTYPEENUM_JURY_DUTY RequestTypeEnum = "JURY_DUTY"
 )
 
 func (v *RequestTypeEnum) UnmarshalJSON(src []byte) error {
