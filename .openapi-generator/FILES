@@ -1,9 +1,9 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
 api_account_token.go
+api_available_actions.go
 api_benefits.go
 api_companies.go
 api_documents.go
@@ -20,6 +20,8 @@ client.go
 configuration.go
 docs/AccountToken.md
 docs/AccountTokenApi.md
+docs/AvailableActions.md
+docs/AvailableActionsApi.md
 docs/Benefit.md
 docs/BenefitPlanTypeEnum.md
 docs/BenefitsApi.md
@@ -81,6 +83,7 @@ git_push.sh
 go.mod
 go.sum
 model_account_token.go
+model_available_actions.go
 model_benefit.go
 model_benefit_plan_type_enum.go
 model_company.go

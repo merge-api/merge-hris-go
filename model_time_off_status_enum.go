@@ -21,11 +21,11 @@ type TimeOffStatusEnum string
 
 // List of TimeOffStatusEnum
 const (
-	REQUESTED TimeOffStatusEnum = "REQUESTED"
-	APPROVED TimeOffStatusEnum = "APPROVED"
-	DECLINED TimeOffStatusEnum = "DECLINED"
-	CANCELLED TimeOffStatusEnum = "CANCELLED"
-	DELETED TimeOffStatusEnum = "DELETED"
+	TIMEOFFSTATUSENUM_REQUESTED TimeOffStatusEnum = "REQUESTED"
+	TIMEOFFSTATUSENUM_APPROVED TimeOffStatusEnum = "APPROVED"
+	TIMEOFFSTATUSENUM_DECLINED TimeOffStatusEnum = "DECLINED"
+	TIMEOFFSTATUSENUM_CANCELLED TimeOffStatusEnum = "CANCELLED"
+	TIMEOFFSTATUSENUM_DELETED TimeOffStatusEnum = "DELETED"
 )
 
 func (v *TimeOffStatusEnum) UnmarshalJSON(src []byte) error {

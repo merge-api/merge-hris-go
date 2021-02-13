@@ -21,10 +21,10 @@ type TypeEnum string
 
 // List of TypeEnum
 const (
-	SALARY TypeEnum = "SALARY"
-	REIMBURSEMENT TypeEnum = "REIMBURSEMENT"
-	OVERTIME TypeEnum = "OVERTIME"
-	BONUS TypeEnum = "BONUS"
+	TYPEENUM_SALARY TypeEnum = "SALARY"
+	TYPEENUM_REIMBURSEMENT TypeEnum = "REIMBURSEMENT"
+	TYPEENUM_OVERTIME TypeEnum = "OVERTIME"
+	TYPEENUM_BONUS TypeEnum = "BONUS"
 )
 
 func (v *TypeEnum) UnmarshalJSON(src []byte) error {

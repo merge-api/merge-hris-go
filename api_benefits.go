@@ -37,7 +37,6 @@ type ApiBenefitsListRequest struct {
 	createdBefore *time.Time
 	cursor *string
 	employeeId *string
-	expand *string
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -62,10 +61,6 @@ func (r ApiBenefitsListRequest) Cursor(cursor string) ApiBenefitsListRequest {
 }
 func (r ApiBenefitsListRequest) EmployeeId(employeeId string) ApiBenefitsListRequest {
 	r.employeeId = &employeeId
-	return r
-}
-func (r ApiBenefitsListRequest) Expand(expand string) ApiBenefitsListRequest {
-	r.expand = &expand
 	return r
 }
 func (r ApiBenefitsListRequest) ModifiedAfter(modifiedAfter time.Time) ApiBenefitsListRequest {
@@ -144,9 +139,6 @@ func (a *BenefitsApiService) BenefitsListExecute(r ApiBenefitsListRequest) (Pagi
 	}
 	if r.employeeId != nil {
 		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
-	}
-	if r.expand != nil {
-		localVarQueryParams.Add("expand", parameterToString(*r.expand, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -237,15 +229,10 @@ type ApiBenefitsRetrieveRequest struct {
 	ApiService *BenefitsApiService
 	xAccountToken *string
 	id string
-	expand *string
 }
 
 func (r ApiBenefitsRetrieveRequest) XAccountToken(xAccountToken string) ApiBenefitsRetrieveRequest {
 	r.xAccountToken = &xAccountToken
-	return r
-}
-func (r ApiBenefitsRetrieveRequest) Expand(expand string) ApiBenefitsRetrieveRequest {
-	r.expand = &expand
 	return r
 }
 
@@ -300,9 +287,6 @@ func (a *BenefitsApiService) BenefitsRetrieveExecute(r ApiBenefitsRetrieveReques
 		return localVarReturnValue, nil, executionError
 	}
 
-	if r.expand != nil {
-		localVarQueryParams.Add("expand", parameterToString(*r.expand, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

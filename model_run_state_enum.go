@@ -21,11 +21,11 @@ type RunStateEnum string
 
 // List of RunStateEnum
 const (
-	PAID RunStateEnum = "PAID"
-	DRAFT RunStateEnum = "DRAFT"
-	APPROVED RunStateEnum = "APPROVED"
-	FAILED RunStateEnum = "FAILED"
-	CLOSED RunStateEnum = "CLOSED"
+	RUNSTATEENUM_PAID RunStateEnum = "PAID"
+	RUNSTATEENUM_DRAFT RunStateEnum = "DRAFT"
+	RUNSTATEENUM_APPROVED RunStateEnum = "APPROVED"
+	RUNSTATEENUM_FAILED RunStateEnum = "FAILED"
+	RUNSTATEENUM_CLOSED RunStateEnum = "CLOSED"
 )
 
 func (v *RunStateEnum) UnmarshalJSON(src []byte) error {

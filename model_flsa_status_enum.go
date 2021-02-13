@@ -21,10 +21,10 @@ type FlsaStatusEnum string
 
 // List of FlsaStatusEnum
 const (
-	EXEMPT FlsaStatusEnum = "EXEMPT"
-	SALARIED_NONEXEMPT FlsaStatusEnum = "SALARIED_NONEXEMPT"
-	NONEXEMPT FlsaStatusEnum = "NONEXEMPT"
-	OWNER FlsaStatusEnum = "OWNER"
+	FLSASTATUSENUM_EXEMPT FlsaStatusEnum = "EXEMPT"
+	FLSASTATUSENUM_SALARIED_NONEXEMPT FlsaStatusEnum = "SALARIED_NONEXEMPT"
+	FLSASTATUSENUM_NONEXEMPT FlsaStatusEnum = "NONEXEMPT"
+	FLSASTATUSENUM_OWNER FlsaStatusEnum = "OWNER"
 )
 
 func (v *FlsaStatusEnum) UnmarshalJSON(src []byte) error {
