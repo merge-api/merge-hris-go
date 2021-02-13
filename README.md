@@ -129,6 +129,7 @@ Class | Method | HTTP request | Description
  - [LinkToken](docs/LinkToken.md)
  - [Location](docs/Location.md)
  - [MaritalStatusEnum](docs/MaritalStatusEnum.md)
+ - [ModelOperation](docs/ModelOperation.md)
  - [PaginatedBenefitList](docs/PaginatedBenefitList.md)
  - [PaginatedCompanyList](docs/PaginatedCompanyList.md)
  - [PaginatedDocumentList](docs/PaginatedDocumentList.md)

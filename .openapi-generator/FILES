@@ -49,6 +49,7 @@ docs/LinkTokenApi.md
 docs/Location.md
 docs/LocationsApi.md
 docs/MaritalStatusEnum.md
+docs/ModelOperation.md
 docs/PaginatedBenefitList.md
 docs/PaginatedCompanyList.md
 docs/PaginatedDocumentList.md
@@ -103,6 +104,7 @@ model_gender_enum.go
 model_link_token.go
 model_location.go
 model_marital_status_enum.go
+model_model_operation.go
 model_paginated_benefit_list.go
 model_paginated_company_list.go
 model_paginated_document_list.go
