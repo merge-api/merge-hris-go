@@ -17,18 +17,15 @@ import (
 
 // AvailableActions struct for AvailableActions
 type AvailableActions struct {
-	ModelName string `json:"model_name"`
-	AvailableOperations []string `json:"available_operations"`
+	AvailableModelOperations *[]ModelOperation `json:"available_model_operations,omitempty"`
 }
 
 // NewAvailableActions instantiates a new AvailableActions object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAvailableActions(modelName string, availableOperations []string, ) *AvailableActions {
+func NewAvailableActions() *AvailableActions {
 	this := AvailableActions{}
-	this.ModelName = modelName
-	this.AvailableOperations = availableOperations
 	return &this
 }
 
@@ -40,61 +37,42 @@ func NewAvailableActionsWithDefaults() *AvailableActions {
 	return &this
 }
 
-// GetModelName returns the ModelName field value
-func (o *AvailableActions) GetModelName() string {
-	if o == nil  {
-		var ret string
+// GetAvailableModelOperations returns the AvailableModelOperations field value if set, zero value otherwise.
+func (o *AvailableActions) GetAvailableModelOperations() []ModelOperation {
+	if o == nil || o.AvailableModelOperations == nil {
+		var ret []ModelOperation
 		return ret
 	}
-
-	return o.ModelName
+	return *o.AvailableModelOperations
 }
 
-// GetModelNameOk returns a tuple with the ModelName field value
+// GetAvailableModelOperationsOk returns a tuple with the AvailableModelOperations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AvailableActions) GetModelNameOk() (*string, bool) {
-	if o == nil  {
+func (o *AvailableActions) GetAvailableModelOperationsOk() (*[]ModelOperation, bool) {
+	if o == nil || o.AvailableModelOperations == nil {
 		return nil, false
 	}
-	return &o.ModelName, true
+	return o.AvailableModelOperations, true
 }
 
-// SetModelName sets field value
-func (o *AvailableActions) SetModelName(v string) {
-	o.ModelName = v
-}
-
-// GetAvailableOperations returns the AvailableOperations field value
-func (o *AvailableActions) GetAvailableOperations() []string {
-	if o == nil  {
-		var ret []string
-		return ret
+// HasAvailableModelOperations returns a boolean if a field has been set.
+func (o *AvailableActions) HasAvailableModelOperations() bool {
+	if o != nil && o.AvailableModelOperations != nil {
+		return true
 	}
 
-	return o.AvailableOperations
+	return false
 }
 
-// GetAvailableOperationsOk returns a tuple with the AvailableOperations field value
-// and a boolean to check if the value has been set.
-func (o *AvailableActions) GetAvailableOperationsOk() (*[]string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.AvailableOperations, true
-}
-
-// SetAvailableOperations sets field value
-func (o *AvailableActions) SetAvailableOperations(v []string) {
-	o.AvailableOperations = v
+// SetAvailableModelOperations gets a reference to the given []ModelOperation and assigns it to the AvailableModelOperations field.
+func (o *AvailableActions) SetAvailableModelOperations(v []ModelOperation) {
+	o.AvailableModelOperations = &v
 }
 
 func (o AvailableActions) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["model_name"] = o.ModelName
-	}
-	if true {
-		toSerialize["available_operations"] = o.AvailableOperations
+	if o.AvailableModelOperations != nil {
+		toSerialize["available_model_operations"] = o.AvailableModelOperations
 	}
 	return json.Marshal(toSerialize)
 }
