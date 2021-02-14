@@ -311,137 +311,6 @@ paths:
       - tokenAuth: []
       tags:
       - companies
-  /documents:
-    get:
-      description: Returns a list of `Document` objects.
-      operationId: documents_list
-      parameters:
-      - description: Token identifying the end user.
-        explode: false
-        in: header
-        name: X-Account-Token
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: If provided, will only return objects created after this datetime.
-        explode: true
-        in: query
-        name: created_after
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: If provided, will only return objects created before this datetime.
-        explode: true
-        in: query
-        name: created_before
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: The pagination cursor value.
-        examples:
-          CursorExample:
-            summary: Cursor Example
-            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
-        explode: true
-        in: query
-        name: cursor
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: If provided, will only return documents for this employee.
-        examples:
-          EmployeeId:
-            summary: employee_id
-        explode: true
-        in: query
-        name: employee_id
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: If provided, will only return objects modified after this datetime.
-        explode: true
-        in: query
-        name: modified_after
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: If provided, will only return objects modified before this datetime.
-        explode: true
-        in: query
-        name: modified_before
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: Number of results to return per page.
-        explode: true
-        in: query
-        name: page_size
-        required: false
-        schema:
-          type: integer
-        style: form
-      - description: The API provider's ID for the given object.
-        explode: true
-        in: query
-        name: remote_id
-        required: false
-        schema:
-          description: The third-party API ID of the matching object.
-          nullable: true
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedDocumentList'
-      security:
-      - tokenAuth: []
-      tags:
-      - documents
-  /documents/{id}:
-    get:
-      description: Returns a `Document` object with the given `id`.
-      operationId: documents_retrieve
-      parameters:
-      - description: Token identifying the end user.
-        explode: false
-        in: header
-        name: X-Account-Token
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Document'
-      security:
-      - tokenAuth: []
-      tags:
-      - documents
   /employee-payroll-runs:
     get:
       description: Returns a list of `EmployeePayrollRun` objects.
@@ -1146,126 +1015,6 @@ paths:
       - tokenAuth: []
       tags:
       - payroll-runs
-  /reports:
-    get:
-      description: Returns a list of `Report` objects.
-      operationId: reports_list
-      parameters:
-      - description: Token identifying the end user.
-        explode: false
-        in: header
-        name: X-Account-Token
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: If provided, will only return objects created after this datetime.
-        explode: true
-        in: query
-        name: created_after
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: If provided, will only return objects created before this datetime.
-        explode: true
-        in: query
-        name: created_before
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: The pagination cursor value.
-        examples:
-          CursorExample:
-            summary: Cursor Example
-            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
-        explode: true
-        in: query
-        name: cursor
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: If provided, will only return objects modified after this datetime.
-        explode: true
-        in: query
-        name: modified_after
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: If provided, will only return objects modified before this datetime.
-        explode: true
-        in: query
-        name: modified_before
-        required: false
-        schema:
-          format: date-time
-          type: string
-        style: form
-      - description: Number of results to return per page.
-        explode: true
-        in: query
-        name: page_size
-        required: false
-        schema:
-          type: integer
-        style: form
-      - description: The API provider's ID for the given object.
-        explode: true
-        in: query
-        name: remote_id
-        required: false
-        schema:
-          description: The third-party API ID of the matching object.
-          nullable: true
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedReportList'
-      security:
-      - tokenAuth: []
-      tags:
-      - reports
-  /reports/{id}:
-    get:
-      description: Returns a `Report` object with the given `id`.
-      operationId: reports_retrieve
-      parameters:
-      - description: Token identifying the end user.
-        explode: false
-        in: header
-        name: X-Account-Token
-        required: true
-        schema:
-          type: string
-        style: simple
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Report'
-      security:
-      - tokenAuth: []
-      tags:
-      - reports
   /teams:
     get:
       description: Returns a list of `Team` objects.
@@ -1542,24 +1291,21 @@ components:
       type: object
     AvailableActions:
       example:
-        model_name: Candidate
-        available_operations:
-        - FETCH
-        - CREATE
-      properties:
-        model_name:
-          example: Candidate
-          type: string
-        available_operations:
-          example:
+        available_model_operations:
+        - model_name: Candidate
+          available_operations:
           - FETCH
           - CREATE
+      properties:
+        available_model_operations:
+          example:
+          - model_name: Candidate
+            available_operations:
+            - FETCH
+            - CREATE
           items:
-            type: string
+            $ref: '#/components/schemas/ModelOperation'
           type: array
-      required:
-      - available_operations
-      - model_name
       type: object
     Benefit:
       description: |-
@@ -1983,44 +1729,6 @@ components:
           nullable: true
           type: number
       type: object
-    Document:
-      description: |-
-        # The Document Object
-        ### Description
-        The `Document` object is used to represent a Document for an employee.
-
-        ### Usage Example
-        Fetch from the `LIST Documents` endpoint and filter by `ID` to show all documents.
-      example:
-        file_url: http://alturl.com/p749b
-        file_name: Merge Company Secrets
-        id: 1dc27860-396c-4d9a-9896-d914e3577ada
-        employee: d2f972d0-2526-434b-9409-4c3b468e08f0
-      properties:
-        id:
-          example: 1dc27860-396c-4d9a-9896-d914e3577ada
-          format: uuid
-          readOnly: true
-          type: string
-        employee:
-          description: The employee this document belongs to.
-          example: d2f972d0-2526-434b-9409-4c3b468e08f0
-          format: uuid
-          nullable: true
-          type: string
-        file_name:
-          description: The document's filename.
-          example: Merge Company Secrets
-          nullable: true
-          type: string
-        file_url:
-          description: The URL from which the document can be retrieved.
-          example: http://alturl.com/p749b
-          format: uri
-          maxLength: 200
-          nullable: true
-          type: string
-      type: object
     Earning:
       description: |-
         # The Earning Object
@@ -2068,8 +1776,6 @@ components:
         manager: 0048ea5b-911e-4dff-9364-92070dea62ff
         gender: FEMALE
         ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
-        documents:
-        - 35347df1-95e7-46e2-93cc-66f1191edca5
         date_of_birth: 2000-01-23T04:56:07.000+00:00
         remote_id: "19202938"
         last_name: Doe
@@ -2224,14 +1930,6 @@ components:
           maxLength: 700
           nullable: true
           type: string
-        documents:
-          example:
-          - 35347df1-95e7-46e2-93cc-66f1191edca5
-          items:
-            format: uuid
-            type: string
-          readOnly: true
-          type: array
       type: object
     EmployeePayrollRun:
       description: |-
@@ -2585,6 +2283,22 @@ components:
       - HEAD_OF_HOUSEHOLD
       - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
       type: string
+    ModelOperation:
+      properties:
+        model_name:
+          example: Candidate
+          type: string
+        available_operations:
+          example:
+          - FETCH
+          - CREATE
+          items:
+            type: string
+          type: array
+      required:
+      - available_operations
+      - model_name
+      type: object
     PaginatedBenefitList:
       example:
         next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -2653,33 +2367,6 @@ components:
             $ref: '#/components/schemas/Company'
           type: array
       type: object
-    PaginatedDocumentList:
-      example:
-        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
-        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
-        results:
-        - file_url: http://alturl.com/p749b
-          file_name: Merge Company Secrets
-          id: 1dc27860-396c-4d9a-9896-d914e3577ada
-          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
-        - file_url: http://alturl.com/p749b
-          file_name: Merge Company Secrets
-          id: 1dc27860-396c-4d9a-9896-d914e3577ada
-          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
-      properties:
-        next:
-          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
-          nullable: true
-          type: string
-        previous:
-          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/Document'
-          type: array
-      type: object
     PaginatedEmployeeList:
       example:
         next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -2690,8 +2377,6 @@ components:
           manager: 0048ea5b-911e-4dff-9364-92070dea62ff
           gender: FEMALE
           ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
-          documents:
-          - 35347df1-95e7-46e2-93cc-66f1191edca5
           date_of_birth: 2000-01-23T04:56:07.000+00:00
           remote_id: "19202938"
           last_name: Doe
@@ -2716,8 +2401,6 @@ components:
           manager: 0048ea5b-911e-4dff-9364-92070dea62ff
           gender: FEMALE
           ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
-          documents:
-          - 35347df1-95e7-46e2-93cc-66f1191edca5
           date_of_birth: 2000-01-23T04:56:07.000+00:00
           remote_id: "19202938"
           last_name: Doe
@@ -2929,35 +2612,6 @@ components:
         results:
           items:
             $ref: '#/components/schemas/PayrollRun'
-          type: array
-      type: object
-    PaginatedReportList:
-      example:
-        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
-        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
-        results:
-        - name: Merge Employee Data
-          id: 9244fe3b-9055-4674-948f-50e1e45c49c6
-          content: '{''title'': ''this is my report'', ''fields'': [''id'': ''firstName'',
-            ''type'': ''text'', ''name'': ''First Name''], ''employees'': [''firstName'':
-            ''John'', ''lastName'': ''Doe'', ''91'': ''Jane Doe'']}'
-        - name: Merge Employee Data
-          id: 9244fe3b-9055-4674-948f-50e1e45c49c6
-          content: '{''title'': ''this is my report'', ''fields'': [''id'': ''firstName'',
-            ''type'': ''text'', ''name'': ''First Name''], ''employees'': [''firstName'':
-            ''John'', ''lastName'': ''Doe'', ''91'': ''Jane Doe'']}'
-      properties:
-        next:
-          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
-          nullable: true
-          type: string
-        previous:
-          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
-          nullable: true
-          type: string
-        results:
-          items:
-            $ref: '#/components/schemas/Report'
           type: array
       type: object
     PaginatedTeamList:
@@ -3289,39 +2943,6 @@ components:
         check_date:
           description: The day and time the payroll run was checked.
           format: date-time
-          nullable: true
-          type: string
-      type: object
-    Report:
-      description: |-
-        # The Report Object
-        ### Description
-        The `Report` object is used to represent a Report.
-
-        ### Usage Example
-        Fetch from the `LIST Reports` endpoint and filter by `ID` to show all reports.
-      example:
-        name: Merge Employee Data
-        id: 9244fe3b-9055-4674-948f-50e1e45c49c6
-        content: '{''title'': ''this is my report'', ''fields'': [''id'': ''firstName'',
-          ''type'': ''text'', ''name'': ''First Name''], ''employees'': [''firstName'':
-          ''John'', ''lastName'': ''Doe'', ''91'': ''Jane Doe'']}'
-      properties:
-        id:
-          example: 9244fe3b-9055-4674-948f-50e1e45c49c6
-          format: uuid
-          readOnly: true
-          type: string
-        name:
-          description: The report's name.
-          example: Merge Employee Data
-          nullable: true
-          type: string
-        content:
-          description: The report's content JSON.
-          example: '{''title'': ''this is my report'', ''fields'': [''id'': ''firstName'',
-            ''type'': ''text'', ''name'': ''First Name''], ''employees'': [''firstName'':
-            ''John'', ''lastName'': ''Doe'', ''91'': ''Jane Doe'']}'
           nullable: true
           type: string
       type: object

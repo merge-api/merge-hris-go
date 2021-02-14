@@ -62,7 +62,6 @@ type Employee struct {
 	TerminationDate NullableTime `json:"termination_date,omitempty"`
 	// The URL of the employee's avatar image.
 	Avatar NullableString `json:"avatar,omitempty"`
-	Documents *[]string `json:"documents,omitempty"`
 }
 
 // NewEmployee instantiates a new Employee object
@@ -1028,38 +1027,6 @@ func (o *Employee) UnsetAvatar() {
 	o.Avatar.Unset()
 }
 
-// GetDocuments returns the Documents field value if set, zero value otherwise.
-func (o *Employee) GetDocuments() []string {
-	if o == nil || o.Documents == nil {
-		var ret []string
-		return ret
-	}
-	return *o.Documents
-}
-
-// GetDocumentsOk returns a tuple with the Documents field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Employee) GetDocumentsOk() (*[]string, bool) {
-	if o == nil || o.Documents == nil {
-		return nil, false
-	}
-	return o.Documents, true
-}
-
-// HasDocuments returns a boolean if a field has been set.
-func (o *Employee) HasDocuments() bool {
-	if o != nil && o.Documents != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDocuments gets a reference to the given []string and assigns it to the Documents field.
-func (o *Employee) SetDocuments(v []string) {
-	o.Documents = &v
-}
-
 func (o Employee) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -1130,9 +1097,6 @@ func (o Employee) MarshalJSON() ([]byte, error) {
 	}
 	if o.Avatar.IsSet() {
 		toSerialize["avatar"] = o.Avatar.Get()
-	}
-	if o.Documents != nil {
-		toSerialize["documents"] = o.Documents
 	}
 	return json.Marshal(toSerialize)
 }
