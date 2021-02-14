@@ -85,8 +85,6 @@ Class | Method | HTTP request | Description
 *BenefitsApi* | [**BenefitsRetrieve**](docs/BenefitsApi.md#benefitsretrieve) | **Get** /benefits/{id} | 
 *CompaniesApi* | [**CompaniesList**](docs/CompaniesApi.md#companieslist) | **Get** /companies | 
 *CompaniesApi* | [**CompaniesRetrieve**](docs/CompaniesApi.md#companiesretrieve) | **Get** /companies/{id} | 
-*DocumentsApi* | [**DocumentsList**](docs/DocumentsApi.md#documentslist) | **Get** /documents | 
-*DocumentsApi* | [**DocumentsRetrieve**](docs/DocumentsApi.md#documentsretrieve) | **Get** /documents/{id} | 
 *EmployeePayrollRunsApi* | [**EmployeePayrollRunsList**](docs/EmployeePayrollRunsApi.md#employeepayrollrunslist) | **Get** /employee-payroll-runs | 
 *EmployeePayrollRunsApi* | [**EmployeePayrollRunsRetrieve**](docs/EmployeePayrollRunsApi.md#employeepayrollrunsretrieve) | **Get** /employee-payroll-runs/{id} | 
 *EmployeesApi* | [**EmployeesList**](docs/EmployeesApi.md#employeeslist) | **Get** /employees | 
@@ -98,8 +96,6 @@ Class | Method | HTTP request | Description
 *LocationsApi* | [**LocationsRetrieve**](docs/LocationsApi.md#locationsretrieve) | **Get** /locations/{id} | 
 *PayrollRunsApi* | [**PayrollRunsList**](docs/PayrollRunsApi.md#payrollrunslist) | **Get** /payroll-runs | 
 *PayrollRunsApi* | [**PayrollRunsRetrieve**](docs/PayrollRunsApi.md#payrollrunsretrieve) | **Get** /payroll-runs/{id} | 
-*ReportsApi* | [**ReportsList**](docs/ReportsApi.md#reportslist) | **Get** /reports | 
-*ReportsApi* | [**ReportsRetrieve**](docs/ReportsApi.md#reportsretrieve) | **Get** /reports/{id} | 
 *TeamsApi* | [**TeamsList**](docs/TeamsApi.md#teamslist) | **Get** /teams | 
 *TeamsApi* | [**TeamsRetrieve**](docs/TeamsApi.md#teamsretrieve) | **Get** /teams/{id} | 
 *TimeOffApi* | [**TimeOffList**](docs/TimeOffApi.md#timeofflist) | **Get** /time-off | 
@@ -115,7 +111,6 @@ Class | Method | HTTP request | Description
  - [Company](docs/Company.md)
  - [CountryEnum](docs/CountryEnum.md)
  - [Deduction](docs/Deduction.md)
- - [Document](docs/Document.md)
  - [Earning](docs/Earning.md)
  - [Employee](docs/Employee.md)
  - [EmployeePayrollRun](docs/EmployeePayrollRun.md)
@@ -132,20 +127,17 @@ Class | Method | HTTP request | Description
  - [ModelOperation](docs/ModelOperation.md)
  - [PaginatedBenefitList](docs/PaginatedBenefitList.md)
  - [PaginatedCompanyList](docs/PaginatedCompanyList.md)
- - [PaginatedDocumentList](docs/PaginatedDocumentList.md)
  - [PaginatedEmployeeList](docs/PaginatedEmployeeList.md)
  - [PaginatedEmployeePayrollRunList](docs/PaginatedEmployeePayrollRunList.md)
  - [PaginatedEmploymentList](docs/PaginatedEmploymentList.md)
  - [PaginatedLocationList](docs/PaginatedLocationList.md)
  - [PaginatedPayrollRunList](docs/PaginatedPayrollRunList.md)
- - [PaginatedReportList](docs/PaginatedReportList.md)
  - [PaginatedTeamList](docs/PaginatedTeamList.md)
  - [PaginatedTimeOffList](docs/PaginatedTimeOffList.md)
  - [PayCurrencyEnum](docs/PayCurrencyEnum.md)
  - [PayFrequencyEnum](docs/PayFrequencyEnum.md)
  - [PayPeriodEnum](docs/PayPeriodEnum.md)
  - [PayrollRun](docs/PayrollRun.md)
- - [Report](docs/Report.md)
  - [RequestTypeEnum](docs/RequestTypeEnum.md)
  - [RunStateEnum](docs/RunStateEnum.md)
  - [RunTypeEnum](docs/RunTypeEnum.md)
