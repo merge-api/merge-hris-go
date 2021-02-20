@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **BenefitPlanType** | Pointer to [**NullableBenefitPlanTypeEnum**](BenefitPlanTypeEnum.md) | The type of benefit plan | [optional] 
 **EmployeeContribution** | Pointer to **NullableFloat32** | The employee&#39;s contribution. | [optional] 
 **CompanyContribution** | Pointer to **NullableFloat32** | The company&#39;s contribution. | [optional] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -266,6 +267,41 @@ HasCompanyContribution returns a boolean if a field has been set.
 `func (o *Benefit) UnsetCompanyContribution()`
 
 UnsetCompanyContribution ensures that no value is present for CompanyContribution, not even an explicit nil
+### GetRemoteData
+
+`func (o *Benefit) GetRemoteData() []RemoteData`
+
+GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+
+### GetRemoteDataOk
+
+`func (o *Benefit) GetRemoteDataOk() (*[]RemoteData, bool)`
+
+GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteData
+
+`func (o *Benefit) SetRemoteData(v []RemoteData)`
+
+SetRemoteData sets RemoteData field to given value.
+
+### HasRemoteData
+
+`func (o *Benefit) HasRemoteData() bool`
+
+HasRemoteData returns a boolean if a field has been set.
+
+### SetRemoteDataNil
+
+`func (o *Benefit) SetRemoteDataNil(b bool)`
+
+ SetRemoteDataNil sets the value for RemoteData to be an explicit nil
+
+### UnsetRemoteData
+`func (o *Benefit) UnsetRemoteData()`
+
+UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

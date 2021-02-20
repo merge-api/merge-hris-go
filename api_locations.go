@@ -36,6 +36,7 @@ type ApiLocationsListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -56,6 +57,10 @@ func (r ApiLocationsListRequest) CreatedBefore(createdBefore time.Time) ApiLocat
 }
 func (r ApiLocationsListRequest) Cursor(cursor string) ApiLocationsListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiLocationsListRequest) IncludeRemoteData(includeRemoteData bool) ApiLocationsListRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 func (r ApiLocationsListRequest) ModifiedAfter(modifiedAfter time.Time) ApiLocationsListRequest {
@@ -131,6 +136,9 @@ func (a *LocationsApiService) LocationsListExecute(r ApiLocationsListRequest) (P
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -221,10 +229,15 @@ type ApiLocationsRetrieveRequest struct {
 	ApiService *LocationsApiService
 	xAccountToken *string
 	id string
+	includeRemoteData *bool
 }
 
 func (r ApiLocationsRetrieveRequest) XAccountToken(xAccountToken string) ApiLocationsRetrieveRequest {
 	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiLocationsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiLocationsRetrieveRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -279,6 +292,9 @@ func (a *LocationsApiService) LocationsRetrieveExecute(r ApiLocationsRetrieveReq
 		return localVarReturnValue, nil, executionError
 	}
 
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

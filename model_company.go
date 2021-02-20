@@ -26,6 +26,7 @@ type Company struct {
 	DisplayName NullableString `json:"display_name,omitempty"`
 	// The company's Employer Identification Numbers.
 	Eins []string `json:"eins,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
 // NewCompany instantiates a new Company object
@@ -236,6 +237,39 @@ func (o *Company) SetEins(v []string) {
 	o.Eins = v
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Company) GetRemoteData() []RemoteData {
+	if o == nil  {
+		var ret []RemoteData
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Company) GetRemoteDataOk() (*[]RemoteData, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *Company) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
+func (o *Company) SetRemoteData(v []RemoteData) {
+	o.RemoteData = v
+}
+
 func (o Company) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -252,6 +286,9 @@ func (o Company) MarshalJSON() ([]byte, error) {
 	}
 	if o.Eins != nil {
 		toSerialize["eins"] = o.Eins
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

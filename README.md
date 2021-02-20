@@ -94,6 +94,7 @@ Class | Method | HTTP request | Description
 *LinkTokenApi* | [**LinkTokenCreate**](docs/LinkTokenApi.md#linktokencreate) | **Post** /link-token | 
 *LocationsApi* | [**LocationsList**](docs/LocationsApi.md#locationslist) | **Get** /locations | 
 *LocationsApi* | [**LocationsRetrieve**](docs/LocationsApi.md#locationsretrieve) | **Get** /locations/{id} | 
+*PassthroughApi* | [**PassthroughCreate**](docs/PassthroughApi.md#passthroughcreate) | **Post** /passthrough | 
 *PayrollRunsApi* | [**PayrollRunsList**](docs/PayrollRunsApi.md#payrollrunslist) | **Get** /payroll-runs | 
 *PayrollRunsApi* | [**PayrollRunsRetrieve**](docs/PayrollRunsApi.md#payrollrunsretrieve) | **Get** /payroll-runs/{id} | 
 *TeamsApi* | [**TeamsList**](docs/TeamsApi.md#teamslist) | **Get** /teams | 
@@ -104,12 +105,14 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AccountIntegration](docs/AccountIntegration.md)
  - [AccountToken](docs/AccountToken.md)
  - [AvailableActions](docs/AvailableActions.md)
  - [Benefit](docs/Benefit.md)
  - [BenefitPlanTypeEnum](docs/BenefitPlanTypeEnum.md)
  - [Company](docs/Company.md)
  - [CountryEnum](docs/CountryEnum.md)
+ - [DataPassthrough](docs/DataPassthrough.md)
  - [Deduction](docs/Deduction.md)
  - [Earning](docs/Earning.md)
  - [Employee](docs/Employee.md)
@@ -124,6 +127,7 @@ Class | Method | HTTP request | Description
  - [LinkToken](docs/LinkToken.md)
  - [Location](docs/Location.md)
  - [MaritalStatusEnum](docs/MaritalStatusEnum.md)
+ - [MethodEnum](docs/MethodEnum.md)
  - [ModelOperation](docs/ModelOperation.md)
  - [PaginatedBenefitList](docs/PaginatedBenefitList.md)
  - [PaginatedCompanyList](docs/PaginatedCompanyList.md)
@@ -138,6 +142,8 @@ Class | Method | HTTP request | Description
  - [PayFrequencyEnum](docs/PayFrequencyEnum.md)
  - [PayPeriodEnum](docs/PayPeriodEnum.md)
  - [PayrollRun](docs/PayrollRun.md)
+ - [RemoteData](docs/RemoteData.md)
+ - [RemoteResponse](docs/RemoteResponse.md)
  - [RequestTypeEnum](docs/RequestTypeEnum.md)
  - [RunStateEnum](docs/RunStateEnum.md)
  - [RunTypeEnum](docs/RunTypeEnum.md)

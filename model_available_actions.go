@@ -15,8 +15,10 @@ import (
 	"encoding/json"
 )
 
-// AvailableActions struct for AvailableActions
+// AvailableActions # The AvailableActions Object ### Description The `Activity` object is used to see all available model/operation combinations for an integration.  ### Usage Example Fetch all the actions available for the `Zenefits` integration.
 type AvailableActions struct {
+	Integration AccountIntegration `json:"integration"`
+	PassthroughAvailable bool `json:"passthrough_available"`
 	AvailableModelOperations *[]ModelOperation `json:"available_model_operations,omitempty"`
 }
 
@@ -24,8 +26,10 @@ type AvailableActions struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAvailableActions() *AvailableActions {
+func NewAvailableActions(integration AccountIntegration, passthroughAvailable bool, ) *AvailableActions {
 	this := AvailableActions{}
+	this.Integration = integration
+	this.PassthroughAvailable = passthroughAvailable
 	return &this
 }
 
@@ -35,6 +39,54 @@ func NewAvailableActions() *AvailableActions {
 func NewAvailableActionsWithDefaults() *AvailableActions {
 	this := AvailableActions{}
 	return &this
+}
+
+// GetIntegration returns the Integration field value
+func (o *AvailableActions) GetIntegration() AccountIntegration {
+	if o == nil  {
+		var ret AccountIntegration
+		return ret
+	}
+
+	return o.Integration
+}
+
+// GetIntegrationOk returns a tuple with the Integration field value
+// and a boolean to check if the value has been set.
+func (o *AvailableActions) GetIntegrationOk() (*AccountIntegration, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Integration, true
+}
+
+// SetIntegration sets field value
+func (o *AvailableActions) SetIntegration(v AccountIntegration) {
+	o.Integration = v
+}
+
+// GetPassthroughAvailable returns the PassthroughAvailable field value
+func (o *AvailableActions) GetPassthroughAvailable() bool {
+	if o == nil  {
+		var ret bool
+		return ret
+	}
+
+	return o.PassthroughAvailable
+}
+
+// GetPassthroughAvailableOk returns a tuple with the PassthroughAvailable field value
+// and a boolean to check if the value has been set.
+func (o *AvailableActions) GetPassthroughAvailableOk() (*bool, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.PassthroughAvailable, true
+}
+
+// SetPassthroughAvailable sets field value
+func (o *AvailableActions) SetPassthroughAvailable(v bool) {
+	o.PassthroughAvailable = v
 }
 
 // GetAvailableModelOperations returns the AvailableModelOperations field value if set, zero value otherwise.
@@ -71,6 +123,12 @@ func (o *AvailableActions) SetAvailableModelOperations(v []ModelOperation) {
 
 func (o AvailableActions) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["integration"] = o.Integration
+	}
+	if true {
+		toSerialize["passthrough_available"] = o.PassthroughAvailable
+	}
 	if o.AvailableModelOperations != nil {
 		toSerialize["available_model_operations"] = o.AvailableModelOperations
 	}

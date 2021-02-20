@@ -30,6 +30,7 @@ type Benefit struct {
 	EmployeeContribution NullableFloat32 `json:"employee_contribution,omitempty"`
 	// The company's contribution.
 	CompanyContribution NullableFloat32 `json:"company_contribution,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
 // NewBenefit instantiates a new Benefit object
@@ -333,6 +334,39 @@ func (o *Benefit) UnsetCompanyContribution() {
 	o.CompanyContribution.Unset()
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Benefit) GetRemoteData() []RemoteData {
+	if o == nil  {
+		var ret []RemoteData
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Benefit) GetRemoteDataOk() (*[]RemoteData, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *Benefit) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
+func (o *Benefit) SetRemoteData(v []RemoteData) {
+	o.RemoteData = v
+}
+
 func (o Benefit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -355,6 +389,9 @@ func (o Benefit) MarshalJSON() ([]byte, error) {
 	}
 	if o.CompanyContribution.IsSet() {
 		toSerialize["company_contribution"] = o.CompanyContribution.Get()
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

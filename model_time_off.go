@@ -34,6 +34,7 @@ type TimeOff struct {
 	Amount NullableFloat32 `json:"amount,omitempty"`
 	// The type of time off request.
 	RequestType NullableRequestTypeEnum `json:"request_type,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
 // NewTimeOff instantiates a new TimeOff object
@@ -421,6 +422,39 @@ func (o *TimeOff) UnsetRequestType() {
 	o.RequestType.Unset()
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TimeOff) GetRemoteData() []RemoteData {
+	if o == nil  {
+		var ret []RemoteData
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TimeOff) GetRemoteDataOk() (*[]RemoteData, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *TimeOff) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
+func (o *TimeOff) SetRemoteData(v []RemoteData) {
+	o.RemoteData = v
+}
+
 func (o TimeOff) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -449,6 +483,9 @@ func (o TimeOff) MarshalJSON() ([]byte, error) {
 	}
 	if o.RequestType.IsSet() {
 		toSerialize["request_type"] = o.RequestType.Get()
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

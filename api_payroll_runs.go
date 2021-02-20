@@ -36,6 +36,7 @@ type ApiPayrollRunsListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -56,6 +57,10 @@ func (r ApiPayrollRunsListRequest) CreatedBefore(createdBefore time.Time) ApiPay
 }
 func (r ApiPayrollRunsListRequest) Cursor(cursor string) ApiPayrollRunsListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiPayrollRunsListRequest) IncludeRemoteData(includeRemoteData bool) ApiPayrollRunsListRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 func (r ApiPayrollRunsListRequest) ModifiedAfter(modifiedAfter time.Time) ApiPayrollRunsListRequest {
@@ -131,6 +136,9 @@ func (a *PayrollRunsApiService) PayrollRunsListExecute(r ApiPayrollRunsListReque
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -221,10 +229,15 @@ type ApiPayrollRunsRetrieveRequest struct {
 	ApiService *PayrollRunsApiService
 	xAccountToken *string
 	id string
+	includeRemoteData *bool
 }
 
 func (r ApiPayrollRunsRetrieveRequest) XAccountToken(xAccountToken string) ApiPayrollRunsRetrieveRequest {
 	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiPayrollRunsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiPayrollRunsRetrieveRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -279,6 +292,9 @@ func (a *PayrollRunsApiService) PayrollRunsRetrieveExecute(r ApiPayrollRunsRetri
 		return localVarReturnValue, nil, executionError
 	}
 
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

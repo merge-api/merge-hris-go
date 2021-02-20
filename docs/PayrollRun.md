@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **StartDate** | Pointer to **NullableTime** | The day and time the payroll run started. | [optional] 
 **EndDate** | Pointer to **NullableTime** | The day and time the payroll run ended. | [optional] 
 **CheckDate** | Pointer to **NullableTime** | The day and time the payroll run was checked. | [optional] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -266,6 +267,41 @@ HasCheckDate returns a boolean if a field has been set.
 `func (o *PayrollRun) UnsetCheckDate()`
 
 UnsetCheckDate ensures that no value is present for CheckDate, not even an explicit nil
+### GetRemoteData
+
+`func (o *PayrollRun) GetRemoteData() []RemoteData`
+
+GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+
+### GetRemoteDataOk
+
+`func (o *PayrollRun) GetRemoteDataOk() (*[]RemoteData, bool)`
+
+GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteData
+
+`func (o *PayrollRun) SetRemoteData(v []RemoteData)`
+
+SetRemoteData sets RemoteData field to given value.
+
+### HasRemoteData
+
+`func (o *PayrollRun) HasRemoteData() bool`
+
+HasRemoteData returns a boolean if a field has been set.
+
+### SetRemoteDataNil
+
+`func (o *PayrollRun) SetRemoteDataNil(b bool)`
+
+ SetRemoteDataNil sets the value for RemoteData to be an explicit nil
+
+### UnsetRemoteData
+`func (o *PayrollRun) UnsetRemoteData()`
+
+UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

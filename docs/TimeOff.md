@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Units** | Pointer to [**NullableUnitsEnum**](UnitsEnum.md) | The unit of time requested. | [optional] 
 **Amount** | Pointer to **NullableFloat32** | The number of time off units requested. | [optional] 
 **RequestType** | Pointer to [**NullableRequestTypeEnum**](RequestTypeEnum.md) | The type of time off request. | [optional] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -338,6 +339,41 @@ HasRequestType returns a boolean if a field has been set.
 `func (o *TimeOff) UnsetRequestType()`
 
 UnsetRequestType ensures that no value is present for RequestType, not even an explicit nil
+### GetRemoteData
+
+`func (o *TimeOff) GetRemoteData() []RemoteData`
+
+GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+
+### GetRemoteDataOk
+
+`func (o *TimeOff) GetRemoteDataOk() (*[]RemoteData, bool)`
+
+GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteData
+
+`func (o *TimeOff) SetRemoteData(v []RemoteData)`
+
+SetRemoteData sets RemoteData field to given value.
+
+### HasRemoteData
+
+`func (o *TimeOff) HasRemoteData() bool`
+
+HasRemoteData returns a boolean if a field has been set.
+
+### SetRemoteDataNil
+
+`func (o *TimeOff) SetRemoteDataNil(b bool)`
+
+ SetRemoteDataNil sets the value for RemoteData to be an explicit nil
+
+### UnsetRemoteData
+`func (o *TimeOff) UnsetRemoteData()`
+
+UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

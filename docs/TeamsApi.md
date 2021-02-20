@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## TeamsList
 
-> PaginatedTeamList TeamsList(ctx).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
+> PaginatedTeamList TeamsList(ctx).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
 
 
 
@@ -35,6 +35,7 @@ func main() {
     createdAfter := time.Now() // time.Time | If provided, will only return objects created after this datetime. (optional)
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
+    includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
@@ -42,7 +43,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TeamsApi.TeamsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
+    resp, r, err := api_client.TeamsApi.TeamsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
     if err.Error() != "" {
         fmt.Fprintf(os.Stderr, "Error when calling `TeamsApi.TeamsList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,6 +68,7 @@ Name | Type | Description  | Notes
  **createdAfter** | **time.Time** | If provided, will only return objects created after this datetime. | 
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
+ **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
  **pageSize** | **int32** | Number of results to return per page. | 
@@ -92,7 +94,7 @@ Name | Type | Description  | Notes
 
 ## TeamsRetrieve
 
-> Team TeamsRetrieve(ctx, id).XAccountToken(xAccountToken).Execute()
+> Team TeamsRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
 
 
 
@@ -113,10 +115,11 @@ import (
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     id := TODO // string | 
+    includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TeamsApi.TeamsRetrieve(context.Background(), id).XAccountToken(xAccountToken).Execute()
+    resp, r, err := api_client.TeamsApi.TeamsRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
     if err.Error() != "" {
         fmt.Fprintf(os.Stderr, "Error when calling `TeamsApi.TeamsRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -143,6 +146,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
 
+ **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
 
 ### Return type
 

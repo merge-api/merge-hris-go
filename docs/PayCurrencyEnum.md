@@ -7,9 +7,33 @@
 
 * `AFN` (value: `"AFN"`)
 
+* `AFA` (value: `"AFA"`)
+
+* `ALL` (value: `"ALL"`)
+
+* `ALK` (value: `"ALK"`)
+
 * `DZD` (value: `"DZD"`)
 
+* `ADP` (value: `"ADP"`)
+
+* `AOA` (value: `"AOA"`)
+
+* `AOK` (value: `"AOK"`)
+
+* `AON` (value: `"AON"`)
+
+* `AOR` (value: `"AOR"`)
+
+* `ARA` (value: `"ARA"`)
+
 * `ARS` (value: `"ARS"`)
+
+* `ARM` (value: `"ARM"`)
+
+* `ARP` (value: `"ARP"`)
+
+* `ARL` (value: `"ARL"`)
 
 * `AMD` (value: `"AMD"`)
 
@@ -17,21 +41,31 @@
 
 * `AUD` (value: `"AUD"`)
 
+* `ATS` (value: `"ATS"`)
+
 * `AZN` (value: `"AZN"`)
+
+* `AZM` (value: `"AZM"`)
 
 * `BSD` (value: `"BSD"`)
 
 * `BHD` (value: `"BHD"`)
 
-* `THB` (value: `"THB"`)
-
-* `PAB` (value: `"PAB"`)
+* `BDT` (value: `"BDT"`)
 
 * `BBD` (value: `"BBD"`)
 
 * `BYN` (value: `"BYN"`)
 
+* `BYB` (value: `"BYB"`)
+
 * `BYR` (value: `"BYR"`)
+
+* `BEF` (value: `"BEF"`)
+
+* `BEC` (value: `"BEC"`)
+
+* `BEL` (value: `"BEL"`)
 
 * `BZD` (value: `"BZD"`)
 
@@ -39,25 +73,55 @@
 
 * `BTN` (value: `"BTN"`)
 
-* `VEF` (value: `"VEF"`)
-
 * `BOB` (value: `"BOB"`)
 
-* `XBA` (value: `"XBA"`)
+* `BOL` (value: `"BOL"`)
+
+* `BOV` (value: `"BOV"`)
+
+* `BOP` (value: `"BOP"`)
+
+* `BAM` (value: `"BAM"`)
+
+* `BAD` (value: `"BAD"`)
+
+* `BAN` (value: `"BAN"`)
+
+* `BWP` (value: `"BWP"`)
+
+* `BRC` (value: `"BRC"`)
+
+* `BRZ` (value: `"BRZ"`)
+
+* `BRE` (value: `"BRE"`)
+
+* `BRR` (value: `"BRR"`)
+
+* `BRN` (value: `"BRN"`)
+
+* `BRB` (value: `"BRB"`)
 
 * `BRL` (value: `"BRL"`)
 
+* `GBP` (value: `"GBP"`)
+
 * `BND` (value: `"BND"`)
+
+* `BGL` (value: `"BGL"`)
 
 * `BGN` (value: `"BGN"`)
 
+* `BGO` (value: `"BGO"`)
+
+* `BGM` (value: `"BGM"`)
+
+* `BUK` (value: `"BUK"`)
+
 * `BIF` (value: `"BIF"`)
 
-* `XOF` (value: `"XOF"`)
-
-* `XAF` (value: `"XAF"`)
-
 * `XPF` (value: `"XPF"`)
+
+* `KHR` (value: `"KHR"`)
 
 * `CAD` (value: `"CAD"`)
 
@@ -65,123 +129,175 @@
 
 * `KYD` (value: `"KYD"`)
 
+* `XAF` (value: `"XAF"`)
+
+* `CLE` (value: `"CLE"`)
+
 * `CLP` (value: `"CLP"`)
 
-* `XTS` (value: `"XTS"`)
+* `CLF` (value: `"CLF"`)
+
+* `CNX` (value: `"CNX"`)
+
+* `CNY` (value: `"CNY"`)
+
+* `CNH` (value: `"CNH"`)
 
 * `COP` (value: `"COP"`)
+
+* `COU` (value: `"COU"`)
 
 * `KMF` (value: `"KMF"`)
 
 * `CDF` (value: `"CDF"`)
 
-* `BAM` (value: `"BAM"`)
-
-* `NIO` (value: `"NIO"`)
-
 * `CRC` (value: `"CRC"`)
+
+* `HRD` (value: `"HRD"`)
 
 * `HRK` (value: `"HRK"`)
 
+* `CUC` (value: `"CUC"`)
+
 * `CUP` (value: `"CUP"`)
 
-* `CUC` (value: `"CUC"`)
+* `CYP` (value: `"CYP"`)
 
 * `CZK` (value: `"CZK"`)
 
-* `GMD` (value: `"GMD"`)
+* `CSK` (value: `"CSK"`)
 
 * `DKK` (value: `"DKK"`)
 
-* `MKD` (value: `"MKD"`)
-
 * `DJF` (value: `"DJF"`)
-
-* `STD` (value: `"STD"`)
 
 * `DOP` (value: `"DOP"`)
 
-* `VND` (value: `"VND"`)
+* `NLG` (value: `"NLG"`)
 
 * `XCD` (value: `"XCD"`)
 
+* `DDM` (value: `"DDM"`)
+
+* `ECS` (value: `"ECS"`)
+
+* `ECV` (value: `"ECV"`)
+
 * `EGP` (value: `"EGP"`)
 
-* `SVC` (value: `"SVC"`)
+* `GQE` (value: `"GQE"`)
+
+* `ERN` (value: `"ERN"`)
+
+* `EEK` (value: `"EEK"`)
 
 * `ETB` (value: `"ETB"`)
 
 * `EUR` (value: `"EUR"`)
 
+* `XBA` (value: `"XBA"`)
+
+* `XEU` (value: `"XEU"`)
+
 * `XBB` (value: `"XBB"`)
 
-* `XBD` (value: `"XBD"`)
-
 * `XBC` (value: `"XBC"`)
+
+* `XBD` (value: `"XBD"`)
 
 * `FKP` (value: `"FKP"`)
 
 * `FJD` (value: `"FJD"`)
 
-* `HUF` (value: `"HUF"`)
+* `FIM` (value: `"FIM"`)
+
+* `FRF` (value: `"FRF"`)
+
+* `XFO` (value: `"XFO"`)
+
+* `XFU` (value: `"XFU"`)
+
+* `GMD` (value: `"GMD"`)
+
+* `GEK` (value: `"GEK"`)
+
+* `GEL` (value: `"GEL"`)
+
+* `DEM` (value: `"DEM"`)
 
 * `GHS` (value: `"GHS"`)
+
+* `GHC` (value: `"GHC"`)
 
 * `GIP` (value: `"GIP"`)
 
 * `XAU` (value: `"XAU"`)
 
-* `XFO` (value: `"XFO"`)
+* `GRD` (value: `"GRD"`)
 
-* `PYG` (value: `"PYG"`)
+* `GTQ` (value: `"GTQ"`)
+
+* `GWP` (value: `"GWP"`)
 
 * `GNF` (value: `"GNF"`)
+
+* `GNS` (value: `"GNS"`)
 
 * `GYD` (value: `"GYD"`)
 
 * `HTG` (value: `"HTG"`)
 
+* `HNL` (value: `"HNL"`)
+
 * `HKD` (value: `"HKD"`)
 
-* `UAH` (value: `"UAH"`)
+* `HUF` (value: `"HUF"`)
+
+* `IMP` (value: `"IMP"`)
 
 * `ISK` (value: `"ISK"`)
 
+* `ISJ` (value: `"ISJ"`)
+
 * `INR` (value: `"INR"`)
+
+* `IDR` (value: `"IDR"`)
 
 * `IRR` (value: `"IRR"`)
 
 * `IQD` (value: `"IQD"`)
 
-* `IMP` (value: `"IMP"`)
+* `IEP` (value: `"IEP"`)
+
+* `ILS` (value: `"ILS"`)
+
+* `ILP` (value: `"ILP"`)
+
+* `ILR` (value: `"ILR"`)
+
+* `ITL` (value: `"ITL"`)
 
 * `JMD` (value: `"JMD"`)
 
+* `JPY` (value: `"JPY"`)
+
 * `JOD` (value: `"JOD"`)
+
+* `KZT` (value: `"KZT"`)
 
 * `KES` (value: `"KES"`)
 
-* `PGK` (value: `"PGK"`)
+* `KWD` (value: `"KWD"`)
+
+* `KGS` (value: `"KGS"`)
 
 * `LAK` (value: `"LAK"`)
 
-* `KWD` (value: `"KWD"`)
-
-* `AOA` (value: `"AOA"`)
-
-* `MMK` (value: `"MMK"`)
-
-* `GEL` (value: `"GEL"`)
-
 * `LVL` (value: `"LVL"`)
 
+* `LVR` (value: `"LVR"`)
+
 * `LBP` (value: `"LBP"`)
-
-* `ALL` (value: `"ALL"`)
-
-* `HNL` (value: `"HNL"`)
-
-* `SLL` (value: `"SLL"`)
 
 * `LSL` (value: `"LSL"`)
 
@@ -189,35 +305,71 @@
 
 * `LYD` (value: `"LYD"`)
 
-* `SZL` (value: `"SZL"`)
-
 * `LTL` (value: `"LTL"`)
 
+* `LTT` (value: `"LTT"`)
+
+* `LUL` (value: `"LUL"`)
+
+* `LUC` (value: `"LUC"`)
+
+* `LUF` (value: `"LUF"`)
+
+* `MOP` (value: `"MOP"`)
+
+* `MKD` (value: `"MKD"`)
+
+* `MKN` (value: `"MKN"`)
+
 * `MGA` (value: `"MGA"`)
+
+* `MGF` (value: `"MGF"`)
 
 * `MWK` (value: `"MWK"`)
 
 * `MYR` (value: `"MYR"`)
 
-* `TMM` (value: `"TMM"`)
+* `MVR` (value: `"MVR"`)
+
+* `MVP` (value: `"MVP"`)
+
+* `MLF` (value: `"MLF"`)
+
+* `MTL` (value: `"MTL"`)
+
+* `MTP` (value: `"MTP"`)
+
+* `MRU` (value: `"MRU"`)
+
+* `MRO` (value: `"MRO"`)
 
 * `MUR` (value: `"MUR"`)
-
-* `MZN` (value: `"MZN"`)
 
 * `MXV` (value: `"MXV"`)
 
 * `MXN` (value: `"MXN"`)
 
+* `MXP` (value: `"MXP"`)
+
+* `MDC` (value: `"MDC"`)
+
 * `MDL` (value: `"MDL"`)
+
+* `MCF` (value: `"MCF"`)
+
+* `MNT` (value: `"MNT"`)
 
 * `MAD` (value: `"MAD"`)
 
-* `BOV` (value: `"BOV"`)
+* `MAF` (value: `"MAF"`)
 
-* `NGN` (value: `"NGN"`)
+* `MZE` (value: `"MZE"`)
 
-* `ERN` (value: `"ERN"`)
+* `MZN` (value: `"MZN"`)
+
+* `MZM` (value: `"MZM"`)
+
+* `MMK` (value: `"MMK"`)
 
 * `NAD` (value: `"NAD"`)
 
@@ -225,87 +377,131 @@
 
 * `ANG` (value: `"ANG"`)
 
-* `ILS` (value: `"ILS"`)
-
-* `RON` (value: `"RON"`)
-
 * `TWD` (value: `"TWD"`)
 
 * `NZD` (value: `"NZD"`)
+
+* `NIO` (value: `"NIO"`)
+
+* `NIC` (value: `"NIC"`)
+
+* `NGN` (value: `"NGN"`)
 
 * `KPW` (value: `"KPW"`)
 
 * `NOK` (value: `"NOK"`)
 
-* `PEN` (value: `"PEN"`)
-
-* `MRO` (value: `"MRO"`)
-
-* `TOP` (value: `"TOP"`)
+* `OMR` (value: `"OMR"`)
 
 * `PKR` (value: `"PKR"`)
 
 * `XPD` (value: `"XPD"`)
 
-* `MOP` (value: `"MOP"`)
+* `PAB` (value: `"PAB"`)
+
+* `PGK` (value: `"PGK"`)
+
+* `PYG` (value: `"PYG"`)
+
+* `PEI` (value: `"PEI"`)
+
+* `PEN` (value: `"PEN"`)
+
+* `PES` (value: `"PES"`)
 
 * `PHP` (value: `"PHP"`)
 
 * `XPT` (value: `"XPT"`)
 
-* `GBP` (value: `"GBP"`)
+* `PLN` (value: `"PLN"`)
 
-* `BWP` (value: `"BWP"`)
+* `PLZ` (value: `"PLZ"`)
+
+* `PTE` (value: `"PTE"`)
+
+* `GWE` (value: `"GWE"`)
 
 * `QAR` (value: `"QAR"`)
 
-* `GTQ` (value: `"GTQ"`)
+* `XRE` (value: `"XRE"`)
 
-* `ZAR` (value: `"ZAR"`)
+* `RHD` (value: `"RHD"`)
 
-* `OMR` (value: `"OMR"`)
+* `RON` (value: `"RON"`)
 
-* `KHR` (value: `"KHR"`)
-
-* `MVR` (value: `"MVR"`)
-
-* `IDR` (value: `"IDR"`)
+* `ROL` (value: `"ROL"`)
 
 * `RUB` (value: `"RUB"`)
 
+* `RUR` (value: `"RUR"`)
+
 * `RWF` (value: `"RWF"`)
 
-* `XDR` (value: `"XDR"`)
+* `SVC` (value: `"SVC"`)
 
-* `SHP` (value: `"SHP"`)
+* `WST` (value: `"WST"`)
 
 * `SAR` (value: `"SAR"`)
 
 * `RSD` (value: `"RSD"`)
 
+* `CSD` (value: `"CSD"`)
+
 * `SCR` (value: `"SCR"`)
+
+* `SLL` (value: `"SLL"`)
 
 * `XAG` (value: `"XAG"`)
 
 * `SGD` (value: `"SGD"`)
 
-* `SBD` (value: `"SBD"`)
+* `SKK` (value: `"SKK"`)
 
-* `KGS` (value: `"KGS"`)
+* `SIT` (value: `"SIT"`)
+
+* `SBD` (value: `"SBD"`)
 
 * `SOS` (value: `"SOS"`)
 
-* `TJS` (value: `"TJS"`)
+* `ZAR` (value: `"ZAR"`)
+
+* `ZAL` (value: `"ZAL"`)
+
+* `KRH` (value: `"KRH"`)
+
+* `KRW` (value: `"KRW"`)
+
+* `KRO` (value: `"KRO"`)
 
 * `SSP` (value: `"SSP"`)
 
+* `SUR` (value: `"SUR"`)
+
+* `ESP` (value: `"ESP"`)
+
+* `ESA` (value: `"ESA"`)
+
+* `ESB` (value: `"ESB"`)
+
+* `XDR` (value: `"XDR"`)
+
 * `LKR` (value: `"LKR"`)
+
+* `SHP` (value: `"SHP"`)
 
 * `XSU` (value: `"XSU"`)
 
+* `SDD` (value: `"SDD"`)
+
 * `SDG` (value: `"SDG"`)
 
+* `SDP` (value: `"SDP"`)
+
 * `SRD` (value: `"SRD"`)
+
+* `SRG` (value: `"SRG"`)
+
+* `SZL` (value: `"SZL"`)
 
 * `SEK` (value: `"SEK"`)
 
@@ -313,73 +509,111 @@
 
 * `SYP` (value: `"SYP"`)
 
-* `BDT` (value: `"BDT"`)
+* `STN` (value: `"STN"`)
 
-* `WST` (value: `"WST"`)
+* `STD` (value: `"STD"`)
+
+* `TVD` (value: `"TVD"`)
+
+* `TJR` (value: `"TJR"`)
+
+* `TJS` (value: `"TJS"`)
 
 * `TZS` (value: `"TZS"`)
 
-* `KZT` (value: `"KZT"`)
+* `XTS` (value: `"XTS"`)
+
+* `THB` (value: `"THB"`)
 
 * `XXX` (value: `"XXX"`)
 
-* `TTD` (value: `"TTD"`)
+* `TPE` (value: `"TPE"`)
 
-* `MNT` (value: `"MNT"`)
+* `TOP` (value: `"TOP"`)
+
+* `TTD` (value: `"TTD"`)
 
 * `TND` (value: `"TND"`)
 
 * `TRY` (value: `"TRY"`)
 
+* `TRL` (value: `"TRL"`)
+
 * `TMT` (value: `"TMT"`)
 
-* `TVD` (value: `"TVD"`)
-
-* `AED` (value: `"AED"`)
-
-* `XFU` (value: `"XFU"`)
+* `TMM` (value: `"TMM"`)
 
 * `USD` (value: `"USD"`)
 
 * `USN` (value: `"USN"`)
 
+* `USS` (value: `"USS"`)
+
 * `UGX` (value: `"UGX"`)
 
-* `CLF` (value: `"CLF"`)
+* `UGS` (value: `"UGS"`)
 
-* `COU` (value: `"COU"`)
+* `UAH` (value: `"UAH"`)
 
-* `UYI` (value: `"UYI"`)
+* `UAK` (value: `"UAK"`)
+
+* `AED` (value: `"AED"`)
+
+* `UYW` (value: `"UYW"`)
 
 * `UYU` (value: `"UYU"`)
+
+* `UYP` (value: `"UYP"`)
+
+* `UYI` (value: `"UYI"`)
 
 * `UZS` (value: `"UZS"`)
 
 * `VUV` (value: `"VUV"`)
 
+* `VES` (value: `"VES"`)
+
+* `VEB` (value: `"VEB"`)
+
+* `VEF` (value: `"VEF"`)
+
+* `VND` (value: `"VND"`)
+
+* `VNN` (value: `"VNN"`)
+
 * `CHE` (value: `"CHE"`)
 
 * `CHW` (value: `"CHW"`)
 
-* `KRW` (value: `"KRW"`)
+* `XOF` (value: `"XOF"`)
+
+* `YDD` (value: `"YDD"`)
 
 * `YER` (value: `"YER"`)
 
-* `JPY` (value: `"JPY"`)
+* `YUN` (value: `"YUN"`)
 
-* `CNY` (value: `"CNY"`)
+* `YUD` (value: `"YUD"`)
 
-* `ZMK` (value: `"ZMK"`)
+* `YUM` (value: `"YUM"`)
 
-* `ZMW` (value: `"ZMW"`)
-
-* `ZWD` (value: `"ZWD"`)
+* `YUR` (value: `"YUR"`)
 
 * `ZWN` (value: `"ZWN"`)
 
-* `ZWL` (value: `"ZWL"`)
+* `ZRN` (value: `"ZRN"`)
 
-* `PLN` (value: `"PLN"`)
+* `ZRZ` (value: `"ZRZ"`)
+
+* `ZMW` (value: `"ZMW"`)
+
+* `ZMK` (value: `"ZMK"`)
+
+* `ZWD` (value: `"ZWD"`)
+
+* `ZWR` (value: `"ZWR"`)
+
+* `ZWL` (value: `"ZWL"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

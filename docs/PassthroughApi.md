@@ -1,16 +1,16 @@
-# \AvailableActionsApi
+# \PassthroughApi
 
 All URIs are relative to *https://api.merge.dev/api/hris/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AvailableActionsRetrieve**](AvailableActionsApi.md#AvailableActionsRetrieve) | **Get** /available-actions | 
+[**PassthroughCreate**](PassthroughApi.md#PassthroughCreate) | **Post** /passthrough | 
 
 
 
-## AvailableActionsRetrieve
+## PassthroughCreate
 
-> AvailableActions AvailableActionsRetrieve(ctx).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
+> RemoteResponse PassthroughCreate(ctx).XAccountToken(xAccountToken).DataPassthrough(dataPassthrough).IncludeRemoteData(includeRemoteData).Execute()
 
 
 
@@ -30,17 +30,18 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
+    dataPassthrough := *openapiclient.NewDataPassthrough(openapiclient.MethodEnum("GET"), "/scooters") // DataPassthrough | 
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AvailableActionsApi.AvailableActionsRetrieve(context.Background()).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
+    resp, r, err := api_client.PassthroughApi.PassthroughCreate(context.Background()).XAccountToken(xAccountToken).DataPassthrough(dataPassthrough).IncludeRemoteData(includeRemoteData).Execute()
     if err.Error() != "" {
-        fmt.Fprintf(os.Stderr, "Error when calling `AvailableActionsApi.AvailableActionsRetrieve``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PassthroughApi.PassthroughCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AvailableActionsRetrieve`: AvailableActions
-    fmt.Fprintf(os.Stdout, "Response from `AvailableActionsApi.AvailableActionsRetrieve`: %v\n", resp)
+    // response from `PassthroughCreate`: RemoteResponse
+    fmt.Fprintf(os.Stdout, "Response from `PassthroughApi.PassthroughCreate`: %v\n", resp)
 }
 ```
 
@@ -50,17 +51,18 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAvailableActionsRetrieveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPassthroughCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
+ **dataPassthrough** | [**DataPassthrough**](DataPassthrough.md) |  | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
 
 ### Return type
 
-[**AvailableActions**](AvailableActions.md)
+[**RemoteResponse**](RemoteResponse.md)
 
 ### Authorization
 
@@ -68,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

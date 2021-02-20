@@ -20,7 +20,7 @@ type Tax struct {
 	Id *string `json:"id,omitempty"`
 	// The tax's employee payroll run.
 	EmployeePayrollRun NullableString `json:"employee_payroll_run,omitempty"`
-	// The deduction's name.
+	// The tax's name.
 	Name NullableString `json:"name,omitempty"`
 	// The tax amount.
 	Amount NullableFloat32 `json:"amount,omitempty"`

@@ -11,11 +11,13 @@ api_employees.go
 api_employments.go
 api_link_token.go
 api_locations.go
+api_passthrough.go
 api_payroll_runs.go
 api_teams.go
 api_time_off.go
 client.go
 configuration.go
+docs/AccountIntegration.md
 docs/AccountToken.md
 docs/AccountTokenApi.md
 docs/AvailableActions.md
@@ -26,6 +28,7 @@ docs/BenefitsApi.md
 docs/CompaniesApi.md
 docs/Company.md
 docs/CountryEnum.md
+docs/DataPassthrough.md
 docs/Deduction.md
 docs/Earning.md
 docs/Employee.md
@@ -45,6 +48,7 @@ docs/LinkTokenApi.md
 docs/Location.md
 docs/LocationsApi.md
 docs/MaritalStatusEnum.md
+docs/MethodEnum.md
 docs/ModelOperation.md
 docs/PaginatedBenefitList.md
 docs/PaginatedCompanyList.md
@@ -55,11 +59,14 @@ docs/PaginatedLocationList.md
 docs/PaginatedPayrollRunList.md
 docs/PaginatedTeamList.md
 docs/PaginatedTimeOffList.md
+docs/PassthroughApi.md
 docs/PayCurrencyEnum.md
 docs/PayFrequencyEnum.md
 docs/PayPeriodEnum.md
 docs/PayrollRun.md
 docs/PayrollRunsApi.md
+docs/RemoteData.md
+docs/RemoteResponse.md
 docs/RequestTypeEnum.md
 docs/RunStateEnum.md
 docs/RunTypeEnum.md
@@ -75,12 +82,14 @@ docs/UnitsEnum.md
 git_push.sh
 go.mod
 go.sum
+model_account_integration.go
 model_account_token.go
 model_available_actions.go
 model_benefit.go
 model_benefit_plan_type_enum.go
 model_company.go
 model_country_enum.go
+model_data_passthrough.go
 model_deduction.go
 model_earning.go
 model_employee.go
@@ -95,6 +104,7 @@ model_gender_enum.go
 model_link_token.go
 model_location.go
 model_marital_status_enum.go
+model_method_enum.go
 model_model_operation.go
 model_paginated_benefit_list.go
 model_paginated_company_list.go
@@ -109,6 +119,8 @@ model_pay_currency_enum.go
 model_pay_frequency_enum.go
 model_pay_period_enum.go
 model_payroll_run.go
+model_remote_data.go
+model_remote_response.go
 model_request_type_enum.go
 model_run_state_enum.go
 model_run_type_enum.go

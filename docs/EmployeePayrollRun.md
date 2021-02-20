@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **Earnings** | Pointer to [**[]Earning**](Earning.md) |  | [optional] [readonly] 
 **Deductions** | Pointer to [**[]Deduction**](Deduction.md) |  | [optional] [readonly] 
 **Taxes** | Pointer to [**[]Tax**](Tax.md) |  | [optional] [readonly] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -416,6 +417,41 @@ SetTaxes sets Taxes field to given value.
 
 HasTaxes returns a boolean if a field has been set.
 
+### GetRemoteData
+
+`func (o *EmployeePayrollRun) GetRemoteData() []RemoteData`
+
+GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+
+### GetRemoteDataOk
+
+`func (o *EmployeePayrollRun) GetRemoteDataOk() (*[]RemoteData, bool)`
+
+GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteData
+
+`func (o *EmployeePayrollRun) SetRemoteData(v []RemoteData)`
+
+SetRemoteData sets RemoteData field to given value.
+
+### HasRemoteData
+
+`func (o *EmployeePayrollRun) HasRemoteData() bool`
+
+HasRemoteData returns a boolean if a field has been set.
+
+### SetRemoteDataNil
+
+`func (o *EmployeePayrollRun) SetRemoteDataNil(b bool)`
+
+ SetRemoteDataNil sets the value for RemoteData to be an explicit nil
+
+### UnsetRemoteData
+`func (o *EmployeePayrollRun) UnsetRemoteData()`
+
+UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

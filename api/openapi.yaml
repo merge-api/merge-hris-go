@@ -50,6 +50,15 @@ paths:
         schema:
           type: string
         style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -113,6 +122,15 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: If provided, will only return objects modified after this datetime.
         explode: true
@@ -181,6 +199,15 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -233,6 +260,15 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: If provided, will only return objects modified after this datetime.
         explode: true
@@ -301,6 +337,15 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -364,6 +409,15 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: If provided, will only return objects modified after this datetime.
         explode: true
@@ -444,6 +498,15 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -507,6 +570,15 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: If provided, will only return employees for this manager.
         examples:
@@ -608,6 +680,15 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -671,6 +752,15 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: If provided, will only return objects modified after this datetime.
         explode: true
@@ -739,6 +829,15 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -818,6 +917,15 @@ paths:
         schema:
           type: string
         style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       - description: If provided, will only return objects modified after this datetime.
         explode: true
         in: query
@@ -885,6 +993,15 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -895,6 +1012,50 @@ paths:
       - tokenAuth: []
       tags:
       - locations
+  /passthrough:
+    post:
+      description: Pull data from an endpoint not currently supported by Merge.
+      operationId: passthrough_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataPassthrough'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DataPassthrough'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DataPassthrough'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - passthrough
   /payroll-runs:
     get:
       description: Returns a list of `PayrollRun` objects.
@@ -937,6 +1098,15 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: If provided, will only return objects modified after this datetime.
         explode: true
@@ -1005,6 +1175,15 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -1057,6 +1236,15 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: If provided, will only return objects modified after this datetime.
         explode: true
@@ -1125,6 +1313,15 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -1200,6 +1397,15 @@ paths:
         schema:
           type: string
         style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       - description: If provided, will only return objects modified after this datetime.
         explode: true
         in: query
@@ -1267,6 +1473,15 @@ paths:
           format: uuid
           type: string
         style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -1279,6 +1494,47 @@ paths:
       - time-off
 components:
   schemas:
+    AccountIntegration:
+      example:
+        image: https://openapi-generator.tech
+        color: color
+        name: name
+        square_image: https://openapi-generator.tech
+        categories:
+        - hris
+        - hris
+      properties:
+        name:
+          description: Company name.
+          type: string
+        categories:
+          description: Category or categories this integration belongs to. Multiple
+            categories should be comma separated.<br />For [ats, hris], enter <i>ats,hris</i>
+          items:
+            enum:
+            - hris
+            - ats
+            type: string
+          type: array
+        image:
+          description: Company logo.
+          format: uri
+          nullable: true
+          type: string
+        square_image:
+          description: Company logo in square shape.
+          format: uri
+          nullable: true
+          type: string
+        color:
+          description: The color of this integration used for buttons and text throughout
+            the app and landing pages. Choose a darker, saturated color.
+          maxLength: 18
+          pattern: ^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$
+          type: string
+      required:
+      - name
+      type: object
     AccountToken:
       example:
         account_token: T9klMDQrcHdm9jrtHuOS2Nf06BIHwMNjpPXPMB
@@ -1290,13 +1546,34 @@ components:
       - account_token
       type: object
     AvailableActions:
+      description: |-
+        # The AvailableActions Object
+        ### Description
+        The `Activity` object is used to see all available model/operation combinations for an integration.
+
+        ### Usage Example
+        Fetch all the actions available for the `Zenefits` integration.
       example:
         available_model_operations:
         - model_name: Candidate
           available_operations:
           - FETCH
           - CREATE
+        integration:
+          image: https://openapi-generator.tech
+          color: color
+          name: name
+          square_image: https://openapi-generator.tech
+          categories:
+          - hris
+          - hris
+        passthrough_available: true
       properties:
+        integration:
+          $ref: '#/components/schemas/AccountIntegration'
+        passthrough_available:
+          example: true
+          type: boolean
         available_model_operations:
           example:
           - model_name: Candidate
@@ -1306,6 +1583,9 @@ components:
           items:
             $ref: '#/components/schemas/ModelOperation'
           type: array
+      required:
+      - integration
+      - passthrough_available
       type: object
     Benefit:
       description: |-
@@ -1323,6 +1603,10 @@ components:
         id: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
         employee: d2f972d0-2526-434b-9409-4c3b468e08f0
         provider_name: Blue Shield of California
+        remote_data:
+        - path: /benefits
+          data:
+          - Varies by platform
       properties:
         id:
           example: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
@@ -1363,6 +1647,16 @@ components:
           format: float
           nullable: true
           type: number
+        remote_data:
+          example:
+          - path: /benefits
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
       type: object
     BenefitPlanTypeEnum:
       enum:
@@ -1406,6 +1700,10 @@ components:
         id: 1b998423-db0a-4037-a4cf-f79c60cb67b3
         legal_name: We Love Integrations Inc.
         display_name: We Love Integrations
+        remote_data:
+        - path: /companies
+          data:
+          - Varies by platform
       properties:
         id:
           example: 1b998423-db0a-4037-a4cf-f79c60cb67b3
@@ -1437,6 +1735,16 @@ components:
             nullable: true
             type: string
           nullable: true
+          type: array
+        remote_data:
+          example:
+          - path: /companies
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
           type: array
       type: object
     CountryEnum:
@@ -1691,6 +1999,51 @@ components:
       - ZM
       - ZW
       type: string
+    DataPassthrough:
+      description: |-
+        # The DataPassthrough Object
+        ### Description
+        The `DataPassthrough` object is used to send information to an otherwise-unsupported third-party endpoint.
+
+        ### Usage Example
+        Create a `DataPassthrough` to get team hierarchies from your Rippling integration.
+      example:
+        path: /scooters
+        headers:
+          EXTRA-HEADER: value
+        method: POST
+        data:
+          scooters:
+          - company: Lime
+            model: Gen 2.5
+          - company: Bird
+            model: Bird Zero
+      properties:
+        method:
+          allOf:
+          - $ref: '#/components/schemas/MethodEnum'
+          example: POST
+        path:
+          example: /scooters
+          type: string
+        data:
+          additionalProperties: {}
+          example:
+            scooters:
+            - company: Lime
+              model: Gen 2.5
+            - company: Bird
+              model: Bird Zero
+          type: object
+        headers:
+          additionalProperties: {}
+          example:
+            EXTRA-HEADER: value
+          type: object
+      required:
+      - method
+      - path
+      type: object
     Deduction:
       description: |-
         # The Deduction Object
@@ -1787,6 +2140,10 @@ components:
         work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
         mobile_phone_number: +1234567890
         ssn: "1234567890"
+        remote_data:
+        - path: /people
+          data:
+          - Varies by platform
         marital_status: SINGLE
         termination_date: 2000-01-23T04:56:07.000+00:00
         company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
@@ -1930,6 +2287,16 @@ components:
           maxLength: 700
           nullable: true
           type: string
+        remote_data:
+          example:
+          - path: /people
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
       type: object
     EmployeePayrollRun:
       description: |-
@@ -1940,23 +2307,14 @@ components:
         ### Usage Example
         Fetch from the `LIST EmployeePayrollRun` endpoint and filter by `ID` to show all employee payroll runs.
       example:
-        net_pay: 865.78
         end_date: 2000-01-23T04:56:07.000+00:00
-        earnings:
-        - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
-          amount: 1002.34
-          type: SALARY
-        - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
-          amount: 8342.34
-          type: OVERTIME
-        check_date: 2000-01-23T04:56:07.000+00:00
         remote_id: "19202938"
         taxes:
         - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
           name: California State Income Tax
           amount: 100.25
           employer_tax: "False"
-        id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          remote_data: null
         employee: d2f972d0-2526-434b-9409-4c3b468e08f0
         gross_pay: 1342.67
         deductions:
@@ -1964,7 +2322,23 @@ components:
           name: Social Security
           employee_deduction: 34.54
           company_deduction: 78.78
+          remote_data: null
         payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+        remote_data:
+        - path: /employee-payroll
+          data:
+          - Varies by platform
+        net_pay: 865.78
+        earnings:
+        - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+          amount: 1002.34
+          type: SALARY
+        - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+          amount: 8342.34
+          type: OVERTIME
+          remote_data: null
+        check_date: 2000-01-23T04:56:07.000+00:00
+        id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
         start_date: 2000-01-23T04:56:07.000+00:00
       properties:
         id:
@@ -2024,6 +2398,7 @@ components:
           - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
             amount: 8342.34
             type: OVERTIME
+            remote_data: null
           items:
             $ref: '#/components/schemas/Earning'
           readOnly: true
@@ -2034,6 +2409,7 @@ components:
             name: Social Security
             employee_deduction: 34.54
             company_deduction: 78.78
+            remote_data: null
           items:
             $ref: '#/components/schemas/Deduction'
           readOnly: true
@@ -2044,8 +2420,19 @@ components:
             name: California State Income Tax
             amount: 100.25
             employer_tax: "False"
+            remote_data: null
           items:
             $ref: '#/components/schemas/Tax'
+          readOnly: true
+          type: array
+        remote_data:
+          example:
+          - path: /employee-payroll
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
           readOnly: true
           type: array
       type: object
@@ -2068,6 +2455,10 @@ components:
         job_title: Software Engineer
         pay_rate: 80000.00
         pay_currency: USD
+        remote_data:
+        - path: /jobs
+          data:
+          - Varies by platform
       properties:
         id:
           example: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
@@ -2125,6 +2516,16 @@ components:
           description: The position's type of employment.
           example: FULL TIME
           nullable: true
+        remote_data:
+          example:
+          - path: /jobs
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
       type: object
     EmploymentStatusEnum:
       enum:
@@ -2227,6 +2628,10 @@ components:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         state: NY
         zip_code: "10027"
+        remote_data:
+        - path: /locations
+          data:
+          - Varies by platform
       properties:
         id:
           format: uuid
@@ -2274,6 +2679,16 @@ components:
           description: The location's country.
           example: USA
           nullable: true
+        remote_data:
+          example:
+          - path: /locations
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
       type: object
     MaritalStatusEnum:
       enum:
@@ -2283,7 +2698,24 @@ components:
       - HEAD_OF_HOUSEHOLD
       - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
       type: string
+    MethodEnum:
+      enum:
+      - GET
+      - OPTIONS
+      - HEAD
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      type: string
     ModelOperation:
+      description: |-
+        # The ModelOperation Object
+        ### Description
+        The `ModelOperation` object is used to represent the operations that are currently supported for a given model.
+
+        ### Usage Example
+        View what operations are supported for the `Candidate` endpoint.
       properties:
         model_name:
           example: Candidate
@@ -2311,6 +2743,10 @@ components:
           id: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           provider_name: Blue Shield of California
+          remote_data:
+          - path: /benefits
+            data:
+            - Varies by platform
         - employee_contribution: 23.65
           remote_id: "19202938"
           benefit_plan_type: MEDICAL
@@ -2318,6 +2754,10 @@ components:
           id: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           provider_name: Blue Shield of California
+          remote_data:
+          - path: /benefits
+            data:
+            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -2345,6 +2785,10 @@ components:
           id: 1b998423-db0a-4037-a4cf-f79c60cb67b3
           legal_name: We Love Integrations Inc.
           display_name: We Love Integrations
+          remote_data:
+          - path: /companies
+            data:
+            - Varies by platform
         - eins:
           - 12-3456789
           - 12-3451111
@@ -2353,6 +2797,10 @@ components:
           id: 1b998423-db0a-4037-a4cf-f79c60cb67b3
           legal_name: We Love Integrations Inc.
           display_name: We Love Integrations
+          remote_data:
+          - path: /companies
+            data:
+            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -2388,6 +2836,10 @@ components:
           work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           mobile_phone_number: +1234567890
           ssn: "1234567890"
+          remote_data:
+          - path: /people
+            data:
+            - Varies by platform
           marital_status: SINGLE
           termination_date: 2000-01-23T04:56:07.000+00:00
           company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
@@ -2412,6 +2864,10 @@ components:
           work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           mobile_phone_number: +1234567890
           ssn: "1234567890"
+          remote_data:
+          - path: /people
+            data:
+            - Varies by platform
           marital_status: SINGLE
           termination_date: 2000-01-23T04:56:07.000+00:00
           company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
@@ -2439,23 +2895,14 @@ components:
         next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
         previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
         results:
-        - net_pay: 865.78
-          end_date: 2000-01-23T04:56:07.000+00:00
-          earnings:
-          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
-            amount: 1002.34
-            type: SALARY
-          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
-            amount: 8342.34
-            type: OVERTIME
-          check_date: 2000-01-23T04:56:07.000+00:00
+        - end_date: 2000-01-23T04:56:07.000+00:00
           remote_id: "19202938"
           taxes:
           - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
             name: California State Income Tax
             amount: 100.25
             employer_tax: "False"
-          id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+            remote_data: null
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           gross_pay: 1342.67
           deductions:
@@ -2463,25 +2910,32 @@ components:
             name: Social Security
             employee_deduction: 34.54
             company_deduction: 78.78
+            remote_data: null
           payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+          remote_data:
+          - path: /employee-payroll
+            data:
+            - Varies by platform
+          net_pay: 865.78
+          earnings:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            amount: 1002.34
+            type: SALARY
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            amount: 8342.34
+            type: OVERTIME
+            remote_data: null
+          check_date: 2000-01-23T04:56:07.000+00:00
+          id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           start_date: 2000-01-23T04:56:07.000+00:00
-        - net_pay: 865.78
-          end_date: 2000-01-23T04:56:07.000+00:00
-          earnings:
-          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
-            amount: 1002.34
-            type: SALARY
-          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
-            amount: 8342.34
-            type: OVERTIME
-          check_date: 2000-01-23T04:56:07.000+00:00
+        - end_date: 2000-01-23T04:56:07.000+00:00
           remote_id: "19202938"
           taxes:
           - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
             name: California State Income Tax
             amount: 100.25
             employer_tax: "False"
-          id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+            remote_data: null
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           gross_pay: 1342.67
           deductions:
@@ -2489,7 +2943,23 @@ components:
             name: Social Security
             employee_deduction: 34.54
             company_deduction: 78.78
+            remote_data: null
           payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+          remote_data:
+          - path: /employee-payroll
+            data:
+            - Varies by platform
+          net_pay: 865.78
+          earnings:
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            amount: 1002.34
+            type: SALARY
+          - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
+            amount: 8342.34
+            type: OVERTIME
+            remote_data: null
+          check_date: 2000-01-23T04:56:07.000+00:00
+          id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           start_date: 2000-01-23T04:56:07.000+00:00
       properties:
         next:
@@ -2520,6 +2990,10 @@ components:
           job_title: Software Engineer
           pay_rate: 80000.00
           pay_currency: USD
+          remote_data:
+          - path: /jobs
+            data:
+            - Varies by platform
         - employment_type: FULL TIME
           flsa_status: EXEMPT
           remote_id: "19202938"
@@ -2530,6 +3004,10 @@ components:
           job_title: Software Engineer
           pay_rate: 80000.00
           pay_currency: USD
+          remote_data:
+          - path: /jobs
+            data:
+            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -2558,6 +3036,10 @@ components:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           state: NY
           zip_code: "10027"
+          remote_data:
+          - path: /locations
+            data:
+            - Varies by platform
         - country: USA
           street_1: 2920 Broadway
           city: 'New York '
@@ -2567,6 +3049,10 @@ components:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           state: NY
           zip_code: "10027"
+          remote_data:
+          - path: /locations
+            data:
+            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -2593,6 +3079,10 @@ components:
           id: 37336947-b3d4-4a4c-a310-ab6ab510e079
           run_type: REGULAR
           start_date: 2000-01-23T04:56:07.000+00:00
+          remote_data:
+          - path: /payroll
+            data:
+            - Varies by platform
         - end_date: 2000-01-23T04:56:07.000+00:00
           check_date: 2000-01-23T04:56:07.000+00:00
           remote_id: "19202938"
@@ -2600,6 +3090,10 @@ components:
           id: 37336947-b3d4-4a4c-a310-ab6ab510e079
           run_type: REGULAR
           start_date: 2000-01-23T04:56:07.000+00:00
+          remote_data:
+          - path: /payroll
+            data:
+            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -2622,9 +3116,17 @@ components:
         - remote_id: "19202938"
           name: Engineering
           id: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
+          remote_data:
+          - path: /teams
+            data:
+            - Varies by platform
         - remote_id: "19202938"
           name: Engineering
           id: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
+          remote_data:
+          - path: /teams
+            data:
+            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -2653,6 +3155,10 @@ components:
           units: DAYS
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           status: APPROVED
+          remote_data:
+          - path: /leave
+            data:
+            - Varies by platform
         - approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           amount: 13
           request_type: VACATION
@@ -2662,6 +3168,10 @@ components:
           units: DAYS
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           status: APPROVED
+          remote_data:
+          - path: /leave
+            data:
+            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -2680,193 +3190,310 @@ components:
       enum:
       - XUA
       - AFN
+      - AFA
+      - ALL
+      - ALK
       - DZD
+      - ADP
+      - AOA
+      - AOK
+      - AON
+      - AOR
+      - ARA
       - ARS
+      - ARM
+      - ARP
+      - ARL
       - AMD
       - AWG
       - AUD
+      - ATS
       - AZN
+      - AZM
       - BSD
       - BHD
-      - THB
-      - PAB
+      - BDT
       - BBD
       - BYN
+      - BYB
       - BYR
+      - BEF
+      - BEC
+      - BEL
       - BZD
       - BMD
       - BTN
-      - VEF
       - BOB
-      - XBA
+      - BOL
+      - BOV
+      - BOP
+      - BAM
+      - BAD
+      - BAN
+      - BWP
+      - BRC
+      - BRZ
+      - BRE
+      - BRR
+      - BRN
+      - BRB
       - BRL
+      - GBP
       - BND
+      - BGL
       - BGN
+      - BGO
+      - BGM
+      - BUK
       - BIF
-      - XOF
-      - XAF
       - XPF
+      - KHR
       - CAD
       - CVE
       - KYD
+      - XAF
+      - CLE
       - CLP
-      - XTS
+      - CLF
+      - CNX
+      - CNY
+      - CNH
       - COP
+      - COU
       - KMF
       - CDF
-      - BAM
-      - NIO
       - CRC
+      - HRD
       - HRK
-      - CUP
       - CUC
+      - CUP
+      - CYP
       - CZK
-      - GMD
+      - CSK
       - DKK
-      - MKD
       - DJF
-      - STD
       - DOP
-      - VND
+      - NLG
       - XCD
+      - DDM
+      - ECS
+      - ECV
       - EGP
-      - SVC
+      - GQE
+      - ERN
+      - EEK
       - ETB
       - EUR
+      - XBA
+      - XEU
       - XBB
-      - XBD
       - XBC
+      - XBD
       - FKP
       - FJD
-      - HUF
+      - FIM
+      - FRF
+      - XFO
+      - XFU
+      - GMD
+      - GEK
+      - GEL
+      - DEM
       - GHS
+      - GHC
       - GIP
       - XAU
-      - XFO
-      - PYG
+      - GRD
+      - GTQ
+      - GWP
       - GNF
+      - GNS
       - GYD
       - HTG
+      - HNL
       - HKD
-      - UAH
+      - HUF
+      - IMP
       - ISK
+      - ISJ
       - INR
+      - IDR
       - IRR
       - IQD
-      - IMP
+      - IEP
+      - ILS
+      - ILP
+      - ILR
+      - ITL
       - JMD
+      - JPY
       - JOD
+      - KZT
       - KES
-      - PGK
-      - LAK
       - KWD
-      - AOA
-      - MMK
-      - GEL
+      - KGS
+      - LAK
       - LVL
+      - LVR
       - LBP
-      - ALL
-      - HNL
-      - SLL
       - LSL
       - LRD
       - LYD
-      - SZL
       - LTL
+      - LTT
+      - LUL
+      - LUC
+      - LUF
+      - MOP
+      - MKD
+      - MKN
       - MGA
+      - MGF
       - MWK
       - MYR
-      - TMM
+      - MVR
+      - MVP
+      - MLF
+      - MTL
+      - MTP
+      - MRU
+      - MRO
       - MUR
-      - MZN
       - MXV
       - MXN
+      - MXP
+      - MDC
       - MDL
+      - MCF
+      - MNT
       - MAD
-      - BOV
-      - NGN
-      - ERN
+      - MAF
+      - MZE
+      - MZN
+      - MZM
+      - MMK
       - NAD
       - NPR
       - ANG
-      - ILS
-      - RON
       - TWD
       - NZD
+      - NIO
+      - NIC
+      - NGN
       - KPW
       - NOK
-      - PEN
-      - MRO
-      - TOP
+      - OMR
       - PKR
       - XPD
-      - MOP
+      - PAB
+      - PGK
+      - PYG
+      - PEI
+      - PEN
+      - PES
       - PHP
       - XPT
-      - GBP
-      - BWP
+      - PLN
+      - PLZ
+      - PTE
+      - GWE
       - QAR
-      - GTQ
-      - ZAR
-      - OMR
-      - KHR
-      - MVR
-      - IDR
+      - XRE
+      - RHD
+      - RON
+      - ROL
       - RUB
+      - RUR
       - RWF
-      - XDR
-      - SHP
+      - SVC
+      - WST
       - SAR
       - RSD
+      - CSD
       - SCR
+      - SLL
       - XAG
       - SGD
+      - SKK
+      - SIT
       - SBD
-      - KGS
       - SOS
-      - TJS
+      - ZAR
+      - ZAL
+      - KRH
+      - KRW
+      - KRO
       - SSP
+      - SUR
+      - ESP
+      - ESA
+      - ESB
+      - XDR
       - LKR
+      - SHP
       - XSU
+      - SDD
       - SDG
+      - SDP
       - SRD
+      - SRG
+      - SZL
       - SEK
       - CHF
       - SYP
-      - BDT
-      - WST
+      - STN
+      - STD
+      - TVD
+      - TJR
+      - TJS
       - TZS
-      - KZT
+      - XTS
+      - THB
       - XXX
+      - TPE
+      - TOP
       - TTD
-      - MNT
       - TND
       - TRY
+      - TRL
       - TMT
-      - TVD
-      - AED
-      - XFU
+      - TMM
       - USD
       - USN
+      - USS
       - UGX
-      - CLF
-      - COU
-      - UYI
+      - UGS
+      - UAH
+      - UAK
+      - AED
+      - UYW
       - UYU
+      - UYP
+      - UYI
       - UZS
       - VUV
+      - VES
+      - VEB
+      - VEF
+      - VND
+      - VNN
       - CHE
       - CHW
-      - KRW
+      - XOF
+      - YDD
       - YER
-      - JPY
-      - CNY
-      - ZMK
-      - ZMW
-      - ZWD
+      - YUN
+      - YUD
+      - YUM
+      - YUR
       - ZWN
+      - ZRN
+      - ZRZ
+      - ZMW
+      - ZMK
+      - ZWD
+      - ZWR
       - ZWL
-      - PLN
       type: string
     PayFrequencyEnum:
       enum:
@@ -2907,6 +3534,10 @@ components:
         id: 37336947-b3d4-4a4c-a310-ab6ab510e079
         run_type: REGULAR
         start_date: 2000-01-23T04:56:07.000+00:00
+        remote_data:
+        - path: /payroll
+          data:
+          - Varies by platform
       properties:
         id:
           example: 37336947-b3d4-4a4c-a310-ab6ab510e079
@@ -2945,6 +3576,78 @@ components:
           format: date-time
           nullable: true
           type: string
+        remote_data:
+          example:
+          - path: /payroll
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+      type: object
+    RemoteData:
+      properties:
+        path:
+          type: string
+        data:
+          additionalProperties: {}
+          type: object
+      required:
+      - path
+      type: object
+    RemoteResponse:
+      description: |-
+        # The RemoteResponse Object
+        ### Description
+        The `RemoteResponse` object is used to represent information returned from a third-party endpoint.
+
+        ### Usage Example
+        View the `RemoteResponse` returned from your `DataPassthrough`.
+      example:
+        path: /scooters
+        headers:
+          EXTRA-HEADER: value
+          Authorization: <redacted>
+        method: GET
+        response:
+          scooters:
+          - company: Lime
+            model: Gen 2.5
+          - company: Bird
+            model: Bird Zero
+        status: 200
+      properties:
+        method:
+          example: GET
+          type: string
+        path:
+          example: /scooters
+          type: string
+        status:
+          example: 200
+          type: integer
+        response:
+          additionalProperties: {}
+          example:
+            scooters:
+            - company: Lime
+              model: Gen 2.5
+            - company: Bird
+              model: Bird Zero
+          type: object
+        headers:
+          additionalProperties: {}
+          example:
+            EXTRA-HEADER: value
+            Authorization: <redacted>
+          type: object
+      required:
+      - method
+      - path
+      - response
+      - status
       type: object
     RequestTypeEnum:
       enum:
@@ -3062,7 +3765,7 @@ components:
           nullable: true
           type: string
         name:
-          description: The deduction's name.
+          description: The tax's name.
           example: California State Income Tax
           nullable: true
           type: string
@@ -3090,6 +3793,10 @@ components:
         remote_id: "19202938"
         name: Engineering
         id: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
+        remote_data:
+        - path: /teams
+          data:
+          - Varies by platform
       properties:
         id:
           example: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
@@ -3106,6 +3813,16 @@ components:
           example: Engineering
           nullable: true
           type: string
+        remote_data:
+          example:
+          - path: /teams
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
       type: object
     TimeOff:
       description: |-
@@ -3125,6 +3842,10 @@ components:
         units: DAYS
         employee: d2f972d0-2526-434b-9409-4c3b468e08f0
         status: APPROVED
+        remote_data:
+        - path: /leave
+          data:
+          - Varies by platform
       properties:
         id:
           example: 91b2b905-e866-40c8-8be2-efe53827a0aa
@@ -3177,6 +3898,16 @@ components:
           description: The type of time off request.
           example: VACATION
           nullable: true
+        remote_data:
+          example:
+          - path: /leave
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
       type: object
     TimeOffStatusEnum:
       enum:

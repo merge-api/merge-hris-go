@@ -37,6 +37,7 @@ type ApiEmployeesListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	includeRemoteData *bool
 	managerId *string
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
@@ -64,6 +65,10 @@ func (r ApiEmployeesListRequest) CreatedBefore(createdBefore time.Time) ApiEmplo
 }
 func (r ApiEmployeesListRequest) Cursor(cursor string) ApiEmployeesListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiEmployeesListRequest) IncludeRemoteData(includeRemoteData bool) ApiEmployeesListRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 func (r ApiEmployeesListRequest) ManagerId(managerId string) ApiEmployeesListRequest {
@@ -154,6 +159,9 @@ func (a *EmployeesApiService) EmployeesListExecute(r ApiEmployeesListRequest) (P
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
 	if r.managerId != nil {
 		localVarQueryParams.Add("manager_id", parameterToString(*r.managerId, ""))
@@ -253,10 +261,15 @@ type ApiEmployeesRetrieveRequest struct {
 	ApiService *EmployeesApiService
 	xAccountToken *string
 	id string
+	includeRemoteData *bool
 }
 
 func (r ApiEmployeesRetrieveRequest) XAccountToken(xAccountToken string) ApiEmployeesRetrieveRequest {
 	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiEmployeesRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiEmployeesRetrieveRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -311,6 +324,9 @@ func (a *EmployeesApiService) EmployeesRetrieveExecute(r ApiEmployeesRetrieveReq
 		return localVarReturnValue, nil, executionError
 	}
 
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
