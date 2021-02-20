@@ -37,6 +37,7 @@ type ApiBenefitsListRequest struct {
 	createdBefore *time.Time
 	cursor *string
 	employeeId *string
+	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -61,6 +62,10 @@ func (r ApiBenefitsListRequest) Cursor(cursor string) ApiBenefitsListRequest {
 }
 func (r ApiBenefitsListRequest) EmployeeId(employeeId string) ApiBenefitsListRequest {
 	r.employeeId = &employeeId
+	return r
+}
+func (r ApiBenefitsListRequest) IncludeRemoteData(includeRemoteData bool) ApiBenefitsListRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 func (r ApiBenefitsListRequest) ModifiedAfter(modifiedAfter time.Time) ApiBenefitsListRequest {
@@ -139,6 +144,9 @@ func (a *BenefitsApiService) BenefitsListExecute(r ApiBenefitsListRequest) (Pagi
 	}
 	if r.employeeId != nil {
 		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
+	}
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -229,10 +237,15 @@ type ApiBenefitsRetrieveRequest struct {
 	ApiService *BenefitsApiService
 	xAccountToken *string
 	id string
+	includeRemoteData *bool
 }
 
 func (r ApiBenefitsRetrieveRequest) XAccountToken(xAccountToken string) ApiBenefitsRetrieveRequest {
 	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiBenefitsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiBenefitsRetrieveRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -287,6 +300,9 @@ func (a *BenefitsApiService) BenefitsRetrieveExecute(r ApiBenefitsRetrieveReques
 		return localVarReturnValue, nil, executionError
 	}
 
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

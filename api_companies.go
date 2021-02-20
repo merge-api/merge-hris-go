@@ -36,6 +36,7 @@ type ApiCompaniesListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -56,6 +57,10 @@ func (r ApiCompaniesListRequest) CreatedBefore(createdBefore time.Time) ApiCompa
 }
 func (r ApiCompaniesListRequest) Cursor(cursor string) ApiCompaniesListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiCompaniesListRequest) IncludeRemoteData(includeRemoteData bool) ApiCompaniesListRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 func (r ApiCompaniesListRequest) ModifiedAfter(modifiedAfter time.Time) ApiCompaniesListRequest {
@@ -131,6 +136,9 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -221,10 +229,15 @@ type ApiCompaniesRetrieveRequest struct {
 	ApiService *CompaniesApiService
 	xAccountToken *string
 	id string
+	includeRemoteData *bool
 }
 
 func (r ApiCompaniesRetrieveRequest) XAccountToken(xAccountToken string) ApiCompaniesRetrieveRequest {
 	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiCompaniesRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiCompaniesRetrieveRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -279,6 +292,9 @@ func (a *CompaniesApiService) CompaniesRetrieveExecute(r ApiCompaniesRetrieveReq
 		return localVarReturnValue, nil, executionError
 	}
 
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

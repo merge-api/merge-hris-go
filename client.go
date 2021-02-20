@@ -67,6 +67,8 @@ type APIClient struct {
 
 	LocationsApi *LocationsApiService
 
+	PassthroughApi *PassthroughApiService
+
 	PayrollRunsApi *PayrollRunsApiService
 
 	TeamsApi *TeamsApiService
@@ -99,6 +101,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.EmploymentsApi = (*EmploymentsApiService)(&c.common)
 	c.LinkTokenApi = (*LinkTokenApiService)(&c.common)
 	c.LocationsApi = (*LocationsApiService)(&c.common)
+	c.PassthroughApi = (*PassthroughApiService)(&c.common)
 	c.PayrollRunsApi = (*PayrollRunsApiService)(&c.common)
 	c.TeamsApi = (*TeamsApiService)(&c.common)
 	c.TimeOffApi = (*TimeOffApiService)(&c.common)

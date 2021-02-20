@@ -36,6 +36,7 @@ type ApiTeamsListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -56,6 +57,10 @@ func (r ApiTeamsListRequest) CreatedBefore(createdBefore time.Time) ApiTeamsList
 }
 func (r ApiTeamsListRequest) Cursor(cursor string) ApiTeamsListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiTeamsListRequest) IncludeRemoteData(includeRemoteData bool) ApiTeamsListRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 func (r ApiTeamsListRequest) ModifiedAfter(modifiedAfter time.Time) ApiTeamsListRequest {
@@ -131,6 +136,9 @@ func (a *TeamsApiService) TeamsListExecute(r ApiTeamsListRequest) (PaginatedTeam
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -221,10 +229,15 @@ type ApiTeamsRetrieveRequest struct {
 	ApiService *TeamsApiService
 	xAccountToken *string
 	id string
+	includeRemoteData *bool
 }
 
 func (r ApiTeamsRetrieveRequest) XAccountToken(xAccountToken string) ApiTeamsRetrieveRequest {
 	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiTeamsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiTeamsRetrieveRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -279,6 +292,9 @@ func (a *TeamsApiService) TeamsRetrieveExecute(r ApiTeamsRetrieveRequest) (Team,
 		return localVarReturnValue, nil, executionError
 	}
 
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

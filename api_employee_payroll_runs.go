@@ -37,6 +37,7 @@ type ApiEmployeePayrollRunsListRequest struct {
 	createdBefore *time.Time
 	cursor *string
 	employeeId *string
+	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -62,6 +63,10 @@ func (r ApiEmployeePayrollRunsListRequest) Cursor(cursor string) ApiEmployeePayr
 }
 func (r ApiEmployeePayrollRunsListRequest) EmployeeId(employeeId string) ApiEmployeePayrollRunsListRequest {
 	r.employeeId = &employeeId
+	return r
+}
+func (r ApiEmployeePayrollRunsListRequest) IncludeRemoteData(includeRemoteData bool) ApiEmployeePayrollRunsListRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 func (r ApiEmployeePayrollRunsListRequest) ModifiedAfter(modifiedAfter time.Time) ApiEmployeePayrollRunsListRequest {
@@ -144,6 +149,9 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsListExecute(r ApiEmpl
 	}
 	if r.employeeId != nil {
 		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
+	}
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -237,10 +245,15 @@ type ApiEmployeePayrollRunsRetrieveRequest struct {
 	ApiService *EmployeePayrollRunsApiService
 	xAccountToken *string
 	id string
+	includeRemoteData *bool
 }
 
 func (r ApiEmployeePayrollRunsRetrieveRequest) XAccountToken(xAccountToken string) ApiEmployeePayrollRunsRetrieveRequest {
 	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiEmployeePayrollRunsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiEmployeePayrollRunsRetrieveRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -295,6 +308,9 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsRetrieveExecute(r Api
 		return localVarReturnValue, nil, executionError
 	}
 
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

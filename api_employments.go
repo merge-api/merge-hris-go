@@ -37,6 +37,7 @@ type ApiEmploymentsListRequest struct {
 	createdBefore *time.Time
 	cursor *string
 	employeeId *string
+	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -61,6 +62,10 @@ func (r ApiEmploymentsListRequest) Cursor(cursor string) ApiEmploymentsListReque
 }
 func (r ApiEmploymentsListRequest) EmployeeId(employeeId string) ApiEmploymentsListRequest {
 	r.employeeId = &employeeId
+	return r
+}
+func (r ApiEmploymentsListRequest) IncludeRemoteData(includeRemoteData bool) ApiEmploymentsListRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 func (r ApiEmploymentsListRequest) ModifiedAfter(modifiedAfter time.Time) ApiEmploymentsListRequest {
@@ -139,6 +144,9 @@ func (a *EmploymentsApiService) EmploymentsListExecute(r ApiEmploymentsListReque
 	}
 	if r.employeeId != nil {
 		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
+	}
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -229,10 +237,15 @@ type ApiEmploymentsRetrieveRequest struct {
 	ApiService *EmploymentsApiService
 	xAccountToken *string
 	id string
+	includeRemoteData *bool
 }
 
 func (r ApiEmploymentsRetrieveRequest) XAccountToken(xAccountToken string) ApiEmploymentsRetrieveRequest {
 	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiEmploymentsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiEmploymentsRetrieveRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -287,6 +300,9 @@ func (a *EmploymentsApiService) EmploymentsRetrieveExecute(r ApiEmploymentsRetri
 		return localVarReturnValue, nil, executionError
 	}
 
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## TimeOffList
 
-> PaginatedTimeOffList TimeOffList(ctx).XAccountToken(xAccountToken).ApproverId(approverId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
+> PaginatedTimeOffList TimeOffList(ctx).XAccountToken(xAccountToken).ApproverId(approverId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
 
 
 
@@ -37,6 +37,7 @@ func main() {
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     employeeId := "employeeId_example" // string | If provided, will only return time off for this employee. (optional)
+    includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
@@ -44,7 +45,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TimeOffApi.TimeOffList(context.Background()).XAccountToken(xAccountToken).ApproverId(approverId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
+    resp, r, err := api_client.TimeOffApi.TimeOffList(context.Background()).XAccountToken(xAccountToken).ApproverId(approverId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
     if err.Error() != "" {
         fmt.Fprintf(os.Stderr, "Error when calling `TimeOffApi.TimeOffList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -71,6 +72,7 @@ Name | Type | Description  | Notes
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
  **employeeId** | **string** | If provided, will only return time off for this employee. | 
+ **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
  **pageSize** | **int32** | Number of results to return per page. | 
@@ -96,7 +98,7 @@ Name | Type | Description  | Notes
 
 ## TimeOffRetrieve
 
-> TimeOff TimeOffRetrieve(ctx, id).XAccountToken(xAccountToken).Execute()
+> TimeOff TimeOffRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
 
 
 
@@ -117,10 +119,11 @@ import (
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     id := TODO // string | 
+    includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TimeOffApi.TimeOffRetrieve(context.Background(), id).XAccountToken(xAccountToken).Execute()
+    resp, r, err := api_client.TimeOffApi.TimeOffRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
     if err.Error() != "" {
         fmt.Fprintf(os.Stderr, "Error when calling `TimeOffApi.TimeOffRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -147,6 +150,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
 
+ **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
 
 ### Return type
 

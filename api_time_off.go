@@ -38,6 +38,7 @@ type ApiTimeOffListRequest struct {
 	createdBefore *time.Time
 	cursor *string
 	employeeId *string
+	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -66,6 +67,10 @@ func (r ApiTimeOffListRequest) Cursor(cursor string) ApiTimeOffListRequest {
 }
 func (r ApiTimeOffListRequest) EmployeeId(employeeId string) ApiTimeOffListRequest {
 	r.employeeId = &employeeId
+	return r
+}
+func (r ApiTimeOffListRequest) IncludeRemoteData(includeRemoteData bool) ApiTimeOffListRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 func (r ApiTimeOffListRequest) ModifiedAfter(modifiedAfter time.Time) ApiTimeOffListRequest {
@@ -147,6 +152,9 @@ func (a *TimeOffApiService) TimeOffListExecute(r ApiTimeOffListRequest) (Paginat
 	}
 	if r.employeeId != nil {
 		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
+	}
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -237,10 +245,15 @@ type ApiTimeOffRetrieveRequest struct {
 	ApiService *TimeOffApiService
 	xAccountToken *string
 	id string
+	includeRemoteData *bool
 }
 
 func (r ApiTimeOffRetrieveRequest) XAccountToken(xAccountToken string) ApiTimeOffRetrieveRequest {
 	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiTimeOffRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiTimeOffRetrieveRequest {
+	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -295,6 +308,9 @@ func (a *TimeOffApiService) TimeOffRetrieveExecute(r ApiTimeOffRetrieveRequest) 
 		return localVarReturnValue, nil, executionError
 	}
 
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

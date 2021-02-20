@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **EmploymentStatus** | Pointer to [**NullableEmploymentStatusEnum**](EmploymentStatusEnum.md) | The employment status of the employee. | [optional] 
 **TerminationDate** | Pointer to **NullableTime** | The employee&#39;s termination date. | [optional] 
 **Avatar** | Pointer to **NullableString** | The URL of the employee&#39;s avatar image. | [optional] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -832,6 +833,41 @@ HasAvatar returns a boolean if a field has been set.
 `func (o *Employee) UnsetAvatar()`
 
 UnsetAvatar ensures that no value is present for Avatar, not even an explicit nil
+### GetRemoteData
+
+`func (o *Employee) GetRemoteData() []RemoteData`
+
+GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+
+### GetRemoteDataOk
+
+`func (o *Employee) GetRemoteDataOk() (*[]RemoteData, bool)`
+
+GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteData
+
+`func (o *Employee) SetRemoteData(v []RemoteData)`
+
+SetRemoteData sets RemoteData field to given value.
+
+### HasRemoteData
+
+`func (o *Employee) HasRemoteData() bool`
+
+HasRemoteData returns a boolean if a field has been set.
+
+### SetRemoteDataNil
+
+`func (o *Employee) SetRemoteDataNil(b bool)`
+
+ SetRemoteDataNil sets the value for RemoteData to be an explicit nil
+
+### UnsetRemoteData
+`func (o *Employee) UnsetRemoteData()`
+
+UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

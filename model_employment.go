@@ -37,6 +37,7 @@ type Employment struct {
 	EffectiveDate NullableTime `json:"effective_date,omitempty"`
 	// The position's type of employment.
 	EmploymentType NullableEmploymentTypeEnum `json:"employment_type,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
 // NewEmployment instantiates a new Employment object
@@ -466,6 +467,39 @@ func (o *Employment) UnsetEmploymentType() {
 	o.EmploymentType.Unset()
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Employment) GetRemoteData() []RemoteData {
+	if o == nil  {
+		var ret []RemoteData
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Employment) GetRemoteDataOk() (*[]RemoteData, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *Employment) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
+func (o *Employment) SetRemoteData(v []RemoteData) {
+	o.RemoteData = v
+}
+
 func (o Employment) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -497,6 +531,9 @@ func (o Employment) MarshalJSON() ([]byte, error) {
 	}
 	if o.EmploymentType.IsSet() {
 		toSerialize["employment_type"] = o.EmploymentType.Get()
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

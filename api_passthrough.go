@@ -24,37 +24,42 @@ var (
 	_ _context.Context
 )
 
-// AvailableActionsApiService AvailableActionsApi service
-type AvailableActionsApiService service
+// PassthroughApiService PassthroughApi service
+type PassthroughApiService service
 
-type ApiAvailableActionsRetrieveRequest struct {
+type ApiPassthroughCreateRequest struct {
 	ctx _context.Context
-	ApiService *AvailableActionsApiService
+	ApiService *PassthroughApiService
 	xAccountToken *string
+	dataPassthrough *DataPassthrough
 	includeRemoteData *bool
 }
 
-func (r ApiAvailableActionsRetrieveRequest) XAccountToken(xAccountToken string) ApiAvailableActionsRetrieveRequest {
+func (r ApiPassthroughCreateRequest) XAccountToken(xAccountToken string) ApiPassthroughCreateRequest {
 	r.xAccountToken = &xAccountToken
 	return r
 }
-func (r ApiAvailableActionsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiAvailableActionsRetrieveRequest {
+func (r ApiPassthroughCreateRequest) DataPassthrough(dataPassthrough DataPassthrough) ApiPassthroughCreateRequest {
+	r.dataPassthrough = &dataPassthrough
+	return r
+}
+func (r ApiPassthroughCreateRequest) IncludeRemoteData(includeRemoteData bool) ApiPassthroughCreateRequest {
 	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
-func (r ApiAvailableActionsRetrieveRequest) Execute() (AvailableActions, *_nethttp.Response, GenericOpenAPIError) {
-	return r.ApiService.AvailableActionsRetrieveExecute(r)
+func (r ApiPassthroughCreateRequest) Execute() (RemoteResponse, *_nethttp.Response, GenericOpenAPIError) {
+	return r.ApiService.PassthroughCreateExecute(r)
 }
 
 /*
- * AvailableActionsRetrieve Method for AvailableActionsRetrieve
- * Returns a list of models and actions available for an account.
+ * PassthroughCreate Method for PassthroughCreate
+ * Pull data from an endpoint not currently supported by Merge.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiAvailableActionsRetrieveRequest
+ * @return ApiPassthroughCreateRequest
  */
-func (a *AvailableActionsApiService) AvailableActionsRetrieve(ctx _context.Context) ApiAvailableActionsRetrieveRequest {
-	return ApiAvailableActionsRetrieveRequest{
+func (a *PassthroughApiService) PassthroughCreate(ctx _context.Context) ApiPassthroughCreateRequest {
+	return ApiPassthroughCreateRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -62,26 +67,26 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieve(ctx _context.Conte
 
 /*
  * Execute executes the request
- * @return AvailableActions
+ * @return RemoteResponse
  */
-func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvailableActionsRetrieveRequest) (AvailableActions, *_nethttp.Response, GenericOpenAPIError) {
+func (a *PassthroughApiService) PassthroughCreateExecute(r ApiPassthroughCreateRequest) (RemoteResponse, *_nethttp.Response, GenericOpenAPIError) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
 		executionError       GenericOpenAPIError
-		localVarReturnValue  AvailableActions
+		localVarReturnValue  RemoteResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AvailableActionsApiService.AvailableActionsRetrieve")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PassthroughApiService.PassthroughCreate")
 	if err != nil {
 		executionError.error = err.Error()
 		return localVarReturnValue, nil, executionError
 	}
 
-	localVarPath := localBasePath + "/available-actions"
+	localVarPath := localBasePath + "/passthrough"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -90,12 +95,16 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvaila
 		executionError.error = "xAccountToken is required and must be specified"
 		return localVarReturnValue, nil, executionError
 	}
+	if r.dataPassthrough == nil {
+		executionError.error = "dataPassthrough is required and must be specified"
+		return localVarReturnValue, nil, executionError
+	}
 
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json", "application/x-www-form-urlencoded", "multipart/form-data"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -112,6 +121,8 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvaila
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	localVarHeaderParams["X-Account-Token"] = parameterToString(*r.xAccountToken, "")
+	// body params
+	localVarPostBody = r.dataPassthrough
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

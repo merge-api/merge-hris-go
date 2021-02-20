@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// ModelOperation struct for ModelOperation
+// ModelOperation # The ModelOperation Object ### Description The `ModelOperation` object is used to represent the operations that are currently supported for a given model.  ### Usage Example View what operations are supported for the `Candidate` endpoint.
 type ModelOperation struct {
 	ModelName string `json:"model_name"`
 	AvailableOperations []string `json:"available_operations"`

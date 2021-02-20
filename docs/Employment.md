@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **FlsaStatus** | Pointer to [**NullableFlsaStatusEnum**](FlsaStatusEnum.md) | The position&#39;s FLSA status. | [optional] 
 **EffectiveDate** | Pointer to **NullableTime** | The position&#39;s effective date. | [optional] 
 **EmploymentType** | Pointer to [**NullableEmploymentTypeEnum**](EmploymentTypeEnum.md) | The position&#39;s type of employment. | [optional] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -374,6 +375,41 @@ HasEmploymentType returns a boolean if a field has been set.
 `func (o *Employment) UnsetEmploymentType()`
 
 UnsetEmploymentType ensures that no value is present for EmploymentType, not even an explicit nil
+### GetRemoteData
+
+`func (o *Employment) GetRemoteData() []RemoteData`
+
+GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+
+### GetRemoteDataOk
+
+`func (o *Employment) GetRemoteDataOk() (*[]RemoteData, bool)`
+
+GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteData
+
+`func (o *Employment) SetRemoteData(v []RemoteData)`
+
+SetRemoteData sets RemoteData field to given value.
+
+### HasRemoteData
+
+`func (o *Employment) HasRemoteData() bool`
+
+HasRemoteData returns a boolean if a field has been set.
+
+### SetRemoteDataNil
+
+`func (o *Employment) SetRemoteDataNil(b bool)`
+
+ SetRemoteDataNil sets the value for RemoteData to be an explicit nil
+
+### UnsetRemoteData
+`func (o *Employment) UnsetRemoteData()`
+
+UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

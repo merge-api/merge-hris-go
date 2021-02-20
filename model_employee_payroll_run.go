@@ -38,6 +38,7 @@ type EmployeePayrollRun struct {
 	Earnings *[]Earning `json:"earnings,omitempty"`
 	Deductions *[]Deduction `json:"deductions,omitempty"`
 	Taxes *[]Tax `json:"taxes,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
 // NewEmployeePayrollRun instantiates a new EmployeePayrollRun object
@@ -521,6 +522,39 @@ func (o *EmployeePayrollRun) SetTaxes(v []Tax) {
 	o.Taxes = &v
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployeePayrollRun) GetRemoteData() []RemoteData {
+	if o == nil  {
+		var ret []RemoteData
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployeePayrollRun) GetRemoteDataOk() (*[]RemoteData, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *EmployeePayrollRun) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
+func (o *EmployeePayrollRun) SetRemoteData(v []RemoteData) {
+	o.RemoteData = v
+}
+
 func (o EmployeePayrollRun) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -558,6 +592,9 @@ func (o EmployeePayrollRun) MarshalJSON() ([]byte, error) {
 	}
 	if o.Taxes != nil {
 		toSerialize["taxes"] = o.Taxes
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }
