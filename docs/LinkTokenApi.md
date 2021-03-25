@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## LinkTokenCreate
 
-> LinkToken LinkTokenCreate(ctx).EndUserDetails(endUserDetails).Execute()
+> LinkToken LinkTokenCreate(ctx).EndUserDetailsRequest(endUserDetailsRequest).Execute()
 
 
 
@@ -29,11 +29,11 @@ import (
 )
 
 func main() {
-    endUserDetails := *openapiclient.NewEndUserDetails("EndUserEmailAddress_example", "EndUserOrganizationName_example", "EndUserOriginId_example", []string{"Categories_example"}) // EndUserDetails | 
+    endUserDetailsRequest := *openapiclient.NewEndUserDetailsRequest("EndUserEmailAddress_example", "EndUserOrganizationName_example", "EndUserOriginId_example", []string{"Categories_example"}) // EndUserDetailsRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.LinkTokenApi.LinkTokenCreate(context.Background()).EndUserDetails(endUserDetails).Execute()
+    resp, r, err := api_client.LinkTokenApi.LinkTokenCreate(context.Background()).EndUserDetailsRequest(endUserDetailsRequest).Execute()
     if err.Error() != "" {
         fmt.Fprintf(os.Stderr, "Error when calling `LinkTokenApi.LinkTokenCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -54,7 +54,7 @@ Other parameters are passed through a pointer to a apiLinkTokenCreateRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **endUserDetails** | [**EndUserDetails**](EndUserDetails.md) |  | 
+ **endUserDetailsRequest** | [**EndUserDetailsRequest**](EndUserDetailsRequest.md) |  | 
 
 ### Return type
 

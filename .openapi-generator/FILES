@@ -13,6 +13,7 @@ api_link_token.go
 api_locations.go
 api_passthrough.go
 api_payroll_runs.go
+api_regenerate_key.go
 api_teams.go
 api_time_off.go
 client.go
@@ -28,7 +29,7 @@ docs/BenefitsApi.md
 docs/CompaniesApi.md
 docs/Company.md
 docs/CountryEnum.md
-docs/DataPassthrough.md
+docs/DataPassthroughRequest.md
 docs/Deduction.md
 docs/Earning.md
 docs/Employee.md
@@ -39,7 +40,7 @@ docs/Employment.md
 docs/EmploymentStatusEnum.md
 docs/EmploymentTypeEnum.md
 docs/EmploymentsApi.md
-docs/EndUserDetails.md
+docs/EndUserDetailsRequest.md
 docs/EthnicityEnum.md
 docs/FlsaStatusEnum.md
 docs/GenderEnum.md
@@ -65,7 +66,10 @@ docs/PayFrequencyEnum.md
 docs/PayPeriodEnum.md
 docs/PayrollRun.md
 docs/PayrollRunsApi.md
+docs/RegenerateKeyApi.md
 docs/RemoteData.md
+docs/RemoteKey.md
+docs/RemoteKeyForRegenerationRequest.md
 docs/RemoteResponse.md
 docs/RequestTypeEnum.md
 docs/RunStateEnum.md
@@ -89,7 +93,7 @@ model_benefit.go
 model_benefit_plan_type_enum.go
 model_company.go
 model_country_enum.go
-model_data_passthrough.go
+model_data_passthrough_request.go
 model_deduction.go
 model_earning.go
 model_employee.go
@@ -97,7 +101,7 @@ model_employee_payroll_run.go
 model_employment.go
 model_employment_status_enum.go
 model_employment_type_enum.go
-model_end_user_details.go
+model_end_user_details_request.go
 model_ethnicity_enum.go
 model_flsa_status_enum.go
 model_gender_enum.go
@@ -120,6 +124,8 @@ model_pay_frequency_enum.go
 model_pay_period_enum.go
 model_payroll_run.go
 model_remote_data.go
+model_remote_key.go
+model_remote_key_for_regeneration_request.go
 model_remote_response.go
 model_request_type_enum.go
 model_run_state_enum.go

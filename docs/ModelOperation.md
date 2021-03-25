@@ -6,12 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ModelName** | **string** |  | 
 **AvailableOperations** | **[]string** |  | 
+**RequiredPostParameters** | **[]string** |  | 
 
 ## Methods
 
 ### NewModelOperation
 
-`func NewModelOperation(modelName string, availableOperations []string, ) *ModelOperation`
+`func NewModelOperation(modelName string, availableOperations []string, requiredPostParameters []string, ) *ModelOperation`
 
 NewModelOperation instantiates a new ModelOperation object
 This constructor will assign default values to properties that have it defined,
@@ -64,6 +65,26 @@ and a boolean to check if the value has been set.
 `func (o *ModelOperation) SetAvailableOperations(v []string)`
 
 SetAvailableOperations sets AvailableOperations field to given value.
+
+
+### GetRequiredPostParameters
+
+`func (o *ModelOperation) GetRequiredPostParameters() []string`
+
+GetRequiredPostParameters returns the RequiredPostParameters field if non-nil, zero value otherwise.
+
+### GetRequiredPostParametersOk
+
+`func (o *ModelOperation) GetRequiredPostParametersOk() (*[]string, bool)`
+
+GetRequiredPostParametersOk returns a tuple with the RequiredPostParameters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequiredPostParameters
+
+`func (o *ModelOperation) SetRequiredPostParameters(v []string)`
+
+SetRequiredPostParameters sets RequiredPostParameters field to given value.
 
 
 

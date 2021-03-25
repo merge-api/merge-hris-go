@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **EmployeePayrollRun** | Pointer to **NullableString** | The earning&#39;s employee payroll run. | [optional] 
 **Amount** | Pointer to **NullableFloat32** | The amount earned. | [optional] 
 **Type** | Pointer to [**NullableTypeEnum**](TypeEnum.md) | The type of earning. | [optional] 
+**RemoteData** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -158,6 +159,41 @@ HasType returns a boolean if a field has been set.
 `func (o *Earning) UnsetType()`
 
 UnsetType ensures that no value is present for Type, not even an explicit nil
+### GetRemoteData
+
+`func (o *Earning) GetRemoteData() []map[string]interface{}`
+
+GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+
+### GetRemoteDataOk
+
+`func (o *Earning) GetRemoteDataOk() (*[]map[string]interface{}, bool)`
+
+GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteData
+
+`func (o *Earning) SetRemoteData(v []map[string]interface{})`
+
+SetRemoteData sets RemoteData field to given value.
+
+### HasRemoteData
+
+`func (o *Earning) HasRemoteData() bool`
+
+HasRemoteData returns a boolean if a field has been set.
+
+### SetRemoteDataNil
+
+`func (o *Earning) SetRemoteDataNil(b bool)`
+
+ SetRemoteDataNil sets the value for RemoteData to be an explicit nil
+
+### UnsetRemoteData
+`func (o *Earning) UnsetRemoteData()`
+
+UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

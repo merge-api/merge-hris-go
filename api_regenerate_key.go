@@ -24,32 +24,32 @@ var (
 	_ _context.Context
 )
 
-// LinkTokenApiService LinkTokenApi service
-type LinkTokenApiService service
+// RegenerateKeyApiService RegenerateKeyApi service
+type RegenerateKeyApiService service
 
-type ApiLinkTokenCreateRequest struct {
+type ApiRegenerateKeyCreateRequest struct {
 	ctx _context.Context
-	ApiService *LinkTokenApiService
-	endUserDetailsRequest *EndUserDetailsRequest
+	ApiService *RegenerateKeyApiService
+	remoteKeyForRegenerationRequest *RemoteKeyForRegenerationRequest
 }
 
-func (r ApiLinkTokenCreateRequest) EndUserDetailsRequest(endUserDetailsRequest EndUserDetailsRequest) ApiLinkTokenCreateRequest {
-	r.endUserDetailsRequest = &endUserDetailsRequest
+func (r ApiRegenerateKeyCreateRequest) RemoteKeyForRegenerationRequest(remoteKeyForRegenerationRequest RemoteKeyForRegenerationRequest) ApiRegenerateKeyCreateRequest {
+	r.remoteKeyForRegenerationRequest = &remoteKeyForRegenerationRequest
 	return r
 }
 
-func (r ApiLinkTokenCreateRequest) Execute() (LinkToken, *_nethttp.Response, GenericOpenAPIError) {
-	return r.ApiService.LinkTokenCreateExecute(r)
+func (r ApiRegenerateKeyCreateRequest) Execute() (RemoteKey, *_nethttp.Response, GenericOpenAPIError) {
+	return r.ApiService.RegenerateKeyCreateExecute(r)
 }
 
 /*
- * LinkTokenCreate Method for LinkTokenCreate
- * Creates a link token to be used when linking a new end user.
+ * RegenerateKeyCreate Method for RegenerateKeyCreate
+ * Exchange remote keys.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiLinkTokenCreateRequest
+ * @return ApiRegenerateKeyCreateRequest
  */
-func (a *LinkTokenApiService) LinkTokenCreate(ctx _context.Context) ApiLinkTokenCreateRequest {
-	return ApiLinkTokenCreateRequest{
+func (a *RegenerateKeyApiService) RegenerateKeyCreate(ctx _context.Context) ApiRegenerateKeyCreateRequest {
+	return ApiRegenerateKeyCreateRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -57,9 +57,9 @@ func (a *LinkTokenApiService) LinkTokenCreate(ctx _context.Context) ApiLinkToken
 
 /*
  * Execute executes the request
- * @return LinkToken
+ * @return RemoteKey
  */
-func (a *LinkTokenApiService) LinkTokenCreateExecute(r ApiLinkTokenCreateRequest) (LinkToken, *_nethttp.Response, GenericOpenAPIError) {
+func (a *RegenerateKeyApiService) RegenerateKeyCreateExecute(r ApiRegenerateKeyCreateRequest) (RemoteKey, *_nethttp.Response, GenericOpenAPIError) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -67,22 +67,22 @@ func (a *LinkTokenApiService) LinkTokenCreateExecute(r ApiLinkTokenCreateRequest
 		localVarFileName     string
 		localVarFileBytes    []byte
 		executionError       GenericOpenAPIError
-		localVarReturnValue  LinkToken
+		localVarReturnValue  RemoteKey
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkTokenApiService.LinkTokenCreate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegenerateKeyApiService.RegenerateKeyCreate")
 	if err != nil {
 		executionError.error = err.Error()
 		return localVarReturnValue, nil, executionError
 	}
 
-	localVarPath := localBasePath + "/link-token"
+	localVarPath := localBasePath + "/regenerate-key"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.endUserDetailsRequest == nil {
-		executionError.error = "endUserDetailsRequest is required and must be specified"
+	if r.remoteKeyForRegenerationRequest == nil {
+		executionError.error = "remoteKeyForRegenerationRequest is required and must be specified"
 		return localVarReturnValue, nil, executionError
 	}
 
@@ -104,7 +104,7 @@ func (a *LinkTokenApiService) LinkTokenCreateExecute(r ApiLinkTokenCreateRequest
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.endUserDetailsRequest
+	localVarPostBody = r.remoteKeyForRegenerationRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

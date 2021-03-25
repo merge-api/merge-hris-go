@@ -19,16 +19,18 @@ import (
 type ModelOperation struct {
 	ModelName string `json:"model_name"`
 	AvailableOperations []string `json:"available_operations"`
+	RequiredPostParameters []string `json:"required_post_parameters"`
 }
 
 // NewModelOperation instantiates a new ModelOperation object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewModelOperation(modelName string, availableOperations []string, ) *ModelOperation {
+func NewModelOperation(modelName string, availableOperations []string, requiredPostParameters []string, ) *ModelOperation {
 	this := ModelOperation{}
 	this.ModelName = modelName
 	this.AvailableOperations = availableOperations
+	this.RequiredPostParameters = requiredPostParameters
 	return &this
 }
 
@@ -88,6 +90,30 @@ func (o *ModelOperation) SetAvailableOperations(v []string) {
 	o.AvailableOperations = v
 }
 
+// GetRequiredPostParameters returns the RequiredPostParameters field value
+func (o *ModelOperation) GetRequiredPostParameters() []string {
+	if o == nil  {
+		var ret []string
+		return ret
+	}
+
+	return o.RequiredPostParameters
+}
+
+// GetRequiredPostParametersOk returns a tuple with the RequiredPostParameters field value
+// and a boolean to check if the value has been set.
+func (o *ModelOperation) GetRequiredPostParametersOk() (*[]string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.RequiredPostParameters, true
+}
+
+// SetRequiredPostParameters sets field value
+func (o *ModelOperation) SetRequiredPostParameters(v []string) {
+	o.RequiredPostParameters = v
+}
+
 func (o ModelOperation) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -95,6 +121,9 @@ func (o ModelOperation) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["available_operations"] = o.AvailableOperations
+	}
+	if true {
+		toSerialize["required_post_parameters"] = o.RequiredPostParameters
 	}
 	return json.Marshal(toSerialize)
 }

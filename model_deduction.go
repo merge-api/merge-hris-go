@@ -26,6 +26,7 @@ type Deduction struct {
 	EmployeeDeduction NullableFloat32 `json:"employee_deduction,omitempty"`
 	// The amount the company is deducting.
 	CompanyDeduction NullableFloat32 `json:"company_deduction,omitempty"`
+	RemoteData []map[string]interface{} `json:"remote_data,omitempty"`
 }
 
 // NewDeduction instantiates a new Deduction object
@@ -245,6 +246,39 @@ func (o *Deduction) UnsetCompanyDeduction() {
 	o.CompanyDeduction.Unset()
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Deduction) GetRemoteData() []map[string]interface{} {
+	if o == nil  {
+		var ret []map[string]interface{}
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Deduction) GetRemoteDataOk() (*[]map[string]interface{}, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *Deduction) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []map[string]interface{} and assigns it to the RemoteData field.
+func (o *Deduction) SetRemoteData(v []map[string]interface{}) {
+	o.RemoteData = v
+}
+
 func (o Deduction) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -261,6 +295,9 @@ func (o Deduction) MarshalJSON() ([]byte, error) {
 	}
 	if o.CompanyDeduction.IsSet() {
 		toSerialize["company_deduction"] = o.CompanyDeduction.Get()
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }
