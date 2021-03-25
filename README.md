@@ -97,6 +97,7 @@ Class | Method | HTTP request | Description
 *PassthroughApi* | [**PassthroughCreate**](docs/PassthroughApi.md#passthroughcreate) | **Post** /passthrough | 
 *PayrollRunsApi* | [**PayrollRunsList**](docs/PayrollRunsApi.md#payrollrunslist) | **Get** /payroll-runs | 
 *PayrollRunsApi* | [**PayrollRunsRetrieve**](docs/PayrollRunsApi.md#payrollrunsretrieve) | **Get** /payroll-runs/{id} | 
+*RegenerateKeyApi* | [**RegenerateKeyCreate**](docs/RegenerateKeyApi.md#regeneratekeycreate) | **Post** /regenerate-key | 
 *TeamsApi* | [**TeamsList**](docs/TeamsApi.md#teamslist) | **Get** /teams | 
 *TeamsApi* | [**TeamsRetrieve**](docs/TeamsApi.md#teamsretrieve) | **Get** /teams/{id} | 
 *TimeOffApi* | [**TimeOffList**](docs/TimeOffApi.md#timeofflist) | **Get** /time-off | 
@@ -112,7 +113,7 @@ Class | Method | HTTP request | Description
  - [BenefitPlanTypeEnum](docs/BenefitPlanTypeEnum.md)
  - [Company](docs/Company.md)
  - [CountryEnum](docs/CountryEnum.md)
- - [DataPassthrough](docs/DataPassthrough.md)
+ - [DataPassthroughRequest](docs/DataPassthroughRequest.md)
  - [Deduction](docs/Deduction.md)
  - [Earning](docs/Earning.md)
  - [Employee](docs/Employee.md)
@@ -120,7 +121,7 @@ Class | Method | HTTP request | Description
  - [Employment](docs/Employment.md)
  - [EmploymentStatusEnum](docs/EmploymentStatusEnum.md)
  - [EmploymentTypeEnum](docs/EmploymentTypeEnum.md)
- - [EndUserDetails](docs/EndUserDetails.md)
+ - [EndUserDetailsRequest](docs/EndUserDetailsRequest.md)
  - [EthnicityEnum](docs/EthnicityEnum.md)
  - [FlsaStatusEnum](docs/FlsaStatusEnum.md)
  - [GenderEnum](docs/GenderEnum.md)
@@ -143,6 +144,8 @@ Class | Method | HTTP request | Description
  - [PayPeriodEnum](docs/PayPeriodEnum.md)
  - [PayrollRun](docs/PayrollRun.md)
  - [RemoteData](docs/RemoteData.md)
+ - [RemoteKey](docs/RemoteKey.md)
+ - [RemoteKeyForRegenerationRequest](docs/RemoteKeyForRegenerationRequest.md)
  - [RemoteResponse](docs/RemoteResponse.md)
  - [RequestTypeEnum](docs/RequestTypeEnum.md)
  - [RunStateEnum](docs/RunStateEnum.md)

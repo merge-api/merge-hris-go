@@ -19,13 +19,13 @@ import (
 type AccountIntegration struct {
 	// Company name.
 	Name string `json:"name"`
-	// Category or categories this integration belongs to. Multiple categories should be comma separated.<br />For [ats, hris], enter <i>ats,hris</i>
+	// Category or categories this integration belongs to. Multiple categories should be comma separated.<br/><br>Example: For [ats, hris], enter <i>ats,hris</i>
 	Categories *[]string `json:"categories,omitempty"`
-	// Company logo.
+	// Company logo in rectangular shape. <b>Upload an image with a clear background.</b>
 	Image NullableString `json:"image,omitempty"`
-	// Company logo in square shape.
+	// Company logo in square shape. <b>Upload an image with a white background.</b>
 	SquareImage NullableString `json:"square_image,omitempty"`
-	// The color of this integration used for buttons and text throughout the app and landing pages. Choose a darker, saturated color.
+	// The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b>
 	Color *string `json:"color,omitempty"`
 }
 

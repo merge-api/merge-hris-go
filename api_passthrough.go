@@ -31,7 +31,7 @@ type ApiPassthroughCreateRequest struct {
 	ctx _context.Context
 	ApiService *PassthroughApiService
 	xAccountToken *string
-	dataPassthrough *DataPassthrough
+	dataPassthroughRequest *DataPassthroughRequest
 	includeRemoteData *bool
 }
 
@@ -39,8 +39,8 @@ func (r ApiPassthroughCreateRequest) XAccountToken(xAccountToken string) ApiPass
 	r.xAccountToken = &xAccountToken
 	return r
 }
-func (r ApiPassthroughCreateRequest) DataPassthrough(dataPassthrough DataPassthrough) ApiPassthroughCreateRequest {
-	r.dataPassthrough = &dataPassthrough
+func (r ApiPassthroughCreateRequest) DataPassthroughRequest(dataPassthroughRequest DataPassthroughRequest) ApiPassthroughCreateRequest {
+	r.dataPassthroughRequest = &dataPassthroughRequest
 	return r
 }
 func (r ApiPassthroughCreateRequest) IncludeRemoteData(includeRemoteData bool) ApiPassthroughCreateRequest {
@@ -95,8 +95,8 @@ func (a *PassthroughApiService) PassthroughCreateExecute(r ApiPassthroughCreateR
 		executionError.error = "xAccountToken is required and must be specified"
 		return localVarReturnValue, nil, executionError
 	}
-	if r.dataPassthrough == nil {
-		executionError.error = "dataPassthrough is required and must be specified"
+	if r.dataPassthroughRequest == nil {
+		executionError.error = "dataPassthroughRequest is required and must be specified"
 		return localVarReturnValue, nil, executionError
 	}
 
@@ -122,7 +122,7 @@ func (a *PassthroughApiService) PassthroughCreateExecute(r ApiPassthroughCreateR
 	}
 	localVarHeaderParams["X-Account-Token"] = parameterToString(*r.xAccountToken, "")
 	// body params
-	localVarPostBody = r.dataPassthrough
+	localVarPostBody = r.dataPassthroughRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

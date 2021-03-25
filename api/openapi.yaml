@@ -856,13 +856,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EndUserDetails'
+              $ref: '#/components/schemas/EndUserDetailsRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/EndUserDetails'
+              $ref: '#/components/schemas/EndUserDetailsRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/EndUserDetails'
+              $ref: '#/components/schemas/EndUserDetailsRequest'
         required: true
       responses:
         "200":
@@ -1038,13 +1038,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DataPassthrough'
+              $ref: '#/components/schemas/DataPassthroughRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/DataPassthrough'
+              $ref: '#/components/schemas/DataPassthroughRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/DataPassthrough'
+              $ref: '#/components/schemas/DataPassthroughRequest'
         required: true
       responses:
         "200":
@@ -1194,6 +1194,32 @@ paths:
       - tokenAuth: []
       tags:
       - payroll-runs
+  /regenerate-key:
+    post:
+      description: Exchange remote keys.
+      operationId: regenerate_key_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoteKeyForRegenerationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RemoteKeyForRegenerationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RemoteKeyForRegenerationRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteKey'
+      security:
+      - tokenAuth: []
+      tags:
+      - regenerate-key
   /teams:
     get:
       description: Returns a list of `Team` objects.
@@ -1508,27 +1534,31 @@ components:
           description: Company name.
           type: string
         categories:
-          description: Category or categories this integration belongs to. Multiple
-            categories should be comma separated.<br />For [ats, hris], enter <i>ats,hris</i>
+          description: 'Category or categories this integration belongs to. Multiple
+            categories should be comma separated.<br/><br>Example: For [ats, hris],
+            enter <i>ats,hris</i>'
           items:
             enum:
             - hris
             - ats
+            - accounting
             type: string
           type: array
         image:
-          description: Company logo.
+          description: Company logo in rectangular shape. <b>Upload an image with
+            a clear background.</b>
           format: uri
           nullable: true
           type: string
         square_image:
-          description: Company logo in square shape.
+          description: Company logo in square shape. <b>Upload an image with a white
+            background.</b>
           format: uri
           nullable: true
           type: string
         color:
           description: The color of this integration used for buttons and text throughout
-            the app and landing pages. Choose a darker, saturated color.
+            the app and landing pages. <b>Choose a darker, saturated color.</b>
           maxLength: 18
           pattern: ^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$
           type: string
@@ -1999,7 +2029,7 @@ components:
       - ZM
       - ZW
       type: string
-    DataPassthrough:
+    DataPassthroughRequest:
       description: |-
         # The DataPassthrough Object
         ### Description
@@ -2018,6 +2048,7 @@ components:
             model: Gen 2.5
           - company: Bird
             model: Bird Zero
+        base_url_override: base_url_override
       properties:
         method:
           allOf:
@@ -2025,6 +2056,8 @@ components:
           example: POST
         path:
           example: /scooters
+          type: string
+        base_url_override:
           type: string
         data:
           additionalProperties: {}
@@ -2034,11 +2067,13 @@ components:
               model: Gen 2.5
             - company: Bird
               model: Bird Zero
+          nullable: true
           type: object
         headers:
           additionalProperties: {}
           example:
             EXTRA-HEADER: value
+          nullable: true
           type: object
       required:
       - method
@@ -2081,6 +2116,18 @@ components:
           format: float
           nullable: true
           type: number
+        remote_data:
+          example:
+          - path: /payroll-deduction
+            data:
+            - Varies by platform
+          items:
+            additionalProperties: {}
+            description: The full data pulled from the third-party API for an object.
+            nullable: true
+            type: object
+          nullable: true
+          type: array
       type: object
     Earning:
       description: |-
@@ -2114,6 +2161,18 @@ components:
           description: The type of earning.
           example: SALARY
           nullable: true
+        remote_data:
+          example:
+          - path: /payroll-earnings
+            data:
+            - Varies by platform
+          items:
+            additionalProperties: {}
+            description: The full data pulled from the third-party API for an object.
+            nullable: true
+            type: object
+          nullable: true
+          type: array
       type: object
     Employee:
       description: |-
@@ -2314,7 +2373,6 @@ components:
           name: California State Income Tax
           amount: 100.25
           employer_tax: "False"
-          remote_data: null
         employee: d2f972d0-2526-434b-9409-4c3b468e08f0
         gross_pay: 1342.67
         deductions:
@@ -2322,7 +2380,6 @@ components:
           name: Social Security
           employee_deduction: 34.54
           company_deduction: 78.78
-          remote_data: null
         payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
         remote_data:
         - path: /employee-payroll
@@ -2336,7 +2393,6 @@ components:
         - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
           amount: 8342.34
           type: OVERTIME
-          remote_data: null
         check_date: 2000-01-23T04:56:07.000+00:00
         id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
         start_date: 2000-01-23T04:56:07.000+00:00
@@ -2398,7 +2454,6 @@ components:
           - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
             amount: 8342.34
             type: OVERTIME
-            remote_data: null
           items:
             $ref: '#/components/schemas/Earning'
           readOnly: true
@@ -2409,7 +2464,6 @@ components:
             name: Social Security
             employee_deduction: 34.54
             company_deduction: 78.78
-            remote_data: null
           items:
             $ref: '#/components/schemas/Deduction'
           readOnly: true
@@ -2420,7 +2474,6 @@ components:
             name: California State Income Tax
             amount: 100.25
             employer_tax: "False"
-            remote_data: null
           items:
             $ref: '#/components/schemas/Tax'
           readOnly: true
@@ -2541,7 +2594,7 @@ components:
       - CONTRACTOR
       - FREELANCE
       type: string
-    EndUserDetails:
+    EndUserDetailsRequest:
       example:
         end_user_organization_name: end_user_organization_name
         end_user_email_address: end_user_email_address
@@ -2727,9 +2780,16 @@ components:
           items:
             type: string
           type: array
+        required_post_parameters:
+          example:
+          - remote_user_id
+          items:
+            type: string
+          type: array
       required:
       - available_operations
       - model_name
+      - required_post_parameters
       type: object
     PaginatedBenefitList:
       example:
@@ -2902,7 +2962,6 @@ components:
             name: California State Income Tax
             amount: 100.25
             employer_tax: "False"
-            remote_data: null
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           gross_pay: 1342.67
           deductions:
@@ -2910,7 +2969,6 @@ components:
             name: Social Security
             employee_deduction: 34.54
             company_deduction: 78.78
-            remote_data: null
           payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
           remote_data:
           - path: /employee-payroll
@@ -2924,7 +2982,6 @@ components:
           - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
             amount: 8342.34
             type: OVERTIME
-            remote_data: null
           check_date: 2000-01-23T04:56:07.000+00:00
           id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           start_date: 2000-01-23T04:56:07.000+00:00
@@ -2935,7 +2992,6 @@ components:
             name: California State Income Tax
             amount: 100.25
             employer_tax: "False"
-            remote_data: null
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           gross_pay: 1342.67
           deductions:
@@ -2943,7 +2999,6 @@ components:
             name: Social Security
             employee_deduction: 34.54
             company_deduction: 78.78
-            remote_data: null
           payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
           remote_data:
           - path: /employee-payroll
@@ -2957,7 +3012,6 @@ components:
           - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
             amount: 8342.34
             type: OVERTIME
-            remote_data: null
           check_date: 2000-01-23T04:56:07.000+00:00
           id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           start_date: 2000-01-23T04:56:07.000+00:00
@@ -3597,6 +3651,45 @@ components:
       required:
       - path
       type: object
+    RemoteKey:
+      description: |-
+        # The RemoteResponse Object
+        ### Description
+        The `RemoteResponse` object is used to represent information returned from a third-party endpoint.
+
+        ### Usage Example
+        View the `RemoteResponse` returned from your `DataPassthrough`.
+      example:
+        name: Remote Deployment Key 1
+        key: hXY57W0g0WkdRHjCaPvwijK63fwfN-o_Wh7f30SLTq_uPCOLo-WFcA
+      properties:
+        name:
+          example: Remote Deployment Key 1
+          type: string
+        key:
+          example: hXY57W0g0WkdRHjCaPvwijK63fwfN-o_Wh7f30SLTq_uPCOLo-WFcA
+          type: string
+      required:
+      - key
+      - name
+      type: object
+    RemoteKeyForRegenerationRequest:
+      description: |-
+        # The RemoteResponse Object
+        ### Description
+        The `RemoteResponse` object is used to represent information returned from a third-party endpoint.
+
+        ### Usage Example
+        View the `RemoteResponse` returned from your `DataPassthrough`.
+      example:
+        name: Remote Deployment Key 1
+      properties:
+        name:
+          example: Remote Deployment Key 1
+          type: string
+      required:
+      - name
+      type: object
     RemoteResponse:
       description: |-
         # The RemoteResponse Object
@@ -3780,6 +3873,18 @@ components:
           example: false
           nullable: true
           type: boolean
+        remote_data:
+          example:
+          - path: /tax
+            data:
+            - Varies by platform
+          items:
+            additionalProperties: {}
+            description: The full data pulled from the third-party API for an object.
+            nullable: true
+            type: object
+          nullable: true
+          type: array
       type: object
     Team:
       description: |-

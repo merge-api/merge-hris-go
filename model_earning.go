@@ -24,6 +24,7 @@ type Earning struct {
 	Amount NullableFloat32 `json:"amount,omitempty"`
 	// The type of earning.
 	Type NullableTypeEnum `json:"type,omitempty"`
+	RemoteData []map[string]interface{} `json:"remote_data,omitempty"`
 }
 
 // NewEarning instantiates a new Earning object
@@ -201,6 +202,39 @@ func (o *Earning) UnsetType() {
 	o.Type.Unset()
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Earning) GetRemoteData() []map[string]interface{} {
+	if o == nil  {
+		var ret []map[string]interface{}
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Earning) GetRemoteDataOk() (*[]map[string]interface{}, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *Earning) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []map[string]interface{} and assigns it to the RemoteData field.
+func (o *Earning) SetRemoteData(v []map[string]interface{}) {
+	o.RemoteData = v
+}
+
 func (o Earning) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -214,6 +248,9 @@ func (o Earning) MarshalJSON() ([]byte, error) {
 	}
 	if o.Type.IsSet() {
 		toSerialize["type"] = o.Type.Get()
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

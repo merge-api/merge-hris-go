@@ -71,6 +71,8 @@ type APIClient struct {
 
 	PayrollRunsApi *PayrollRunsApiService
 
+	RegenerateKeyApi *RegenerateKeyApiService
+
 	TeamsApi *TeamsApiService
 
 	TimeOffApi *TimeOffApiService
@@ -103,6 +105,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.LocationsApi = (*LocationsApiService)(&c.common)
 	c.PassthroughApi = (*PassthroughApiService)(&c.common)
 	c.PayrollRunsApi = (*PayrollRunsApiService)(&c.common)
+	c.RegenerateKeyApi = (*RegenerateKeyApiService)(&c.common)
 	c.TeamsApi = (*TeamsApiService)(&c.common)
 	c.TimeOffApi = (*TimeOffApiService)(&c.common)
 
