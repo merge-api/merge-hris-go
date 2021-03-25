@@ -1534,9 +1534,7 @@ components:
           description: Company name.
           type: string
         categories:
-          description: 'Category or categories this integration belongs to. Multiple
-            categories should be comma separated.<br/><br>Example: For [ats, hris],
-            enter <i>ats,hris</i>'
+          description: Category or categories this integration belongs to.
           items:
             enum:
             - hris
@@ -1545,20 +1543,18 @@ components:
             type: string
           type: array
         image:
-          description: Company logo in rectangular shape. <b>Upload an image with
-            a clear background.</b>
+          description: Company logo in rectangular shape.
           format: uri
           nullable: true
           type: string
         square_image:
-          description: Company logo in square shape. <b>Upload an image with a white
-            background.</b>
+          description: Company logo in square shape.
           format: uri
           nullable: true
           type: string
         color:
           description: The color of this integration used for buttons and text throughout
-            the app and landing pages. <b>Choose a darker, saturated color.</b>
+            the app and landing pages.
           maxLength: 18
           pattern: ^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$
           type: string
