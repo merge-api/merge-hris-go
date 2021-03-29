@@ -1,4 +1,4 @@
-module github.com/merge-api/merge-ats-go
+module github.com/merge-api/merge-hris-go
 
 go 1.13
 
