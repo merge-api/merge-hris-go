@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## PassthroughCreate
 
-> RemoteResponse PassthroughCreate(ctx).XAccountToken(xAccountToken).DataPassthroughRequest(dataPassthroughRequest).IncludeRemoteData(includeRemoteData).Execute()
+> RemoteResponse PassthroughCreate(ctx).XAccountToken(xAccountToken).DataPassthroughRequest(dataPassthroughRequest).Execute()
 
 
 
@@ -31,11 +31,10 @@ import (
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     dataPassthroughRequest := *openapiclient.NewDataPassthroughRequest(openapiclient.MethodEnum("GET"), "/scooters") // DataPassthroughRequest | 
-    includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PassthroughApi.PassthroughCreate(context.Background()).XAccountToken(xAccountToken).DataPassthroughRequest(dataPassthroughRequest).IncludeRemoteData(includeRemoteData).Execute()
+    resp, r, err := api_client.PassthroughApi.PassthroughCreate(context.Background()).XAccountToken(xAccountToken).DataPassthroughRequest(dataPassthroughRequest).Execute()
     if err.Error() != "" {
         fmt.Fprintf(os.Stderr, "Error when calling `PassthroughApi.PassthroughCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -58,7 +57,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
  **dataPassthroughRequest** | [**DataPassthroughRequest**](DataPassthroughRequest.md) |  | 
- **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
 
 ### Return type
 

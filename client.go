@@ -63,6 +63,8 @@ type APIClient struct {
 
 	EmploymentsApi *EmploymentsApiService
 
+	GenerateKeyApi *GenerateKeyApiService
+
 	LinkTokenApi *LinkTokenApiService
 
 	LocationsApi *LocationsApiService
@@ -72,6 +74,8 @@ type APIClient struct {
 	PayrollRunsApi *PayrollRunsApiService
 
 	RegenerateKeyApi *RegenerateKeyApiService
+
+	SyncStatusApi *SyncStatusApiService
 
 	TeamsApi *TeamsApiService
 
@@ -101,11 +105,13 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.EmployeePayrollRunsApi = (*EmployeePayrollRunsApiService)(&c.common)
 	c.EmployeesApi = (*EmployeesApiService)(&c.common)
 	c.EmploymentsApi = (*EmploymentsApiService)(&c.common)
+	c.GenerateKeyApi = (*GenerateKeyApiService)(&c.common)
 	c.LinkTokenApi = (*LinkTokenApiService)(&c.common)
 	c.LocationsApi = (*LocationsApiService)(&c.common)
 	c.PassthroughApi = (*PassthroughApiService)(&c.common)
 	c.PayrollRunsApi = (*PayrollRunsApiService)(&c.common)
 	c.RegenerateKeyApi = (*RegenerateKeyApiService)(&c.common)
+	c.SyncStatusApi = (*SyncStatusApiService)(&c.common)
 	c.TeamsApi = (*TeamsApiService)(&c.common)
 	c.TimeOffApi = (*TimeOffApiService)(&c.common)
 

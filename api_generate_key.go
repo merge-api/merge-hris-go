@@ -24,32 +24,32 @@ var (
 	_ _context.Context
 )
 
-// AvailableActionsApiService AvailableActionsApi service
-type AvailableActionsApiService service
+// GenerateKeyApiService GenerateKeyApi service
+type GenerateKeyApiService service
 
-type ApiAvailableActionsRetrieveRequest struct {
+type ApiGenerateKeyCreateRequest struct {
 	ctx _context.Context
-	ApiService *AvailableActionsApiService
-	xAccountToken *string
+	ApiService *GenerateKeyApiService
+	generateRemoteKeyRequest *GenerateRemoteKeyRequest
 }
 
-func (r ApiAvailableActionsRetrieveRequest) XAccountToken(xAccountToken string) ApiAvailableActionsRetrieveRequest {
-	r.xAccountToken = &xAccountToken
+func (r ApiGenerateKeyCreateRequest) GenerateRemoteKeyRequest(generateRemoteKeyRequest GenerateRemoteKeyRequest) ApiGenerateKeyCreateRequest {
+	r.generateRemoteKeyRequest = &generateRemoteKeyRequest
 	return r
 }
 
-func (r ApiAvailableActionsRetrieveRequest) Execute() (AvailableActions, *_nethttp.Response, GenericOpenAPIError) {
-	return r.ApiService.AvailableActionsRetrieveExecute(r)
+func (r ApiGenerateKeyCreateRequest) Execute() (RemoteKey, *_nethttp.Response, GenericOpenAPIError) {
+	return r.ApiService.GenerateKeyCreateExecute(r)
 }
 
 /*
- * AvailableActionsRetrieve Method for AvailableActionsRetrieve
- * Returns a list of models and actions available for an account.
+ * GenerateKeyCreate Method for GenerateKeyCreate
+ * Create a remote key.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiAvailableActionsRetrieveRequest
+ * @return ApiGenerateKeyCreateRequest
  */
-func (a *AvailableActionsApiService) AvailableActionsRetrieve(ctx _context.Context) ApiAvailableActionsRetrieveRequest {
-	return ApiAvailableActionsRetrieveRequest{
+func (a *GenerateKeyApiService) GenerateKeyCreate(ctx _context.Context) ApiGenerateKeyCreateRequest {
+	return ApiGenerateKeyCreateRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -57,37 +57,37 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieve(ctx _context.Conte
 
 /*
  * Execute executes the request
- * @return AvailableActions
+ * @return RemoteKey
  */
-func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvailableActionsRetrieveRequest) (AvailableActions, *_nethttp.Response, GenericOpenAPIError) {
+func (a *GenerateKeyApiService) GenerateKeyCreateExecute(r ApiGenerateKeyCreateRequest) (RemoteKey, *_nethttp.Response, GenericOpenAPIError) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
 		executionError       GenericOpenAPIError
-		localVarReturnValue  AvailableActions
+		localVarReturnValue  RemoteKey
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AvailableActionsApiService.AvailableActionsRetrieve")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GenerateKeyApiService.GenerateKeyCreate")
 	if err != nil {
 		executionError.error = err.Error()
 		return localVarReturnValue, nil, executionError
 	}
 
-	localVarPath := localBasePath + "/available-actions"
+	localVarPath := localBasePath + "/generate-key"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
+	if r.generateRemoteKeyRequest == nil {
+		executionError.error = "generateRemoteKeyRequest is required and must be specified"
 		return localVarReturnValue, nil, executionError
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json", "application/x-www-form-urlencoded", "multipart/form-data"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -103,7 +103,8 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvaila
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	localVarHeaderParams["X-Account-Token"] = parameterToString(*r.xAccountToken, "")
+	// body params
+	localVarPostBody = r.generateRemoteKeyRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

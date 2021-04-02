@@ -50,15 +50,6 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Whether to include the original data Merge fetched from the third-party
-          to produce these models.
-        explode: true
-        in: query
-        name: include_remote_data
-        required: false
-        schema:
-          type: boolean
-        style: form
       responses:
         "200":
           content:
@@ -848,6 +839,32 @@ paths:
       - tokenAuth: []
       tags:
       - employments
+  /generate-key:
+    post:
+      description: Create a remote key.
+      operationId: generate_key_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRemoteKeyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GenerateRemoteKeyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GenerateRemoteKeyRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteKey'
+      security:
+      - tokenAuth: []
+      tags:
+      - generate-key
   /link-token:
     post:
       description: Creates a link token to be used when linking a new end user.
@@ -1025,15 +1042,6 @@ paths:
         schema:
           type: string
         style: simple
-      - description: Whether to include the original data Merge fetched from the third-party
-          to produce these models.
-        explode: true
-        in: query
-        name: include_remote_data
-        required: false
-        schema:
-          type: boolean
-        style: form
       requestBody:
         content:
           application/json:
@@ -1220,6 +1228,29 @@ paths:
       - tokenAuth: []
       tags:
       - regenerate-key
+  /sync-status:
+    get:
+      description: Get syncing status.
+      operationId: sync_status_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncStatus'
+      security:
+      - tokenAuth: []
+      tags:
+      - sync-status
   /teams:
     get:
       description: Returns a list of `Team` objects.
@@ -1529,6 +1560,7 @@ components:
         categories:
         - hris
         - hris
+        slug: slug
       properties:
         name:
           description: Company name.
@@ -1557,6 +1589,9 @@ components:
             the app and landing pages.
           maxLength: 18
           pattern: ^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$
+          type: string
+        slug:
+          readOnly: true
           type: string
       required:
       - name
@@ -1593,6 +1628,7 @@ components:
           categories:
           - hris
           - hris
+          slug: slug
         passthrough_available: true
       properties:
         integration:
@@ -2593,6 +2629,7 @@ components:
     EndUserDetailsRequest:
       example:
         end_user_organization_name: end_user_organization_name
+        integration: integration
         end_user_email_address: end_user_email_address
         categories:
         - hris
@@ -2612,6 +2649,8 @@ components:
             - ats
             type: string
           type: array
+        integration:
+          type: string
       required:
       - categories
       - end_user_email_address
@@ -2644,6 +2683,23 @@ components:
       - OTHER
       - PREFER_NOT_TO_DISCLOSE
       type: string
+    GenerateRemoteKeyRequest:
+      description: |-
+        # The GenerateRemoteKey Object
+        ### Description
+        The `GenerateRemoteKey` object is used to represent a request for a new remote key.
+
+        ### Usage Example
+        Post a `GenerateRemoteKey` to create a new remote key.
+      example:
+        name: Remote Deployment Key 1
+      properties:
+        name:
+          example: Remote Deployment Key 1
+          type: string
+      required:
+      - name
+      type: object
     LinkToken:
       example:
         integration_name: Lever
@@ -3649,12 +3705,12 @@ components:
       type: object
     RemoteKey:
       description: |-
-        # The RemoteResponse Object
+        # The RemoteKey Object
         ### Description
-        The `RemoteResponse` object is used to represent information returned from a third-party endpoint.
+        The `RemoteKey` object is used to represent a request for a new remote key.
 
         ### Usage Example
-        View the `RemoteResponse` returned from your `DataPassthrough`.
+        Post a `GenerateRemoteKey` to receive a new `RemoteKey`.
       example:
         name: Remote Deployment Key 1
         key: hXY57W0g0WkdRHjCaPvwijK63fwfN-o_Wh7f30SLTq_uPCOLo-WFcA
@@ -3671,12 +3727,12 @@ components:
       type: object
     RemoteKeyForRegenerationRequest:
       description: |-
-        # The RemoteResponse Object
+        # The RemoteKeyForRegeneration Object
         ### Description
-        The `RemoteResponse` object is used to represent information returned from a third-party endpoint.
+        The `RemoteKeyForRegeneration` object is used to exchange an old remote key for a new one
 
         ### Usage Example
-        View the `RemoteResponse` returned from your `DataPassthrough`.
+        Post a `RemoteKeyForRegeneration` to swap out an old remote key for a new one
       example:
         name: Remote Deployment Key 1
       properties:
@@ -3833,6 +3889,50 @@ components:
       - WI
       - WY
       type: string
+    SyncStatus:
+      description: |-
+        # The SyncStatus Object
+        ### Description
+        The `SyncStatus` object is used to represent the syncing state of an account
+
+        ### Usage Example
+        View the `SyncStatus` for an account to see how recently its models were synced.
+      example:
+        next_sync_start: 2021-03-30T20:44:18.662942Z
+        model_name: Candidate
+        model_id: ats.Candidate
+        last_sync_start: 2021-03-30T19:44:18.695973Z
+        is_initial_sync: true
+        status: SYNCING
+      properties:
+        model_name:
+          example: Candidate
+          type: string
+        model_id:
+          example: ats.Candidate
+          type: string
+        last_sync_start:
+          example: 2021-03-30T19:44:18.695973Z
+          format: date-time
+          type: string
+        next_sync_start:
+          example: 2021-03-30T20:44:18.662942Z
+          format: date-time
+          type: string
+        status:
+          example: SYNCING
+          type: string
+        is_initial_sync:
+          example: true
+          type: boolean
+      required:
+      - is_initial_sync
+      - last_sync_start
+      - model_id
+      - model_name
+      - next_sync_start
+      - status
+      type: object
     Tax:
       description: |-
         # The Tax Object

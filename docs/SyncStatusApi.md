@@ -1,16 +1,16 @@
-# \AvailableActionsApi
+# \SyncStatusApi
 
 All URIs are relative to *https://api.merge.dev/api/hris/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AvailableActionsRetrieve**](AvailableActionsApi.md#AvailableActionsRetrieve) | **Get** /available-actions | 
+[**SyncStatusRetrieve**](SyncStatusApi.md#SyncStatusRetrieve) | **Get** /sync-status | 
 
 
 
-## AvailableActionsRetrieve
+## SyncStatusRetrieve
 
-> AvailableActions AvailableActionsRetrieve(ctx).XAccountToken(xAccountToken).Execute()
+> SyncStatus SyncStatusRetrieve(ctx).XAccountToken(xAccountToken).Execute()
 
 
 
@@ -33,13 +33,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AvailableActionsApi.AvailableActionsRetrieve(context.Background()).XAccountToken(xAccountToken).Execute()
+    resp, r, err := api_client.SyncStatusApi.SyncStatusRetrieve(context.Background()).XAccountToken(xAccountToken).Execute()
     if err.Error() != "" {
-        fmt.Fprintf(os.Stderr, "Error when calling `AvailableActionsApi.AvailableActionsRetrieve``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SyncStatusApi.SyncStatusRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AvailableActionsRetrieve`: AvailableActions
-    fmt.Fprintf(os.Stdout, "Response from `AvailableActionsApi.AvailableActionsRetrieve`: %v\n", resp)
+    // response from `SyncStatusRetrieve`: SyncStatus
+    fmt.Fprintf(os.Stdout, "Response from `SyncStatusApi.SyncStatusRetrieve`: %v\n", resp)
 }
 ```
 
@@ -49,7 +49,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiAvailableActionsRetrieveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiSyncStatusRetrieveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AvailableActions**](AvailableActions.md)
+[**SyncStatus**](SyncStatus.md)
 
 ### Authorization
 

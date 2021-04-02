@@ -24,32 +24,32 @@ var (
 	_ _context.Context
 )
 
-// AvailableActionsApiService AvailableActionsApi service
-type AvailableActionsApiService service
+// SyncStatusApiService SyncStatusApi service
+type SyncStatusApiService service
 
-type ApiAvailableActionsRetrieveRequest struct {
+type ApiSyncStatusRetrieveRequest struct {
 	ctx _context.Context
-	ApiService *AvailableActionsApiService
+	ApiService *SyncStatusApiService
 	xAccountToken *string
 }
 
-func (r ApiAvailableActionsRetrieveRequest) XAccountToken(xAccountToken string) ApiAvailableActionsRetrieveRequest {
+func (r ApiSyncStatusRetrieveRequest) XAccountToken(xAccountToken string) ApiSyncStatusRetrieveRequest {
 	r.xAccountToken = &xAccountToken
 	return r
 }
 
-func (r ApiAvailableActionsRetrieveRequest) Execute() (AvailableActions, *_nethttp.Response, GenericOpenAPIError) {
-	return r.ApiService.AvailableActionsRetrieveExecute(r)
+func (r ApiSyncStatusRetrieveRequest) Execute() (SyncStatus, *_nethttp.Response, GenericOpenAPIError) {
+	return r.ApiService.SyncStatusRetrieveExecute(r)
 }
 
 /*
- * AvailableActionsRetrieve Method for AvailableActionsRetrieve
- * Returns a list of models and actions available for an account.
+ * SyncStatusRetrieve Method for SyncStatusRetrieve
+ * Get syncing status.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiAvailableActionsRetrieveRequest
+ * @return ApiSyncStatusRetrieveRequest
  */
-func (a *AvailableActionsApiService) AvailableActionsRetrieve(ctx _context.Context) ApiAvailableActionsRetrieveRequest {
-	return ApiAvailableActionsRetrieveRequest{
+func (a *SyncStatusApiService) SyncStatusRetrieve(ctx _context.Context) ApiSyncStatusRetrieveRequest {
+	return ApiSyncStatusRetrieveRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -57,9 +57,9 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieve(ctx _context.Conte
 
 /*
  * Execute executes the request
- * @return AvailableActions
+ * @return SyncStatus
  */
-func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvailableActionsRetrieveRequest) (AvailableActions, *_nethttp.Response, GenericOpenAPIError) {
+func (a *SyncStatusApiService) SyncStatusRetrieveExecute(r ApiSyncStatusRetrieveRequest) (SyncStatus, *_nethttp.Response, GenericOpenAPIError) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -67,16 +67,16 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvaila
 		localVarFileName     string
 		localVarFileBytes    []byte
 		executionError       GenericOpenAPIError
-		localVarReturnValue  AvailableActions
+		localVarReturnValue  SyncStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AvailableActionsApiService.AvailableActionsRetrieve")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SyncStatusApiService.SyncStatusRetrieve")
 	if err != nil {
 		executionError.error = err.Error()
 		return localVarReturnValue, nil, executionError
 	}
 
-	localVarPath := localBasePath + "/available-actions"
+	localVarPath := localBasePath + "/sync-status"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

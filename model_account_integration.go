@@ -27,6 +27,7 @@ type AccountIntegration struct {
 	SquareImage NullableString `json:"square_image,omitempty"`
 	// The color of this integration used for buttons and text throughout the app and landing pages.
 	Color *string `json:"color,omitempty"`
+	Slug *string `json:"slug,omitempty"`
 }
 
 // NewAccountIntegration instantiates a new AccountIntegration object
@@ -219,6 +220,38 @@ func (o *AccountIntegration) SetColor(v string) {
 	o.Color = &v
 }
 
+// GetSlug returns the Slug field value if set, zero value otherwise.
+func (o *AccountIntegration) GetSlug() string {
+	if o == nil || o.Slug == nil {
+		var ret string
+		return ret
+	}
+	return *o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountIntegration) GetSlugOk() (*string, bool) {
+	if o == nil || o.Slug == nil {
+		return nil, false
+	}
+	return o.Slug, true
+}
+
+// HasSlug returns a boolean if a field has been set.
+func (o *AccountIntegration) HasSlug() bool {
+	if o != nil && o.Slug != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSlug gets a reference to the given string and assigns it to the Slug field.
+func (o *AccountIntegration) SetSlug(v string) {
+	o.Slug = &v
+}
+
 func (o AccountIntegration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -235,6 +268,9 @@ func (o AccountIntegration) MarshalJSON() ([]byte, error) {
 	}
 	if o.Color != nil {
 		toSerialize["color"] = o.Color
+	}
+	if o.Slug != nil {
+		toSerialize["slug"] = o.Slug
 	}
 	return json.Marshal(toSerialize)
 }
