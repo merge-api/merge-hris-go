@@ -9,11 +9,13 @@ api_companies.go
 api_employee_payroll_runs.go
 api_employees.go
 api_employments.go
+api_generate_key.go
 api_link_token.go
 api_locations.go
 api_passthrough.go
 api_payroll_runs.go
 api_regenerate_key.go
+api_sync_status.go
 api_teams.go
 api_time_off.go
 client.go
@@ -44,6 +46,8 @@ docs/EndUserDetailsRequest.md
 docs/EthnicityEnum.md
 docs/FlsaStatusEnum.md
 docs/GenderEnum.md
+docs/GenerateKeyApi.md
+docs/GenerateRemoteKeyRequest.md
 docs/LinkToken.md
 docs/LinkTokenApi.md
 docs/Location.md
@@ -75,6 +79,8 @@ docs/RequestTypeEnum.md
 docs/RunStateEnum.md
 docs/RunTypeEnum.md
 docs/StateEnum.md
+docs/SyncStatus.md
+docs/SyncStatusApi.md
 docs/Tax.md
 docs/Team.md
 docs/TeamsApi.md
@@ -105,6 +111,7 @@ model_end_user_details_request.go
 model_ethnicity_enum.go
 model_flsa_status_enum.go
 model_gender_enum.go
+model_generate_remote_key_request.go
 model_link_token.go
 model_location.go
 model_marital_status_enum.go
@@ -131,6 +138,7 @@ model_request_type_enum.go
 model_run_state_enum.go
 model_run_type_enum.go
 model_state_enum.go
+model_sync_status.go
 model_tax.go
 model_team.go
 model_time_off.go

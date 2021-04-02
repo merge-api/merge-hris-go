@@ -31,15 +31,10 @@ type ApiAvailableActionsRetrieveRequest struct {
 	ctx _context.Context
 	ApiService *AvailableActionsApiService
 	xAccountToken *string
-	includeRemoteData *bool
 }
 
 func (r ApiAvailableActionsRetrieveRequest) XAccountToken(xAccountToken string) ApiAvailableActionsRetrieveRequest {
 	r.xAccountToken = &xAccountToken
-	return r
-}
-func (r ApiAvailableActionsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiAvailableActionsRetrieveRequest {
-	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -91,9 +86,6 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvaila
 		return localVarReturnValue, nil, executionError
 	}
 
-	if r.includeRemoteData != nil {
-		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

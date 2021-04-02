@@ -21,6 +21,7 @@ type EndUserDetailsRequest struct {
 	EndUserOrganizationName string `json:"end_user_organization_name"`
 	EndUserOriginId string `json:"end_user_origin_id"`
 	Categories []string `json:"categories"`
+	Integration *string `json:"integration,omitempty"`
 }
 
 // NewEndUserDetailsRequest instantiates a new EndUserDetailsRequest object
@@ -140,6 +141,38 @@ func (o *EndUserDetailsRequest) SetCategories(v []string) {
 	o.Categories = v
 }
 
+// GetIntegration returns the Integration field value if set, zero value otherwise.
+func (o *EndUserDetailsRequest) GetIntegration() string {
+	if o == nil || o.Integration == nil {
+		var ret string
+		return ret
+	}
+	return *o.Integration
+}
+
+// GetIntegrationOk returns a tuple with the Integration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EndUserDetailsRequest) GetIntegrationOk() (*string, bool) {
+	if o == nil || o.Integration == nil {
+		return nil, false
+	}
+	return o.Integration, true
+}
+
+// HasIntegration returns a boolean if a field has been set.
+func (o *EndUserDetailsRequest) HasIntegration() bool {
+	if o != nil && o.Integration != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegration gets a reference to the given string and assigns it to the Integration field.
+func (o *EndUserDetailsRequest) SetIntegration(v string) {
+	o.Integration = &v
+}
+
 func (o EndUserDetailsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -153,6 +186,9 @@ func (o EndUserDetailsRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["categories"] = o.Categories
+	}
+	if o.Integration != nil {
+		toSerialize["integration"] = o.Integration
 	}
 	return json.Marshal(toSerialize)
 }

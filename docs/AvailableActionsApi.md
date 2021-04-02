@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## AvailableActionsRetrieve
 
-> AvailableActions AvailableActionsRetrieve(ctx).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
+> AvailableActions AvailableActionsRetrieve(ctx).XAccountToken(xAccountToken).Execute()
 
 
 
@@ -30,11 +30,10 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AvailableActionsApi.AvailableActionsRetrieve(context.Background()).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
+    resp, r, err := api_client.AvailableActionsApi.AvailableActionsRetrieve(context.Background()).XAccountToken(xAccountToken).Execute()
     if err.Error() != "" {
         fmt.Fprintf(os.Stderr, "Error when calling `AvailableActionsApi.AvailableActionsRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -56,7 +55,6 @@ Other parameters are passed through a pointer to a apiAvailableActionsRetrieveRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
- **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
 
 ### Return type
 

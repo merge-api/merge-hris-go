@@ -32,7 +32,6 @@ type ApiPassthroughCreateRequest struct {
 	ApiService *PassthroughApiService
 	xAccountToken *string
 	dataPassthroughRequest *DataPassthroughRequest
-	includeRemoteData *bool
 }
 
 func (r ApiPassthroughCreateRequest) XAccountToken(xAccountToken string) ApiPassthroughCreateRequest {
@@ -41,10 +40,6 @@ func (r ApiPassthroughCreateRequest) XAccountToken(xAccountToken string) ApiPass
 }
 func (r ApiPassthroughCreateRequest) DataPassthroughRequest(dataPassthroughRequest DataPassthroughRequest) ApiPassthroughCreateRequest {
 	r.dataPassthroughRequest = &dataPassthroughRequest
-	return r
-}
-func (r ApiPassthroughCreateRequest) IncludeRemoteData(includeRemoteData bool) ApiPassthroughCreateRequest {
-	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
@@ -100,9 +95,6 @@ func (a *PassthroughApiService) PassthroughCreateExecute(r ApiPassthroughCreateR
 		return localVarReturnValue, nil, executionError
 	}
 
-	if r.includeRemoteData != nil {
-		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json", "application/x-www-form-urlencoded", "multipart/form-data"}
 

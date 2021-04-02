@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Image** | Pointer to **NullableString** | Company logo in rectangular shape. | [optional] 
 **SquareImage** | Pointer to **NullableString** | Company logo in square shape. | [optional] 
 **Color** | Pointer to **string** | The color of this integration used for buttons and text throughout the app and landing pages. | [optional] 
+**Slug** | Pointer to **string** |  | [optional] [readonly] 
 
 ## Methods
 
@@ -168,6 +169,31 @@ SetColor sets Color field to given value.
 `func (o *AccountIntegration) HasColor() bool`
 
 HasColor returns a boolean if a field has been set.
+
+### GetSlug
+
+`func (o *AccountIntegration) GetSlug() string`
+
+GetSlug returns the Slug field if non-nil, zero value otherwise.
+
+### GetSlugOk
+
+`func (o *AccountIntegration) GetSlugOk() (*string, bool)`
+
+GetSlugOk returns a tuple with the Slug field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSlug
+
+`func (o *AccountIntegration) SetSlug(v string)`
+
+SetSlug sets Slug field to given value.
+
+### HasSlug
+
+`func (o *AccountIntegration) HasSlug() bool`
+
+HasSlug returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

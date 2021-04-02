@@ -91,6 +91,7 @@ Class | Method | HTTP request | Description
 *EmployeesApi* | [**EmployeesRetrieve**](docs/EmployeesApi.md#employeesretrieve) | **Get** /employees/{id} | 
 *EmploymentsApi* | [**EmploymentsList**](docs/EmploymentsApi.md#employmentslist) | **Get** /employments | 
 *EmploymentsApi* | [**EmploymentsRetrieve**](docs/EmploymentsApi.md#employmentsretrieve) | **Get** /employments/{id} | 
+*GenerateKeyApi* | [**GenerateKeyCreate**](docs/GenerateKeyApi.md#generatekeycreate) | **Post** /generate-key | 
 *LinkTokenApi* | [**LinkTokenCreate**](docs/LinkTokenApi.md#linktokencreate) | **Post** /link-token | 
 *LocationsApi* | [**LocationsList**](docs/LocationsApi.md#locationslist) | **Get** /locations | 
 *LocationsApi* | [**LocationsRetrieve**](docs/LocationsApi.md#locationsretrieve) | **Get** /locations/{id} | 
@@ -98,6 +99,7 @@ Class | Method | HTTP request | Description
 *PayrollRunsApi* | [**PayrollRunsList**](docs/PayrollRunsApi.md#payrollrunslist) | **Get** /payroll-runs | 
 *PayrollRunsApi* | [**PayrollRunsRetrieve**](docs/PayrollRunsApi.md#payrollrunsretrieve) | **Get** /payroll-runs/{id} | 
 *RegenerateKeyApi* | [**RegenerateKeyCreate**](docs/RegenerateKeyApi.md#regeneratekeycreate) | **Post** /regenerate-key | 
+*SyncStatusApi* | [**SyncStatusRetrieve**](docs/SyncStatusApi.md#syncstatusretrieve) | **Get** /sync-status | 
 *TeamsApi* | [**TeamsList**](docs/TeamsApi.md#teamslist) | **Get** /teams | 
 *TeamsApi* | [**TeamsRetrieve**](docs/TeamsApi.md#teamsretrieve) | **Get** /teams/{id} | 
 *TimeOffApi* | [**TimeOffList**](docs/TimeOffApi.md#timeofflist) | **Get** /time-off | 
@@ -125,6 +127,7 @@ Class | Method | HTTP request | Description
  - [EthnicityEnum](docs/EthnicityEnum.md)
  - [FlsaStatusEnum](docs/FlsaStatusEnum.md)
  - [GenderEnum](docs/GenderEnum.md)
+ - [GenerateRemoteKeyRequest](docs/GenerateRemoteKeyRequest.md)
  - [LinkToken](docs/LinkToken.md)
  - [Location](docs/Location.md)
  - [MaritalStatusEnum](docs/MaritalStatusEnum.md)
@@ -151,6 +154,7 @@ Class | Method | HTTP request | Description
  - [RunStateEnum](docs/RunStateEnum.md)
  - [RunTypeEnum](docs/RunTypeEnum.md)
  - [StateEnum](docs/StateEnum.md)
+ - [SyncStatus](docs/SyncStatus.md)
  - [Tax](docs/Tax.md)
  - [Team](docs/Team.md)
  - [TimeOff](docs/TimeOff.md)
