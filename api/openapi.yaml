@@ -2217,10 +2217,17 @@ components:
       example:
         display_full_name: Jane Doe
         work_email: jane@merge.dev
-        manager: 0048ea5b-911e-4dff-9364-92070dea62ff
         gender: FEMALE
         ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
         date_of_birth: 2000-01-23T04:56:07.000+00:00
+        work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+        ssn: "1234567890"
+        company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
+        home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
+        id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        employment_status: ACTIVE
+        first_name: Jane
+        manager: 0048ea5b-911e-4dff-9364-92070dea62ff
         remote_id: "19202938"
         last_name: Doe
         employments:
@@ -2228,20 +2235,14 @@ components:
         team: 249c9faa-3045-4a31-953b-8f22d3613301
         hire_date: 2000-01-23T04:56:07.000+00:00
         avatar: http://alturl.com/h2h8m
-        work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
         mobile_phone_number: +1234567890
-        ssn: "1234567890"
         remote_data:
         - path: /people
           data:
           - Varies by platform
         marital_status: SINGLE
         termination_date: 2000-01-23T04:56:07.000+00:00
-        company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
-        home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
-        id: 0958cbc6-6040-430a-848e-aafacbadf4ae
-        employment_status: ACTIVE
-        first_name: Jane
+        employee_number: employee_number
         personal_email: jane@gmail.com
       properties:
         id:
@@ -2315,7 +2316,7 @@ components:
           nullable: true
           type: string
         manager:
-          description: The employeee ID of the employee's manager.
+          description: The employee ID of the employee's manager.
           example: 0048ea5b-911e-4dff-9364-92070dea62ff
           format: uuid
           nullable: true
@@ -2376,6 +2377,10 @@ components:
           example: http://alturl.com/h2h8m
           format: uri
           maxLength: 700
+          nullable: true
+          type: string
+        employee_number:
+          description: The identification number for the employee.
           nullable: true
           type: string
         remote_data:
@@ -2440,7 +2445,7 @@ components:
           nullable: true
           type: string
         employee:
-          description: The employee who's payroll is being run.
+          description: The employee whose payroll is being run.
           example: d2f972d0-2526-434b-9409-4c3b468e08f0
           format: uuid
           nullable: true
@@ -2934,10 +2939,17 @@ components:
         results:
         - display_full_name: Jane Doe
           work_email: jane@merge.dev
-          manager: 0048ea5b-911e-4dff-9364-92070dea62ff
           gender: FEMALE
           ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
           date_of_birth: 2000-01-23T04:56:07.000+00:00
+          work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          ssn: "1234567890"
+          company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
+          home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          employment_status: ACTIVE
+          first_name: Jane
+          manager: 0048ea5b-911e-4dff-9364-92070dea62ff
           remote_id: "19202938"
           last_name: Doe
           employments:
@@ -2945,27 +2957,28 @@ components:
           team: 249c9faa-3045-4a31-953b-8f22d3613301
           hire_date: 2000-01-23T04:56:07.000+00:00
           avatar: http://alturl.com/h2h8m
-          work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           mobile_phone_number: +1234567890
-          ssn: "1234567890"
           remote_data:
           - path: /people
             data:
             - Varies by platform
           marital_status: SINGLE
           termination_date: 2000-01-23T04:56:07.000+00:00
-          company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
-          home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
-          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
-          employment_status: ACTIVE
-          first_name: Jane
+          employee_number: employee_number
           personal_email: jane@gmail.com
         - display_full_name: Jane Doe
           work_email: jane@merge.dev
-          manager: 0048ea5b-911e-4dff-9364-92070dea62ff
           gender: FEMALE
           ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
           date_of_birth: 2000-01-23T04:56:07.000+00:00
+          work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          ssn: "1234567890"
+          company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
+          home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          employment_status: ACTIVE
+          first_name: Jane
+          manager: 0048ea5b-911e-4dff-9364-92070dea62ff
           remote_id: "19202938"
           last_name: Doe
           employments:
@@ -2973,20 +2986,14 @@ components:
           team: 249c9faa-3045-4a31-953b-8f22d3613301
           hire_date: 2000-01-23T04:56:07.000+00:00
           avatar: http://alturl.com/h2h8m
-          work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           mobile_phone_number: +1234567890
-          ssn: "1234567890"
           remote_data:
           - path: /people
             data:
             - Varies by platform
           marital_status: SINGLE
           termination_date: 2000-01-23T04:56:07.000+00:00
-          company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
-          home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
-          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
-          employment_status: ACTIVE
-          first_name: Jane
+          employee_number: employee_number
           personal_email: jane@gmail.com
       properties:
         next:
@@ -4077,7 +4084,7 @@ components:
           example: APPROVED
           nullable: true
         employee_note:
-          description: The status of this time off request.
+          description: The employee note for this time off request.
           example: Trip to Iowa. Miss those cornfields!
           nullable: true
           type: string
