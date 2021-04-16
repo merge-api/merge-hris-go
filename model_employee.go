@@ -40,7 +40,7 @@ type Employee struct {
 	HomeLocation NullableString `json:"home_location,omitempty"`
 	// The employee's work address.
 	WorkLocation NullableString `json:"work_location,omitempty"`
-	// The employeee ID of the employee's manager.
+	// The employee ID of the employee's manager.
 	Manager NullableString `json:"manager,omitempty"`
 	// The employee's team.
 	Team NullableString `json:"team,omitempty"`
@@ -62,6 +62,8 @@ type Employee struct {
 	TerminationDate NullableTime `json:"termination_date,omitempty"`
 	// The URL of the employee's avatar image.
 	Avatar NullableString `json:"avatar,omitempty"`
+	// The identification number for the employee.
+	EmployeeNumber NullableString `json:"employee_number,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
@@ -1028,6 +1030,48 @@ func (o *Employee) UnsetAvatar() {
 	o.Avatar.Unset()
 }
 
+// GetEmployeeNumber returns the EmployeeNumber field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Employee) GetEmployeeNumber() string {
+	if o == nil || o.EmployeeNumber.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.EmployeeNumber.Get()
+}
+
+// GetEmployeeNumberOk returns a tuple with the EmployeeNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Employee) GetEmployeeNumberOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.EmployeeNumber.Get(), o.EmployeeNumber.IsSet()
+}
+
+// HasEmployeeNumber returns a boolean if a field has been set.
+func (o *Employee) HasEmployeeNumber() bool {
+	if o != nil && o.EmployeeNumber.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEmployeeNumber gets a reference to the given NullableString and assigns it to the EmployeeNumber field.
+func (o *Employee) SetEmployeeNumber(v string) {
+	o.EmployeeNumber.Set(&v)
+}
+// SetEmployeeNumberNil sets the value for EmployeeNumber to be an explicit nil
+func (o *Employee) SetEmployeeNumberNil() {
+	o.EmployeeNumber.Set(nil)
+}
+
+// UnsetEmployeeNumber ensures that no value is present for EmployeeNumber, not even an explicit nil
+func (o *Employee) UnsetEmployeeNumber() {
+	o.EmployeeNumber.Unset()
+}
+
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Employee) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -1131,6 +1175,9 @@ func (o Employee) MarshalJSON() ([]byte, error) {
 	}
 	if o.Avatar.IsSet() {
 		toSerialize["avatar"] = o.Avatar.Get()
+	}
+	if o.EmployeeNumber.IsSet() {
+		toSerialize["employee_number"] = o.EmployeeNumber.Get()
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

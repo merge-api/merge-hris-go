@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Employments** | Pointer to **[]string** |  | [optional] [readonly] 
 **HomeLocation** | Pointer to **NullableString** | The employee&#39;s home address. | [optional] 
 **WorkLocation** | Pointer to **NullableString** | The employee&#39;s work address. | [optional] 
-**Manager** | Pointer to **NullableString** | The employeee ID of the employee&#39;s manager. | [optional] 
+**Manager** | Pointer to **NullableString** | The employee ID of the employee&#39;s manager. | [optional] 
 **Team** | Pointer to **NullableString** | The employee&#39;s team. | [optional] 
 **Ssn** | Pointer to **NullableString** | The employee&#39;s social security number. | [optional] 
 **Gender** | Pointer to [**NullableGenderEnum**](GenderEnum.md) | The employee&#39;s gender. | [optional] 
@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **EmploymentStatus** | Pointer to [**NullableEmploymentStatusEnum**](EmploymentStatusEnum.md) | The employment status of the employee. | [optional] 
 **TerminationDate** | Pointer to **NullableTime** | The employee&#39;s termination date. | [optional] 
 **Avatar** | Pointer to **NullableString** | The URL of the employee&#39;s avatar image. | [optional] 
+**EmployeeNumber** | Pointer to **NullableString** | The identification number for the employee. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
@@ -833,6 +834,41 @@ HasAvatar returns a boolean if a field has been set.
 `func (o *Employee) UnsetAvatar()`
 
 UnsetAvatar ensures that no value is present for Avatar, not even an explicit nil
+### GetEmployeeNumber
+
+`func (o *Employee) GetEmployeeNumber() string`
+
+GetEmployeeNumber returns the EmployeeNumber field if non-nil, zero value otherwise.
+
+### GetEmployeeNumberOk
+
+`func (o *Employee) GetEmployeeNumberOk() (*string, bool)`
+
+GetEmployeeNumberOk returns a tuple with the EmployeeNumber field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmployeeNumber
+
+`func (o *Employee) SetEmployeeNumber(v string)`
+
+SetEmployeeNumber sets EmployeeNumber field to given value.
+
+### HasEmployeeNumber
+
+`func (o *Employee) HasEmployeeNumber() bool`
+
+HasEmployeeNumber returns a boolean if a field has been set.
+
+### SetEmployeeNumberNil
+
+`func (o *Employee) SetEmployeeNumberNil(b bool)`
+
+ SetEmployeeNumberNil sets the value for EmployeeNumber to be an explicit nil
+
+### UnsetEmployeeNumber
+`func (o *Employee) UnsetEmployeeNumber()`
+
+UnsetEmployeeNumber ensures that no value is present for EmployeeNumber, not even an explicit nil
 ### GetRemoteData
 
 `func (o *Employee) GetRemoteData() []RemoteData`

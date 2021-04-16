@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Employee** | Pointer to **NullableString** | The employee requesting time off. | [optional] 
 **Approver** | Pointer to **NullableString** | The employee approving the time off request. | [optional] 
 **Status** | Pointer to [**NullableTimeOffStatusEnum**](TimeOffStatusEnum.md) | The status of this time off request. | [optional] 
-**EmployeeNote** | Pointer to **NullableString** | The status of this time off request. | [optional] 
+**EmployeeNote** | Pointer to **NullableString** | The employee note for this time off request. | [optional] 
 **Units** | Pointer to [**NullableUnitsEnum**](UnitsEnum.md) | The unit of time requested. | [optional] 
 **Amount** | Pointer to **NullableFloat32** | The number of time off units requested. | [optional] 
 **RequestType** | Pointer to [**NullableRequestTypeEnum**](RequestTypeEnum.md) | The type of time off request. | [optional] 

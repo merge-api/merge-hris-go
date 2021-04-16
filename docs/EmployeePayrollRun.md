@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**Employee** | Pointer to **NullableString** | The employee who&#39;s payroll is being run. | [optional] 
+**Employee** | Pointer to **NullableString** | The employee whose payroll is being run. | [optional] 
 **PayrollRun** | Pointer to **NullableString** | The payroll being run. | [optional] 
 **GrossPay** | Pointer to **NullableFloat32** | The gross pay from the run. | [optional] 
 **NetPay** | Pointer to **NullableFloat32** | The net pay from the run. | [optional] 

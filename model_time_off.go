@@ -26,7 +26,7 @@ type TimeOff struct {
 	Approver NullableString `json:"approver,omitempty"`
 	// The status of this time off request.
 	Status NullableTimeOffStatusEnum `json:"status,omitempty"`
-	// The status of this time off request.
+	// The employee note for this time off request.
 	EmployeeNote NullableString `json:"employee_note,omitempty"`
 	// The unit of time requested.
 	Units NullableUnitsEnum `json:"units,omitempty"`
