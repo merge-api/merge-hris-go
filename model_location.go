@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// Location # The Location Object ### Description The `Location` object is used to represent a Location for a company. This is shared across many models and is referenced whenever a location is stored.  ### Usage Example Fetch from the `LIST Locations` endpoint and filter by `ID` to show all office locations.
+// Location # The Location Object ### Description The `Location` object is used to represent a Location for a Company or Employee address. This is shared across many models and is referenced whenever a location is stored.  ### Usage Example Fetch from the `LIST Locations` endpoint and filter by `ID` to show all office locations.
 type Location struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
@@ -28,8 +28,8 @@ type Location struct {
 	Street2 NullableString `json:"street_2,omitempty"`
 	// The location's city.
 	City NullableString `json:"city,omitempty"`
-	// The location's state.
-	State NullableStateEnum `json:"state,omitempty"`
+	// The location's state. Represents a region if outside of the US.
+	State NullableString `json:"state,omitempty"`
 	// The location's zip code.
 	ZipCode NullableString `json:"zip_code,omitempty"`
 	// The location's country.
@@ -297,9 +297,9 @@ func (o *Location) UnsetCity() {
 }
 
 // GetState returns the State field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Location) GetState() StateEnum {
+func (o *Location) GetState() string {
 	if o == nil || o.State.Get() == nil {
-		var ret StateEnum
+		var ret string
 		return ret
 	}
 	return *o.State.Get()
@@ -308,7 +308,7 @@ func (o *Location) GetState() StateEnum {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Location) GetStateOk() (*StateEnum, bool) {
+func (o *Location) GetStateOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -324,8 +324,8 @@ func (o *Location) HasState() bool {
 	return false
 }
 
-// SetState gets a reference to the given NullableStateEnum and assigns it to the State field.
-func (o *Location) SetState(v StateEnum) {
+// SetState gets a reference to the given NullableString and assigns it to the State field.
+func (o *Location) SetState(v string) {
 	o.State.Set(&v)
 }
 // SetStateNil sets the value for State to be an explicit nil

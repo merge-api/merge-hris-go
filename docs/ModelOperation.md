@@ -7,12 +7,13 @@ Name | Type | Description | Notes
 **ModelName** | **string** |  | 
 **AvailableOperations** | **[]string** |  | 
 **RequiredPostParameters** | **[]string** |  | 
+**SupportedFields** | **[]string** |  | 
 
 ## Methods
 
 ### NewModelOperation
 
-`func NewModelOperation(modelName string, availableOperations []string, requiredPostParameters []string, ) *ModelOperation`
+`func NewModelOperation(modelName string, availableOperations []string, requiredPostParameters []string, supportedFields []string, ) *ModelOperation`
 
 NewModelOperation instantiates a new ModelOperation object
 This constructor will assign default values to properties that have it defined,
@@ -85,6 +86,26 @@ and a boolean to check if the value has been set.
 `func (o *ModelOperation) SetRequiredPostParameters(v []string)`
 
 SetRequiredPostParameters sets RequiredPostParameters field to given value.
+
+
+### GetSupportedFields
+
+`func (o *ModelOperation) GetSupportedFields() []string`
+
+GetSupportedFields returns the SupportedFields field if non-nil, zero value otherwise.
+
+### GetSupportedFieldsOk
+
+`func (o *ModelOperation) GetSupportedFieldsOk() (*[]string, bool)`
+
+GetSupportedFieldsOk returns a tuple with the SupportedFields field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSupportedFields
+
+`func (o *ModelOperation) SetSupportedFields(v []string)`
+
+SetSupportedFields sets SupportedFields field to given value.
 
 
 

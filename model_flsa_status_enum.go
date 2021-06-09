@@ -27,6 +27,13 @@ const (
 	FLSASTATUSENUM_OWNER FlsaStatusEnum = "OWNER"
 )
 
+var allowedFlsaStatusEnumEnumValues = []FlsaStatusEnum{
+	"EXEMPT",
+	"SALARIED_NONEXEMPT",
+	"NONEXEMPT",
+	"OWNER",
+}
+
 func (v *FlsaStatusEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -34,7 +41,7 @@ func (v *FlsaStatusEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := FlsaStatusEnum(value)
-	for _, existing := range []FlsaStatusEnum{ "EXEMPT", "SALARIED_NONEXEMPT", "NONEXEMPT", "OWNER",   } {
+	for _, existing := range allowedFlsaStatusEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -42,6 +49,27 @@ func (v *FlsaStatusEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid FlsaStatusEnum", value)
+}
+
+// NewFlsaStatusEnumFromValue returns a pointer to a valid FlsaStatusEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewFlsaStatusEnumFromValue(v string) (*FlsaStatusEnum, error) {
+	ev := FlsaStatusEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for FlsaStatusEnum: valid values are %v", v, allowedFlsaStatusEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v FlsaStatusEnum) IsValid() bool {
+	for _, existing := range allowedFlsaStatusEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to FlsaStatusEnum value

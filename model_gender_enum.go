@@ -28,6 +28,14 @@ const (
 	GENDERENUM_PREFER_NOT_TO_DISCLOSE GenderEnum = "PREFER_NOT_TO_DISCLOSE"
 )
 
+var allowedGenderEnumEnumValues = []GenderEnum{
+	"MALE",
+	"FEMALE",
+	"NON-BINARY",
+	"OTHER",
+	"PREFER_NOT_TO_DISCLOSE",
+}
+
 func (v *GenderEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -35,7 +43,7 @@ func (v *GenderEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := GenderEnum(value)
-	for _, existing := range []GenderEnum{ "MALE", "FEMALE", "NON-BINARY", "OTHER", "PREFER_NOT_TO_DISCLOSE",   } {
+	for _, existing := range allowedGenderEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -43,6 +51,27 @@ func (v *GenderEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid GenderEnum", value)
+}
+
+// NewGenderEnumFromValue returns a pointer to a valid GenderEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewGenderEnumFromValue(v string) (*GenderEnum, error) {
+	ev := GenderEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for GenderEnum: valid values are %v", v, allowedGenderEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v GenderEnum) IsValid() bool {
+	for _, existing := range allowedGenderEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to GenderEnum value

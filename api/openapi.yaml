@@ -571,6 +571,15 @@ paths:
         schema:
           type: boolean
         style: form
+      - description: Whether to include sensetive fields (such as social security
+          numbers) in the response.
+        explode: true
+        in: query
+        name: include_sensitive_fields
+        required: false
+        schema:
+          type: boolean
+        style: form
       - description: If provided, will only return employees for this manager.
         examples:
           ManagerId:
@@ -650,6 +659,47 @@ paths:
       - tokenAuth: []
       tags:
       - employees
+    post:
+      description: Creates an `Employee` object with the given values.
+      operationId: employees_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Whether or not third-party updates should be run asynchronously.
+        explode: true
+        in: query
+        name: run_async
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+      security:
+      - tokenAuth: []
+      tags:
+      - employees
   /employees/{id}:
     get:
       description: Returns an `Employee` object with the given `id`.
@@ -676,6 +726,15 @@ paths:
         explode: true
         in: query
         name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include sensetive fields (such as social security
+          numbers) in the response.
+        explode: true
+        in: query
+        name: include_sensitive_fields
         required: false
         schema:
           type: boolean
@@ -795,6 +854,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedEmploymentList'
+      security:
+      - tokenAuth: []
+      tags:
+      - employments
+    post:
+      description: Creates an `Employment` object with the given values.
+      operationId: employments_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Whether or not third-party updates should be run asynchronously.
+        explode: true
+        in: query
+        name: run_async
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmploymentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EmploymentRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmploymentRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employment'
       security:
       - tokenAuth: []
       tags:
@@ -1231,7 +1331,46 @@ paths:
   /sync-status:
     get:
       description: Get syncing status.
-      operationId: sync_status_retrieve
+      operationId: sync_status_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The pagination cursor value.
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSyncStatusList'
+      security:
+      - tokenAuth: []
+      tags:
+      - sync-status
+  /sync-status/resync:
+    post:
+      description: Force resync of all models.
+      operationId: sync_status_resync_create
       parameters:
       - description: Token identifying the end user.
         explode: false
@@ -1509,6 +1648,155 @@ paths:
       - tokenAuth: []
       tags:
       - time-off
+  /time-off-balance:
+    get:
+      description: Returns a list of `TimeOffBalance` objects.
+      operationId: time_off_balance_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return time off balances for this employee.
+        examples:
+          EmployeeId:
+            summary: employee_id
+        explode: true
+        in: query
+        name: employee_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          description: The third-party API ID of the matching object.
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTimeOffBalanceList'
+      security:
+      - tokenAuth: []
+      tags:
+      - time-off-balance
+  /time-off-balance/{id}:
+    get:
+      description: Returns an `TimeOffBalance` object with the given `id`.
+      operationId: time_off_balance_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOffBalance'
+      security:
+      - tokenAuth: []
+      tags:
+      - time-off-balance
   /time-off/{id}:
     get:
       description: Returns an `TimeOff` object with the given `id`.
@@ -1599,12 +1887,24 @@ components:
     AccountToken:
       example:
         account_token: T9klMDQrcHdm9jrtHuOS2Nf06BIHwMNjpPXPMB
+        integration:
+          image: https://openapi-generator.tech
+          color: color
+          name: name
+          square_image: https://openapi-generator.tech
+          categories:
+          - hris
+          - hris
+          slug: slug
       properties:
         account_token:
           example: T9klMDQrcHdm9jrtHuOS2Nf06BIHwMNjpPXPMB
           type: string
+        integration:
+          $ref: '#/components/schemas/AccountIntegration'
       required:
       - account_token
+      - integration
       type: object
     AvailableActions:
       description: |-
@@ -1620,6 +1920,13 @@ components:
           available_operations:
           - FETCH
           - CREATE
+          required_post_parameters:
+          - remote_user_id
+          supported_fields:
+          - first_name
+          - last_name
+          - company
+          - title
         integration:
           image: https://openapi-generator.tech
           color: color
@@ -1642,6 +1949,13 @@ components:
             available_operations:
             - FETCH
             - CREATE
+            required_post_parameters:
+            - remote_user_id
+            supported_fields:
+            - first_name
+            - last_name
+            - company
+            - title
           items:
             $ref: '#/components/schemas/ModelOperation'
           type: array
@@ -2090,6 +2404,7 @@ components:
           example: /scooters
           type: string
         base_url_override:
+          nullable: true
           type: string
         data:
           additionalProperties: {}
@@ -2242,7 +2557,7 @@ components:
           - Varies by platform
         marital_status: SINGLE
         termination_date: 2000-01-23T04:56:07.000+00:00
-        employee_number: employee_number
+        employee_number: "2"
         personal_email: jane@gmail.com
       properties:
         id:
@@ -2255,8 +2570,15 @@ components:
           example: "19202938"
           nullable: true
           type: string
+        employee_number:
+          description: 'The employee''s number that appears in the remote UI. Note:
+            This is distinct from the remote_id field, which is a unique identifier
+            for the employee set by the remote API, and is not exposed to the user.'
+          example: "2"
+          nullable: true
+          type: string
         company:
-          description: The ID of the Employee's company.
+          description: The ID of the employee's company.
           example: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
           format: uuid
           nullable: true
@@ -2357,7 +2679,9 @@ components:
           nullable: true
           type: string
         hire_date:
-          description: The employee's hire date.
+          description: The employee's hire date. If an employee has multiple hire
+            dates from previous employments, this represents the most recent hire
+            date.
           format: date-time
           nullable: true
           type: string
@@ -2376,11 +2700,7 @@ components:
           description: The URL of the employee's avatar image.
           example: http://alturl.com/h2h8m
           format: uri
-          maxLength: 700
-          nullable: true
-          type: string
-        employee_number:
-          description: The identification number for the employee.
+          maxLength: 2000
           nullable: true
           type: string
         remote_data:
@@ -2526,6 +2846,169 @@ components:
           readOnly: true
           type: array
       type: object
+    EmployeeRequest:
+      description: |-
+        # The Employee Object
+        ### Description
+        The `Employee` object is used to represent an Employee for a company.
+
+        ### Usage Example
+        Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
+      example:
+        display_full_name: Jane Doe
+        work_email: jane@merge.dev
+        manager: 0048ea5b-911e-4dff-9364-92070dea62ff
+        gender: FEMALE
+        ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+        date_of_birth: 2000-01-23T04:56:07.000+00:00
+        remote_id: "19202938"
+        last_name: Doe
+        team: 249c9faa-3045-4a31-953b-8f22d3613301
+        hire_date: 2000-01-23T04:56:07.000+00:00
+        avatar: http://alturl.com/h2h8m
+        work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+        mobile_phone_number: +1234567890
+        ssn: "1234567890"
+        marital_status: SINGLE
+        termination_date: 2000-01-23T04:56:07.000+00:00
+        employee_number: "2"
+        company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
+        home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
+        employment_status: ACTIVE
+        first_name: Jane
+        personal_email: jane@gmail.com
+      properties:
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        employee_number:
+          description: 'The employee''s number that appears in the remote UI. Note:
+            This is distinct from the remote_id field, which is a unique identifier
+            for the employee set by the remote API, and is not exposed to the user.'
+          example: "2"
+          nullable: true
+          type: string
+        company:
+          description: The ID of the employee's company.
+          example: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
+          format: uuid
+          nullable: true
+          type: string
+        first_name:
+          description: The employee's first name.
+          example: Jane
+          nullable: true
+          type: string
+        last_name:
+          description: The employee's last name.
+          example: Doe
+          nullable: true
+          type: string
+        display_full_name:
+          description: The employee's full name, to use for display purposes.
+          example: Jane Doe
+          nullable: true
+          type: string
+        work_email:
+          description: The employee's work email.
+          example: jane@merge.dev
+          format: email
+          maxLength: 254
+          nullable: true
+          type: string
+        personal_email:
+          description: The employee's personal email.
+          example: jane@gmail.com
+          format: email
+          maxLength: 254
+          nullable: true
+          type: string
+        mobile_phone_number:
+          description: The employee's mobile phone number.
+          example: +1234567890
+          nullable: true
+          type: string
+        home_location:
+          description: The employee's home address.
+          example: d2f972d0-2526-434b-9409-4c3b468e08f0
+          format: uuid
+          nullable: true
+          type: string
+        work_location:
+          description: The employee's work address.
+          example: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          format: uuid
+          nullable: true
+          type: string
+        manager:
+          description: The employee ID of the employee's manager.
+          example: 0048ea5b-911e-4dff-9364-92070dea62ff
+          format: uuid
+          nullable: true
+          type: string
+        team:
+          description: The employee's team.
+          example: 249c9faa-3045-4a31-953b-8f22d3613301
+          format: uuid
+          nullable: true
+          type: string
+        ssn:
+          description: The employee's social security number.
+          example: "1234567890"
+          maxLength: 100
+          nullable: true
+          type: string
+        gender:
+          allOf:
+          - $ref: '#/components/schemas/GenderEnum'
+          description: The employee's gender.
+          example: FEMALE
+          nullable: true
+        ethnicity:
+          allOf:
+          - $ref: '#/components/schemas/EthnicityEnum'
+          description: The employee's ethnicity.
+          example: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+          nullable: true
+        marital_status:
+          allOf:
+          - $ref: '#/components/schemas/MaritalStatusEnum'
+          description: The employee's marital status.
+          example: SINGLE
+          nullable: true
+        date_of_birth:
+          description: The employee's date of birth.
+          format: date-time
+          nullable: true
+          type: string
+        hire_date:
+          description: The employee's hire date. If an employee has multiple hire
+            dates from previous employments, this represents the most recent hire
+            date.
+          format: date-time
+          nullable: true
+          type: string
+        employment_status:
+          allOf:
+          - $ref: '#/components/schemas/EmploymentStatusEnum'
+          description: The employment status of the employee.
+          example: ACTIVE
+          nullable: true
+        termination_date:
+          description: The employee's termination date.
+          format: date-time
+          nullable: true
+          type: string
+        avatar:
+          description: The URL of the employee's avatar image.
+          example: http://alturl.com/h2h8m
+          format: uri
+          maxLength: 2000
+          nullable: true
+          type: string
+      type: object
     Employment:
       description: |-
         # The Employment Object
@@ -2617,6 +3100,77 @@ components:
           readOnly: true
           type: array
       type: object
+    EmploymentRequest:
+      description: |-
+        # The Employment Object
+        ### Description
+        The `Employment` object is used to represent an employment position at a company. These are associated with the employee filling the role.
+
+        ### Usage Example
+        Fetch from the `LIST Employments` endpoint and filter by `ID` to show all employees.
+      example:
+        employment_type: FULL TIME
+        flsa_status: EXEMPT
+        remote_id: "19202938"
+        effective_date: 2000-01-23T04:56:07.000+00:00
+        pay_period: YEAR
+        pay_frequency: BIWEEKLY
+        job_title: Software Engineer
+        pay_rate: 80000.00
+        pay_currency: USD
+      properties:
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        job_title:
+          description: The position's title.
+          example: Software Engineer
+          nullable: true
+          type: string
+        pay_rate:
+          description: The position's pay rate in dollars.
+          example: 80000.00
+          format: float
+          nullable: true
+          type: number
+        pay_period:
+          allOf:
+          - $ref: '#/components/schemas/PayPeriodEnum'
+          description: The time period this pay rate encompasses.
+          example: YEAR
+          nullable: true
+        pay_frequency:
+          allOf:
+          - $ref: '#/components/schemas/PayFrequencyEnum'
+          description: The position's pay frequency.
+          example: BIWEEKLY
+          nullable: true
+        pay_currency:
+          allOf:
+          - $ref: '#/components/schemas/PayCurrencyEnum'
+          description: The position's currency code.
+          example: USD
+          nullable: true
+        flsa_status:
+          allOf:
+          - $ref: '#/components/schemas/FlsaStatusEnum'
+          description: The position's FLSA status.
+          example: EXEMPT
+          nullable: true
+        effective_date:
+          description: The position's effective date.
+          format: date-time
+          nullable: true
+          type: string
+        employment_type:
+          allOf:
+          - $ref: '#/components/schemas/EmploymentTypeEnum'
+          description: The position's type of employment.
+          example: FULL TIME
+          nullable: true
+      type: object
     EmploymentStatusEnum:
       enum:
       - ACTIVE
@@ -2652,12 +3206,13 @@ components:
             enum:
             - hris
             - ats
+            - accounting
             type: string
           type: array
         integration:
+          nullable: true
           type: string
       required:
-      - categories
       - end_user_email_address
       - end_user_organization_name
       - end_user_origin_id
@@ -2724,7 +3279,7 @@ components:
       description: |-
         # The Location Object
         ### Description
-        The `Location` object is used to represent a Location for a company. This is shared across many models and is referenced whenever a location is stored.
+        The `Location` object is used to represent a Location for a Company or Employee address. This is shared across many models and is referenced whenever a location is stored.
 
         ### Usage Example
         Fetch from the `LIST Locations` endpoint and filter by `ID` to show all office locations.
@@ -2773,11 +3328,11 @@ components:
           nullable: true
           type: string
         state:
-          allOf:
-          - $ref: '#/components/schemas/StateEnum'
-          description: The location's state.
+          description: The location's state. Represents a region if outside of the
+            US.
           example: NY
           nullable: true
+          type: string
         zip_code:
           description: The location's zip code.
           example: "10027"
@@ -2843,10 +3398,20 @@ components:
           items:
             type: string
           type: array
+        supported_fields:
+          example:
+          - first_name
+          - last_name
+          - company
+          - title
+          items:
+            type: string
+          type: array
       required:
       - available_operations
       - model_name
       - required_post_parameters
+      - supported_fields
       type: object
     PaginatedBenefitList:
       example:
@@ -2964,7 +3529,7 @@ components:
             - Varies by platform
           marital_status: SINGLE
           termination_date: 2000-01-23T04:56:07.000+00:00
-          employee_number: employee_number
+          employee_number: "2"
           personal_email: jane@gmail.com
         - display_full_name: Jane Doe
           work_email: jane@merge.dev
@@ -2993,7 +3558,7 @@ components:
             - Varies by platform
           marital_status: SINGLE
           termination_date: 2000-01-23T04:56:07.000+00:00
-          employee_number: employee_number
+          employee_number: "2"
           personal_email: jane@gmail.com
       properties:
         next:
@@ -3221,6 +3786,35 @@ components:
             $ref: '#/components/schemas/PayrollRun'
           type: array
       type: object
+    PaginatedSyncStatusList:
+      example:
+        next: next
+        previous: previous
+        results:
+        - next_sync_start: 2021-03-30T20:44:18.662942Z
+          model_name: Candidate
+          model_id: ats.Candidate
+          last_sync_start: 2021-03-30T19:44:18.695973Z
+          is_initial_sync: true
+          status: SYNCING
+        - next_sync_start: 2021-03-30T20:44:18.662942Z
+          model_name: Candidate
+          model_id: ats.Candidate
+          last_sync_start: 2021-03-30T19:44:18.695973Z
+          is_initial_sync: true
+          status: SYNCING
+      properties:
+        next:
+          nullable: true
+          type: string
+        previous:
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/SyncStatus'
+          type: array
+      type: object
     PaginatedTeamList:
       example:
         next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -3254,16 +3848,55 @@ components:
             $ref: '#/components/schemas/Team'
           type: array
       type: object
+    PaginatedTimeOffBalanceList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - balance: 60.0
+          remote_id: "19202938"
+          id: 91b2b905-e866-40c8-8be2-efe53827a0aa
+          used: 45.0
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+          remote_data:
+          - path: /leave
+            data:
+            - Varies by platform
+        - balance: 60.0
+          remote_id: "19202938"
+          id: 91b2b905-e866-40c8-8be2-efe53827a0aa
+          used: 45.0
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+          remote_data:
+          - path: /leave
+            data:
+            - Varies by platform
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/TimeOffBalance'
+          type: array
+      type: object
     PaginatedTimeOffList:
       example:
         next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
         previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
         results:
         - approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          start_time: 2000-01-23T04:56:07.000+00:00
           amount: 13
           request_type: VACATION
           employee_note: Trip to Iowa. Miss those cornfields!
           remote_id: "19202938"
+          end_time: 2000-01-23T04:56:07.000+00:00
           id: 91b2b905-e866-40c8-8be2-efe53827a0aa
           units: DAYS
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
@@ -3273,10 +3906,12 @@ components:
             data:
             - Varies by platform
         - approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          start_time: 2000-01-23T04:56:07.000+00:00
           amount: 13
           request_type: VACATION
           employee_note: Trip to Iowa. Miss those cornfields!
           remote_id: "19202938"
+          end_time: 2000-01-23T04:56:07.000+00:00
           id: 91b2b905-e866-40c8-8be2-efe53827a0aa
           units: DAYS
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
@@ -3710,6 +4345,16 @@ components:
       required:
       - path
       type: object
+    RemoteDataRequest:
+      properties:
+        path:
+          type: string
+        data:
+          additionalProperties: {}
+          type: object
+      required:
+      - path
+      type: object
     RemoteKey:
       description: |-
         # The RemoteKey Object
@@ -3834,68 +4479,6 @@ components:
       - FRINGE_BENEFITS
       - CONTRACTOR_LATE_PAYMENTS
       type: string
-    StateEnum:
-      enum:
-      - AL
-      - AK
-      - AS
-      - AZ
-      - AR
-      - AA
-      - AE
-      - AP
-      - CA
-      - CO
-      - CT
-      - DE
-      - DC
-      - FL
-      - GA
-      - GU
-      - HI
-      - ID
-      - IL
-      - IN
-      - IA
-      - KS
-      - KY
-      - LA
-      - ME
-      - MD
-      - MA
-      - MI
-      - MN
-      - MS
-      - MO
-      - MT
-      - NE
-      - NV
-      - NH
-      - NJ
-      - NM
-      - NY
-      - NC
-      - ND
-      - MP
-      - OH
-      - OK
-      - OR
-      - PA
-      - PR
-      - RI
-      - SC
-      - SD
-      - TN
-      - TX
-      - UT
-      - VT
-      - VI
-      - VA
-      - WA
-      - WV
-      - WI
-      - WY
-      type: string
     SyncStatus:
       description: |-
         # The SyncStatus Object
@@ -3927,8 +4510,9 @@ components:
           format: date-time
           type: string
         status:
+          allOf:
+          - $ref: '#/components/schemas/SyncStatusStatusEnum'
           example: SYNCING
-          type: string
         is_initial_sync:
           example: true
           type: boolean
@@ -3940,6 +4524,11 @@ components:
       - next_sync_start
       - status
       type: object
+    SyncStatusStatusEnum:
+      enum:
+      - SYNCING
+      - DONE
+      type: string
     Tax:
       description: |-
         # The Tax Object
@@ -4042,10 +4631,12 @@ components:
         Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
       example:
         approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+        start_time: 2000-01-23T04:56:07.000+00:00
         amount: 13
         request_type: VACATION
         employee_note: Trip to Iowa. Miss those cornfields!
         remote_id: "19202938"
+        end_time: 2000-01-23T04:56:07.000+00:00
         id: 91b2b905-e866-40c8-8be2-efe53827a0aa
         units: DAYS
         employee: d2f972d0-2526-434b-9409-4c3b468e08f0
@@ -4106,6 +4697,74 @@ components:
           description: The type of time off request.
           example: VACATION
           nullable: true
+        start_time:
+          description: The day and time of the start of the time requested off.
+          format: date-time
+          nullable: true
+          type: string
+        end_time:
+          description: The day and time of the end of the time requested off.
+          format: date-time
+          nullable: true
+          type: string
+        remote_data:
+          example:
+          - path: /leave
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+      type: object
+    TimeOffBalance:
+      description: |-
+        # The TimeOffBalance Object
+        ### Description
+        The `TimeOffBalance` object is used to represent a Time Off Balance for an employee.
+
+        ### Usage Example
+        Fetch from the `LIST TimeOffBalances` endpoint and filter by `ID` to show all time off balances.
+      example:
+        balance: 60.0
+        remote_id: "19202938"
+        id: 91b2b905-e866-40c8-8be2-efe53827a0aa
+        used: 45.0
+        employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+        remote_data:
+        - path: /leave
+          data:
+          - Varies by platform
+      properties:
+        id:
+          example: 91b2b905-e866-40c8-8be2-efe53827a0aa
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        employee:
+          description: The employee the balance belongs to.
+          example: d2f972d0-2526-434b-9409-4c3b468e08f0
+          format: uuid
+          nullable: true
+          type: string
+        balance:
+          description: The current PTO balance.
+          example: 60.0
+          format: float
+          nullable: true
+          type: number
+        used:
+          description: The amount of PTO used.
+          example: 45.0
+          format: float
+          nullable: true
+          type: number
         remote_data:
           example:
           - path: /leave

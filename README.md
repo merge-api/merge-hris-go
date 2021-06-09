@@ -87,8 +87,10 @@ Class | Method | HTTP request | Description
 *CompaniesApi* | [**CompaniesRetrieve**](docs/CompaniesApi.md#companiesretrieve) | **Get** /companies/{id} | 
 *EmployeePayrollRunsApi* | [**EmployeePayrollRunsList**](docs/EmployeePayrollRunsApi.md#employeepayrollrunslist) | **Get** /employee-payroll-runs | 
 *EmployeePayrollRunsApi* | [**EmployeePayrollRunsRetrieve**](docs/EmployeePayrollRunsApi.md#employeepayrollrunsretrieve) | **Get** /employee-payroll-runs/{id} | 
+*EmployeesApi* | [**EmployeesCreate**](docs/EmployeesApi.md#employeescreate) | **Post** /employees | 
 *EmployeesApi* | [**EmployeesList**](docs/EmployeesApi.md#employeeslist) | **Get** /employees | 
 *EmployeesApi* | [**EmployeesRetrieve**](docs/EmployeesApi.md#employeesretrieve) | **Get** /employees/{id} | 
+*EmploymentsApi* | [**EmploymentsCreate**](docs/EmploymentsApi.md#employmentscreate) | **Post** /employments | 
 *EmploymentsApi* | [**EmploymentsList**](docs/EmploymentsApi.md#employmentslist) | **Get** /employments | 
 *EmploymentsApi* | [**EmploymentsRetrieve**](docs/EmploymentsApi.md#employmentsretrieve) | **Get** /employments/{id} | 
 *GenerateKeyApi* | [**GenerateKeyCreate**](docs/GenerateKeyApi.md#generatekeycreate) | **Post** /generate-key | 
@@ -99,11 +101,14 @@ Class | Method | HTTP request | Description
 *PayrollRunsApi* | [**PayrollRunsList**](docs/PayrollRunsApi.md#payrollrunslist) | **Get** /payroll-runs | 
 *PayrollRunsApi* | [**PayrollRunsRetrieve**](docs/PayrollRunsApi.md#payrollrunsretrieve) | **Get** /payroll-runs/{id} | 
 *RegenerateKeyApi* | [**RegenerateKeyCreate**](docs/RegenerateKeyApi.md#regeneratekeycreate) | **Post** /regenerate-key | 
-*SyncStatusApi* | [**SyncStatusRetrieve**](docs/SyncStatusApi.md#syncstatusretrieve) | **Get** /sync-status | 
+*SyncStatusApi* | [**SyncStatusList**](docs/SyncStatusApi.md#syncstatuslist) | **Get** /sync-status | 
+*SyncStatusApi* | [**SyncStatusResyncCreate**](docs/SyncStatusApi.md#syncstatusresynccreate) | **Post** /sync-status/resync | 
 *TeamsApi* | [**TeamsList**](docs/TeamsApi.md#teamslist) | **Get** /teams | 
 *TeamsApi* | [**TeamsRetrieve**](docs/TeamsApi.md#teamsretrieve) | **Get** /teams/{id} | 
 *TimeOffApi* | [**TimeOffList**](docs/TimeOffApi.md#timeofflist) | **Get** /time-off | 
 *TimeOffApi* | [**TimeOffRetrieve**](docs/TimeOffApi.md#timeoffretrieve) | **Get** /time-off/{id} | 
+*TimeOffBalanceApi* | [**TimeOffBalanceList**](docs/TimeOffBalanceApi.md#timeoffbalancelist) | **Get** /time-off-balance | 
+*TimeOffBalanceApi* | [**TimeOffBalanceRetrieve**](docs/TimeOffBalanceApi.md#timeoffbalanceretrieve) | **Get** /time-off-balance/{id} | 
 
 
 ## Documentation For Models
@@ -120,7 +125,9 @@ Class | Method | HTTP request | Description
  - [Earning](docs/Earning.md)
  - [Employee](docs/Employee.md)
  - [EmployeePayrollRun](docs/EmployeePayrollRun.md)
+ - [EmployeeRequest](docs/EmployeeRequest.md)
  - [Employment](docs/Employment.md)
+ - [EmploymentRequest](docs/EmploymentRequest.md)
  - [EmploymentStatusEnum](docs/EmploymentStatusEnum.md)
  - [EmploymentTypeEnum](docs/EmploymentTypeEnum.md)
  - [EndUserDetailsRequest](docs/EndUserDetailsRequest.md)
@@ -140,24 +147,28 @@ Class | Method | HTTP request | Description
  - [PaginatedEmploymentList](docs/PaginatedEmploymentList.md)
  - [PaginatedLocationList](docs/PaginatedLocationList.md)
  - [PaginatedPayrollRunList](docs/PaginatedPayrollRunList.md)
+ - [PaginatedSyncStatusList](docs/PaginatedSyncStatusList.md)
  - [PaginatedTeamList](docs/PaginatedTeamList.md)
+ - [PaginatedTimeOffBalanceList](docs/PaginatedTimeOffBalanceList.md)
  - [PaginatedTimeOffList](docs/PaginatedTimeOffList.md)
  - [PayCurrencyEnum](docs/PayCurrencyEnum.md)
  - [PayFrequencyEnum](docs/PayFrequencyEnum.md)
  - [PayPeriodEnum](docs/PayPeriodEnum.md)
  - [PayrollRun](docs/PayrollRun.md)
  - [RemoteData](docs/RemoteData.md)
+ - [RemoteDataRequest](docs/RemoteDataRequest.md)
  - [RemoteKey](docs/RemoteKey.md)
  - [RemoteKeyForRegenerationRequest](docs/RemoteKeyForRegenerationRequest.md)
  - [RemoteResponse](docs/RemoteResponse.md)
  - [RequestTypeEnum](docs/RequestTypeEnum.md)
  - [RunStateEnum](docs/RunStateEnum.md)
  - [RunTypeEnum](docs/RunTypeEnum.md)
- - [StateEnum](docs/StateEnum.md)
  - [SyncStatus](docs/SyncStatus.md)
+ - [SyncStatusStatusEnum](docs/SyncStatusStatusEnum.md)
  - [Tax](docs/Tax.md)
  - [Team](docs/Team.md)
  - [TimeOff](docs/TimeOff.md)
+ - [TimeOffBalance](docs/TimeOffBalance.md)
  - [TimeOffStatusEnum](docs/TimeOffStatusEnum.md)
  - [TypeEnum](docs/TypeEnum.md)
  - [UnitsEnum](docs/UnitsEnum.md)

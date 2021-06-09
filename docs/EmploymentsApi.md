@@ -4,9 +4,80 @@ All URIs are relative to *https://api.merge.dev/api/hris/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**EmploymentsCreate**](EmploymentsApi.md#EmploymentsCreate) | **Post** /employments | 
 [**EmploymentsList**](EmploymentsApi.md#EmploymentsList) | **Get** /employments | 
 [**EmploymentsRetrieve**](EmploymentsApi.md#EmploymentsRetrieve) | **Get** /employments/{id} | 
 
+
+
+## EmploymentsCreate
+
+> Employment EmploymentsCreate(ctx).XAccountToken(xAccountToken).RunAsync(runAsync).EmploymentRequest(employmentRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
+    runAsync := true // bool | Whether or not third-party updates should be run asynchronously. (optional)
+    employmentRequest := *openapiclient.NewEmploymentRequest() // EmploymentRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EmploymentsApi.EmploymentsCreate(context.Background()).XAccountToken(xAccountToken).RunAsync(runAsync).EmploymentRequest(employmentRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EmploymentsApi.EmploymentsCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `EmploymentsCreate`: Employment
+    fmt.Fprintf(os.Stdout, "Response from `EmploymentsApi.EmploymentsCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiEmploymentsCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xAccountToken** | **string** | Token identifying the end user. | 
+ **runAsync** | **bool** | Whether or not third-party updates should be run asynchronously. | 
+ **employmentRequest** | [**EmploymentRequest**](EmploymentRequest.md) |  | 
+
+### Return type
+
+[**Employment**](Employment.md)
+
+### Authorization
+
+[tokenAuth](../README.md#tokenAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## EmploymentsList
@@ -45,7 +116,7 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
     resp, r, err := api_client.EmploymentsApi.EmploymentsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
-    if err.Error() != "" {
+    if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EmploymentsApi.EmploymentsList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
@@ -122,7 +193,7 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
     resp, r, err := api_client.EmploymentsApi.EmploymentsRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
-    if err.Error() != "" {
+    if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EmploymentsApi.EmploymentsRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }

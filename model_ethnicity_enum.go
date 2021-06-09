@@ -31,6 +31,17 @@ const (
 	ETHNICITYENUM_PREFER_NOT_TO_DISCLOSE EthnicityEnum = "PREFER_NOT_TO_DISCLOSE"
 )
 
+var allowedEthnicityEnumEnumValues = []EthnicityEnum{
+	"AMERICAN_INDIAN_OR_ALASKA_NATIVE",
+	"ASIAN_OR_INDIAN_SUBCONTINENT",
+	"BLACK_OR_AFRICAN_AMERICAN",
+	"HISPANIC_OR_LATINO",
+	"NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER",
+	"TWO_OR_MORE_RACES",
+	"WHITE",
+	"PREFER_NOT_TO_DISCLOSE",
+}
+
 func (v *EthnicityEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -38,7 +49,7 @@ func (v *EthnicityEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := EthnicityEnum(value)
-	for _, existing := range []EthnicityEnum{ "AMERICAN_INDIAN_OR_ALASKA_NATIVE", "ASIAN_OR_INDIAN_SUBCONTINENT", "BLACK_OR_AFRICAN_AMERICAN", "HISPANIC_OR_LATINO", "NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER", "TWO_OR_MORE_RACES", "WHITE", "PREFER_NOT_TO_DISCLOSE",   } {
+	for _, existing := range allowedEthnicityEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -46,6 +57,27 @@ func (v *EthnicityEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid EthnicityEnum", value)
+}
+
+// NewEthnicityEnumFromValue returns a pointer to a valid EthnicityEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewEthnicityEnumFromValue(v string) (*EthnicityEnum, error) {
+	ev := EthnicityEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for EthnicityEnum: valid values are %v", v, allowedEthnicityEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v EthnicityEnum) IsValid() bool {
+	for _, existing := range allowedEthnicityEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to EthnicityEnum value

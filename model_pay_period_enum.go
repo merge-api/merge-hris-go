@@ -31,6 +31,17 @@ const (
 	PAYPERIODENUM_YEAR PayPeriodEnum = "YEAR"
 )
 
+var allowedPayPeriodEnumEnumValues = []PayPeriodEnum{
+	"HOUR",
+	"DAY",
+	"WEEK",
+	"EVERY_TWO_WEEKS",
+	"MONTH",
+	"QUARTER",
+	"EVERY_SIX_MONTHS",
+	"YEAR",
+}
+
 func (v *PayPeriodEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -38,7 +49,7 @@ func (v *PayPeriodEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := PayPeriodEnum(value)
-	for _, existing := range []PayPeriodEnum{ "HOUR", "DAY", "WEEK", "EVERY_TWO_WEEKS", "MONTH", "QUARTER", "EVERY_SIX_MONTHS", "YEAR",   } {
+	for _, existing := range allowedPayPeriodEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -46,6 +57,27 @@ func (v *PayPeriodEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid PayPeriodEnum", value)
+}
+
+// NewPayPeriodEnumFromValue returns a pointer to a valid PayPeriodEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewPayPeriodEnumFromValue(v string) (*PayPeriodEnum, error) {
+	ev := PayPeriodEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for PayPeriodEnum: valid values are %v", v, allowedPayPeriodEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v PayPeriodEnum) IsValid() bool {
+	for _, existing := range allowedPayPeriodEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to PayPeriodEnum value

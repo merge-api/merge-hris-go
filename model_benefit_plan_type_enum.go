@@ -45,6 +45,31 @@ const (
 	BENEFITPLANTYPEENUM_STUDENT_LOAN BenefitPlanTypeEnum = "STUDENT_LOAN"
 )
 
+var allowedBenefitPlanTypeEnumEnumValues = []BenefitPlanTypeEnum{
+	"MEDICAL",
+	"DENTAL",
+	"VISION",
+	"HSA",
+	"FSA_MEDICAL",
+	"FSA_DEPENDENT_CARE",
+	"SIMPLE_IRA",
+	"_401K",
+	"ROTH_401K",
+	"OTHER_NON_TAXABLE",
+	"COMMUTER_TRANSIT",
+	"COMMUTER_PARKING",
+	"_401K_LOAN_PAYMENT",
+	"SHORT_DISABILITY",
+	"LONG_DISABILITY",
+	"LIFE",
+	"SEP_IRA",
+	"SARSEP",
+	"CUSTOM_TAXABLE",
+	"_403B",
+	"ROTH_403B",
+	"STUDENT_LOAN",
+}
+
 func (v *BenefitPlanTypeEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -52,7 +77,7 @@ func (v *BenefitPlanTypeEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := BenefitPlanTypeEnum(value)
-	for _, existing := range []BenefitPlanTypeEnum{ "MEDICAL", "DENTAL", "VISION", "HSA", "FSA_MEDICAL", "FSA_DEPENDENT_CARE", "SIMPLE_IRA", "_401K", "ROTH_401K", "OTHER_NON_TAXABLE", "COMMUTER_TRANSIT", "COMMUTER_PARKING", "_401K_LOAN_PAYMENT", "SHORT_DISABILITY", "LONG_DISABILITY", "LIFE", "SEP_IRA", "SARSEP", "CUSTOM_TAXABLE", "_403B", "ROTH_403B", "STUDENT_LOAN",   } {
+	for _, existing := range allowedBenefitPlanTypeEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -60,6 +85,27 @@ func (v *BenefitPlanTypeEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid BenefitPlanTypeEnum", value)
+}
+
+// NewBenefitPlanTypeEnumFromValue returns a pointer to a valid BenefitPlanTypeEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewBenefitPlanTypeEnumFromValue(v string) (*BenefitPlanTypeEnum, error) {
+	ev := BenefitPlanTypeEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for BenefitPlanTypeEnum: valid values are %v", v, allowedBenefitPlanTypeEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v BenefitPlanTypeEnum) IsValid() bool {
+	for _, existing := range allowedBenefitPlanTypeEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to BenefitPlanTypeEnum value

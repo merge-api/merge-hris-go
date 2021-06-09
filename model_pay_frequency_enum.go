@@ -32,6 +32,18 @@ const (
 	PAYFREQUENCYENUM_NULL PayFrequencyEnum = "NULL"
 )
 
+var allowedPayFrequencyEnumEnumValues = []PayFrequencyEnum{
+	"WEEKLY",
+	"BIWEEKLY",
+	"MONTHLY",
+	"QUARTERLY",
+	"SEMIANNUALLY",
+	"ANNUALLY",
+	"THIRTEEN-MONTHLY",
+	"PRO_RATA",
+	"NULL",
+}
+
 func (v *PayFrequencyEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -39,7 +51,7 @@ func (v *PayFrequencyEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := PayFrequencyEnum(value)
-	for _, existing := range []PayFrequencyEnum{ "WEEKLY", "BIWEEKLY", "MONTHLY", "QUARTERLY", "SEMIANNUALLY", "ANNUALLY", "THIRTEEN-MONTHLY", "PRO_RATA", "NULL",   } {
+	for _, existing := range allowedPayFrequencyEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -47,6 +59,27 @@ func (v *PayFrequencyEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid PayFrequencyEnum", value)
+}
+
+// NewPayFrequencyEnumFromValue returns a pointer to a valid PayFrequencyEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewPayFrequencyEnumFromValue(v string) (*PayFrequencyEnum, error) {
+	ev := PayFrequencyEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for PayFrequencyEnum: valid values are %v", v, allowedPayFrequencyEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v PayFrequencyEnum) IsValid() bool {
+	for _, existing := range allowedPayFrequencyEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to PayFrequencyEnum value

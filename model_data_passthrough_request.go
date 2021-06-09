@@ -19,7 +19,7 @@ import (
 type DataPassthroughRequest struct {
 	Method MethodEnum `json:"method"`
 	Path string `json:"path"`
-	BaseUrlOverride *string `json:"base_url_override,omitempty"`
+	BaseUrlOverride NullableString `json:"base_url_override,omitempty"`
 	Data map[string]interface{} `json:"data,omitempty"`
 	Headers map[string]interface{} `json:"headers,omitempty"`
 }
@@ -28,7 +28,7 @@ type DataPassthroughRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDataPassthroughRequest(method MethodEnum, path string, ) *DataPassthroughRequest {
+func NewDataPassthroughRequest(method MethodEnum, path string) *DataPassthroughRequest {
 	this := DataPassthroughRequest{}
 	this.Method = method
 	this.Path = path
@@ -45,7 +45,7 @@ func NewDataPassthroughRequestWithDefaults() *DataPassthroughRequest {
 
 // GetMethod returns the Method field value
 func (o *DataPassthroughRequest) GetMethod() MethodEnum {
-	if o == nil  {
+	if o == nil {
 		var ret MethodEnum
 		return ret
 	}
@@ -69,7 +69,7 @@ func (o *DataPassthroughRequest) SetMethod(v MethodEnum) {
 
 // GetPath returns the Path field value
 func (o *DataPassthroughRequest) GetPath() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -91,36 +91,46 @@ func (o *DataPassthroughRequest) SetPath(v string) {
 	o.Path = v
 }
 
-// GetBaseUrlOverride returns the BaseUrlOverride field value if set, zero value otherwise.
+// GetBaseUrlOverride returns the BaseUrlOverride field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DataPassthroughRequest) GetBaseUrlOverride() string {
-	if o == nil || o.BaseUrlOverride == nil {
+	if o == nil || o.BaseUrlOverride.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.BaseUrlOverride
+	return *o.BaseUrlOverride.Get()
 }
 
 // GetBaseUrlOverrideOk returns a tuple with the BaseUrlOverride field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DataPassthroughRequest) GetBaseUrlOverrideOk() (*string, bool) {
-	if o == nil || o.BaseUrlOverride == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.BaseUrlOverride, true
+	return o.BaseUrlOverride.Get(), o.BaseUrlOverride.IsSet()
 }
 
 // HasBaseUrlOverride returns a boolean if a field has been set.
 func (o *DataPassthroughRequest) HasBaseUrlOverride() bool {
-	if o != nil && o.BaseUrlOverride != nil {
+	if o != nil && o.BaseUrlOverride.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetBaseUrlOverride gets a reference to the given string and assigns it to the BaseUrlOverride field.
+// SetBaseUrlOverride gets a reference to the given NullableString and assigns it to the BaseUrlOverride field.
 func (o *DataPassthroughRequest) SetBaseUrlOverride(v string) {
-	o.BaseUrlOverride = &v
+	o.BaseUrlOverride.Set(&v)
+}
+// SetBaseUrlOverrideNil sets the value for BaseUrlOverride to be an explicit nil
+func (o *DataPassthroughRequest) SetBaseUrlOverrideNil() {
+	o.BaseUrlOverride.Set(nil)
+}
+
+// UnsetBaseUrlOverride ensures that no value is present for BaseUrlOverride, not even an explicit nil
+func (o *DataPassthroughRequest) UnsetBaseUrlOverride() {
+	o.BaseUrlOverride.Unset()
 }
 
 // GetData returns the Data field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -197,8 +207,8 @@ func (o DataPassthroughRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["path"] = o.Path
 	}
-	if o.BaseUrlOverride != nil {
-		toSerialize["base_url_override"] = o.BaseUrlOverride
+	if o.BaseUrlOverride.IsSet() {
+		toSerialize["base_url_override"] = o.BaseUrlOverride.Get()
 	}
 	if o.Data != nil {
 		toSerialize["data"] = o.Data

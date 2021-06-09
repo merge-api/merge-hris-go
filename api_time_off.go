@@ -90,7 +90,7 @@ func (r ApiTimeOffListRequest) RemoteId(remoteId string) ApiTimeOffListRequest {
 	return r
 }
 
-func (r ApiTimeOffListRequest) Execute() (PaginatedTimeOffList, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiTimeOffListRequest) Execute() (PaginatedTimeOffList, *_nethttp.Response, error) {
 	return r.ApiService.TimeOffListExecute(r)
 }
 
@@ -111,21 +111,19 @@ func (a *TimeOffApiService) TimeOffList(ctx _context.Context) ApiTimeOffListRequ
  * Execute executes the request
  * @return PaginatedTimeOffList
  */
-func (a *TimeOffApiService) TimeOffListExecute(r ApiTimeOffListRequest) (PaginatedTimeOffList, *_nethttp.Response, GenericOpenAPIError) {
+func (a *TimeOffApiService) TimeOffListExecute(r ApiTimeOffListRequest) (PaginatedTimeOffList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  PaginatedTimeOffList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TimeOffApiService.TimeOffList")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/time-off"
@@ -134,8 +132,7 @@ func (a *TimeOffApiService) TimeOffListExecute(r ApiTimeOffListRequest) (Paginat
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.approverId != nil {
@@ -202,22 +199,19 @@ func (a *TimeOffApiService) TimeOffListExecute(r ApiTimeOffListRequest) (Paginat
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -237,7 +231,7 @@ func (a *TimeOffApiService) TimeOffListExecute(r ApiTimeOffListRequest) (Paginat
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiTimeOffRetrieveRequest struct {
@@ -257,7 +251,7 @@ func (r ApiTimeOffRetrieveRequest) IncludeRemoteData(includeRemoteData bool) Api
 	return r
 }
 
-func (r ApiTimeOffRetrieveRequest) Execute() (TimeOff, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiTimeOffRetrieveRequest) Execute() (TimeOff, *_nethttp.Response, error) {
 	return r.ApiService.TimeOffRetrieveExecute(r)
 }
 
@@ -280,21 +274,19 @@ func (a *TimeOffApiService) TimeOffRetrieve(ctx _context.Context, id string) Api
  * Execute executes the request
  * @return TimeOff
  */
-func (a *TimeOffApiService) TimeOffRetrieveExecute(r ApiTimeOffRetrieveRequest) (TimeOff, *_nethttp.Response, GenericOpenAPIError) {
+func (a *TimeOffApiService) TimeOffRetrieveExecute(r ApiTimeOffRetrieveRequest) (TimeOff, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  TimeOff
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TimeOffApiService.TimeOffRetrieve")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/time-off/{id}"
@@ -304,8 +296,7 @@ func (a *TimeOffApiService) TimeOffRetrieveExecute(r ApiTimeOffRetrieveRequest) 
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.includeRemoteData != nil {
@@ -345,22 +336,19 @@ func (a *TimeOffApiService) TimeOffRetrieveExecute(r ApiTimeOffRetrieveRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -380,5 +368,5 @@ func (a *TimeOffApiService) TimeOffRetrieveExecute(r ApiTimeOffRetrieveRequest) 
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

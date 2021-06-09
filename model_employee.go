@@ -21,7 +21,9 @@ type Employee struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
-	// The ID of the Employee's company.
+	// The employee's number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user.
+	EmployeeNumber NullableString `json:"employee_number,omitempty"`
+	// The ID of the employee's company.
 	Company NullableString `json:"company,omitempty"`
 	// The employee's first name.
 	FirstName NullableString `json:"first_name,omitempty"`
@@ -54,7 +56,7 @@ type Employee struct {
 	MaritalStatus NullableMaritalStatusEnum `json:"marital_status,omitempty"`
 	// The employee's date of birth.
 	DateOfBirth NullableTime `json:"date_of_birth,omitempty"`
-	// The employee's hire date.
+	// The employee's hire date. If an employee has multiple hire dates from previous employments, this represents the most recent hire date.
 	HireDate NullableTime `json:"hire_date,omitempty"`
 	// The employment status of the employee.
 	EmploymentStatus NullableEmploymentStatusEnum `json:"employment_status,omitempty"`
@@ -62,8 +64,6 @@ type Employee struct {
 	TerminationDate NullableTime `json:"termination_date,omitempty"`
 	// The URL of the employee's avatar image.
 	Avatar NullableString `json:"avatar,omitempty"`
-	// The identification number for the employee.
-	EmployeeNumber NullableString `json:"employee_number,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
@@ -156,6 +156,48 @@ func (o *Employee) SetRemoteIdNil() {
 // UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
 func (o *Employee) UnsetRemoteId() {
 	o.RemoteId.Unset()
+}
+
+// GetEmployeeNumber returns the EmployeeNumber field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Employee) GetEmployeeNumber() string {
+	if o == nil || o.EmployeeNumber.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.EmployeeNumber.Get()
+}
+
+// GetEmployeeNumberOk returns a tuple with the EmployeeNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Employee) GetEmployeeNumberOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.EmployeeNumber.Get(), o.EmployeeNumber.IsSet()
+}
+
+// HasEmployeeNumber returns a boolean if a field has been set.
+func (o *Employee) HasEmployeeNumber() bool {
+	if o != nil && o.EmployeeNumber.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEmployeeNumber gets a reference to the given NullableString and assigns it to the EmployeeNumber field.
+func (o *Employee) SetEmployeeNumber(v string) {
+	o.EmployeeNumber.Set(&v)
+}
+// SetEmployeeNumberNil sets the value for EmployeeNumber to be an explicit nil
+func (o *Employee) SetEmployeeNumberNil() {
+	o.EmployeeNumber.Set(nil)
+}
+
+// UnsetEmployeeNumber ensures that no value is present for EmployeeNumber, not even an explicit nil
+func (o *Employee) UnsetEmployeeNumber() {
+	o.EmployeeNumber.Unset()
 }
 
 // GetCompany returns the Company field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1030,48 +1072,6 @@ func (o *Employee) UnsetAvatar() {
 	o.Avatar.Unset()
 }
 
-// GetEmployeeNumber returns the EmployeeNumber field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employee) GetEmployeeNumber() string {
-	if o == nil || o.EmployeeNumber.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.EmployeeNumber.Get()
-}
-
-// GetEmployeeNumberOk returns a tuple with the EmployeeNumber field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employee) GetEmployeeNumberOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.EmployeeNumber.Get(), o.EmployeeNumber.IsSet()
-}
-
-// HasEmployeeNumber returns a boolean if a field has been set.
-func (o *Employee) HasEmployeeNumber() bool {
-	if o != nil && o.EmployeeNumber.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetEmployeeNumber gets a reference to the given NullableString and assigns it to the EmployeeNumber field.
-func (o *Employee) SetEmployeeNumber(v string) {
-	o.EmployeeNumber.Set(&v)
-}
-// SetEmployeeNumberNil sets the value for EmployeeNumber to be an explicit nil
-func (o *Employee) SetEmployeeNumberNil() {
-	o.EmployeeNumber.Set(nil)
-}
-
-// UnsetEmployeeNumber ensures that no value is present for EmployeeNumber, not even an explicit nil
-func (o *Employee) UnsetEmployeeNumber() {
-	o.EmployeeNumber.Unset()
-}
-
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Employee) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -1112,6 +1112,9 @@ func (o Employee) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoteId.IsSet() {
 		toSerialize["remote_id"] = o.RemoteId.Get()
+	}
+	if o.EmployeeNumber.IsSet() {
+		toSerialize["employee_number"] = o.EmployeeNumber.Get()
 	}
 	if o.Company.IsSet() {
 		toSerialize["company"] = o.Company.Get()
@@ -1175,9 +1178,6 @@ func (o Employee) MarshalJSON() ([]byte, error) {
 	}
 	if o.Avatar.IsSet() {
 		toSerialize["avatar"] = o.Avatar.Get()
-	}
-	if o.EmployeeNumber.IsSet() {
-		toSerialize["employee_number"] = o.EmployeeNumber.Get()
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

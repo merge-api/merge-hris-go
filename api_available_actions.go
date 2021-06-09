@@ -38,7 +38,7 @@ func (r ApiAvailableActionsRetrieveRequest) XAccountToken(xAccountToken string) 
 	return r
 }
 
-func (r ApiAvailableActionsRetrieveRequest) Execute() (AvailableActions, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiAvailableActionsRetrieveRequest) Execute() (AvailableActions, *_nethttp.Response, error) {
 	return r.ApiService.AvailableActionsRetrieveExecute(r)
 }
 
@@ -59,21 +59,19 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieve(ctx _context.Conte
  * Execute executes the request
  * @return AvailableActions
  */
-func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvailableActionsRetrieveRequest) (AvailableActions, *_nethttp.Response, GenericOpenAPIError) {
+func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvailableActionsRetrieveRequest) (AvailableActions, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  AvailableActions
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AvailableActionsApiService.AvailableActionsRetrieve")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/available-actions"
@@ -82,8 +80,7 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvaila
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -120,22 +117,19 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvaila
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -155,5 +149,5 @@ func (a *AvailableActionsApiService) AvailableActionsRetrieveExecute(r ApiAvaila
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

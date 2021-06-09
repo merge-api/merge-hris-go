@@ -27,6 +27,13 @@ const (
 	REQUESTTYPEENUM_JURY_DUTY RequestTypeEnum = "JURY_DUTY"
 )
 
+var allowedRequestTypeEnumEnumValues = []RequestTypeEnum{
+	"VACATION",
+	"SICK",
+	"PERSONAL",
+	"JURY_DUTY",
+}
+
 func (v *RequestTypeEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -34,7 +41,7 @@ func (v *RequestTypeEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := RequestTypeEnum(value)
-	for _, existing := range []RequestTypeEnum{ "VACATION", "SICK", "PERSONAL", "JURY_DUTY",   } {
+	for _, existing := range allowedRequestTypeEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -42,6 +49,27 @@ func (v *RequestTypeEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid RequestTypeEnum", value)
+}
+
+// NewRequestTypeEnumFromValue returns a pointer to a valid RequestTypeEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewRequestTypeEnumFromValue(v string) (*RequestTypeEnum, error) {
+	ev := RequestTypeEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for RequestTypeEnum: valid values are %v", v, allowedRequestTypeEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v RequestTypeEnum) IsValid() bool {
+	for _, existing := range allowedRequestTypeEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to RequestTypeEnum value

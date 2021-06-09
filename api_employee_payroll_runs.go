@@ -90,7 +90,7 @@ func (r ApiEmployeePayrollRunsListRequest) RemoteId(remoteId string) ApiEmployee
 	return r
 }
 
-func (r ApiEmployeePayrollRunsListRequest) Execute() (PaginatedEmployeePayrollRunList, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiEmployeePayrollRunsListRequest) Execute() (PaginatedEmployeePayrollRunList, *_nethttp.Response, error) {
 	return r.ApiService.EmployeePayrollRunsListExecute(r)
 }
 
@@ -111,21 +111,19 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsList(ctx _context.Con
  * Execute executes the request
  * @return PaginatedEmployeePayrollRunList
  */
-func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsListExecute(r ApiEmployeePayrollRunsListRequest) (PaginatedEmployeePayrollRunList, *_nethttp.Response, GenericOpenAPIError) {
+func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsListExecute(r ApiEmployeePayrollRunsListRequest) (PaginatedEmployeePayrollRunList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  PaginatedEmployeePayrollRunList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmployeePayrollRunsApiService.EmployeePayrollRunsList")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/employee-payroll-runs"
@@ -134,8 +132,7 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsListExecute(r ApiEmpl
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.createdAfter != nil {
@@ -202,22 +199,19 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsListExecute(r ApiEmpl
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -237,7 +231,7 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsListExecute(r ApiEmpl
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiEmployeePayrollRunsRetrieveRequest struct {
@@ -257,7 +251,7 @@ func (r ApiEmployeePayrollRunsRetrieveRequest) IncludeRemoteData(includeRemoteDa
 	return r
 }
 
-func (r ApiEmployeePayrollRunsRetrieveRequest) Execute() (EmployeePayrollRun, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiEmployeePayrollRunsRetrieveRequest) Execute() (EmployeePayrollRun, *_nethttp.Response, error) {
 	return r.ApiService.EmployeePayrollRunsRetrieveExecute(r)
 }
 
@@ -280,21 +274,19 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsRetrieve(ctx _context
  * Execute executes the request
  * @return EmployeePayrollRun
  */
-func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsRetrieveExecute(r ApiEmployeePayrollRunsRetrieveRequest) (EmployeePayrollRun, *_nethttp.Response, GenericOpenAPIError) {
+func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsRetrieveExecute(r ApiEmployeePayrollRunsRetrieveRequest) (EmployeePayrollRun, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  EmployeePayrollRun
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmployeePayrollRunsApiService.EmployeePayrollRunsRetrieve")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/employee-payroll-runs/{id}"
@@ -304,8 +296,7 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsRetrieveExecute(r Api
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.includeRemoteData != nil {
@@ -345,22 +336,19 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsRetrieveExecute(r Api
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -380,5 +368,5 @@ func (a *EmployeePayrollRunsApiService) EmployeePayrollRunsRetrieveExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

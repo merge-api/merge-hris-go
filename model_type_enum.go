@@ -27,6 +27,13 @@ const (
 	TYPEENUM_BONUS TypeEnum = "BONUS"
 )
 
+var allowedTypeEnumEnumValues = []TypeEnum{
+	"SALARY",
+	"REIMBURSEMENT",
+	"OVERTIME",
+	"BONUS",
+}
+
 func (v *TypeEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -34,7 +41,7 @@ func (v *TypeEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := TypeEnum(value)
-	for _, existing := range []TypeEnum{ "SALARY", "REIMBURSEMENT", "OVERTIME", "BONUS",   } {
+	for _, existing := range allowedTypeEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -42,6 +49,27 @@ func (v *TypeEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid TypeEnum", value)
+}
+
+// NewTypeEnumFromValue returns a pointer to a valid TypeEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewTypeEnumFromValue(v string) (*TypeEnum, error) {
+	ev := TypeEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for TypeEnum: valid values are %v", v, allowedTypeEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v TypeEnum) IsValid() bool {
+	for _, existing := range allowedTypeEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to TypeEnum value

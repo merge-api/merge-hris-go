@@ -80,7 +80,7 @@ func (r ApiTeamsListRequest) RemoteId(remoteId string) ApiTeamsListRequest {
 	return r
 }
 
-func (r ApiTeamsListRequest) Execute() (PaginatedTeamList, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiTeamsListRequest) Execute() (PaginatedTeamList, *_nethttp.Response, error) {
 	return r.ApiService.TeamsListExecute(r)
 }
 
@@ -101,21 +101,19 @@ func (a *TeamsApiService) TeamsList(ctx _context.Context) ApiTeamsListRequest {
  * Execute executes the request
  * @return PaginatedTeamList
  */
-func (a *TeamsApiService) TeamsListExecute(r ApiTeamsListRequest) (PaginatedTeamList, *_nethttp.Response, GenericOpenAPIError) {
+func (a *TeamsApiService) TeamsListExecute(r ApiTeamsListRequest) (PaginatedTeamList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  PaginatedTeamList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamsList")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/teams"
@@ -124,8 +122,7 @@ func (a *TeamsApiService) TeamsListExecute(r ApiTeamsListRequest) (PaginatedTeam
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.createdAfter != nil {
@@ -186,22 +183,19 @@ func (a *TeamsApiService) TeamsListExecute(r ApiTeamsListRequest) (PaginatedTeam
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -221,7 +215,7 @@ func (a *TeamsApiService) TeamsListExecute(r ApiTeamsListRequest) (PaginatedTeam
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiTeamsRetrieveRequest struct {
@@ -241,7 +235,7 @@ func (r ApiTeamsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiTe
 	return r
 }
 
-func (r ApiTeamsRetrieveRequest) Execute() (Team, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiTeamsRetrieveRequest) Execute() (Team, *_nethttp.Response, error) {
 	return r.ApiService.TeamsRetrieveExecute(r)
 }
 
@@ -264,21 +258,19 @@ func (a *TeamsApiService) TeamsRetrieve(ctx _context.Context, id string) ApiTeam
  * Execute executes the request
  * @return Team
  */
-func (a *TeamsApiService) TeamsRetrieveExecute(r ApiTeamsRetrieveRequest) (Team, *_nethttp.Response, GenericOpenAPIError) {
+func (a *TeamsApiService) TeamsRetrieveExecute(r ApiTeamsRetrieveRequest) (Team, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  Team
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamsRetrieve")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/teams/{id}"
@@ -288,8 +280,7 @@ func (a *TeamsApiService) TeamsRetrieveExecute(r ApiTeamsRetrieveRequest) (Team,
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.includeRemoteData != nil {
@@ -329,22 +320,19 @@ func (a *TeamsApiService) TeamsRetrieveExecute(r ApiTeamsRetrieveRequest) (Team,
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -364,5 +352,5 @@ func (a *TeamsApiService) TeamsRetrieveExecute(r ApiTeamsRetrieveRequest) (Team,
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

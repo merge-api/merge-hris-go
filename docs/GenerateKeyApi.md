@@ -34,7 +34,7 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
     resp, r, err := api_client.GenerateKeyApi.GenerateKeyCreate(context.Background()).GenerateRemoteKeyRequest(generateRemoteKeyRequest).Execute()
-    if err.Error() != "" {
+    if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `GenerateKeyApi.GenerateKeyCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
