@@ -25,6 +25,11 @@ const (
 	UNITSENUM_DAYS UnitsEnum = "DAYS"
 )
 
+var allowedUnitsEnumEnumValues = []UnitsEnum{
+	"HOURS",
+	"DAYS",
+}
+
 func (v *UnitsEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -32,7 +37,7 @@ func (v *UnitsEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := UnitsEnum(value)
-	for _, existing := range []UnitsEnum{ "HOURS", "DAYS",   } {
+	for _, existing := range allowedUnitsEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -40,6 +45,27 @@ func (v *UnitsEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid UnitsEnum", value)
+}
+
+// NewUnitsEnumFromValue returns a pointer to a valid UnitsEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewUnitsEnumFromValue(v string) (*UnitsEnum, error) {
+	ev := UnitsEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for UnitsEnum: valid values are %v", v, allowedUnitsEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v UnitsEnum) IsValid() bool {
+	for _, existing := range allowedUnitsEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to UnitsEnum value

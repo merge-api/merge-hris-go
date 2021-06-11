@@ -28,6 +28,14 @@ const (
 	MARITALSTATUSENUM_QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD MaritalStatusEnum = "QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD"
 )
 
+var allowedMaritalStatusEnumEnumValues = []MaritalStatusEnum{
+	"SINGLE",
+	"MARRIED_FILING_JOINTLY",
+	"MARRIED_FILING_SEPARATELY",
+	"HEAD_OF_HOUSEHOLD",
+	"QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD",
+}
+
 func (v *MaritalStatusEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -35,7 +43,7 @@ func (v *MaritalStatusEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := MaritalStatusEnum(value)
-	for _, existing := range []MaritalStatusEnum{ "SINGLE", "MARRIED_FILING_JOINTLY", "MARRIED_FILING_SEPARATELY", "HEAD_OF_HOUSEHOLD", "QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD",   } {
+	for _, existing := range allowedMaritalStatusEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -43,6 +51,27 @@ func (v *MaritalStatusEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid MaritalStatusEnum", value)
+}
+
+// NewMaritalStatusEnumFromValue returns a pointer to a valid MaritalStatusEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewMaritalStatusEnumFromValue(v string) (*MaritalStatusEnum, error) {
+	ev := MaritalStatusEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for MaritalStatusEnum: valid values are %v", v, allowedMaritalStatusEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v MaritalStatusEnum) IsValid() bool {
+	for _, existing := range allowedMaritalStatusEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to MaritalStatusEnum value

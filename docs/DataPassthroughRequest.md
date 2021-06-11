@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Method** | [**MethodEnum**](MethodEnum.md) |  | 
 **Path** | **string** |  | 
-**BaseUrlOverride** | Pointer to **string** |  | [optional] 
+**BaseUrlOverride** | Pointer to **NullableString** |  | [optional] 
 **Data** | Pointer to **map[string]interface{}** |  | [optional] 
 **Headers** | Pointer to **map[string]interface{}** |  | [optional] 
 
@@ -94,6 +94,16 @@ SetBaseUrlOverride sets BaseUrlOverride field to given value.
 
 HasBaseUrlOverride returns a boolean if a field has been set.
 
+### SetBaseUrlOverrideNil
+
+`func (o *DataPassthroughRequest) SetBaseUrlOverrideNil(b bool)`
+
+ SetBaseUrlOverrideNil sets the value for BaseUrlOverride to be an explicit nil
+
+### UnsetBaseUrlOverride
+`func (o *DataPassthroughRequest) UnsetBaseUrlOverride()`
+
+UnsetBaseUrlOverride ensures that no value is present for BaseUrlOverride, not even an explicit nil
 ### GetData
 
 `func (o *DataPassthroughRequest) GetData() map[string]interface{}`

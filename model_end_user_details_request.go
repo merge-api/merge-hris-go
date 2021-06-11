@@ -20,20 +20,19 @@ type EndUserDetailsRequest struct {
 	EndUserEmailAddress string `json:"end_user_email_address"`
 	EndUserOrganizationName string `json:"end_user_organization_name"`
 	EndUserOriginId string `json:"end_user_origin_id"`
-	Categories []string `json:"categories"`
-	Integration *string `json:"integration,omitempty"`
+	Categories *[]string `json:"categories,omitempty"`
+	Integration NullableString `json:"integration,omitempty"`
 }
 
 // NewEndUserDetailsRequest instantiates a new EndUserDetailsRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationName string, endUserOriginId string, categories []string, ) *EndUserDetailsRequest {
+func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationName string, endUserOriginId string) *EndUserDetailsRequest {
 	this := EndUserDetailsRequest{}
 	this.EndUserEmailAddress = endUserEmailAddress
 	this.EndUserOrganizationName = endUserOrganizationName
 	this.EndUserOriginId = endUserOriginId
-	this.Categories = categories
 	return &this
 }
 
@@ -47,7 +46,7 @@ func NewEndUserDetailsRequestWithDefaults() *EndUserDetailsRequest {
 
 // GetEndUserEmailAddress returns the EndUserEmailAddress field value
 func (o *EndUserDetailsRequest) GetEndUserEmailAddress() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -71,7 +70,7 @@ func (o *EndUserDetailsRequest) SetEndUserEmailAddress(v string) {
 
 // GetEndUserOrganizationName returns the EndUserOrganizationName field value
 func (o *EndUserDetailsRequest) GetEndUserOrganizationName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -95,7 +94,7 @@ func (o *EndUserDetailsRequest) SetEndUserOrganizationName(v string) {
 
 // GetEndUserOriginId returns the EndUserOriginId field value
 func (o *EndUserDetailsRequest) GetEndUserOriginId() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -117,60 +116,78 @@ func (o *EndUserDetailsRequest) SetEndUserOriginId(v string) {
 	o.EndUserOriginId = v
 }
 
-// GetCategories returns the Categories field value
+// GetCategories returns the Categories field value if set, zero value otherwise.
 func (o *EndUserDetailsRequest) GetCategories() []string {
-	if o == nil  {
+	if o == nil || o.Categories == nil {
 		var ret []string
 		return ret
 	}
-
-	return o.Categories
+	return *o.Categories
 }
 
-// GetCategoriesOk returns a tuple with the Categories field value
+// GetCategoriesOk returns a tuple with the Categories field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EndUserDetailsRequest) GetCategoriesOk() (*[]string, bool) {
-	if o == nil  {
+	if o == nil || o.Categories == nil {
 		return nil, false
 	}
-	return &o.Categories, true
+	return o.Categories, true
 }
 
-// SetCategories sets field value
-func (o *EndUserDetailsRequest) SetCategories(v []string) {
-	o.Categories = v
-}
-
-// GetIntegration returns the Integration field value if set, zero value otherwise.
-func (o *EndUserDetailsRequest) GetIntegration() string {
-	if o == nil || o.Integration == nil {
-		var ret string
-		return ret
-	}
-	return *o.Integration
-}
-
-// GetIntegrationOk returns a tuple with the Integration field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EndUserDetailsRequest) GetIntegrationOk() (*string, bool) {
-	if o == nil || o.Integration == nil {
-		return nil, false
-	}
-	return o.Integration, true
-}
-
-// HasIntegration returns a boolean if a field has been set.
-func (o *EndUserDetailsRequest) HasIntegration() bool {
-	if o != nil && o.Integration != nil {
+// HasCategories returns a boolean if a field has been set.
+func (o *EndUserDetailsRequest) HasCategories() bool {
+	if o != nil && o.Categories != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetIntegration gets a reference to the given string and assigns it to the Integration field.
+// SetCategories gets a reference to the given []string and assigns it to the Categories field.
+func (o *EndUserDetailsRequest) SetCategories(v []string) {
+	o.Categories = &v
+}
+
+// GetIntegration returns the Integration field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EndUserDetailsRequest) GetIntegration() string {
+	if o == nil || o.Integration.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.Integration.Get()
+}
+
+// GetIntegrationOk returns a tuple with the Integration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EndUserDetailsRequest) GetIntegrationOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Integration.Get(), o.Integration.IsSet()
+}
+
+// HasIntegration returns a boolean if a field has been set.
+func (o *EndUserDetailsRequest) HasIntegration() bool {
+	if o != nil && o.Integration.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegration gets a reference to the given NullableString and assigns it to the Integration field.
 func (o *EndUserDetailsRequest) SetIntegration(v string) {
-	o.Integration = &v
+	o.Integration.Set(&v)
+}
+// SetIntegrationNil sets the value for Integration to be an explicit nil
+func (o *EndUserDetailsRequest) SetIntegrationNil() {
+	o.Integration.Set(nil)
+}
+
+// UnsetIntegration ensures that no value is present for Integration, not even an explicit nil
+func (o *EndUserDetailsRequest) UnsetIntegration() {
+	o.Integration.Unset()
 }
 
 func (o EndUserDetailsRequest) MarshalJSON() ([]byte, error) {
@@ -184,11 +201,11 @@ func (o EndUserDetailsRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["end_user_origin_id"] = o.EndUserOriginId
 	}
-	if true {
+	if o.Categories != nil {
 		toSerialize["categories"] = o.Categories
 	}
-	if o.Integration != nil {
-		toSerialize["integration"] = o.Integration
+	if o.Integration.IsSet() {
+		toSerialize["integration"] = o.Integration.Get()
 	}
 	return json.Marshal(toSerialize)
 }

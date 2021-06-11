@@ -28,7 +28,7 @@ type RemoteResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRemoteResponse(method string, path string, status int32, response map[string]interface{}, ) *RemoteResponse {
+func NewRemoteResponse(method string, path string, status int32, response map[string]interface{}) *RemoteResponse {
 	this := RemoteResponse{}
 	this.Method = method
 	this.Path = path
@@ -47,7 +47,7 @@ func NewRemoteResponseWithDefaults() *RemoteResponse {
 
 // GetMethod returns the Method field value
 func (o *RemoteResponse) GetMethod() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -71,7 +71,7 @@ func (o *RemoteResponse) SetMethod(v string) {
 
 // GetPath returns the Path field value
 func (o *RemoteResponse) GetPath() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -95,7 +95,7 @@ func (o *RemoteResponse) SetPath(v string) {
 
 // GetStatus returns the Status field value
 func (o *RemoteResponse) GetStatus() int32 {
-	if o == nil  {
+	if o == nil {
 		var ret int32
 		return ret
 	}
@@ -119,7 +119,7 @@ func (o *RemoteResponse) SetStatus(v int32) {
 
 // GetResponse returns the Response field value
 func (o *RemoteResponse) GetResponse() map[string]interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret map[string]interface{}
 		return ret
 	}

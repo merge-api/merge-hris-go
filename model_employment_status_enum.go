@@ -26,6 +26,12 @@ const (
 	EMPLOYMENTSTATUSENUM_INACTIVE EmploymentStatusEnum = "INACTIVE"
 )
 
+var allowedEmploymentStatusEnumEnumValues = []EmploymentStatusEnum{
+	"ACTIVE",
+	"PENDING",
+	"INACTIVE",
+}
+
 func (v *EmploymentStatusEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -33,7 +39,7 @@ func (v *EmploymentStatusEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := EmploymentStatusEnum(value)
-	for _, existing := range []EmploymentStatusEnum{ "ACTIVE", "PENDING", "INACTIVE",   } {
+	for _, existing := range allowedEmploymentStatusEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -41,6 +47,27 @@ func (v *EmploymentStatusEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid EmploymentStatusEnum", value)
+}
+
+// NewEmploymentStatusEnumFromValue returns a pointer to a valid EmploymentStatusEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewEmploymentStatusEnumFromValue(v string) (*EmploymentStatusEnum, error) {
+	ev := EmploymentStatusEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for EmploymentStatusEnum: valid values are %v", v, allowedEmploymentStatusEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v EmploymentStatusEnum) IsValid() bool {
+	for _, existing := range allowedEmploymentStatusEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to EmploymentStatusEnum value

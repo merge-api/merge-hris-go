@@ -25,7 +25,7 @@ type RemoteData struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRemoteData(path string, ) *RemoteData {
+func NewRemoteData(path string) *RemoteData {
 	this := RemoteData{}
 	this.Path = path
 	return &this
@@ -41,7 +41,7 @@ func NewRemoteDataWithDefaults() *RemoteData {
 
 // GetPath returns the Path field value
 func (o *RemoteData) GetPath() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}

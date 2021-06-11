@@ -38,6 +38,24 @@ const (
 	RUNTYPEENUM_CONTRACTOR_LATE_PAYMENTS RunTypeEnum = "CONTRACTOR_LATE_PAYMENTS"
 )
 
+var allowedRunTypeEnumEnumValues = []RunTypeEnum{
+	"INIT",
+	"REGULAR",
+	"OFF_CYCLE",
+	"CORRECTION",
+	"TERMINATION",
+	"RECONCILIATION",
+	"NEW_HIRE",
+	"POP",
+	"TRANSITION",
+	"CORRECTION_DISPLAY",
+	"EXCESS_HOURS",
+	"SIGN_ON_BONUS",
+	"S_CORP",
+	"FRINGE_BENEFITS",
+	"CONTRACTOR_LATE_PAYMENTS",
+}
+
 func (v *RunTypeEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -45,7 +63,7 @@ func (v *RunTypeEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := RunTypeEnum(value)
-	for _, existing := range []RunTypeEnum{ "INIT", "REGULAR", "OFF_CYCLE", "CORRECTION", "TERMINATION", "RECONCILIATION", "NEW_HIRE", "POP", "TRANSITION", "CORRECTION_DISPLAY", "EXCESS_HOURS", "SIGN_ON_BONUS", "S_CORP", "FRINGE_BENEFITS", "CONTRACTOR_LATE_PAYMENTS",   } {
+	for _, existing := range allowedRunTypeEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -53,6 +71,27 @@ func (v *RunTypeEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid RunTypeEnum", value)
+}
+
+// NewRunTypeEnumFromValue returns a pointer to a valid RunTypeEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewRunTypeEnumFromValue(v string) (*RunTypeEnum, error) {
+	ev := RunTypeEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for RunTypeEnum: valid values are %v", v, allowedRunTypeEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v RunTypeEnum) IsValid() bool {
+	for _, existing := range allowedRunTypeEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to RunTypeEnum value

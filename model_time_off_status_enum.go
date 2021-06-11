@@ -28,6 +28,14 @@ const (
 	TIMEOFFSTATUSENUM_DELETED TimeOffStatusEnum = "DELETED"
 )
 
+var allowedTimeOffStatusEnumEnumValues = []TimeOffStatusEnum{
+	"REQUESTED",
+	"APPROVED",
+	"DECLINED",
+	"CANCELLED",
+	"DELETED",
+}
+
 func (v *TimeOffStatusEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -35,7 +43,7 @@ func (v *TimeOffStatusEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := TimeOffStatusEnum(value)
-	for _, existing := range []TimeOffStatusEnum{ "REQUESTED", "APPROVED", "DECLINED", "CANCELLED", "DELETED",   } {
+	for _, existing := range allowedTimeOffStatusEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -43,6 +51,27 @@ func (v *TimeOffStatusEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid TimeOffStatusEnum", value)
+}
+
+// NewTimeOffStatusEnumFromValue returns a pointer to a valid TimeOffStatusEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewTimeOffStatusEnumFromValue(v string) (*TimeOffStatusEnum, error) {
+	ev := TimeOffStatusEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for TimeOffStatusEnum: valid values are %v", v, allowedTimeOffStatusEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v TimeOffStatusEnum) IsValid() bool {
+	for _, existing := range allowedTimeOffStatusEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to TimeOffStatusEnum value

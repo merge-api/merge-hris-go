@@ -25,7 +25,7 @@ type LinkToken struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLinkToken(linkToken string, integrationName string, ) *LinkToken {
+func NewLinkToken(linkToken string, integrationName string) *LinkToken {
 	this := LinkToken{}
 	this.LinkToken = linkToken
 	this.IntegrationName = integrationName
@@ -42,7 +42,7 @@ func NewLinkTokenWithDefaults() *LinkToken {
 
 // GetLinkToken returns the LinkToken field value
 func (o *LinkToken) GetLinkToken() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -66,7 +66,7 @@ func (o *LinkToken) SetLinkToken(v string) {
 
 // GetIntegrationName returns the IntegrationName field value
 func (o *LinkToken) GetIntegrationName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}

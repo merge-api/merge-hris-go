@@ -20,17 +20,19 @@ type ModelOperation struct {
 	ModelName string `json:"model_name"`
 	AvailableOperations []string `json:"available_operations"`
 	RequiredPostParameters []string `json:"required_post_parameters"`
+	SupportedFields []string `json:"supported_fields"`
 }
 
 // NewModelOperation instantiates a new ModelOperation object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewModelOperation(modelName string, availableOperations []string, requiredPostParameters []string, ) *ModelOperation {
+func NewModelOperation(modelName string, availableOperations []string, requiredPostParameters []string, supportedFields []string) *ModelOperation {
 	this := ModelOperation{}
 	this.ModelName = modelName
 	this.AvailableOperations = availableOperations
 	this.RequiredPostParameters = requiredPostParameters
+	this.SupportedFields = supportedFields
 	return &this
 }
 
@@ -44,7 +46,7 @@ func NewModelOperationWithDefaults() *ModelOperation {
 
 // GetModelName returns the ModelName field value
 func (o *ModelOperation) GetModelName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -68,7 +70,7 @@ func (o *ModelOperation) SetModelName(v string) {
 
 // GetAvailableOperations returns the AvailableOperations field value
 func (o *ModelOperation) GetAvailableOperations() []string {
-	if o == nil  {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -92,7 +94,7 @@ func (o *ModelOperation) SetAvailableOperations(v []string) {
 
 // GetRequiredPostParameters returns the RequiredPostParameters field value
 func (o *ModelOperation) GetRequiredPostParameters() []string {
-	if o == nil  {
+	if o == nil {
 		var ret []string
 		return ret
 	}
@@ -114,6 +116,30 @@ func (o *ModelOperation) SetRequiredPostParameters(v []string) {
 	o.RequiredPostParameters = v
 }
 
+// GetSupportedFields returns the SupportedFields field value
+func (o *ModelOperation) GetSupportedFields() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.SupportedFields
+}
+
+// GetSupportedFieldsOk returns a tuple with the SupportedFields field value
+// and a boolean to check if the value has been set.
+func (o *ModelOperation) GetSupportedFieldsOk() (*[]string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.SupportedFields, true
+}
+
+// SetSupportedFields sets field value
+func (o *ModelOperation) SetSupportedFields(v []string) {
+	o.SupportedFields = v
+}
+
 func (o ModelOperation) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -124,6 +150,9 @@ func (o ModelOperation) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["required_post_parameters"] = o.RequiredPostParameters
+	}
+	if true {
+		toSerialize["supported_fields"] = o.SupportedFields
 	}
 	return json.Marshal(toSerialize)
 }

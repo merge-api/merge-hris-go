@@ -29,12 +29,12 @@ import (
 )
 
 func main() {
-    endUserDetailsRequest := *openapiclient.NewEndUserDetailsRequest("EndUserEmailAddress_example", "EndUserOrganizationName_example", "EndUserOriginId_example", []string{"Categories_example"}) // EndUserDetailsRequest | 
+    endUserDetailsRequest := *openapiclient.NewEndUserDetailsRequest("EndUserEmailAddress_example", "EndUserOrganizationName_example", "EndUserOriginId_example") // EndUserDetailsRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
     resp, r, err := api_client.LinkTokenApi.LinkTokenCreate(context.Background()).EndUserDetailsRequest(endUserDetailsRequest).Execute()
-    if err.Error() != "" {
+    if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `LinkTokenApi.LinkTokenCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }

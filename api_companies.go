@@ -80,7 +80,7 @@ func (r ApiCompaniesListRequest) RemoteId(remoteId string) ApiCompaniesListReque
 	return r
 }
 
-func (r ApiCompaniesListRequest) Execute() (PaginatedCompanyList, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiCompaniesListRequest) Execute() (PaginatedCompanyList, *_nethttp.Response, error) {
 	return r.ApiService.CompaniesListExecute(r)
 }
 
@@ -101,21 +101,19 @@ func (a *CompaniesApiService) CompaniesList(ctx _context.Context) ApiCompaniesLi
  * Execute executes the request
  * @return PaginatedCompanyList
  */
-func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (PaginatedCompanyList, *_nethttp.Response, GenericOpenAPIError) {
+func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (PaginatedCompanyList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  PaginatedCompanyList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompaniesApiService.CompaniesList")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/companies"
@@ -124,8 +122,7 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.createdAfter != nil {
@@ -186,22 +183,19 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -221,7 +215,7 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiCompaniesRetrieveRequest struct {
@@ -241,7 +235,7 @@ func (r ApiCompaniesRetrieveRequest) IncludeRemoteData(includeRemoteData bool) A
 	return r
 }
 
-func (r ApiCompaniesRetrieveRequest) Execute() (Company, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiCompaniesRetrieveRequest) Execute() (Company, *_nethttp.Response, error) {
 	return r.ApiService.CompaniesRetrieveExecute(r)
 }
 
@@ -264,21 +258,19 @@ func (a *CompaniesApiService) CompaniesRetrieve(ctx _context.Context, id string)
  * Execute executes the request
  * @return Company
  */
-func (a *CompaniesApiService) CompaniesRetrieveExecute(r ApiCompaniesRetrieveRequest) (Company, *_nethttp.Response, GenericOpenAPIError) {
+func (a *CompaniesApiService) CompaniesRetrieveExecute(r ApiCompaniesRetrieveRequest) (Company, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  Company
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompaniesApiService.CompaniesRetrieve")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/companies/{id}"
@@ -288,8 +280,7 @@ func (a *CompaniesApiService) CompaniesRetrieveExecute(r ApiCompaniesRetrieveReq
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.includeRemoteData != nil {
@@ -329,22 +320,19 @@ func (a *CompaniesApiService) CompaniesRetrieveExecute(r ApiCompaniesRetrieveReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -364,5 +352,5 @@ func (a *CompaniesApiService) CompaniesRetrieveExecute(r ApiCompaniesRetrieveReq
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

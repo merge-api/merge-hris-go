@@ -28,6 +28,14 @@ const (
 	RUNSTATEENUM_CLOSED RunStateEnum = "CLOSED"
 )
 
+var allowedRunStateEnumEnumValues = []RunStateEnum{
+	"PAID",
+	"DRAFT",
+	"APPROVED",
+	"FAILED",
+	"CLOSED",
+}
+
 func (v *RunStateEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -35,7 +43,7 @@ func (v *RunStateEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := RunStateEnum(value)
-	for _, existing := range []RunStateEnum{ "PAID", "DRAFT", "APPROVED", "FAILED", "CLOSED",   } {
+	for _, existing := range allowedRunStateEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -43,6 +51,27 @@ func (v *RunStateEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid RunStateEnum", value)
+}
+
+// NewRunStateEnumFromValue returns a pointer to a valid RunStateEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewRunStateEnumFromValue(v string) (*RunStateEnum, error) {
+	ev := RunStateEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for RunStateEnum: valid values are %v", v, allowedRunStateEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v RunStateEnum) IsValid() bool {
+	for _, existing := range allowedRunStateEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to RunStateEnum value

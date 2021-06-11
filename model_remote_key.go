@@ -25,7 +25,7 @@ type RemoteKey struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRemoteKey(name string, key string, ) *RemoteKey {
+func NewRemoteKey(name string, key string) *RemoteKey {
 	this := RemoteKey{}
 	this.Name = name
 	this.Key = key
@@ -42,7 +42,7 @@ func NewRemoteKeyWithDefaults() *RemoteKey {
 
 // GetName returns the Name field value
 func (o *RemoteKey) GetName() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -66,7 +66,7 @@ func (o *RemoteKey) SetName(v string) {
 
 // GetKey returns the Key field value
 func (o *RemoteKey) GetKey() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}

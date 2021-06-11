@@ -26,7 +26,7 @@ type AvailableActions struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAvailableActions(integration AccountIntegration, passthroughAvailable bool, ) *AvailableActions {
+func NewAvailableActions(integration AccountIntegration, passthroughAvailable bool) *AvailableActions {
 	this := AvailableActions{}
 	this.Integration = integration
 	this.PassthroughAvailable = passthroughAvailable
@@ -43,7 +43,7 @@ func NewAvailableActionsWithDefaults() *AvailableActions {
 
 // GetIntegration returns the Integration field value
 func (o *AvailableActions) GetIntegration() AccountIntegration {
-	if o == nil  {
+	if o == nil {
 		var ret AccountIntegration
 		return ret
 	}
@@ -67,7 +67,7 @@ func (o *AvailableActions) SetIntegration(v AccountIntegration) {
 
 // GetPassthroughAvailable returns the PassthroughAvailable field value
 func (o *AvailableActions) GetPassthroughAvailable() bool {
-	if o == nil  {
+	if o == nil {
 		var ret bool
 		return ret
 	}

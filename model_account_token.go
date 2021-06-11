@@ -18,15 +18,17 @@ import (
 // AccountToken struct for AccountToken
 type AccountToken struct {
 	AccountToken string `json:"account_token"`
+	Integration AccountIntegration `json:"integration"`
 }
 
 // NewAccountToken instantiates a new AccountToken object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountToken(accountToken string, ) *AccountToken {
+func NewAccountToken(accountToken string, integration AccountIntegration) *AccountToken {
 	this := AccountToken{}
 	this.AccountToken = accountToken
+	this.Integration = integration
 	return &this
 }
 
@@ -40,7 +42,7 @@ func NewAccountTokenWithDefaults() *AccountToken {
 
 // GetAccountToken returns the AccountToken field value
 func (o *AccountToken) GetAccountToken() string {
-	if o == nil  {
+	if o == nil {
 		var ret string
 		return ret
 	}
@@ -62,10 +64,37 @@ func (o *AccountToken) SetAccountToken(v string) {
 	o.AccountToken = v
 }
 
+// GetIntegration returns the Integration field value
+func (o *AccountToken) GetIntegration() AccountIntegration {
+	if o == nil {
+		var ret AccountIntegration
+		return ret
+	}
+
+	return o.Integration
+}
+
+// GetIntegrationOk returns a tuple with the Integration field value
+// and a boolean to check if the value has been set.
+func (o *AccountToken) GetIntegrationOk() (*AccountIntegration, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Integration, true
+}
+
+// SetIntegration sets field value
+func (o *AccountToken) SetIntegration(v AccountIntegration) {
+	o.Integration = v
+}
+
 func (o AccountToken) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["account_token"] = o.AccountToken
+	}
+	if true {
+		toSerialize["integration"] = o.Integration
 	}
 	return json.Marshal(toSerialize)
 }

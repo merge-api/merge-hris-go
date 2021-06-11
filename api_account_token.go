@@ -35,7 +35,7 @@ type ApiAccountTokenRetrieveRequest struct {
 }
 
 
-func (r ApiAccountTokenRetrieveRequest) Execute() (AccountToken, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiAccountTokenRetrieveRequest) Execute() (AccountToken, *_nethttp.Response, error) {
 	return r.ApiService.AccountTokenRetrieveExecute(r)
 }
 
@@ -58,21 +58,19 @@ func (a *AccountTokenApiService) AccountTokenRetrieve(ctx _context.Context, publ
  * Execute executes the request
  * @return AccountToken
  */
-func (a *AccountTokenApiService) AccountTokenRetrieveExecute(r ApiAccountTokenRetrieveRequest) (AccountToken, *_nethttp.Response, GenericOpenAPIError) {
+func (a *AccountTokenApiService) AccountTokenRetrieveExecute(r ApiAccountTokenRetrieveRequest) (AccountToken, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  AccountToken
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountTokenApiService.AccountTokenRetrieve")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/account-token/{public_token}"
@@ -115,22 +113,19 @@ func (a *AccountTokenApiService) AccountTokenRetrieveExecute(r ApiAccountTokenRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -150,5 +145,5 @@ func (a *AccountTokenApiService) AccountTokenRetrieveExecute(r ApiAccountTokenRe
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

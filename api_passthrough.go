@@ -43,7 +43,7 @@ func (r ApiPassthroughCreateRequest) DataPassthroughRequest(dataPassthroughReque
 	return r
 }
 
-func (r ApiPassthroughCreateRequest) Execute() (RemoteResponse, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiPassthroughCreateRequest) Execute() (RemoteResponse, *_nethttp.Response, error) {
 	return r.ApiService.PassthroughCreateExecute(r)
 }
 
@@ -64,21 +64,19 @@ func (a *PassthroughApiService) PassthroughCreate(ctx _context.Context) ApiPasst
  * Execute executes the request
  * @return RemoteResponse
  */
-func (a *PassthroughApiService) PassthroughCreateExecute(r ApiPassthroughCreateRequest) (RemoteResponse, *_nethttp.Response, GenericOpenAPIError) {
+func (a *PassthroughApiService) PassthroughCreateExecute(r ApiPassthroughCreateRequest) (RemoteResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  RemoteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PassthroughApiService.PassthroughCreate")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/passthrough"
@@ -87,12 +85,10 @@ func (a *PassthroughApiService) PassthroughCreateExecute(r ApiPassthroughCreateR
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 	if r.dataPassthroughRequest == nil {
-		executionError.error = "dataPassthroughRequest is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("dataPassthroughRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -131,22 +127,19 @@ func (a *PassthroughApiService) PassthroughCreateExecute(r ApiPassthroughCreateR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -166,5 +159,5 @@ func (a *PassthroughApiService) PassthroughCreateExecute(r ApiPassthroughCreateR
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

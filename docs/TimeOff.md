@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **Units** | Pointer to [**NullableUnitsEnum**](UnitsEnum.md) | The unit of time requested. | [optional] 
 **Amount** | Pointer to **NullableFloat32** | The number of time off units requested. | [optional] 
 **RequestType** | Pointer to [**NullableRequestTypeEnum**](RequestTypeEnum.md) | The type of time off request. | [optional] 
+**StartTime** | Pointer to **NullableTime** | The day and time of the start of the time requested off. | [optional] 
+**EndTime** | Pointer to **NullableTime** | The day and time of the end of the time requested off. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
@@ -339,6 +341,76 @@ HasRequestType returns a boolean if a field has been set.
 `func (o *TimeOff) UnsetRequestType()`
 
 UnsetRequestType ensures that no value is present for RequestType, not even an explicit nil
+### GetStartTime
+
+`func (o *TimeOff) GetStartTime() time.Time`
+
+GetStartTime returns the StartTime field if non-nil, zero value otherwise.
+
+### GetStartTimeOk
+
+`func (o *TimeOff) GetStartTimeOk() (*time.Time, bool)`
+
+GetStartTimeOk returns a tuple with the StartTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStartTime
+
+`func (o *TimeOff) SetStartTime(v time.Time)`
+
+SetStartTime sets StartTime field to given value.
+
+### HasStartTime
+
+`func (o *TimeOff) HasStartTime() bool`
+
+HasStartTime returns a boolean if a field has been set.
+
+### SetStartTimeNil
+
+`func (o *TimeOff) SetStartTimeNil(b bool)`
+
+ SetStartTimeNil sets the value for StartTime to be an explicit nil
+
+### UnsetStartTime
+`func (o *TimeOff) UnsetStartTime()`
+
+UnsetStartTime ensures that no value is present for StartTime, not even an explicit nil
+### GetEndTime
+
+`func (o *TimeOff) GetEndTime() time.Time`
+
+GetEndTime returns the EndTime field if non-nil, zero value otherwise.
+
+### GetEndTimeOk
+
+`func (o *TimeOff) GetEndTimeOk() (*time.Time, bool)`
+
+GetEndTimeOk returns a tuple with the EndTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEndTime
+
+`func (o *TimeOff) SetEndTime(v time.Time)`
+
+SetEndTime sets EndTime field to given value.
+
+### HasEndTime
+
+`func (o *TimeOff) HasEndTime() bool`
+
+HasEndTime returns a boolean if a field has been set.
+
+### SetEndTimeNil
+
+`func (o *TimeOff) SetEndTimeNil(b bool)`
+
+ SetEndTimeNil sets the value for EndTime to be an explicit nil
+
+### UnsetEndTime
+`func (o *TimeOff) UnsetEndTime()`
+
+UnsetEndTime ensures that no value is present for EndTime, not even an explicit nil
 ### GetRemoteData
 
 `func (o *TimeOff) GetRemoteData() []RemoteData`

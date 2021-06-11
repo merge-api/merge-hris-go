@@ -35,7 +35,7 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
     resp, r, err := api_client.PassthroughApi.PassthroughCreate(context.Background()).XAccountToken(xAccountToken).DataPassthroughRequest(dataPassthroughRequest).Execute()
-    if err.Error() != "" {
+    if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PassthroughApi.PassthroughCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }

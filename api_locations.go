@@ -80,7 +80,7 @@ func (r ApiLocationsListRequest) RemoteId(remoteId string) ApiLocationsListReque
 	return r
 }
 
-func (r ApiLocationsListRequest) Execute() (PaginatedLocationList, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiLocationsListRequest) Execute() (PaginatedLocationList, *_nethttp.Response, error) {
 	return r.ApiService.LocationsListExecute(r)
 }
 
@@ -101,21 +101,19 @@ func (a *LocationsApiService) LocationsList(ctx _context.Context) ApiLocationsLi
  * Execute executes the request
  * @return PaginatedLocationList
  */
-func (a *LocationsApiService) LocationsListExecute(r ApiLocationsListRequest) (PaginatedLocationList, *_nethttp.Response, GenericOpenAPIError) {
+func (a *LocationsApiService) LocationsListExecute(r ApiLocationsListRequest) (PaginatedLocationList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  PaginatedLocationList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LocationsApiService.LocationsList")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/locations"
@@ -124,8 +122,7 @@ func (a *LocationsApiService) LocationsListExecute(r ApiLocationsListRequest) (P
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.createdAfter != nil {
@@ -186,22 +183,19 @@ func (a *LocationsApiService) LocationsListExecute(r ApiLocationsListRequest) (P
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -221,7 +215,7 @@ func (a *LocationsApiService) LocationsListExecute(r ApiLocationsListRequest) (P
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiLocationsRetrieveRequest struct {
@@ -241,7 +235,7 @@ func (r ApiLocationsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) A
 	return r
 }
 
-func (r ApiLocationsRetrieveRequest) Execute() (Location, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiLocationsRetrieveRequest) Execute() (Location, *_nethttp.Response, error) {
 	return r.ApiService.LocationsRetrieveExecute(r)
 }
 
@@ -264,21 +258,19 @@ func (a *LocationsApiService) LocationsRetrieve(ctx _context.Context, id string)
  * Execute executes the request
  * @return Location
  */
-func (a *LocationsApiService) LocationsRetrieveExecute(r ApiLocationsRetrieveRequest) (Location, *_nethttp.Response, GenericOpenAPIError) {
+func (a *LocationsApiService) LocationsRetrieveExecute(r ApiLocationsRetrieveRequest) (Location, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  Location
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LocationsApiService.LocationsRetrieve")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/locations/{id}"
@@ -288,8 +280,7 @@ func (a *LocationsApiService) LocationsRetrieveExecute(r ApiLocationsRetrieveReq
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.includeRemoteData != nil {
@@ -329,22 +320,19 @@ func (a *LocationsApiService) LocationsRetrieveExecute(r ApiLocationsRetrieveReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -364,5 +352,5 @@ func (a *LocationsApiService) LocationsRetrieveExecute(r ApiLocationsRetrieveReq
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

@@ -7,14 +7,14 @@ Name | Type | Description | Notes
 **EndUserEmailAddress** | **string** |  | 
 **EndUserOrganizationName** | **string** |  | 
 **EndUserOriginId** | **string** |  | 
-**Categories** | **[]string** |  | 
-**Integration** | Pointer to **string** |  | [optional] 
+**Categories** | Pointer to **[]string** |  | [optional] 
+**Integration** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
 ### NewEndUserDetailsRequest
 
-`func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationName string, endUserOriginId string, categories []string, ) *EndUserDetailsRequest`
+`func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationName string, endUserOriginId string, ) *EndUserDetailsRequest`
 
 NewEndUserDetailsRequest instantiates a new EndUserDetailsRequest object
 This constructor will assign default values to properties that have it defined,
@@ -108,6 +108,11 @@ and a boolean to check if the value has been set.
 
 SetCategories sets Categories field to given value.
 
+### HasCategories
+
+`func (o *EndUserDetailsRequest) HasCategories() bool`
+
+HasCategories returns a boolean if a field has been set.
 
 ### GetIntegration
 
@@ -134,6 +139,16 @@ SetIntegration sets Integration field to given value.
 
 HasIntegration returns a boolean if a field has been set.
 
+### SetIntegrationNil
+
+`func (o *EndUserDetailsRequest) SetIntegrationNil(b bool)`
+
+ SetIntegrationNil sets the value for Integration to be an explicit nil
+
+### UnsetIntegration
+`func (o *EndUserDetailsRequest) UnsetIntegration()`
+
+UnsetIntegration ensures that no value is present for Integration, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

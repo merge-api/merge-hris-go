@@ -38,7 +38,7 @@ func (r ApiGenerateKeyCreateRequest) GenerateRemoteKeyRequest(generateRemoteKeyR
 	return r
 }
 
-func (r ApiGenerateKeyCreateRequest) Execute() (RemoteKey, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiGenerateKeyCreateRequest) Execute() (RemoteKey, *_nethttp.Response, error) {
 	return r.ApiService.GenerateKeyCreateExecute(r)
 }
 
@@ -59,21 +59,19 @@ func (a *GenerateKeyApiService) GenerateKeyCreate(ctx _context.Context) ApiGener
  * Execute executes the request
  * @return RemoteKey
  */
-func (a *GenerateKeyApiService) GenerateKeyCreateExecute(r ApiGenerateKeyCreateRequest) (RemoteKey, *_nethttp.Response, GenericOpenAPIError) {
+func (a *GenerateKeyApiService) GenerateKeyCreateExecute(r ApiGenerateKeyCreateRequest) (RemoteKey, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  RemoteKey
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GenerateKeyApiService.GenerateKeyCreate")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/generate-key"
@@ -82,8 +80,7 @@ func (a *GenerateKeyApiService) GenerateKeyCreateExecute(r ApiGenerateKeyCreateR
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.generateRemoteKeyRequest == nil {
-		executionError.error = "generateRemoteKeyRequest is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("generateRemoteKeyRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -121,22 +118,19 @@ func (a *GenerateKeyApiService) GenerateKeyCreateExecute(r ApiGenerateKeyCreateR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -156,5 +150,5 @@ func (a *GenerateKeyApiService) GenerateKeyCreateExecute(r ApiGenerateKeyCreateR
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

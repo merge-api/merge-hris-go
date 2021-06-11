@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Street1** | Pointer to **NullableString** | Line 1 of the location&#39;s street address. | [optional] 
 **Street2** | Pointer to **NullableString** | Line 2 of the location&#39;s street address. | [optional] 
 **City** | Pointer to **NullableString** | The location&#39;s city. | [optional] 
-**State** | Pointer to [**NullableStateEnum**](StateEnum.md) | The location&#39;s state. | [optional] 
+**State** | Pointer to **NullableString** | The location&#39;s state. Represents a region if outside of the US. | [optional] 
 **ZipCode** | Pointer to **NullableString** | The location&#39;s zip code. | [optional] 
 **Country** | Pointer to [**NullableCountryEnum**](CountryEnum.md) | The location&#39;s country. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
@@ -236,20 +236,20 @@ HasCity returns a boolean if a field has been set.
 UnsetCity ensures that no value is present for City, not even an explicit nil
 ### GetState
 
-`func (o *Location) GetState() StateEnum`
+`func (o *Location) GetState() string`
 
 GetState returns the State field if non-nil, zero value otherwise.
 
 ### GetStateOk
 
-`func (o *Location) GetStateOk() (*StateEnum, bool)`
+`func (o *Location) GetStateOk() (*string, bool)`
 
 GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetState
 
-`func (o *Location) SetState(v StateEnum)`
+`func (o *Location) SetState(v string)`
 
 SetState sets State field to given value.
 

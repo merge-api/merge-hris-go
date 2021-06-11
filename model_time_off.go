@@ -13,6 +13,7 @@ package merge_hris_client
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // TimeOff # The TimeOff Object ### Description The `TimeOff` object is used to represent a Time Off Request filed by an employee.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
@@ -34,6 +35,10 @@ type TimeOff struct {
 	Amount NullableFloat32 `json:"amount,omitempty"`
 	// The type of time off request.
 	RequestType NullableRequestTypeEnum `json:"request_type,omitempty"`
+	// The day and time of the start of the time requested off.
+	StartTime NullableTime `json:"start_time,omitempty"`
+	// The day and time of the end of the time requested off.
+	EndTime NullableTime `json:"end_time,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
@@ -422,6 +427,90 @@ func (o *TimeOff) UnsetRequestType() {
 	o.RequestType.Unset()
 }
 
+// GetStartTime returns the StartTime field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TimeOff) GetStartTime() time.Time {
+	if o == nil || o.StartTime.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartTime.Get()
+}
+
+// GetStartTimeOk returns a tuple with the StartTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TimeOff) GetStartTimeOk() (*time.Time, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.StartTime.Get(), o.StartTime.IsSet()
+}
+
+// HasStartTime returns a boolean if a field has been set.
+func (o *TimeOff) HasStartTime() bool {
+	if o != nil && o.StartTime.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetStartTime gets a reference to the given NullableTime and assigns it to the StartTime field.
+func (o *TimeOff) SetStartTime(v time.Time) {
+	o.StartTime.Set(&v)
+}
+// SetStartTimeNil sets the value for StartTime to be an explicit nil
+func (o *TimeOff) SetStartTimeNil() {
+	o.StartTime.Set(nil)
+}
+
+// UnsetStartTime ensures that no value is present for StartTime, not even an explicit nil
+func (o *TimeOff) UnsetStartTime() {
+	o.StartTime.Unset()
+}
+
+// GetEndTime returns the EndTime field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TimeOff) GetEndTime() time.Time {
+	if o == nil || o.EndTime.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.EndTime.Get()
+}
+
+// GetEndTimeOk returns a tuple with the EndTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TimeOff) GetEndTimeOk() (*time.Time, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.EndTime.Get(), o.EndTime.IsSet()
+}
+
+// HasEndTime returns a boolean if a field has been set.
+func (o *TimeOff) HasEndTime() bool {
+	if o != nil && o.EndTime.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEndTime gets a reference to the given NullableTime and assigns it to the EndTime field.
+func (o *TimeOff) SetEndTime(v time.Time) {
+	o.EndTime.Set(&v)
+}
+// SetEndTimeNil sets the value for EndTime to be an explicit nil
+func (o *TimeOff) SetEndTimeNil() {
+	o.EndTime.Set(nil)
+}
+
+// UnsetEndTime ensures that no value is present for EndTime, not even an explicit nil
+func (o *TimeOff) UnsetEndTime() {
+	o.EndTime.Unset()
+}
+
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TimeOff) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -483,6 +572,12 @@ func (o TimeOff) MarshalJSON() ([]byte, error) {
 	}
 	if o.RequestType.IsSet() {
 		toSerialize["request_type"] = o.RequestType.Get()
+	}
+	if o.StartTime.IsSet() {
+		toSerialize["start_time"] = o.StartTime.Get()
+	}
+	if o.EndTime.IsSet() {
+		toSerialize["end_time"] = o.EndTime.Get()
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

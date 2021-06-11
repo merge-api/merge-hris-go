@@ -30,6 +30,16 @@ const (
 	METHODENUM_DELETE MethodEnum = "DELETE"
 )
 
+var allowedMethodEnumEnumValues = []MethodEnum{
+	"GET",
+	"OPTIONS",
+	"HEAD",
+	"POST",
+	"PUT",
+	"PATCH",
+	"DELETE",
+}
+
 func (v *MethodEnum) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -37,7 +47,7 @@ func (v *MethodEnum) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := MethodEnum(value)
-	for _, existing := range []MethodEnum{ "GET", "OPTIONS", "HEAD", "POST", "PUT", "PATCH", "DELETE",   } {
+	for _, existing := range allowedMethodEnumEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -45,6 +55,27 @@ func (v *MethodEnum) UnmarshalJSON(src []byte) error {
 	}
 
 	return fmt.Errorf("%+v is not a valid MethodEnum", value)
+}
+
+// NewMethodEnumFromValue returns a pointer to a valid MethodEnum
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewMethodEnumFromValue(v string) (*MethodEnum, error) {
+	ev := MethodEnum(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for MethodEnum: valid values are %v", v, allowedMethodEnumEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v MethodEnum) IsValid() bool {
+	for _, existing := range allowedMethodEnumEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
 }
 
 // Ptr returns reference to MethodEnum value

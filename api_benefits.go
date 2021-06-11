@@ -85,7 +85,7 @@ func (r ApiBenefitsListRequest) RemoteId(remoteId string) ApiBenefitsListRequest
 	return r
 }
 
-func (r ApiBenefitsListRequest) Execute() (PaginatedBenefitList, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiBenefitsListRequest) Execute() (PaginatedBenefitList, *_nethttp.Response, error) {
 	return r.ApiService.BenefitsListExecute(r)
 }
 
@@ -106,21 +106,19 @@ func (a *BenefitsApiService) BenefitsList(ctx _context.Context) ApiBenefitsListR
  * Execute executes the request
  * @return PaginatedBenefitList
  */
-func (a *BenefitsApiService) BenefitsListExecute(r ApiBenefitsListRequest) (PaginatedBenefitList, *_nethttp.Response, GenericOpenAPIError) {
+func (a *BenefitsApiService) BenefitsListExecute(r ApiBenefitsListRequest) (PaginatedBenefitList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  PaginatedBenefitList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenefitsApiService.BenefitsList")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/benefits"
@@ -129,8 +127,7 @@ func (a *BenefitsApiService) BenefitsListExecute(r ApiBenefitsListRequest) (Pagi
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.createdAfter != nil {
@@ -194,22 +191,19 @@ func (a *BenefitsApiService) BenefitsListExecute(r ApiBenefitsListRequest) (Pagi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -229,7 +223,7 @@ func (a *BenefitsApiService) BenefitsListExecute(r ApiBenefitsListRequest) (Pagi
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiBenefitsRetrieveRequest struct {
@@ -249,7 +243,7 @@ func (r ApiBenefitsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) Ap
 	return r
 }
 
-func (r ApiBenefitsRetrieveRequest) Execute() (Benefit, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiBenefitsRetrieveRequest) Execute() (Benefit, *_nethttp.Response, error) {
 	return r.ApiService.BenefitsRetrieveExecute(r)
 }
 
@@ -272,21 +266,19 @@ func (a *BenefitsApiService) BenefitsRetrieve(ctx _context.Context, id string) A
  * Execute executes the request
  * @return Benefit
  */
-func (a *BenefitsApiService) BenefitsRetrieveExecute(r ApiBenefitsRetrieveRequest) (Benefit, *_nethttp.Response, GenericOpenAPIError) {
+func (a *BenefitsApiService) BenefitsRetrieveExecute(r ApiBenefitsRetrieveRequest) (Benefit, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  Benefit
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BenefitsApiService.BenefitsRetrieve")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/benefits/{id}"
@@ -296,8 +288,7 @@ func (a *BenefitsApiService) BenefitsRetrieveExecute(r ApiBenefitsRetrieveReques
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		executionError.error = "xAccountToken is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
 	if r.includeRemoteData != nil {
@@ -337,22 +328,19 @@ func (a *BenefitsApiService) BenefitsRetrieveExecute(r ApiBenefitsRetrieveReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -372,5 +360,5 @@ func (a *BenefitsApiService) BenefitsRetrieveExecute(r ApiBenefitsRetrieveReques
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

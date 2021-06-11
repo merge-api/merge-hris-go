@@ -38,7 +38,7 @@ func (r ApiLinkTokenCreateRequest) EndUserDetailsRequest(endUserDetailsRequest E
 	return r
 }
 
-func (r ApiLinkTokenCreateRequest) Execute() (LinkToken, *_nethttp.Response, GenericOpenAPIError) {
+func (r ApiLinkTokenCreateRequest) Execute() (LinkToken, *_nethttp.Response, error) {
 	return r.ApiService.LinkTokenCreateExecute(r)
 }
 
@@ -59,21 +59,19 @@ func (a *LinkTokenApiService) LinkTokenCreate(ctx _context.Context) ApiLinkToken
  * Execute executes the request
  * @return LinkToken
  */
-func (a *LinkTokenApiService) LinkTokenCreateExecute(r ApiLinkTokenCreateRequest) (LinkToken, *_nethttp.Response, GenericOpenAPIError) {
+func (a *LinkTokenApiService) LinkTokenCreateExecute(r ApiLinkTokenCreateRequest) (LinkToken, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		executionError       GenericOpenAPIError
 		localVarReturnValue  LinkToken
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkTokenApiService.LinkTokenCreate")
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/link-token"
@@ -82,8 +80,7 @@ func (a *LinkTokenApiService) LinkTokenCreateExecute(r ApiLinkTokenCreateRequest
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.endUserDetailsRequest == nil {
-		executionError.error = "endUserDetailsRequest is required and must be specified"
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, reportError("endUserDetailsRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -121,22 +118,19 @@ func (a *LinkTokenApiService) LinkTokenCreateExecute(r ApiLinkTokenCreateRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, nil, executionError
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		executionError.error = err.Error()
-		return localVarReturnValue, localVarHTTPResponse, executionError
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -156,5 +150,5 @@ func (a *LinkTokenApiService) LinkTokenCreateExecute(r ApiLinkTokenCreateRequest
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarReturnValue, localVarHTTPResponse, executionError
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
