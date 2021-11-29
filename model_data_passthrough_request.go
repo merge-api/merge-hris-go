@@ -20,8 +20,9 @@ type DataPassthroughRequest struct {
 	Method MethodEnum `json:"method"`
 	Path string `json:"path"`
 	BaseUrlOverride NullableString `json:"base_url_override,omitempty"`
-	Data map[string]interface{} `json:"data,omitempty"`
+	Data NullableString `json:"data,omitempty"`
 	Headers map[string]interface{} `json:"headers,omitempty"`
+	RequestFormat NullableRequestFormatEnum `json:"request_format,omitempty"`
 }
 
 // NewDataPassthroughRequest instantiates a new DataPassthroughRequest object
@@ -134,36 +135,45 @@ func (o *DataPassthroughRequest) UnsetBaseUrlOverride() {
 }
 
 // GetData returns the Data field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DataPassthroughRequest) GetData() map[string]interface{} {
-	if o == nil  {
-		var ret map[string]interface{}
+func (o *DataPassthroughRequest) GetData() string {
+	if o == nil || o.Data.Get() == nil {
+		var ret string
 		return ret
 	}
-	return o.Data
+	return *o.Data.Get()
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DataPassthroughRequest) GetDataOk() (*map[string]interface{}, bool) {
-	if o == nil || o.Data == nil {
+func (o *DataPassthroughRequest) GetDataOk() (*string, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return &o.Data, true
+	return o.Data.Get(), o.Data.IsSet()
 }
 
 // HasData returns a boolean if a field has been set.
 func (o *DataPassthroughRequest) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && o.Data.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetData gets a reference to the given map[string]interface{} and assigns it to the Data field.
-func (o *DataPassthroughRequest) SetData(v map[string]interface{}) {
-	o.Data = v
+// SetData gets a reference to the given NullableString and assigns it to the Data field.
+func (o *DataPassthroughRequest) SetData(v string) {
+	o.Data.Set(&v)
+}
+// SetDataNil sets the value for Data to be an explicit nil
+func (o *DataPassthroughRequest) SetDataNil() {
+	o.Data.Set(nil)
+}
+
+// UnsetData ensures that no value is present for Data, not even an explicit nil
+func (o *DataPassthroughRequest) UnsetData() {
+	o.Data.Unset()
 }
 
 // GetHeaders returns the Headers field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -199,6 +209,48 @@ func (o *DataPassthroughRequest) SetHeaders(v map[string]interface{}) {
 	o.Headers = v
 }
 
+// GetRequestFormat returns the RequestFormat field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DataPassthroughRequest) GetRequestFormat() RequestFormatEnum {
+	if o == nil || o.RequestFormat.Get() == nil {
+		var ret RequestFormatEnum
+		return ret
+	}
+	return *o.RequestFormat.Get()
+}
+
+// GetRequestFormatOk returns a tuple with the RequestFormat field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DataPassthroughRequest) GetRequestFormatOk() (*RequestFormatEnum, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.RequestFormat.Get(), o.RequestFormat.IsSet()
+}
+
+// HasRequestFormat returns a boolean if a field has been set.
+func (o *DataPassthroughRequest) HasRequestFormat() bool {
+	if o != nil && o.RequestFormat.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestFormat gets a reference to the given NullableRequestFormatEnum and assigns it to the RequestFormat field.
+func (o *DataPassthroughRequest) SetRequestFormat(v RequestFormatEnum) {
+	o.RequestFormat.Set(&v)
+}
+// SetRequestFormatNil sets the value for RequestFormat to be an explicit nil
+func (o *DataPassthroughRequest) SetRequestFormatNil() {
+	o.RequestFormat.Set(nil)
+}
+
+// UnsetRequestFormat ensures that no value is present for RequestFormat, not even an explicit nil
+func (o *DataPassthroughRequest) UnsetRequestFormat() {
+	o.RequestFormat.Unset()
+}
+
 func (o DataPassthroughRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -210,11 +262,14 @@ func (o DataPassthroughRequest) MarshalJSON() ([]byte, error) {
 	if o.BaseUrlOverride.IsSet() {
 		toSerialize["base_url_override"] = o.BaseUrlOverride.Get()
 	}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
+	if o.Data.IsSet() {
+		toSerialize["data"] = o.Data.Get()
 	}
 	if o.Headers != nil {
 		toSerialize["headers"] = o.Headers
+	}
+	if o.RequestFormat.IsSet() {
+		toSerialize["request_format"] = o.RequestFormat.Get()
 	}
 	return json.Marshal(toSerialize)
 }

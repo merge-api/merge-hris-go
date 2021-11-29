@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## EmployeesList
 
-> PaginatedEmployeeList EmployeesList(ctx).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).TeamId(teamId).WorkLocationId(workLocationId).Execute()
+> PaginatedEmployeeList EmployeesList(ctx).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PersonalEmail(personalEmail).RemoteId(remoteId).TeamId(teamId).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
 
 
 
@@ -108,18 +108,20 @@ func main() {
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    includeSensitiveFields := true // bool | Whether to include sensetive fields (such as social security numbers) in the response. (optional)
+    includeSensitiveFields := true // bool | Whether to include sensitive fields (such as social security numbers) in the response. (optional)
     managerId := "managerId_example" // string | If provided, will only return employees for this manager. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
+    personalEmail := "personalEmail@example.com" // string | If provided, will only return Employees with this personal email (optional)
     remoteId := "remoteId_example" // string | The API provider's ID for the given object. (optional)
     teamId := "teamId_example" // string | If provided, will only return employees for this team. (optional)
+    workEmail := "workEmail@example.com" // string | If provided, will only return Employees with this work email (optional)
     workLocationId := "workLocationId_example" // string | If provided, will only return employees for this location. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeesApi.EmployeesList(context.Background()).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).TeamId(teamId).WorkLocationId(workLocationId).Execute()
+    resp, r, err := api_client.EmployeesApi.EmployeesList(context.Background()).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PersonalEmail(personalEmail).RemoteId(remoteId).TeamId(teamId).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -146,13 +148,15 @@ Name | Type | Description  | Notes
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **includeSensitiveFields** | **bool** | Whether to include sensetive fields (such as social security numbers) in the response. | 
+ **includeSensitiveFields** | **bool** | Whether to include sensitive fields (such as social security numbers) in the response. | 
  **managerId** | **string** | If provided, will only return employees for this manager. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
  **pageSize** | **int32** | Number of results to return per page. | 
+ **personalEmail** | [**string**](string.md) | If provided, will only return Employees with this personal email | 
  **remoteId** | **string** | The API provider&#39;s ID for the given object. | 
  **teamId** | **string** | If provided, will only return employees for this team. | 
+ **workEmail** | [**string**](string.md) | If provided, will only return Employees with this work email | 
  **workLocationId** | **string** | If provided, will only return employees for this location. | 
 
 ### Return type
@@ -197,7 +201,7 @@ func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     id := TODO // string | 
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    includeSensitiveFields := true // bool | Whether to include sensetive fields (such as social security numbers) in the response. (optional)
+    includeSensitiveFields := true // bool | Whether to include sensitive fields (such as social security numbers) in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -229,7 +233,7 @@ Name | Type | Description  | Notes
  **xAccountToken** | **string** | Token identifying the end user. | 
 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **includeSensitiveFields** | **bool** | Whether to include sensetive fields (such as social security numbers) in the response. | 
+ **includeSensitiveFields** | **bool** | Whether to include sensitive fields (such as social security numbers) in the response. | 
 
 ### Return type
 

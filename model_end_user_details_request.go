@@ -20,7 +20,7 @@ type EndUserDetailsRequest struct {
 	EndUserEmailAddress string `json:"end_user_email_address"`
 	EndUserOrganizationName string `json:"end_user_organization_name"`
 	EndUserOriginId string `json:"end_user_origin_id"`
-	Categories *[]string `json:"categories,omitempty"`
+	Categories *[]CategoriesEnum `json:"categories,omitempty"`
 	Integration NullableString `json:"integration,omitempty"`
 }
 
@@ -117,9 +117,9 @@ func (o *EndUserDetailsRequest) SetEndUserOriginId(v string) {
 }
 
 // GetCategories returns the Categories field value if set, zero value otherwise.
-func (o *EndUserDetailsRequest) GetCategories() []string {
+func (o *EndUserDetailsRequest) GetCategories() []CategoriesEnum {
 	if o == nil || o.Categories == nil {
-		var ret []string
+		var ret []CategoriesEnum
 		return ret
 	}
 	return *o.Categories
@@ -127,7 +127,7 @@ func (o *EndUserDetailsRequest) GetCategories() []string {
 
 // GetCategoriesOk returns a tuple with the Categories field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EndUserDetailsRequest) GetCategoriesOk() (*[]string, bool) {
+func (o *EndUserDetailsRequest) GetCategoriesOk() (*[]CategoriesEnum, bool) {
 	if o == nil || o.Categories == nil {
 		return nil, false
 	}
@@ -143,8 +143,8 @@ func (o *EndUserDetailsRequest) HasCategories() bool {
 	return false
 }
 
-// SetCategories gets a reference to the given []string and assigns it to the Categories field.
-func (o *EndUserDetailsRequest) SetCategories(v []string) {
+// SetCategories gets a reference to the given []CategoriesEnum and assigns it to the Categories field.
+func (o *EndUserDetailsRequest) SetCategories(v []CategoriesEnum) {
 	o.Categories = &v
 }
 

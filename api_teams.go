@@ -40,6 +40,7 @@ type ApiTeamsListRequest struct {
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
+	parentTeamId *string
 	remoteId *string
 }
 
@@ -73,6 +74,10 @@ func (r ApiTeamsListRequest) ModifiedBefore(modifiedBefore time.Time) ApiTeamsLi
 }
 func (r ApiTeamsListRequest) PageSize(pageSize int32) ApiTeamsListRequest {
 	r.pageSize = &pageSize
+	return r
+}
+func (r ApiTeamsListRequest) ParentTeamId(parentTeamId string) ApiTeamsListRequest {
+	r.parentTeamId = &parentTeamId
 	return r
 }
 func (r ApiTeamsListRequest) RemoteId(remoteId string) ApiTeamsListRequest {
@@ -145,6 +150,9 @@ func (a *TeamsApiService) TeamsListExecute(r ApiTeamsListRequest) (PaginatedTeam
 	}
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
+	if r.parentTeamId != nil {
+		localVarQueryParams.Add("parent_team_id", parameterToString(*r.parentTeamId, ""))
 	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))

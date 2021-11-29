@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **Name** | Pointer to **NullableString** | The team&#39;s name. | [optional] 
+**ParentTeam** | Pointer to **NullableString** | The team&#39;s parent team. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
@@ -123,6 +124,41 @@ HasName returns a boolean if a field has been set.
 `func (o *Team) UnsetName()`
 
 UnsetName ensures that no value is present for Name, not even an explicit nil
+### GetParentTeam
+
+`func (o *Team) GetParentTeam() string`
+
+GetParentTeam returns the ParentTeam field if non-nil, zero value otherwise.
+
+### GetParentTeamOk
+
+`func (o *Team) GetParentTeamOk() (*string, bool)`
+
+GetParentTeamOk returns a tuple with the ParentTeam field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParentTeam
+
+`func (o *Team) SetParentTeam(v string)`
+
+SetParentTeam sets ParentTeam field to given value.
+
+### HasParentTeam
+
+`func (o *Team) HasParentTeam() bool`
+
+HasParentTeam returns a boolean if a field has been set.
+
+### SetParentTeamNil
+
+`func (o *Team) SetParentTeamNil(b bool)`
+
+ SetParentTeamNil sets the value for ParentTeam to be an explicit nil
+
+### UnsetParentTeam
+`func (o *Team) UnsetParentTeam()`
+
+UnsetParentTeam ensures that no value is present for ParentTeam, not even an explicit nil
 ### GetRemoteData
 
 `func (o *Team) GetRemoteData() []RemoteData`

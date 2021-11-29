@@ -25,6 +25,8 @@ const (
 	REQUESTTYPEENUM_SICK RequestTypeEnum = "SICK"
 	REQUESTTYPEENUM_PERSONAL RequestTypeEnum = "PERSONAL"
 	REQUESTTYPEENUM_JURY_DUTY RequestTypeEnum = "JURY_DUTY"
+	REQUESTTYPEENUM_VOLUNTEER RequestTypeEnum = "VOLUNTEER"
+	REQUESTTYPEENUM_BEREAVEMENT RequestTypeEnum = "BEREAVEMENT"
 )
 
 var allowedRequestTypeEnumEnumValues = []RequestTypeEnum{
@@ -32,6 +34,8 @@ var allowedRequestTypeEnumEnumValues = []RequestTypeEnum{
 	"SICK",
 	"PERSONAL",
 	"JURY_DUTY",
+	"VOLUNTEER",
+	"BEREAVEMENT",
 }
 
 func (v *RequestTypeEnum) UnmarshalJSON(src []byte) error {

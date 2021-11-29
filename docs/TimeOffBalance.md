@@ -7,8 +7,9 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **Employee** | Pointer to **NullableString** | The employee the balance belongs to. | [optional] 
-**Balance** | Pointer to **NullableFloat32** | The current PTO balance. | [optional] 
-**Used** | Pointer to **NullableFloat32** | The amount of PTO used. | [optional] 
+**Balance** | Pointer to **NullableFloat32** | The current PTO balance in terms of hours. | [optional] 
+**Used** | Pointer to **NullableFloat32** | The amount of PTO used in terms of hours. | [optional] 
+**PolicyType** | Pointer to [**NullablePolicyTypeEnum**](PolicyTypeEnum.md) | The policy type of this time off balance. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
@@ -195,6 +196,41 @@ HasUsed returns a boolean if a field has been set.
 `func (o *TimeOffBalance) UnsetUsed()`
 
 UnsetUsed ensures that no value is present for Used, not even an explicit nil
+### GetPolicyType
+
+`func (o *TimeOffBalance) GetPolicyType() PolicyTypeEnum`
+
+GetPolicyType returns the PolicyType field if non-nil, zero value otherwise.
+
+### GetPolicyTypeOk
+
+`func (o *TimeOffBalance) GetPolicyTypeOk() (*PolicyTypeEnum, bool)`
+
+GetPolicyTypeOk returns a tuple with the PolicyType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPolicyType
+
+`func (o *TimeOffBalance) SetPolicyType(v PolicyTypeEnum)`
+
+SetPolicyType sets PolicyType field to given value.
+
+### HasPolicyType
+
+`func (o *TimeOffBalance) HasPolicyType() bool`
+
+HasPolicyType returns a boolean if a field has been set.
+
+### SetPolicyTypeNil
+
+`func (o *TimeOffBalance) SetPolicyTypeNil(b bool)`
+
+ SetPolicyTypeNil sets the value for PolicyType to be an explicit nil
+
+### UnsetPolicyType
+`func (o *TimeOffBalance) UnsetPolicyType()`
+
+UnsetPolicyType ensures that no value is present for PolicyType, not even an explicit nil
 ### GetRemoteData
 
 `func (o *TimeOffBalance) GetRemoteData() []RemoteData`

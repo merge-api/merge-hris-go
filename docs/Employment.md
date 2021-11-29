@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
+**Employee** | Pointer to **NullableString** | The employee holding this position. | [optional] 
 **JobTitle** | Pointer to **NullableString** | The position&#39;s title. | [optional] 
 **PayRate** | Pointer to **NullableFloat32** | The position&#39;s pay rate in dollars. | [optional] 
 **PayPeriod** | Pointer to [**NullablePayPeriodEnum**](PayPeriodEnum.md) | The time period this pay rate encompasses. | [optional] 
@@ -95,6 +96,41 @@ HasRemoteId returns a boolean if a field has been set.
 `func (o *Employment) UnsetRemoteId()`
 
 UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
+### GetEmployee
+
+`func (o *Employment) GetEmployee() string`
+
+GetEmployee returns the Employee field if non-nil, zero value otherwise.
+
+### GetEmployeeOk
+
+`func (o *Employment) GetEmployeeOk() (*string, bool)`
+
+GetEmployeeOk returns a tuple with the Employee field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmployee
+
+`func (o *Employment) SetEmployee(v string)`
+
+SetEmployee sets Employee field to given value.
+
+### HasEmployee
+
+`func (o *Employment) HasEmployee() bool`
+
+HasEmployee returns a boolean if a field has been set.
+
+### SetEmployeeNil
+
+`func (o *Employment) SetEmployeeNil(b bool)`
+
+ SetEmployeeNil sets the value for Employee to be an explicit nil
+
+### UnsetEmployee
+`func (o *Employment) UnsetEmployee()`
+
+UnsetEmployee ensures that no value is present for Employee, not even an explicit nil
 ### GetJobTitle
 
 `func (o *Employment) GetJobTitle() string`

@@ -49,6 +49,8 @@ type APIClient struct {
 
 	// API Services
 
+	AccountDetailsApi *AccountDetailsApiService
+
 	AccountTokenApi *AccountTokenApiService
 
 	AvailableActionsApi *AvailableActionsApiService
@@ -56,6 +58,10 @@ type APIClient struct {
 	BenefitsApi *BenefitsApiService
 
 	CompaniesApi *CompaniesApiService
+
+	DeductionsApi *DeductionsApiService
+
+	DeleteAccountApi *DeleteAccountApiService
 
 	EmployeePayrollRunsApi *EmployeePayrollRunsApiService
 
@@ -65,7 +71,11 @@ type APIClient struct {
 
 	GenerateKeyApi *GenerateKeyApiService
 
+	IssuesApi *IssuesApiService
+
 	LinkTokenApi *LinkTokenApiService
+
+	LinkedAccountsApi *LinkedAccountsApiService
 
 	LocationsApi *LocationsApiService
 
@@ -100,15 +110,20 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.AccountDetailsApi = (*AccountDetailsApiService)(&c.common)
 	c.AccountTokenApi = (*AccountTokenApiService)(&c.common)
 	c.AvailableActionsApi = (*AvailableActionsApiService)(&c.common)
 	c.BenefitsApi = (*BenefitsApiService)(&c.common)
 	c.CompaniesApi = (*CompaniesApiService)(&c.common)
+	c.DeductionsApi = (*DeductionsApiService)(&c.common)
+	c.DeleteAccountApi = (*DeleteAccountApiService)(&c.common)
 	c.EmployeePayrollRunsApi = (*EmployeePayrollRunsApiService)(&c.common)
 	c.EmployeesApi = (*EmployeesApiService)(&c.common)
 	c.EmploymentsApi = (*EmploymentsApiService)(&c.common)
 	c.GenerateKeyApi = (*GenerateKeyApiService)(&c.common)
+	c.IssuesApi = (*IssuesApiService)(&c.common)
 	c.LinkTokenApi = (*LinkTokenApiService)(&c.common)
+	c.LinkedAccountsApi = (*LinkedAccountsApiService)(&c.common)
 	c.LocationsApi = (*LocationsApiService)(&c.common)
 	c.PassthroughApi = (*PassthroughApiService)(&c.common)
 	c.PayrollRunsApi = (*PayrollRunsApiService)(&c.common)

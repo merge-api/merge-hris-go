@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **WorkEmail** | Pointer to **NullableString** | The employee&#39;s work email. | [optional] 
 **PersonalEmail** | Pointer to **NullableString** | The employee&#39;s personal email. | [optional] 
 **MobilePhoneNumber** | Pointer to **NullableString** | The employee&#39;s mobile phone number. | [optional] 
-**Employments** | Pointer to **[]string** |  | [optional] [readonly] 
+**Employments** | Pointer to **[]string** | Array of &#x60;Employment&#x60; IDs for this Employee. | [optional] [readonly] 
 **HomeLocation** | Pointer to **NullableString** | The employee&#39;s home address. | [optional] 
 **WorkLocation** | Pointer to **NullableString** | The employee&#39;s work address. | [optional] 
 **Manager** | Pointer to **NullableString** | The employee ID of the employee&#39;s manager. | [optional] 
@@ -24,11 +24,13 @@ Name | Type | Description | Notes
 **Ethnicity** | Pointer to [**NullableEthnicityEnum**](EthnicityEnum.md) | The employee&#39;s ethnicity. | [optional] 
 **MaritalStatus** | Pointer to [**NullableMaritalStatusEnum**](MaritalStatusEnum.md) | The employee&#39;s marital status. | [optional] 
 **DateOfBirth** | Pointer to **NullableTime** | The employee&#39;s date of birth. | [optional] 
-**HireDate** | Pointer to **NullableTime** | The employee&#39;s hire date. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. | [optional] 
+**HireDate** | Pointer to **NullableTime** | The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you&#39;re looking for the employee&#39;s start date, refer to the start_date field. | [optional] 
+**StartDate** | Pointer to **NullableTime** | The date that the employee started working. If an employee has multiple start dates from previous employments, this represents the most recent start date. | [optional] 
 **EmploymentStatus** | Pointer to [**NullableEmploymentStatusEnum**](EmploymentStatusEnum.md) | The employment status of the employee. | [optional] 
 **TerminationDate** | Pointer to **NullableTime** | The employee&#39;s termination date. | [optional] 
 **Avatar** | Pointer to **NullableString** | The URL of the employee&#39;s avatar image. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**CustomFields** | Pointer to **map[string]interface{}** | Custom fields configured for a given model. | [optional] 
 
 ## Methods
 
@@ -764,6 +766,41 @@ HasHireDate returns a boolean if a field has been set.
 `func (o *Employee) UnsetHireDate()`
 
 UnsetHireDate ensures that no value is present for HireDate, not even an explicit nil
+### GetStartDate
+
+`func (o *Employee) GetStartDate() time.Time`
+
+GetStartDate returns the StartDate field if non-nil, zero value otherwise.
+
+### GetStartDateOk
+
+`func (o *Employee) GetStartDateOk() (*time.Time, bool)`
+
+GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStartDate
+
+`func (o *Employee) SetStartDate(v time.Time)`
+
+SetStartDate sets StartDate field to given value.
+
+### HasStartDate
+
+`func (o *Employee) HasStartDate() bool`
+
+HasStartDate returns a boolean if a field has been set.
+
+### SetStartDateNil
+
+`func (o *Employee) SetStartDateNil(b bool)`
+
+ SetStartDateNil sets the value for StartDate to be an explicit nil
+
+### UnsetStartDate
+`func (o *Employee) UnsetStartDate()`
+
+UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
 ### GetEmploymentStatus
 
 `func (o *Employee) GetEmploymentStatus() EmploymentStatusEnum`
@@ -904,6 +941,41 @@ HasRemoteData returns a boolean if a field has been set.
 `func (o *Employee) UnsetRemoteData()`
 
 UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
+### GetCustomFields
+
+`func (o *Employee) GetCustomFields() map[string]interface{}`
+
+GetCustomFields returns the CustomFields field if non-nil, zero value otherwise.
+
+### GetCustomFieldsOk
+
+`func (o *Employee) GetCustomFieldsOk() (*map[string]interface{}, bool)`
+
+GetCustomFieldsOk returns a tuple with the CustomFields field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomFields
+
+`func (o *Employee) SetCustomFields(v map[string]interface{})`
+
+SetCustomFields sets CustomFields field to given value.
+
+### HasCustomFields
+
+`func (o *Employee) HasCustomFields() bool`
+
+HasCustomFields returns a boolean if a field has been set.
+
+### SetCustomFieldsNil
+
+`func (o *Employee) SetCustomFieldsNil(b bool)`
+
+ SetCustomFieldsNil sets the value for CustomFields to be an explicit nil
+
+### UnsetCustomFields
+`func (o *Employee) UnsetCustomFields()`
+
+UnsetCustomFields ensures that no value is present for CustomFields, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

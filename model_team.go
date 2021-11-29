@@ -22,6 +22,8 @@ type Team struct {
 	RemoteId NullableString `json:"remote_id,omitempty"`
 	// The team's name.
 	Name NullableString `json:"name,omitempty"`
+	// The team's parent team.
+	ParentTeam NullableString `json:"parent_team,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
@@ -158,6 +160,48 @@ func (o *Team) UnsetName() {
 	o.Name.Unset()
 }
 
+// GetParentTeam returns the ParentTeam field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Team) GetParentTeam() string {
+	if o == nil || o.ParentTeam.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.ParentTeam.Get()
+}
+
+// GetParentTeamOk returns a tuple with the ParentTeam field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Team) GetParentTeamOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.ParentTeam.Get(), o.ParentTeam.IsSet()
+}
+
+// HasParentTeam returns a boolean if a field has been set.
+func (o *Team) HasParentTeam() bool {
+	if o != nil && o.ParentTeam.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetParentTeam gets a reference to the given NullableString and assigns it to the ParentTeam field.
+func (o *Team) SetParentTeam(v string) {
+	o.ParentTeam.Set(&v)
+}
+// SetParentTeamNil sets the value for ParentTeam to be an explicit nil
+func (o *Team) SetParentTeamNil() {
+	o.ParentTeam.Set(nil)
+}
+
+// UnsetParentTeam ensures that no value is present for ParentTeam, not even an explicit nil
+func (o *Team) UnsetParentTeam() {
+	o.ParentTeam.Unset()
+}
+
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Team) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -201,6 +245,9 @@ func (o Team) MarshalJSON() ([]byte, error) {
 	}
 	if o.Name.IsSet() {
 		toSerialize["name"] = o.Name.Get()
+	}
+	if o.ParentTeam.IsSet() {
+		toSerialize["parent_team"] = o.ParentTeam.Get()
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

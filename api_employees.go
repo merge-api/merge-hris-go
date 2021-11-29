@@ -183,8 +183,10 @@ type ApiEmployeesListRequest struct {
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
+	personalEmail *string
 	remoteId *string
 	teamId *string
+	workEmail *string
 	workLocationId *string
 }
 
@@ -232,12 +234,20 @@ func (r ApiEmployeesListRequest) PageSize(pageSize int32) ApiEmployeesListReques
 	r.pageSize = &pageSize
 	return r
 }
+func (r ApiEmployeesListRequest) PersonalEmail(personalEmail string) ApiEmployeesListRequest {
+	r.personalEmail = &personalEmail
+	return r
+}
 func (r ApiEmployeesListRequest) RemoteId(remoteId string) ApiEmployeesListRequest {
 	r.remoteId = &remoteId
 	return r
 }
 func (r ApiEmployeesListRequest) TeamId(teamId string) ApiEmployeesListRequest {
 	r.teamId = &teamId
+	return r
+}
+func (r ApiEmployeesListRequest) WorkEmail(workEmail string) ApiEmployeesListRequest {
+	r.workEmail = &workEmail
 	return r
 }
 func (r ApiEmployeesListRequest) WorkLocationId(workLocationId string) ApiEmployeesListRequest {
@@ -320,11 +330,17 @@ func (a *EmployeesApiService) EmployeesListExecute(r ApiEmployeesListRequest) (P
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
+	if r.personalEmail != nil {
+		localVarQueryParams.Add("personal_email", parameterToString(*r.personalEmail, ""))
+	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
 	if r.teamId != nil {
 		localVarQueryParams.Add("team_id", parameterToString(*r.teamId, ""))
+	}
+	if r.workEmail != nil {
+		localVarQueryParams.Add("work_email", parameterToString(*r.workEmail, ""))
 	}
 	if r.workLocationId != nil {
 		localVarQueryParams.Add("work_location_id", parameterToString(*r.workLocationId, ""))

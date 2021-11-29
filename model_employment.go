@@ -21,6 +21,8 @@ type Employment struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
+	// The employee holding this position.
+	Employee NullableString `json:"employee,omitempty"`
 	// The position's title.
 	JobTitle NullableString `json:"job_title,omitempty"`
 	// The position's pay rate in dollars.
@@ -129,6 +131,48 @@ func (o *Employment) SetRemoteIdNil() {
 // UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
 func (o *Employment) UnsetRemoteId() {
 	o.RemoteId.Unset()
+}
+
+// GetEmployee returns the Employee field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Employment) GetEmployee() string {
+	if o == nil || o.Employee.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.Employee.Get()
+}
+
+// GetEmployeeOk returns a tuple with the Employee field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Employment) GetEmployeeOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Employee.Get(), o.Employee.IsSet()
+}
+
+// HasEmployee returns a boolean if a field has been set.
+func (o *Employment) HasEmployee() bool {
+	if o != nil && o.Employee.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEmployee gets a reference to the given NullableString and assigns it to the Employee field.
+func (o *Employment) SetEmployee(v string) {
+	o.Employee.Set(&v)
+}
+// SetEmployeeNil sets the value for Employee to be an explicit nil
+func (o *Employment) SetEmployeeNil() {
+	o.Employee.Set(nil)
+}
+
+// UnsetEmployee ensures that no value is present for Employee, not even an explicit nil
+func (o *Employment) UnsetEmployee() {
+	o.Employee.Unset()
 }
 
 // GetJobTitle returns the JobTitle field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -507,6 +551,9 @@ func (o Employment) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoteId.IsSet() {
 		toSerialize["remote_id"] = o.RemoteId.Get()
+	}
+	if o.Employee.IsSet() {
+		toSerialize["employee"] = o.Employee.Get()
 	}
 	if o.JobTitle.IsSet() {
 		toSerialize["job_title"] = o.JobTitle.Get()

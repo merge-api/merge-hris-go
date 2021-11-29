@@ -185,7 +185,7 @@ func (r ApiSyncStatusResyncCreateRequest) Execute() (SyncStatus, *_nethttp.Respo
 
 /*
  * SyncStatusResyncCreate Method for SyncStatusResyncCreate
- * Force resync of all models.
+ * Force re-sync of all models. This is only available for organizations on Merge's Grow and Expand plans.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @return ApiSyncStatusResyncCreateRequest
  */

@@ -54,14 +54,18 @@ type EmployeeRequest struct {
 	MaritalStatus NullableMaritalStatusEnum `json:"marital_status,omitempty"`
 	// The employee's date of birth.
 	DateOfBirth NullableTime `json:"date_of_birth,omitempty"`
-	// The employee's hire date. If an employee has multiple hire dates from previous employments, this represents the most recent hire date.
+	// The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you're looking for the employee's start date, refer to the start_date field.
 	HireDate NullableTime `json:"hire_date,omitempty"`
+	// The date that the employee started working. If an employee has multiple start dates from previous employments, this represents the most recent start date.
+	StartDate NullableTime `json:"start_date,omitempty"`
 	// The employment status of the employee.
 	EmploymentStatus NullableEmploymentStatusEnum `json:"employment_status,omitempty"`
 	// The employee's termination date.
 	TerminationDate NullableTime `json:"termination_date,omitempty"`
 	// The URL of the employee's avatar image.
 	Avatar NullableString `json:"avatar,omitempty"`
+	// Custom fields configured for a given model.
+	CustomFields map[string]interface{} `json:"custom_fields,omitempty"`
 }
 
 // NewEmployeeRequest instantiates a new EmployeeRequest object
@@ -879,6 +883,48 @@ func (o *EmployeeRequest) UnsetHireDate() {
 	o.HireDate.Unset()
 }
 
+// GetStartDate returns the StartDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployeeRequest) GetStartDate() time.Time {
+	if o == nil || o.StartDate.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartDate.Get()
+}
+
+// GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployeeRequest) GetStartDateOk() (*time.Time, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.StartDate.Get(), o.StartDate.IsSet()
+}
+
+// HasStartDate returns a boolean if a field has been set.
+func (o *EmployeeRequest) HasStartDate() bool {
+	if o != nil && o.StartDate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetStartDate gets a reference to the given NullableTime and assigns it to the StartDate field.
+func (o *EmployeeRequest) SetStartDate(v time.Time) {
+	o.StartDate.Set(&v)
+}
+// SetStartDateNil sets the value for StartDate to be an explicit nil
+func (o *EmployeeRequest) SetStartDateNil() {
+	o.StartDate.Set(nil)
+}
+
+// UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
+func (o *EmployeeRequest) UnsetStartDate() {
+	o.StartDate.Unset()
+}
+
 // GetEmploymentStatus returns the EmploymentStatus field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *EmployeeRequest) GetEmploymentStatus() EmploymentStatusEnum {
 	if o == nil || o.EmploymentStatus.Get() == nil {
@@ -1005,6 +1051,39 @@ func (o *EmployeeRequest) UnsetAvatar() {
 	o.Avatar.Unset()
 }
 
+// GetCustomFields returns the CustomFields field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployeeRequest) GetCustomFields() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.CustomFields
+}
+
+// GetCustomFieldsOk returns a tuple with the CustomFields field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployeeRequest) GetCustomFieldsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.CustomFields == nil {
+		return nil, false
+	}
+	return &o.CustomFields, true
+}
+
+// HasCustomFields returns a boolean if a field has been set.
+func (o *EmployeeRequest) HasCustomFields() bool {
+	if o != nil && o.CustomFields != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomFields gets a reference to the given map[string]interface{} and assigns it to the CustomFields field.
+func (o *EmployeeRequest) SetCustomFields(v map[string]interface{}) {
+	o.CustomFields = v
+}
+
 func (o EmployeeRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.RemoteId.IsSet() {
@@ -1064,6 +1143,9 @@ func (o EmployeeRequest) MarshalJSON() ([]byte, error) {
 	if o.HireDate.IsSet() {
 		toSerialize["hire_date"] = o.HireDate.Get()
 	}
+	if o.StartDate.IsSet() {
+		toSerialize["start_date"] = o.StartDate.Get()
+	}
 	if o.EmploymentStatus.IsSet() {
 		toSerialize["employment_status"] = o.EmploymentStatus.Get()
 	}
@@ -1072,6 +1154,9 @@ func (o EmployeeRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Avatar.IsSet() {
 		toSerialize["avatar"] = o.Avatar.Get()
+	}
+	if o.CustomFields != nil {
+		toSerialize["custom_fields"] = o.CustomFields
 	}
 	return json.Marshal(toSerialize)
 }
