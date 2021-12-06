@@ -4,80 +4,9 @@ All URIs are relative to *https://api.merge.dev/api/hris/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**EmployeesCreate**](EmployeesApi.md#EmployeesCreate) | **Post** /employees | 
 [**EmployeesList**](EmployeesApi.md#EmployeesList) | **Get** /employees | 
 [**EmployeesRetrieve**](EmployeesApi.md#EmployeesRetrieve) | **Get** /employees/{id} | 
 
-
-
-## EmployeesCreate
-
-> Employee EmployeesCreate(ctx).XAccountToken(xAccountToken).RunAsync(runAsync).EmployeeRequest(employeeRequest).Execute()
-
-
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    runAsync := true // bool | Whether or not third-party updates should be run asynchronously. (optional)
-    employeeRequest := *openapiclient.NewEmployeeRequest() // EmployeeRequest |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeesApi.EmployeesCreate(context.Background()).XAccountToken(xAccountToken).RunAsync(runAsync).EmployeeRequest(employeeRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `EmployeesCreate`: Employee
-    fmt.Fprintf(os.Stdout, "Response from `EmployeesApi.EmployeesCreate`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEmployeesCreateRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xAccountToken** | **string** | Token identifying the end user. | 
- **runAsync** | **bool** | Whether or not third-party updates should be run asynchronously. | 
- **employeeRequest** | [**EmployeeRequest**](EmployeeRequest.md) |  | 
-
-### Return type
-
-[**Employee**](Employee.md)
-
-### Authorization
-
-[tokenAuth](../README.md#tokenAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## EmployeesList

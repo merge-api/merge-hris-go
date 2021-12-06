@@ -86,13 +86,11 @@ Class | Method | HTTP request | Description
 *BenefitsApi* | [**BenefitsRetrieve**](docs/BenefitsApi.md#benefitsretrieve) | **Get** /benefits/{id} | 
 *CompaniesApi* | [**CompaniesList**](docs/CompaniesApi.md#companieslist) | **Get** /companies | 
 *CompaniesApi* | [**CompaniesRetrieve**](docs/CompaniesApi.md#companiesretrieve) | **Get** /companies/{id} | 
-*DeductionsApi* | [**DeductionsCreate**](docs/DeductionsApi.md#deductionscreate) | **Post** /deductions | 
 *DeductionsApi* | [**DeductionsList**](docs/DeductionsApi.md#deductionslist) | **Get** /deductions | 
 *DeductionsApi* | [**DeductionsRetrieve**](docs/DeductionsApi.md#deductionsretrieve) | **Get** /deductions/{id} | 
 *DeleteAccountApi* | [**DeleteAccountCreate**](docs/DeleteAccountApi.md#deleteaccountcreate) | **Post** /delete-account | 
 *EmployeePayrollRunsApi* | [**EmployeePayrollRunsList**](docs/EmployeePayrollRunsApi.md#employeepayrollrunslist) | **Get** /employee-payroll-runs | 
 *EmployeePayrollRunsApi* | [**EmployeePayrollRunsRetrieve**](docs/EmployeePayrollRunsApi.md#employeepayrollrunsretrieve) | **Get** /employee-payroll-runs/{id} | 
-*EmployeesApi* | [**EmployeesCreate**](docs/EmployeesApi.md#employeescreate) | **Post** /employees | 
 *EmployeesApi* | [**EmployeesList**](docs/EmployeesApi.md#employeeslist) | **Get** /employees | 
 *EmployeesApi* | [**EmployeesRetrieve**](docs/EmployeesApi.md#employeesretrieve) | **Get** /employees/{id} | 
 *EmploymentsApi* | [**EmploymentsList**](docs/EmploymentsApi.md#employmentslist) | **Get** /employments | 
@@ -136,11 +134,9 @@ Class | Method | HTTP request | Description
  - [CountryEnum](docs/CountryEnum.md)
  - [DataPassthroughRequest](docs/DataPassthroughRequest.md)
  - [Deduction](docs/Deduction.md)
- - [DeductionRequest](docs/DeductionRequest.md)
  - [Earning](docs/Earning.md)
  - [Employee](docs/Employee.md)
  - [EmployeePayrollRun](docs/EmployeePayrollRun.md)
- - [EmployeeRequest](docs/EmployeeRequest.md)
  - [Employment](docs/Employment.md)
  - [EmploymentStatusEnum](docs/EmploymentStatusEnum.md)
  - [EmploymentTypeEnum](docs/EmploymentTypeEnum.md)

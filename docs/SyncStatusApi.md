@@ -31,7 +31,7 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    cursor := int32(56) // int32 | The pagination cursor value. (optional)
+    cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -58,7 +58,7 @@ Other parameters are passed through a pointer to a apiSyncStatusListRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
- **cursor** | **int32** | The pagination cursor value. | 
+ **cursor** | **string** | The pagination cursor value. | 
  **pageSize** | **int32** | Number of results to return per page. | 
 
 ### Return type
