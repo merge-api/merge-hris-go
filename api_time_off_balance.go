@@ -41,6 +41,7 @@ type ApiTimeOffBalanceListRequest struct {
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
+	policyType *string
 	remoteId *string
 }
 
@@ -78,6 +79,10 @@ func (r ApiTimeOffBalanceListRequest) ModifiedBefore(modifiedBefore time.Time) A
 }
 func (r ApiTimeOffBalanceListRequest) PageSize(pageSize int32) ApiTimeOffBalanceListRequest {
 	r.pageSize = &pageSize
+	return r
+}
+func (r ApiTimeOffBalanceListRequest) PolicyType(policyType string) ApiTimeOffBalanceListRequest {
+	r.policyType = &policyType
 	return r
 }
 func (r ApiTimeOffBalanceListRequest) RemoteId(remoteId string) ApiTimeOffBalanceListRequest {
@@ -153,6 +158,9 @@ func (a *TimeOffBalanceApiService) TimeOffBalanceListExecute(r ApiTimeOffBalance
 	}
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
+	if r.policyType != nil {
+		localVarQueryParams.Add("policy_type", parameterToString(*r.policyType, ""))
 	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
@@ -249,7 +257,7 @@ func (r ApiTimeOffBalanceRetrieveRequest) Execute() (TimeOffBalance, *_nethttp.R
 
 /*
  * TimeOffBalanceRetrieve Method for TimeOffBalanceRetrieve
- * Returns an `TimeOffBalance` object with the given `id`.
+ * Returns a `TimeOffBalance` object with the given `id`.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id
  * @return ApiTimeOffBalanceRetrieveRequest

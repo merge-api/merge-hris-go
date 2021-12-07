@@ -19,13 +19,13 @@ import (
 type AccountIntegration struct {
 	// Company name.
 	Name string `json:"name"`
-	// Category or categories this integration belongs to.
-	Categories *[]string `json:"categories,omitempty"`
-	// Company logo in rectangular shape.
+	// Category or categories this integration belongs to. Multiple categories should be comma separated.<br/><br>Example: For [ats, hris], enter <i>ats,hris</i>
+	Categories *[]CategoriesEnum `json:"categories,omitempty"`
+	// Company logo in rectangular shape. <b>Upload an image with a clear background.</b>
 	Image NullableString `json:"image,omitempty"`
-	// Company logo in square shape.
+	// Company logo in square shape. <b>Upload an image with a white background.</b>
 	SquareImage NullableString `json:"square_image,omitempty"`
-	// The color of this integration used for buttons and text throughout the app and landing pages.
+	// The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b>
 	Color *string `json:"color,omitempty"`
 	Slug *string `json:"slug,omitempty"`
 }
@@ -73,9 +73,9 @@ func (o *AccountIntegration) SetName(v string) {
 }
 
 // GetCategories returns the Categories field value if set, zero value otherwise.
-func (o *AccountIntegration) GetCategories() []string {
+func (o *AccountIntegration) GetCategories() []CategoriesEnum {
 	if o == nil || o.Categories == nil {
-		var ret []string
+		var ret []CategoriesEnum
 		return ret
 	}
 	return *o.Categories
@@ -83,7 +83,7 @@ func (o *AccountIntegration) GetCategories() []string {
 
 // GetCategoriesOk returns a tuple with the Categories field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountIntegration) GetCategoriesOk() (*[]string, bool) {
+func (o *AccountIntegration) GetCategoriesOk() (*[]CategoriesEnum, bool) {
 	if o == nil || o.Categories == nil {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *AccountIntegration) HasCategories() bool {
 	return false
 }
 
-// SetCategories gets a reference to the given []string and assigns it to the Categories field.
-func (o *AccountIntegration) SetCategories(v []string) {
+// SetCategories gets a reference to the given []CategoriesEnum and assigns it to the Categories field.
+func (o *AccountIntegration) SetCategories(v []CategoriesEnum) {
 	o.Categories = &v
 }
 

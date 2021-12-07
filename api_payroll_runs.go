@@ -36,11 +36,16 @@ type ApiPayrollRunsListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	endedAfter *time.Time
+	endedBefore *time.Time
 	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
 	remoteId *string
+	runType *string
+	startedAfter *time.Time
+	startedBefore *time.Time
 }
 
 func (r ApiPayrollRunsListRequest) XAccountToken(xAccountToken string) ApiPayrollRunsListRequest {
@@ -57,6 +62,14 @@ func (r ApiPayrollRunsListRequest) CreatedBefore(createdBefore time.Time) ApiPay
 }
 func (r ApiPayrollRunsListRequest) Cursor(cursor string) ApiPayrollRunsListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiPayrollRunsListRequest) EndedAfter(endedAfter time.Time) ApiPayrollRunsListRequest {
+	r.endedAfter = &endedAfter
+	return r
+}
+func (r ApiPayrollRunsListRequest) EndedBefore(endedBefore time.Time) ApiPayrollRunsListRequest {
+	r.endedBefore = &endedBefore
 	return r
 }
 func (r ApiPayrollRunsListRequest) IncludeRemoteData(includeRemoteData bool) ApiPayrollRunsListRequest {
@@ -77,6 +90,18 @@ func (r ApiPayrollRunsListRequest) PageSize(pageSize int32) ApiPayrollRunsListRe
 }
 func (r ApiPayrollRunsListRequest) RemoteId(remoteId string) ApiPayrollRunsListRequest {
 	r.remoteId = &remoteId
+	return r
+}
+func (r ApiPayrollRunsListRequest) RunType(runType string) ApiPayrollRunsListRequest {
+	r.runType = &runType
+	return r
+}
+func (r ApiPayrollRunsListRequest) StartedAfter(startedAfter time.Time) ApiPayrollRunsListRequest {
+	r.startedAfter = &startedAfter
+	return r
+}
+func (r ApiPayrollRunsListRequest) StartedBefore(startedBefore time.Time) ApiPayrollRunsListRequest {
+	r.startedBefore = &startedBefore
 	return r
 }
 
@@ -134,6 +159,12 @@ func (a *PayrollRunsApiService) PayrollRunsListExecute(r ApiPayrollRunsListReque
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
 	}
+	if r.endedAfter != nil {
+		localVarQueryParams.Add("ended_after", parameterToString(*r.endedAfter, ""))
+	}
+	if r.endedBefore != nil {
+		localVarQueryParams.Add("ended_before", parameterToString(*r.endedBefore, ""))
+	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
@@ -148,6 +179,15 @@ func (a *PayrollRunsApiService) PayrollRunsListExecute(r ApiPayrollRunsListReque
 	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
+	}
+	if r.runType != nil {
+		localVarQueryParams.Add("run_type", parameterToString(*r.runType, ""))
+	}
+	if r.startedAfter != nil {
+		localVarQueryParams.Add("started_after", parameterToString(*r.startedAfter, ""))
+	}
+	if r.startedBefore != nil {
+		localVarQueryParams.Add("started_before", parameterToString(*r.startedBefore, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

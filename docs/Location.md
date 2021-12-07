@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
+**Name** | Pointer to **NullableString** | The location&#39;s name. | [optional] 
 **PhoneNumber** | Pointer to **NullableString** | The location&#39;s phone number. | [optional] 
 **Street1** | Pointer to **NullableString** | Line 1 of the location&#39;s street address. | [optional] 
 **Street2** | Pointer to **NullableString** | Line 2 of the location&#39;s street address. | [optional] 
@@ -94,6 +95,41 @@ HasRemoteId returns a boolean if a field has been set.
 `func (o *Location) UnsetRemoteId()`
 
 UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
+### GetName
+
+`func (o *Location) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *Location) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *Location) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *Location) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### SetNameNil
+
+`func (o *Location) SetNameNil(b bool)`
+
+ SetNameNil sets the value for Name to be an explicit nil
+
+### UnsetName
+`func (o *Location) UnsetName()`
+
+UnsetName ensures that no value is present for Name, not even an explicit nil
 ### GetPhoneNumber
 
 `func (o *Location) GetPhoneNumber() string`

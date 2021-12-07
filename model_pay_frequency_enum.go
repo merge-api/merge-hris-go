@@ -29,7 +29,6 @@ const (
 	PAYFREQUENCYENUM_ANNUALLY PayFrequencyEnum = "ANNUALLY"
 	PAYFREQUENCYENUM_THIRTEEN_MONTHLY PayFrequencyEnum = "THIRTEEN-MONTHLY"
 	PAYFREQUENCYENUM_PRO_RATA PayFrequencyEnum = "PRO_RATA"
-	PAYFREQUENCYENUM_NULL PayFrequencyEnum = "NULL"
 )
 
 var allowedPayFrequencyEnumEnumValues = []PayFrequencyEnum{
@@ -41,7 +40,6 @@ var allowedPayFrequencyEnumEnumValues = []PayFrequencyEnum{
 	"ANNUALLY",
 	"THIRTEEN-MONTHLY",
 	"PRO_RATA",
-	"NULL",
 }
 
 func (v *PayFrequencyEnum) UnmarshalJSON(src []byte) error {

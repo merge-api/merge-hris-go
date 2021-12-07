@@ -20,6 +20,8 @@ type Location struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
+	// The location's name.
+	Name NullableString `json:"name,omitempty"`
 	// The location's phone number.
 	PhoneNumber NullableString `json:"phone_number,omitempty"`
 	// Line 1 of the location's street address.
@@ -126,6 +128,48 @@ func (o *Location) SetRemoteIdNil() {
 // UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
 func (o *Location) UnsetRemoteId() {
 	o.RemoteId.Unset()
+}
+
+// GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Location) GetName() string {
+	if o == nil || o.Name.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name.Get()
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Location) GetNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Name.Get(), o.Name.IsSet()
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *Location) HasName() bool {
+	if o != nil && o.Name.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given NullableString and assigns it to the Name field.
+func (o *Location) SetName(v string) {
+	o.Name.Set(&v)
+}
+// SetNameNil sets the value for Name to be an explicit nil
+func (o *Location) SetNameNil() {
+	o.Name.Set(nil)
+}
+
+// UnsetName ensures that no value is present for Name, not even an explicit nil
+func (o *Location) UnsetName() {
+	o.Name.Unset()
 }
 
 // GetPhoneNumber returns the PhoneNumber field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -462,6 +506,9 @@ func (o Location) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoteId.IsSet() {
 		toSerialize["remote_id"] = o.RemoteId.Get()
+	}
+	if o.Name.IsSet() {
+		toSerialize["name"] = o.Name.Get()
 	}
 	if o.PhoneNumber.IsSet() {
 		toSerialize["phone_number"] = o.PhoneNumber.Get()

@@ -31,7 +31,7 @@ type ApiSyncStatusListRequest struct {
 	ctx _context.Context
 	ApiService *SyncStatusApiService
 	xAccountToken *string
-	cursor *int32
+	cursor *string
 	pageSize *int32
 }
 
@@ -39,7 +39,7 @@ func (r ApiSyncStatusListRequest) XAccountToken(xAccountToken string) ApiSyncSta
 	r.xAccountToken = &xAccountToken
 	return r
 }
-func (r ApiSyncStatusListRequest) Cursor(cursor int32) ApiSyncStatusListRequest {
+func (r ApiSyncStatusListRequest) Cursor(cursor string) ApiSyncStatusListRequest {
 	r.cursor = &cursor
 	return r
 }
@@ -185,7 +185,7 @@ func (r ApiSyncStatusResyncCreateRequest) Execute() (SyncStatus, *_nethttp.Respo
 
 /*
  * SyncStatusResyncCreate Method for SyncStatusResyncCreate
- * Force resync of all models.
+ * Force re-sync of all models. This is only available for organizations on Merge's Grow and Expand plans.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @return ApiSyncStatusResyncCreateRequest
  */

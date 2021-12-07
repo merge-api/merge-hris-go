@@ -22,10 +22,12 @@ type TimeOffBalance struct {
 	RemoteId NullableString `json:"remote_id,omitempty"`
 	// The employee the balance belongs to.
 	Employee NullableString `json:"employee,omitempty"`
-	// The current PTO balance.
+	// The current PTO balance in terms of hours.
 	Balance NullableFloat32 `json:"balance,omitempty"`
-	// The amount of PTO used.
+	// The amount of PTO used in terms of hours.
 	Used NullableFloat32 `json:"used,omitempty"`
+	// The policy type of this time off balance.
+	PolicyType NullablePolicyTypeEnum `json:"policy_type,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
@@ -246,6 +248,48 @@ func (o *TimeOffBalance) UnsetUsed() {
 	o.Used.Unset()
 }
 
+// GetPolicyType returns the PolicyType field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TimeOffBalance) GetPolicyType() PolicyTypeEnum {
+	if o == nil || o.PolicyType.Get() == nil {
+		var ret PolicyTypeEnum
+		return ret
+	}
+	return *o.PolicyType.Get()
+}
+
+// GetPolicyTypeOk returns a tuple with the PolicyType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TimeOffBalance) GetPolicyTypeOk() (*PolicyTypeEnum, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.PolicyType.Get(), o.PolicyType.IsSet()
+}
+
+// HasPolicyType returns a boolean if a field has been set.
+func (o *TimeOffBalance) HasPolicyType() bool {
+	if o != nil && o.PolicyType.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicyType gets a reference to the given NullablePolicyTypeEnum and assigns it to the PolicyType field.
+func (o *TimeOffBalance) SetPolicyType(v PolicyTypeEnum) {
+	o.PolicyType.Set(&v)
+}
+// SetPolicyTypeNil sets the value for PolicyType to be an explicit nil
+func (o *TimeOffBalance) SetPolicyTypeNil() {
+	o.PolicyType.Set(nil)
+}
+
+// UnsetPolicyType ensures that no value is present for PolicyType, not even an explicit nil
+func (o *TimeOffBalance) UnsetPolicyType() {
+	o.PolicyType.Unset()
+}
+
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TimeOffBalance) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -295,6 +339,9 @@ func (o TimeOffBalance) MarshalJSON() ([]byte, error) {
 	}
 	if o.Used.IsSet() {
 		toSerialize["used"] = o.Used.Get()
+	}
+	if o.PolicyType.IsSet() {
+		toSerialize["policy_type"] = o.PolicyType.Get()
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

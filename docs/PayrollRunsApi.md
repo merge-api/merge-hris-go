@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## PayrollRunsList
 
-> PaginatedPayrollRunList PayrollRunsList(ctx).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
+> PaginatedPayrollRunList PayrollRunsList(ctx).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EndedAfter(endedAfter).EndedBefore(endedBefore).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).RunType(runType).StartedAfter(startedAfter).StartedBefore(startedBefore).Execute()
 
 
 
@@ -35,15 +35,20 @@ func main() {
     createdAfter := time.Now() // time.Time | If provided, will only return objects created after this datetime. (optional)
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
+    endedAfter := time.Now() // time.Time | If provided, will only return payroll runs ended after this datetime. (optional)
+    endedBefore := time.Now() // time.Time | If provided, will only return payroll runs ended before this datetime. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
     remoteId := "remoteId_example" // string | The API provider's ID for the given object. (optional)
+    runType := "runType_example" // string | If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS') (optional)
+    startedAfter := time.Now() // time.Time | If provided, will only return payroll runs started after this datetime. (optional)
+    startedBefore := time.Now() // time.Time | If provided, will only return payroll runs started before this datetime. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PayrollRunsApi.PayrollRunsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).Execute()
+    resp, r, err := api_client.PayrollRunsApi.PayrollRunsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EndedAfter(endedAfter).EndedBefore(endedBefore).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).RunType(runType).StartedAfter(startedAfter).StartedBefore(startedBefore).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PayrollRunsApi.PayrollRunsList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -68,11 +73,16 @@ Name | Type | Description  | Notes
  **createdAfter** | **time.Time** | If provided, will only return objects created after this datetime. | 
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
+ **endedAfter** | **time.Time** | If provided, will only return payroll runs ended after this datetime. | 
+ **endedBefore** | **time.Time** | If provided, will only return payroll runs ended before this datetime. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
  **pageSize** | **int32** | Number of results to return per page. | 
  **remoteId** | **string** | The API provider&#39;s ID for the given object. | 
+ **runType** | **string** | If provided, will only return PayrollRun&#39;s with this status. Options: (&#39;REGULAR&#39;, &#39;OFF_CYCLE&#39;, &#39;CORRECTION&#39;, &#39;TERMINATION&#39;, &#39;SIGN_ON_BONUS&#39;) | 
+ **startedAfter** | **time.Time** | If provided, will only return payroll runs started after this datetime. | 
+ **startedBefore** | **time.Time** | If provided, will only return payroll runs started before this datetime. | 
 
 ### Return type
 

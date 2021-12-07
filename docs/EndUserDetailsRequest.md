@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **EndUserEmailAddress** | **string** |  | 
 **EndUserOrganizationName** | **string** |  | 
 **EndUserOriginId** | **string** |  | 
-**Categories** | Pointer to **[]string** |  | [optional] 
+**Categories** | Pointer to [**[]CategoriesEnum**](CategoriesEnum.md) |  | [optional] 
 **Integration** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
@@ -91,20 +91,20 @@ SetEndUserOriginId sets EndUserOriginId field to given value.
 
 ### GetCategories
 
-`func (o *EndUserDetailsRequest) GetCategories() []string`
+`func (o *EndUserDetailsRequest) GetCategories() []CategoriesEnum`
 
 GetCategories returns the Categories field if non-nil, zero value otherwise.
 
 ### GetCategoriesOk
 
-`func (o *EndUserDetailsRequest) GetCategoriesOk() (*[]string, bool)`
+`func (o *EndUserDetailsRequest) GetCategoriesOk() (*[]CategoriesEnum, bool)`
 
 GetCategoriesOk returns a tuple with the Categories field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCategories
 
-`func (o *EndUserDetailsRequest) SetCategories(v []string)`
+`func (o *EndUserDetailsRequest) SetCategories(v []CategoriesEnum)`
 
 SetCategories sets Categories field to given value.
 

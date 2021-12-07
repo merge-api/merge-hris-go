@@ -29,6 +29,146 @@ var (
 // TimeOffApiService TimeOffApi service
 type TimeOffApiService service
 
+type ApiTimeOffCreateRequest struct {
+	ctx _context.Context
+	ApiService *TimeOffApiService
+	xAccountToken *string
+	runAsync *bool
+	timeOffRequest *TimeOffRequest
+}
+
+func (r ApiTimeOffCreateRequest) XAccountToken(xAccountToken string) ApiTimeOffCreateRequest {
+	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiTimeOffCreateRequest) RunAsync(runAsync bool) ApiTimeOffCreateRequest {
+	r.runAsync = &runAsync
+	return r
+}
+func (r ApiTimeOffCreateRequest) TimeOffRequest(timeOffRequest TimeOffRequest) ApiTimeOffCreateRequest {
+	r.timeOffRequest = &timeOffRequest
+	return r
+}
+
+func (r ApiTimeOffCreateRequest) Execute() (TimeOff, *_nethttp.Response, error) {
+	return r.ApiService.TimeOffCreateExecute(r)
+}
+
+/*
+ * TimeOffCreate Method for TimeOffCreate
+ * Creates a `TimeOff` object with the given values.
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiTimeOffCreateRequest
+ */
+func (a *TimeOffApiService) TimeOffCreate(ctx _context.Context) ApiTimeOffCreateRequest {
+	return ApiTimeOffCreateRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return TimeOff
+ */
+func (a *TimeOffApiService) TimeOffCreateExecute(r ApiTimeOffCreateRequest) (TimeOff, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  TimeOff
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TimeOffApiService.TimeOffCreate")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/time-off"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.xAccountToken == nil {
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
+	}
+
+	if r.runAsync != nil {
+		localVarQueryParams.Add("run_async", parameterToString(*r.runAsync, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json", "application/x-www-form-urlencoded", "multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	localVarHeaderParams["X-Account-Token"] = parameterToString(*r.xAccountToken, "")
+	// body params
+	localVarPostBody = r.timeOffRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["tokenAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiTimeOffListRequest struct {
 	ctx _context.Context
 	ApiService *TimeOffApiService
@@ -43,6 +183,8 @@ type ApiTimeOffListRequest struct {
 	modifiedBefore *time.Time
 	pageSize *int32
 	remoteId *string
+	requestType *string
+	status *string
 }
 
 func (r ApiTimeOffListRequest) XAccountToken(xAccountToken string) ApiTimeOffListRequest {
@@ -87,6 +229,14 @@ func (r ApiTimeOffListRequest) PageSize(pageSize int32) ApiTimeOffListRequest {
 }
 func (r ApiTimeOffListRequest) RemoteId(remoteId string) ApiTimeOffListRequest {
 	r.remoteId = &remoteId
+	return r
+}
+func (r ApiTimeOffListRequest) RequestType(requestType string) ApiTimeOffListRequest {
+	r.requestType = &requestType
+	return r
+}
+func (r ApiTimeOffListRequest) Status(status string) ApiTimeOffListRequest {
+	r.status = &status
 	return r
 }
 
@@ -164,6 +314,12 @@ func (a *TimeOffApiService) TimeOffListExecute(r ApiTimeOffListRequest) (Paginat
 	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
+	}
+	if r.requestType != nil {
+		localVarQueryParams.Add("request_type", parameterToString(*r.requestType, ""))
+	}
+	if r.status != nil {
+		localVarQueryParams.Add("status", parameterToString(*r.status, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -257,7 +413,7 @@ func (r ApiTimeOffRetrieveRequest) Execute() (TimeOff, *_nethttp.Response, error
 
 /*
  * TimeOffRetrieve Method for TimeOffRetrieve
- * Returns an `TimeOff` object with the given `id`.
+ * Returns a `TimeOff` object with the given `id`.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id
  * @return ApiTimeOffRetrieveRequest

@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Company name. | 
-**Categories** | Pointer to **[]string** | Category or categories this integration belongs to. | [optional] 
-**Image** | Pointer to **NullableString** | Company logo in rectangular shape. | [optional] 
-**SquareImage** | Pointer to **NullableString** | Company logo in square shape. | [optional] 
-**Color** | Pointer to **string** | The color of this integration used for buttons and text throughout the app and landing pages. | [optional] 
+**Categories** | Pointer to [**[]CategoriesEnum**](CategoriesEnum.md) | Category or categories this integration belongs to. Multiple categories should be comma separated.&lt;br/&gt;&lt;br&gt;Example: For [ats, hris], enter &lt;i&gt;ats,hris&lt;/i&gt; | [optional] 
+**Image** | Pointer to **NullableString** | Company logo in rectangular shape. &lt;b&gt;Upload an image with a clear background.&lt;/b&gt; | [optional] 
+**SquareImage** | Pointer to **NullableString** | Company logo in square shape. &lt;b&gt;Upload an image with a white background.&lt;/b&gt; | [optional] 
+**Color** | Pointer to **string** | The color of this integration used for buttons and text throughout the app and landing pages. &lt;b&gt;Choose a darker, saturated color.&lt;/b&gt; | [optional] 
 **Slug** | Pointer to **string** |  | [optional] [readonly] 
 
 ## Methods
@@ -52,20 +52,20 @@ SetName sets Name field to given value.
 
 ### GetCategories
 
-`func (o *AccountIntegration) GetCategories() []string`
+`func (o *AccountIntegration) GetCategories() []CategoriesEnum`
 
 GetCategories returns the Categories field if non-nil, zero value otherwise.
 
 ### GetCategoriesOk
 
-`func (o *AccountIntegration) GetCategoriesOk() (*[]string, bool)`
+`func (o *AccountIntegration) GetCategoriesOk() (*[]CategoriesEnum, bool)`
 
 GetCategoriesOk returns a tuple with the Categories field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCategories
 
-`func (o *AccountIntegration) SetCategories(v []string)`
+`func (o *AccountIntegration) SetCategories(v []CategoriesEnum)`
 
 SetCategories sets Categories field to given value.
 
