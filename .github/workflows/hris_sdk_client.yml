@@ -18,4 +18,4 @@ jobs:
           go build
       - name: test
         run: |
-          go test
+          go test -v
