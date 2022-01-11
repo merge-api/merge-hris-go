@@ -23,11 +23,13 @@ type RequestFormatEnum string
 const (
 	REQUESTFORMATENUM_JSON RequestFormatEnum = "JSON"
 	REQUESTFORMATENUM_XML RequestFormatEnum = "XML"
+	REQUESTFORMATENUM_MULTIPART RequestFormatEnum = "MULTIPART"
 )
 
 var allowedRequestFormatEnumEnumValues = []RequestFormatEnum{
 	"JSON",
 	"XML",
+	"MULTIPART",
 }
 
 func (v *RequestFormatEnum) UnmarshalJSON(src []byte) error {

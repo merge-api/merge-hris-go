@@ -33,24 +33,24 @@ type ApiTimeOffCreateRequest struct {
 	ctx _context.Context
 	ApiService *TimeOffApiService
 	xAccountToken *string
+	timeOffEndpointRequest *TimeOffEndpointRequest
 	runAsync *bool
-	timeOffRequest *TimeOffRequest
 }
 
 func (r ApiTimeOffCreateRequest) XAccountToken(xAccountToken string) ApiTimeOffCreateRequest {
 	r.xAccountToken = &xAccountToken
 	return r
 }
+func (r ApiTimeOffCreateRequest) TimeOffEndpointRequest(timeOffEndpointRequest TimeOffEndpointRequest) ApiTimeOffCreateRequest {
+	r.timeOffEndpointRequest = &timeOffEndpointRequest
+	return r
+}
 func (r ApiTimeOffCreateRequest) RunAsync(runAsync bool) ApiTimeOffCreateRequest {
 	r.runAsync = &runAsync
 	return r
 }
-func (r ApiTimeOffCreateRequest) TimeOffRequest(timeOffRequest TimeOffRequest) ApiTimeOffCreateRequest {
-	r.timeOffRequest = &timeOffRequest
-	return r
-}
 
-func (r ApiTimeOffCreateRequest) Execute() (TimeOff, *_nethttp.Response, error) {
+func (r ApiTimeOffCreateRequest) Execute() (TimeOffResponse, *_nethttp.Response, error) {
 	return r.ApiService.TimeOffCreateExecute(r)
 }
 
@@ -69,16 +69,16 @@ func (a *TimeOffApiService) TimeOffCreate(ctx _context.Context) ApiTimeOffCreate
 
 /*
  * Execute executes the request
- * @return TimeOff
+ * @return TimeOffResponse
  */
-func (a *TimeOffApiService) TimeOffCreateExecute(r ApiTimeOffCreateRequest) (TimeOff, *_nethttp.Response, error) {
+func (a *TimeOffApiService) TimeOffCreateExecute(r ApiTimeOffCreateRequest) (TimeOffResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  TimeOff
+		localVarReturnValue  TimeOffResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TimeOffApiService.TimeOffCreate")
@@ -93,6 +93,9 @@ func (a *TimeOffApiService) TimeOffCreateExecute(r ApiTimeOffCreateRequest) (Tim
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
 		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
+	}
+	if r.timeOffEndpointRequest == nil {
+		return localVarReturnValue, nil, reportError("timeOffEndpointRequest is required and must be specified")
 	}
 
 	if r.runAsync != nil {
@@ -117,7 +120,7 @@ func (a *TimeOffApiService) TimeOffCreateExecute(r ApiTimeOffCreateRequest) (Tim
 	}
 	localVarHeaderParams["X-Account-Token"] = parameterToString(*r.xAccountToken, "")
 	// body params
-	localVarPostBody = r.timeOffRequest
+	localVarPostBody = r.timeOffEndpointRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -178,6 +181,7 @@ type ApiTimeOffListRequest struct {
 	createdBefore *time.Time
 	cursor *string
 	employeeId *string
+	includeDeletedData *bool
 	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
@@ -209,6 +213,10 @@ func (r ApiTimeOffListRequest) Cursor(cursor string) ApiTimeOffListRequest {
 }
 func (r ApiTimeOffListRequest) EmployeeId(employeeId string) ApiTimeOffListRequest {
 	r.employeeId = &employeeId
+	return r
+}
+func (r ApiTimeOffListRequest) IncludeDeletedData(includeDeletedData bool) ApiTimeOffListRequest {
+	r.includeDeletedData = &includeDeletedData
 	return r
 }
 func (r ApiTimeOffListRequest) IncludeRemoteData(includeRemoteData bool) ApiTimeOffListRequest {
@@ -299,6 +307,9 @@ func (a *TimeOffApiService) TimeOffListExecute(r ApiTimeOffListRequest) (Paginat
 	}
 	if r.employeeId != nil {
 		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
+	}
+	if r.includeDeletedData != nil {
+		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))

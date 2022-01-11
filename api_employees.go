@@ -37,12 +37,14 @@ type ApiEmployeesListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	includeDeletedData *bool
 	includeRemoteData *bool
 	includeSensitiveFields *bool
 	managerId *string
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
+	payGroupId *string
 	personalEmail *string
 	remoteId *string
 	teamId *string
@@ -70,6 +72,10 @@ func (r ApiEmployeesListRequest) Cursor(cursor string) ApiEmployeesListRequest {
 	r.cursor = &cursor
 	return r
 }
+func (r ApiEmployeesListRequest) IncludeDeletedData(includeDeletedData bool) ApiEmployeesListRequest {
+	r.includeDeletedData = &includeDeletedData
+	return r
+}
 func (r ApiEmployeesListRequest) IncludeRemoteData(includeRemoteData bool) ApiEmployeesListRequest {
 	r.includeRemoteData = &includeRemoteData
 	return r
@@ -92,6 +98,10 @@ func (r ApiEmployeesListRequest) ModifiedBefore(modifiedBefore time.Time) ApiEmp
 }
 func (r ApiEmployeesListRequest) PageSize(pageSize int32) ApiEmployeesListRequest {
 	r.pageSize = &pageSize
+	return r
+}
+func (r ApiEmployeesListRequest) PayGroupId(payGroupId string) ApiEmployeesListRequest {
+	r.payGroupId = &payGroupId
 	return r
 }
 func (r ApiEmployeesListRequest) PersonalEmail(personalEmail string) ApiEmployeesListRequest {
@@ -172,6 +182,9 @@ func (a *EmployeesApiService) EmployeesListExecute(r ApiEmployeesListRequest) (P
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
 	}
+	if r.includeDeletedData != nil {
+		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
+	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
 	}
@@ -189,6 +202,9 @@ func (a *EmployeesApiService) EmployeesListExecute(r ApiEmployeesListRequest) (P
 	}
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
+	if r.payGroupId != nil {
+		localVarQueryParams.Add("pay_group_id", parameterToString(*r.payGroupId, ""))
 	}
 	if r.personalEmail != nil {
 		localVarQueryParams.Add("personal_email", parameterToString(*r.personalEmail, ""))

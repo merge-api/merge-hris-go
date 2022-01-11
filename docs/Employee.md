@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Company** | Pointer to **NullableString** | The ID of the employee&#39;s company. | [optional] 
 **FirstName** | Pointer to **NullableString** | The employee&#39;s first name. | [optional] 
 **LastName** | Pointer to **NullableString** | The employee&#39;s last name. | [optional] 
-**DisplayFullName** | Pointer to **NullableString** | The employee&#39;s full name, to use for display purposes. | [optional] 
+**DisplayFullName** | Pointer to **NullableString** | The employee&#39;s full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name. | [optional] 
 **WorkEmail** | Pointer to **NullableString** | The employee&#39;s work email. | [optional] 
 **PersonalEmail** | Pointer to **NullableString** | The employee&#39;s personal email. | [optional] 
 **MobilePhoneNumber** | Pointer to **NullableString** | The employee&#39;s mobile phone number. | [optional] 
@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **WorkLocation** | Pointer to **NullableString** | The employee&#39;s work address. | [optional] 
 **Manager** | Pointer to **NullableString** | The employee ID of the employee&#39;s manager. | [optional] 
 **Team** | Pointer to **NullableString** | The employee&#39;s team. | [optional] 
+**PayGroup** | Pointer to **NullableString** | The employee&#39;s pay group | [optional] 
 **Ssn** | Pointer to **NullableString** | The employee&#39;s social security number. | [optional] 
 **Gender** | Pointer to [**NullableGenderEnum**](GenderEnum.md) | The employee&#39;s gender. | [optional] 
 **Ethnicity** | Pointer to [**NullableEthnicityEnum**](EthnicityEnum.md) | The employee&#39;s ethnicity. | [optional] 
@@ -556,6 +557,41 @@ HasTeam returns a boolean if a field has been set.
 `func (o *Employee) UnsetTeam()`
 
 UnsetTeam ensures that no value is present for Team, not even an explicit nil
+### GetPayGroup
+
+`func (o *Employee) GetPayGroup() string`
+
+GetPayGroup returns the PayGroup field if non-nil, zero value otherwise.
+
+### GetPayGroupOk
+
+`func (o *Employee) GetPayGroupOk() (*string, bool)`
+
+GetPayGroupOk returns a tuple with the PayGroup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPayGroup
+
+`func (o *Employee) SetPayGroup(v string)`
+
+SetPayGroup sets PayGroup field to given value.
+
+### HasPayGroup
+
+`func (o *Employee) HasPayGroup() bool`
+
+HasPayGroup returns a boolean if a field has been set.
+
+### SetPayGroupNil
+
+`func (o *Employee) SetPayGroupNil(b bool)`
+
+ SetPayGroupNil sets the value for PayGroup to be an explicit nil
+
+### UnsetPayGroup
+`func (o *Employee) UnsetPayGroup()`
+
+UnsetPayGroup ensures that no value is present for PayGroup, not even an explicit nil
 ### GetSsn
 
 `func (o *Employee) GetSsn() string`

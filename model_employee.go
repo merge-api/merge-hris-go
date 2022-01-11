@@ -29,7 +29,7 @@ type Employee struct {
 	FirstName NullableString `json:"first_name,omitempty"`
 	// The employee's last name.
 	LastName NullableString `json:"last_name,omitempty"`
-	// The employee's full name, to use for display purposes.
+	// The employee's full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name.
 	DisplayFullName NullableString `json:"display_full_name,omitempty"`
 	// The employee's work email.
 	WorkEmail NullableString `json:"work_email,omitempty"`
@@ -47,6 +47,8 @@ type Employee struct {
 	Manager NullableString `json:"manager,omitempty"`
 	// The employee's team.
 	Team NullableString `json:"team,omitempty"`
+	// The employee's pay group
+	PayGroup NullableString `json:"pay_group,omitempty"`
 	// The employee's social security number.
 	Ssn NullableString `json:"ssn,omitempty"`
 	// The employee's gender.
@@ -699,6 +701,48 @@ func (o *Employee) UnsetTeam() {
 	o.Team.Unset()
 }
 
+// GetPayGroup returns the PayGroup field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Employee) GetPayGroup() string {
+	if o == nil || o.PayGroup.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.PayGroup.Get()
+}
+
+// GetPayGroupOk returns a tuple with the PayGroup field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Employee) GetPayGroupOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.PayGroup.Get(), o.PayGroup.IsSet()
+}
+
+// HasPayGroup returns a boolean if a field has been set.
+func (o *Employee) HasPayGroup() bool {
+	if o != nil && o.PayGroup.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPayGroup gets a reference to the given NullableString and assigns it to the PayGroup field.
+func (o *Employee) SetPayGroup(v string) {
+	o.PayGroup.Set(&v)
+}
+// SetPayGroupNil sets the value for PayGroup to be an explicit nil
+func (o *Employee) SetPayGroupNil() {
+	o.PayGroup.Set(nil)
+}
+
+// UnsetPayGroup ensures that no value is present for PayGroup, not even an explicit nil
+func (o *Employee) UnsetPayGroup() {
+	o.PayGroup.Unset()
+}
+
 // GetSsn returns the Ssn field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Employee) GetSsn() string {
 	if o == nil || o.Ssn.Get() == nil {
@@ -1231,6 +1275,9 @@ func (o Employee) MarshalJSON() ([]byte, error) {
 	}
 	if o.Team.IsSet() {
 		toSerialize["team"] = o.Team.Get()
+	}
+	if o.PayGroup.IsSet() {
+		toSerialize["pay_group"] = o.PayGroup.Get()
 	}
 	if o.Ssn.IsSet() {
 		toSerialize["ssn"] = o.Ssn.Get()

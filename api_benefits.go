@@ -37,6 +37,7 @@ type ApiBenefitsListRequest struct {
 	createdBefore *time.Time
 	cursor *string
 	employeeId *string
+	includeDeletedData *bool
 	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
@@ -62,6 +63,10 @@ func (r ApiBenefitsListRequest) Cursor(cursor string) ApiBenefitsListRequest {
 }
 func (r ApiBenefitsListRequest) EmployeeId(employeeId string) ApiBenefitsListRequest {
 	r.employeeId = &employeeId
+	return r
+}
+func (r ApiBenefitsListRequest) IncludeDeletedData(includeDeletedData bool) ApiBenefitsListRequest {
+	r.includeDeletedData = &includeDeletedData
 	return r
 }
 func (r ApiBenefitsListRequest) IncludeRemoteData(includeRemoteData bool) ApiBenefitsListRequest {
@@ -141,6 +146,9 @@ func (a *BenefitsApiService) BenefitsListExecute(r ApiBenefitsListRequest) (Pagi
 	}
 	if r.employeeId != nil {
 		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
+	}
+	if r.includeDeletedData != nil {
+		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))

@@ -24,42 +24,32 @@ var (
 	_ _context.Context
 )
 
-// SyncStatusApiService SyncStatusApi service
-type SyncStatusApiService service
+// ForceResyncApiService ForceResyncApi service
+type ForceResyncApiService service
 
-type ApiSyncStatusListRequest struct {
+type ApiSyncStatusResyncCreateRequest struct {
 	ctx _context.Context
-	ApiService *SyncStatusApiService
+	ApiService *ForceResyncApiService
 	xAccountToken *string
-	cursor *string
-	pageSize *int32
 }
 
-func (r ApiSyncStatusListRequest) XAccountToken(xAccountToken string) ApiSyncStatusListRequest {
+func (r ApiSyncStatusResyncCreateRequest) XAccountToken(xAccountToken string) ApiSyncStatusResyncCreateRequest {
 	r.xAccountToken = &xAccountToken
 	return r
 }
-func (r ApiSyncStatusListRequest) Cursor(cursor string) ApiSyncStatusListRequest {
-	r.cursor = &cursor
-	return r
-}
-func (r ApiSyncStatusListRequest) PageSize(pageSize int32) ApiSyncStatusListRequest {
-	r.pageSize = &pageSize
-	return r
-}
 
-func (r ApiSyncStatusListRequest) Execute() (PaginatedSyncStatusList, *_nethttp.Response, error) {
-	return r.ApiService.SyncStatusListExecute(r)
+func (r ApiSyncStatusResyncCreateRequest) Execute() (SyncStatus, *_nethttp.Response, error) {
+	return r.ApiService.SyncStatusResyncCreateExecute(r)
 }
 
 /*
- * SyncStatusList Method for SyncStatusList
- * Get syncing status. Possible values: `DISABLED`, `DONE`, `FAILED`, `SYNCING`
+ * SyncStatusResyncCreate Method for SyncStatusResyncCreate
+ * Force re-sync of all models. This is only available for organizations on Merge's Grow and Expand plans.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiSyncStatusListRequest
+ * @return ApiSyncStatusResyncCreateRequest
  */
-func (a *SyncStatusApiService) SyncStatusList(ctx _context.Context) ApiSyncStatusListRequest {
-	return ApiSyncStatusListRequest{
+func (a *ForceResyncApiService) SyncStatusResyncCreate(ctx _context.Context) ApiSyncStatusResyncCreateRequest {
+	return ApiSyncStatusResyncCreateRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -67,24 +57,24 @@ func (a *SyncStatusApiService) SyncStatusList(ctx _context.Context) ApiSyncStatu
 
 /*
  * Execute executes the request
- * @return PaginatedSyncStatusList
+ * @return SyncStatus
  */
-func (a *SyncStatusApiService) SyncStatusListExecute(r ApiSyncStatusListRequest) (PaginatedSyncStatusList, *_nethttp.Response, error) {
+func (a *ForceResyncApiService) SyncStatusResyncCreateExecute(r ApiSyncStatusResyncCreateRequest) (SyncStatus, *_nethttp.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PaginatedSyncStatusList
+		localVarReturnValue  SyncStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SyncStatusApiService.SyncStatusList")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ForceResyncApiService.SyncStatusResyncCreate")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/sync-status"
+	localVarPath := localBasePath + "/sync-status/resync"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -93,12 +83,6 @@ func (a *SyncStatusApiService) SyncStatusListExecute(r ApiSyncStatusListRequest)
 		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
-	if r.cursor != nil {
-		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
-	}
-	if r.pageSize != nil {
-		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

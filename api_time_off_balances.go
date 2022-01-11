@@ -26,77 +26,87 @@ var (
 	_ _context.Context
 )
 
-// CompaniesApiService CompaniesApi service
-type CompaniesApiService service
+// TimeOffBalancesApiService TimeOffBalancesApi service
+type TimeOffBalancesApiService service
 
-type ApiCompaniesListRequest struct {
+type ApiTimeOffBalancesListRequest struct {
 	ctx _context.Context
-	ApiService *CompaniesApiService
+	ApiService *TimeOffBalancesApiService
 	xAccountToken *string
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	employeeId *string
 	includeDeletedData *bool
 	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
+	policyType *string
 	remoteId *string
 }
 
-func (r ApiCompaniesListRequest) XAccountToken(xAccountToken string) ApiCompaniesListRequest {
+func (r ApiTimeOffBalancesListRequest) XAccountToken(xAccountToken string) ApiTimeOffBalancesListRequest {
 	r.xAccountToken = &xAccountToken
 	return r
 }
-func (r ApiCompaniesListRequest) CreatedAfter(createdAfter time.Time) ApiCompaniesListRequest {
+func (r ApiTimeOffBalancesListRequest) CreatedAfter(createdAfter time.Time) ApiTimeOffBalancesListRequest {
 	r.createdAfter = &createdAfter
 	return r
 }
-func (r ApiCompaniesListRequest) CreatedBefore(createdBefore time.Time) ApiCompaniesListRequest {
+func (r ApiTimeOffBalancesListRequest) CreatedBefore(createdBefore time.Time) ApiTimeOffBalancesListRequest {
 	r.createdBefore = &createdBefore
 	return r
 }
-func (r ApiCompaniesListRequest) Cursor(cursor string) ApiCompaniesListRequest {
+func (r ApiTimeOffBalancesListRequest) Cursor(cursor string) ApiTimeOffBalancesListRequest {
 	r.cursor = &cursor
 	return r
 }
-func (r ApiCompaniesListRequest) IncludeDeletedData(includeDeletedData bool) ApiCompaniesListRequest {
+func (r ApiTimeOffBalancesListRequest) EmployeeId(employeeId string) ApiTimeOffBalancesListRequest {
+	r.employeeId = &employeeId
+	return r
+}
+func (r ApiTimeOffBalancesListRequest) IncludeDeletedData(includeDeletedData bool) ApiTimeOffBalancesListRequest {
 	r.includeDeletedData = &includeDeletedData
 	return r
 }
-func (r ApiCompaniesListRequest) IncludeRemoteData(includeRemoteData bool) ApiCompaniesListRequest {
+func (r ApiTimeOffBalancesListRequest) IncludeRemoteData(includeRemoteData bool) ApiTimeOffBalancesListRequest {
 	r.includeRemoteData = &includeRemoteData
 	return r
 }
-func (r ApiCompaniesListRequest) ModifiedAfter(modifiedAfter time.Time) ApiCompaniesListRequest {
+func (r ApiTimeOffBalancesListRequest) ModifiedAfter(modifiedAfter time.Time) ApiTimeOffBalancesListRequest {
 	r.modifiedAfter = &modifiedAfter
 	return r
 }
-func (r ApiCompaniesListRequest) ModifiedBefore(modifiedBefore time.Time) ApiCompaniesListRequest {
+func (r ApiTimeOffBalancesListRequest) ModifiedBefore(modifiedBefore time.Time) ApiTimeOffBalancesListRequest {
 	r.modifiedBefore = &modifiedBefore
 	return r
 }
-func (r ApiCompaniesListRequest) PageSize(pageSize int32) ApiCompaniesListRequest {
+func (r ApiTimeOffBalancesListRequest) PageSize(pageSize int32) ApiTimeOffBalancesListRequest {
 	r.pageSize = &pageSize
 	return r
 }
-func (r ApiCompaniesListRequest) RemoteId(remoteId string) ApiCompaniesListRequest {
+func (r ApiTimeOffBalancesListRequest) PolicyType(policyType string) ApiTimeOffBalancesListRequest {
+	r.policyType = &policyType
+	return r
+}
+func (r ApiTimeOffBalancesListRequest) RemoteId(remoteId string) ApiTimeOffBalancesListRequest {
 	r.remoteId = &remoteId
 	return r
 }
 
-func (r ApiCompaniesListRequest) Execute() (PaginatedCompanyList, *_nethttp.Response, error) {
-	return r.ApiService.CompaniesListExecute(r)
+func (r ApiTimeOffBalancesListRequest) Execute() (PaginatedTimeOffBalanceList, *_nethttp.Response, error) {
+	return r.ApiService.TimeOffBalancesListExecute(r)
 }
 
 /*
- * CompaniesList Method for CompaniesList
- * Returns a list of `Company` objects.
+ * TimeOffBalancesList Method for TimeOffBalancesList
+ * Returns a list of `TimeOffBalance` objects.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiCompaniesListRequest
+ * @return ApiTimeOffBalancesListRequest
  */
-func (a *CompaniesApiService) CompaniesList(ctx _context.Context) ApiCompaniesListRequest {
-	return ApiCompaniesListRequest{
+func (a *TimeOffBalancesApiService) TimeOffBalancesList(ctx _context.Context) ApiTimeOffBalancesListRequest {
+	return ApiTimeOffBalancesListRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -104,24 +114,24 @@ func (a *CompaniesApiService) CompaniesList(ctx _context.Context) ApiCompaniesLi
 
 /*
  * Execute executes the request
- * @return PaginatedCompanyList
+ * @return PaginatedTimeOffBalanceList
  */
-func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (PaginatedCompanyList, *_nethttp.Response, error) {
+func (a *TimeOffBalancesApiService) TimeOffBalancesListExecute(r ApiTimeOffBalancesListRequest) (PaginatedTimeOffBalanceList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PaginatedCompanyList
+		localVarReturnValue  PaginatedTimeOffBalanceList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompaniesApiService.CompaniesList")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TimeOffBalancesApiService.TimeOffBalancesList")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/companies"
+	localVarPath := localBasePath + "/time-off-balances"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -139,6 +149,9 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
 	}
+	if r.employeeId != nil {
+		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
+	}
 	if r.includeDeletedData != nil {
 		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
@@ -153,6 +166,9 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 	}
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
+	if r.policyType != nil {
+		localVarQueryParams.Add("policy_type", parameterToString(*r.policyType, ""))
 	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
@@ -226,36 +242,36 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiCompaniesRetrieveRequest struct {
+type ApiTimeOffBalancesRetrieveRequest struct {
 	ctx _context.Context
-	ApiService *CompaniesApiService
+	ApiService *TimeOffBalancesApiService
 	xAccountToken *string
 	id string
 	includeRemoteData *bool
 }
 
-func (r ApiCompaniesRetrieveRequest) XAccountToken(xAccountToken string) ApiCompaniesRetrieveRequest {
+func (r ApiTimeOffBalancesRetrieveRequest) XAccountToken(xAccountToken string) ApiTimeOffBalancesRetrieveRequest {
 	r.xAccountToken = &xAccountToken
 	return r
 }
-func (r ApiCompaniesRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiCompaniesRetrieveRequest {
+func (r ApiTimeOffBalancesRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiTimeOffBalancesRetrieveRequest {
 	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
-func (r ApiCompaniesRetrieveRequest) Execute() (Company, *_nethttp.Response, error) {
-	return r.ApiService.CompaniesRetrieveExecute(r)
+func (r ApiTimeOffBalancesRetrieveRequest) Execute() (TimeOffBalance, *_nethttp.Response, error) {
+	return r.ApiService.TimeOffBalancesRetrieveExecute(r)
 }
 
 /*
- * CompaniesRetrieve Method for CompaniesRetrieve
- * Returns a `Company` object with the given `id`.
+ * TimeOffBalancesRetrieve Method for TimeOffBalancesRetrieve
+ * Returns a `TimeOffBalance` object with the given `id`.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id
- * @return ApiCompaniesRetrieveRequest
+ * @return ApiTimeOffBalancesRetrieveRequest
  */
-func (a *CompaniesApiService) CompaniesRetrieve(ctx _context.Context, id string) ApiCompaniesRetrieveRequest {
-	return ApiCompaniesRetrieveRequest{
+func (a *TimeOffBalancesApiService) TimeOffBalancesRetrieve(ctx _context.Context, id string) ApiTimeOffBalancesRetrieveRequest {
+	return ApiTimeOffBalancesRetrieveRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -264,24 +280,24 @@ func (a *CompaniesApiService) CompaniesRetrieve(ctx _context.Context, id string)
 
 /*
  * Execute executes the request
- * @return Company
+ * @return TimeOffBalance
  */
-func (a *CompaniesApiService) CompaniesRetrieveExecute(r ApiCompaniesRetrieveRequest) (Company, *_nethttp.Response, error) {
+func (a *TimeOffBalancesApiService) TimeOffBalancesRetrieveExecute(r ApiTimeOffBalancesRetrieveRequest) (TimeOffBalance, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  Company
+		localVarReturnValue  TimeOffBalance
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompaniesApiService.CompaniesRetrieve")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TimeOffBalancesApiService.TimeOffBalancesRetrieve")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/companies/{id}"
+	localVarPath := localBasePath + "/time-off-balances/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

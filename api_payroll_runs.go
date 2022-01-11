@@ -38,6 +38,7 @@ type ApiPayrollRunsListRequest struct {
 	cursor *string
 	endedAfter *time.Time
 	endedBefore *time.Time
+	includeDeletedData *bool
 	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
@@ -70,6 +71,10 @@ func (r ApiPayrollRunsListRequest) EndedAfter(endedAfter time.Time) ApiPayrollRu
 }
 func (r ApiPayrollRunsListRequest) EndedBefore(endedBefore time.Time) ApiPayrollRunsListRequest {
 	r.endedBefore = &endedBefore
+	return r
+}
+func (r ApiPayrollRunsListRequest) IncludeDeletedData(includeDeletedData bool) ApiPayrollRunsListRequest {
+	r.includeDeletedData = &includeDeletedData
 	return r
 }
 func (r ApiPayrollRunsListRequest) IncludeRemoteData(includeRemoteData bool) ApiPayrollRunsListRequest {
@@ -164,6 +169,9 @@ func (a *PayrollRunsApiService) PayrollRunsListExecute(r ApiPayrollRunsListReque
 	}
 	if r.endedBefore != nil {
 		localVarQueryParams.Add("ended_before", parameterToString(*r.endedBefore, ""))
+	}
+	if r.includeDeletedData != nil {
+		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))

@@ -55,6 +55,8 @@ type APIClient struct {
 
 	AvailableActionsApi *AvailableActionsApiService
 
+	BankInfoApi *BankInfoApiService
+
 	BenefitsApi *BenefitsApiService
 
 	CompaniesApi *CompaniesApiService
@@ -69,6 +71,8 @@ type APIClient struct {
 
 	EmploymentsApi *EmploymentsApiService
 
+	ForceResyncApi *ForceResyncApiService
+
 	GenerateKeyApi *GenerateKeyApiService
 
 	IssuesApi *IssuesApiService
@@ -81,6 +85,8 @@ type APIClient struct {
 
 	PassthroughApi *PassthroughApiService
 
+	PayGroupsApi *PayGroupsApiService
+
 	PayrollRunsApi *PayrollRunsApiService
 
 	RegenerateKeyApi *RegenerateKeyApiService
@@ -91,7 +97,7 @@ type APIClient struct {
 
 	TimeOffApi *TimeOffApiService
 
-	TimeOffBalanceApi *TimeOffBalanceApiService
+	TimeOffBalancesApi *TimeOffBalancesApiService
 }
 
 type service struct {
@@ -113,6 +119,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AccountDetailsApi = (*AccountDetailsApiService)(&c.common)
 	c.AccountTokenApi = (*AccountTokenApiService)(&c.common)
 	c.AvailableActionsApi = (*AvailableActionsApiService)(&c.common)
+	c.BankInfoApi = (*BankInfoApiService)(&c.common)
 	c.BenefitsApi = (*BenefitsApiService)(&c.common)
 	c.CompaniesApi = (*CompaniesApiService)(&c.common)
 	c.DeductionsApi = (*DeductionsApiService)(&c.common)
@@ -120,18 +127,20 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.EmployeePayrollRunsApi = (*EmployeePayrollRunsApiService)(&c.common)
 	c.EmployeesApi = (*EmployeesApiService)(&c.common)
 	c.EmploymentsApi = (*EmploymentsApiService)(&c.common)
+	c.ForceResyncApi = (*ForceResyncApiService)(&c.common)
 	c.GenerateKeyApi = (*GenerateKeyApiService)(&c.common)
 	c.IssuesApi = (*IssuesApiService)(&c.common)
 	c.LinkTokenApi = (*LinkTokenApiService)(&c.common)
 	c.LinkedAccountsApi = (*LinkedAccountsApiService)(&c.common)
 	c.LocationsApi = (*LocationsApiService)(&c.common)
 	c.PassthroughApi = (*PassthroughApiService)(&c.common)
+	c.PayGroupsApi = (*PayGroupsApiService)(&c.common)
 	c.PayrollRunsApi = (*PayrollRunsApiService)(&c.common)
 	c.RegenerateKeyApi = (*RegenerateKeyApiService)(&c.common)
 	c.SyncStatusApi = (*SyncStatusApiService)(&c.common)
 	c.TeamsApi = (*TeamsApiService)(&c.common)
 	c.TimeOffApi = (*TimeOffApiService)(&c.common)
-	c.TimeOffBalanceApi = (*TimeOffBalanceApiService)(&c.common)
+	c.TimeOffBalancesApi = (*TimeOffBalancesApiService)(&c.common)
 
 	return c
 }

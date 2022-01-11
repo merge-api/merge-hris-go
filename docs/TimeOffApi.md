@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## TimeOffCreate
 
-> TimeOff TimeOffCreate(ctx).XAccountToken(xAccountToken).RunAsync(runAsync).TimeOffRequest(timeOffRequest).Execute()
+> TimeOffResponse TimeOffCreate(ctx).XAccountToken(xAccountToken).TimeOffEndpointRequest(timeOffEndpointRequest).RunAsync(runAsync).Execute()
 
 
 
@@ -32,17 +32,17 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
+    timeOffEndpointRequest := *openapiclient.NewTimeOffEndpointRequest(*openapiclient.NewTimeOffRequest()) // TimeOffEndpointRequest | 
     runAsync := true // bool | Whether or not third-party updates should be run asynchronously. (optional)
-    timeOffRequest := *openapiclient.NewTimeOffRequest() // TimeOffRequest |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TimeOffApi.TimeOffCreate(context.Background()).XAccountToken(xAccountToken).RunAsync(runAsync).TimeOffRequest(timeOffRequest).Execute()
+    resp, r, err := api_client.TimeOffApi.TimeOffCreate(context.Background()).XAccountToken(xAccountToken).TimeOffEndpointRequest(timeOffEndpointRequest).RunAsync(runAsync).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TimeOffApi.TimeOffCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `TimeOffCreate`: TimeOff
+    // response from `TimeOffCreate`: TimeOffResponse
     fmt.Fprintf(os.Stdout, "Response from `TimeOffApi.TimeOffCreate`: %v\n", resp)
 }
 ```
@@ -59,12 +59,12 @@ Other parameters are passed through a pointer to a apiTimeOffCreateRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
+ **timeOffEndpointRequest** | [**TimeOffEndpointRequest**](TimeOffEndpointRequest.md) |  | 
  **runAsync** | **bool** | Whether or not third-party updates should be run asynchronously. | 
- **timeOffRequest** | [**TimeOffRequest**](TimeOffRequest.md) |  | 
 
 ### Return type
 
-[**TimeOff**](TimeOff.md)
+[**TimeOffResponse**](TimeOffResponse.md)
 
 ### Authorization
 
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## TimeOffList
 
-> PaginatedTimeOffList TimeOffList(ctx).XAccountToken(xAccountToken).ApproverId(approverId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).RequestType(requestType).Status(status).Execute()
+> PaginatedTimeOffList TimeOffList(ctx).XAccountToken(xAccountToken).ApproverId(approverId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).RequestType(requestType).Status(status).Execute()
 
 
 
@@ -108,6 +108,7 @@ func main() {
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     employeeId := "employeeId_example" // string | If provided, will only return time off for this employee. (optional)
+    includeDeletedData := true // bool | Whether to include data that was deleted in the third-party service. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
@@ -118,7 +119,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TimeOffApi.TimeOffList(context.Background()).XAccountToken(xAccountToken).ApproverId(approverId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).RequestType(requestType).Status(status).Execute()
+    resp, r, err := api_client.TimeOffApi.TimeOffList(context.Background()).XAccountToken(xAccountToken).ApproverId(approverId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteId(remoteId).RequestType(requestType).Status(status).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TimeOffApi.TimeOffList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -145,6 +146,7 @@ Name | Type | Description  | Notes
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
  **employeeId** | **string** | If provided, will only return time off for this employee. | 
+ **includeDeletedData** | **bool** | Whether to include data that was deleted in the third-party service. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 

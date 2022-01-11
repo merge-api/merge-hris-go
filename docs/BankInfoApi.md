@@ -1,17 +1,17 @@
-# \EmployeesApi
+# \BankInfoApi
 
 All URIs are relative to *https://api.merge.dev/api/hris/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**EmployeesList**](EmployeesApi.md#EmployeesList) | **Get** /employees | 
-[**EmployeesRetrieve**](EmployeesApi.md#EmployeesRetrieve) | **Get** /employees/{id} | 
+[**BankInfoList**](BankInfoApi.md#BankInfoList) | **Get** /bank-info | 
+[**BankInfoRetrieve**](BankInfoApi.md#BankInfoRetrieve) | **Get** /bank-info/{id} | 
 
 
 
-## EmployeesList
+## BankInfoList
 
-> PaginatedEmployeeList EmployeesList(ctx).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayGroupId(payGroupId).PersonalEmail(personalEmail).RemoteId(remoteId).TeamId(teamId).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
+> PaginatedBankInfoList BankInfoList(ctx).XAccountToken(xAccountToken).AccountType(accountType).BankName(bankName).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).Employee(employee).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).OrderBy(orderBy).PageSize(pageSize).RemoteCreatedAt(remoteCreatedAt).RemoteId(remoteId).Execute()
 
 
 
@@ -32,33 +32,31 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    companyId := "companyId_example" // string | If provided, will only return employees for this company. (optional)
+    accountType := "accountType_example" // string | The bank account type (optional)
+    bankName := "bankName_example" // string |  (optional)
     createdAfter := time.Now() // time.Time | If provided, will only return objects created after this datetime. (optional)
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
+    employee := TODO // string | If provided, will only return bank accounts for this employee. (optional)
+    employeeId := "employeeId_example" // string | If provided, will only return bank accounts for this employee. (optional)
     includeDeletedData := true // bool | Whether to include data that was deleted in the third-party service. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    includeSensitiveFields := true // bool | Whether to include sensitive fields (such as social security numbers) in the response. (optional)
-    managerId := "managerId_example" // string | If provided, will only return employees for this manager. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
+    orderBy := "orderBy_example" // string | Overrides the default ordering for this endpoint. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
-    payGroupId := "payGroupId_example" // string | If provided, will only return employees for this pay group (optional)
-    personalEmail := "personalEmail@example.com" // string | If provided, will only return Employees with this personal email (optional)
+    remoteCreatedAt := time.Now() // time.Time |  (optional)
     remoteId := "remoteId_example" // string | The API provider's ID for the given object. (optional)
-    teamId := "teamId_example" // string | If provided, will only return employees for this team. (optional)
-    workEmail := "workEmail@example.com" // string | If provided, will only return Employees with this work email (optional)
-    workLocationId := "workLocationId_example" // string | If provided, will only return employees for this location. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeesApi.EmployeesList(context.Background()).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayGroupId(payGroupId).PersonalEmail(personalEmail).RemoteId(remoteId).TeamId(teamId).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
+    resp, r, err := api_client.BankInfoApi.BankInfoList(context.Background()).XAccountToken(xAccountToken).AccountType(accountType).BankName(bankName).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).Employee(employee).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).OrderBy(orderBy).PageSize(pageSize).RemoteCreatedAt(remoteCreatedAt).RemoteId(remoteId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesList``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BankInfoApi.BankInfoList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `EmployeesList`: PaginatedEmployeeList
-    fmt.Fprintf(os.Stdout, "Response from `EmployeesApi.EmployeesList`: %v\n", resp)
+    // response from `BankInfoList`: PaginatedBankInfoList
+    fmt.Fprintf(os.Stdout, "Response from `BankInfoApi.BankInfoList`: %v\n", resp)
 }
 ```
 
@@ -68,33 +66,31 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiEmployeesListRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBankInfoListRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
- **companyId** | **string** | If provided, will only return employees for this company. | 
+ **accountType** | **string** | The bank account type | 
+ **bankName** | **string** |  | 
  **createdAfter** | **time.Time** | If provided, will only return objects created after this datetime. | 
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
+ **employee** | [**string**](string.md) | If provided, will only return bank accounts for this employee. | 
+ **employeeId** | **string** | If provided, will only return bank accounts for this employee. | 
  **includeDeletedData** | **bool** | Whether to include data that was deleted in the third-party service. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **includeSensitiveFields** | **bool** | Whether to include sensitive fields (such as social security numbers) in the response. | 
- **managerId** | **string** | If provided, will only return employees for this manager. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
+ **orderBy** | **string** | Overrides the default ordering for this endpoint. | 
  **pageSize** | **int32** | Number of results to return per page. | 
- **payGroupId** | **string** | If provided, will only return employees for this pay group | 
- **personalEmail** | [**string**](string.md) | If provided, will only return Employees with this personal email | 
+ **remoteCreatedAt** | **time.Time** |  | 
  **remoteId** | **string** | The API provider&#39;s ID for the given object. | 
- **teamId** | **string** | If provided, will only return employees for this team. | 
- **workEmail** | [**string**](string.md) | If provided, will only return Employees with this work email | 
- **workLocationId** | **string** | If provided, will only return employees for this location. | 
 
 ### Return type
 
-[**PaginatedEmployeeList**](PaginatedEmployeeList.md)
+[**PaginatedBankInfoList**](PaginatedBankInfoList.md)
 
 ### Authorization
 
@@ -110,9 +106,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## EmployeesRetrieve
+## BankInfoRetrieve
 
-> Employee EmployeesRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).Execute()
+> BankInfo BankInfoRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
 
 
 
@@ -134,17 +130,16 @@ func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     id := TODO // string | 
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    includeSensitiveFields := true // bool | Whether to include sensitive fields (such as social security numbers) in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeesApi.EmployeesRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).Execute()
+    resp, r, err := api_client.BankInfoApi.BankInfoRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesRetrieve``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `BankInfoApi.BankInfoRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `EmployeesRetrieve`: Employee
-    fmt.Fprintf(os.Stdout, "Response from `EmployeesApi.EmployeesRetrieve`: %v\n", resp)
+    // response from `BankInfoRetrieve`: BankInfo
+    fmt.Fprintf(os.Stdout, "Response from `BankInfoApi.BankInfoRetrieve`: %v\n", resp)
 }
 ```
 
@@ -158,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiEmployeesRetrieveRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiBankInfoRetrieveRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -166,11 +161,10 @@ Name | Type | Description  | Notes
  **xAccountToken** | **string** | Token identifying the end user. | 
 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **includeSensitiveFields** | **bool** | Whether to include sensitive fields (such as social security numbers) in the response. | 
 
 ### Return type
 
-[**Employee**](Employee.md)
+[**BankInfo**](BankInfo.md)
 
 ### Authorization
 
