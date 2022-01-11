@@ -36,6 +36,7 @@ type ApiTeamsListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	includeDeletedData *bool
 	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
@@ -58,6 +59,10 @@ func (r ApiTeamsListRequest) CreatedBefore(createdBefore time.Time) ApiTeamsList
 }
 func (r ApiTeamsListRequest) Cursor(cursor string) ApiTeamsListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiTeamsListRequest) IncludeDeletedData(includeDeletedData bool) ApiTeamsListRequest {
+	r.includeDeletedData = &includeDeletedData
 	return r
 }
 func (r ApiTeamsListRequest) IncludeRemoteData(includeRemoteData bool) ApiTeamsListRequest {
@@ -138,6 +143,9 @@ func (a *TeamsApiService) TeamsListExecute(r ApiTeamsListRequest) (PaginatedTeam
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.includeDeletedData != nil {
+		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))

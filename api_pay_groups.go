@@ -26,12 +26,12 @@ var (
 	_ _context.Context
 )
 
-// CompaniesApiService CompaniesApi service
-type CompaniesApiService service
+// PayGroupsApiService PayGroupsApi service
+type PayGroupsApiService service
 
-type ApiCompaniesListRequest struct {
+type ApiPayGroupsListRequest struct {
 	ctx _context.Context
-	ApiService *CompaniesApiService
+	ApiService *PayGroupsApiService
 	xAccountToken *string
 	createdAfter *time.Time
 	createdBefore *time.Time
@@ -44,59 +44,59 @@ type ApiCompaniesListRequest struct {
 	remoteId *string
 }
 
-func (r ApiCompaniesListRequest) XAccountToken(xAccountToken string) ApiCompaniesListRequest {
+func (r ApiPayGroupsListRequest) XAccountToken(xAccountToken string) ApiPayGroupsListRequest {
 	r.xAccountToken = &xAccountToken
 	return r
 }
-func (r ApiCompaniesListRequest) CreatedAfter(createdAfter time.Time) ApiCompaniesListRequest {
+func (r ApiPayGroupsListRequest) CreatedAfter(createdAfter time.Time) ApiPayGroupsListRequest {
 	r.createdAfter = &createdAfter
 	return r
 }
-func (r ApiCompaniesListRequest) CreatedBefore(createdBefore time.Time) ApiCompaniesListRequest {
+func (r ApiPayGroupsListRequest) CreatedBefore(createdBefore time.Time) ApiPayGroupsListRequest {
 	r.createdBefore = &createdBefore
 	return r
 }
-func (r ApiCompaniesListRequest) Cursor(cursor string) ApiCompaniesListRequest {
+func (r ApiPayGroupsListRequest) Cursor(cursor string) ApiPayGroupsListRequest {
 	r.cursor = &cursor
 	return r
 }
-func (r ApiCompaniesListRequest) IncludeDeletedData(includeDeletedData bool) ApiCompaniesListRequest {
+func (r ApiPayGroupsListRequest) IncludeDeletedData(includeDeletedData bool) ApiPayGroupsListRequest {
 	r.includeDeletedData = &includeDeletedData
 	return r
 }
-func (r ApiCompaniesListRequest) IncludeRemoteData(includeRemoteData bool) ApiCompaniesListRequest {
+func (r ApiPayGroupsListRequest) IncludeRemoteData(includeRemoteData bool) ApiPayGroupsListRequest {
 	r.includeRemoteData = &includeRemoteData
 	return r
 }
-func (r ApiCompaniesListRequest) ModifiedAfter(modifiedAfter time.Time) ApiCompaniesListRequest {
+func (r ApiPayGroupsListRequest) ModifiedAfter(modifiedAfter time.Time) ApiPayGroupsListRequest {
 	r.modifiedAfter = &modifiedAfter
 	return r
 }
-func (r ApiCompaniesListRequest) ModifiedBefore(modifiedBefore time.Time) ApiCompaniesListRequest {
+func (r ApiPayGroupsListRequest) ModifiedBefore(modifiedBefore time.Time) ApiPayGroupsListRequest {
 	r.modifiedBefore = &modifiedBefore
 	return r
 }
-func (r ApiCompaniesListRequest) PageSize(pageSize int32) ApiCompaniesListRequest {
+func (r ApiPayGroupsListRequest) PageSize(pageSize int32) ApiPayGroupsListRequest {
 	r.pageSize = &pageSize
 	return r
 }
-func (r ApiCompaniesListRequest) RemoteId(remoteId string) ApiCompaniesListRequest {
+func (r ApiPayGroupsListRequest) RemoteId(remoteId string) ApiPayGroupsListRequest {
 	r.remoteId = &remoteId
 	return r
 }
 
-func (r ApiCompaniesListRequest) Execute() (PaginatedCompanyList, *_nethttp.Response, error) {
-	return r.ApiService.CompaniesListExecute(r)
+func (r ApiPayGroupsListRequest) Execute() (PaginatedPayGroupList, *_nethttp.Response, error) {
+	return r.ApiService.PayGroupsListExecute(r)
 }
 
 /*
- * CompaniesList Method for CompaniesList
- * Returns a list of `Company` objects.
+ * PayGroupsList Method for PayGroupsList
+ * Returns a list of `PayGroup` objects.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiCompaniesListRequest
+ * @return ApiPayGroupsListRequest
  */
-func (a *CompaniesApiService) CompaniesList(ctx _context.Context) ApiCompaniesListRequest {
-	return ApiCompaniesListRequest{
+func (a *PayGroupsApiService) PayGroupsList(ctx _context.Context) ApiPayGroupsListRequest {
+	return ApiPayGroupsListRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -104,24 +104,24 @@ func (a *CompaniesApiService) CompaniesList(ctx _context.Context) ApiCompaniesLi
 
 /*
  * Execute executes the request
- * @return PaginatedCompanyList
+ * @return PaginatedPayGroupList
  */
-func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (PaginatedCompanyList, *_nethttp.Response, error) {
+func (a *PayGroupsApiService) PayGroupsListExecute(r ApiPayGroupsListRequest) (PaginatedPayGroupList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PaginatedCompanyList
+		localVarReturnValue  PaginatedPayGroupList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompaniesApiService.CompaniesList")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayGroupsApiService.PayGroupsList")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/companies"
+	localVarPath := localBasePath + "/pay-groups"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -226,36 +226,36 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiCompaniesRetrieveRequest struct {
+type ApiPayGroupsRetrieveRequest struct {
 	ctx _context.Context
-	ApiService *CompaniesApiService
+	ApiService *PayGroupsApiService
 	xAccountToken *string
 	id string
 	includeRemoteData *bool
 }
 
-func (r ApiCompaniesRetrieveRequest) XAccountToken(xAccountToken string) ApiCompaniesRetrieveRequest {
+func (r ApiPayGroupsRetrieveRequest) XAccountToken(xAccountToken string) ApiPayGroupsRetrieveRequest {
 	r.xAccountToken = &xAccountToken
 	return r
 }
-func (r ApiCompaniesRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiCompaniesRetrieveRequest {
+func (r ApiPayGroupsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiPayGroupsRetrieveRequest {
 	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
-func (r ApiCompaniesRetrieveRequest) Execute() (Company, *_nethttp.Response, error) {
-	return r.ApiService.CompaniesRetrieveExecute(r)
+func (r ApiPayGroupsRetrieveRequest) Execute() (PayGroup, *_nethttp.Response, error) {
+	return r.ApiService.PayGroupsRetrieveExecute(r)
 }
 
 /*
- * CompaniesRetrieve Method for CompaniesRetrieve
- * Returns a `Company` object with the given `id`.
+ * PayGroupsRetrieve Method for PayGroupsRetrieve
+ * Returns a `PayGroup` object with the given `id`.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id
- * @return ApiCompaniesRetrieveRequest
+ * @return ApiPayGroupsRetrieveRequest
  */
-func (a *CompaniesApiService) CompaniesRetrieve(ctx _context.Context, id string) ApiCompaniesRetrieveRequest {
-	return ApiCompaniesRetrieveRequest{
+func (a *PayGroupsApiService) PayGroupsRetrieve(ctx _context.Context, id string) ApiPayGroupsRetrieveRequest {
+	return ApiPayGroupsRetrieveRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -264,24 +264,24 @@ func (a *CompaniesApiService) CompaniesRetrieve(ctx _context.Context, id string)
 
 /*
  * Execute executes the request
- * @return Company
+ * @return PayGroup
  */
-func (a *CompaniesApiService) CompaniesRetrieveExecute(r ApiCompaniesRetrieveRequest) (Company, *_nethttp.Response, error) {
+func (a *PayGroupsApiService) PayGroupsRetrieveExecute(r ApiPayGroupsRetrieveRequest) (PayGroup, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  Company
+		localVarReturnValue  PayGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompaniesApiService.CompaniesRetrieve")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayGroupsApiService.PayGroupsRetrieve")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/companies/{id}"
+	localVarPath := localBasePath + "/pay-groups/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

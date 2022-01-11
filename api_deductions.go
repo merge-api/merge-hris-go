@@ -37,6 +37,7 @@ type ApiDeductionsListRequest struct {
 	createdBefore *time.Time
 	cursor *string
 	employeePayrollRunId *string
+	includeDeletedData *bool
 	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
@@ -62,6 +63,10 @@ func (r ApiDeductionsListRequest) Cursor(cursor string) ApiDeductionsListRequest
 }
 func (r ApiDeductionsListRequest) EmployeePayrollRunId(employeePayrollRunId string) ApiDeductionsListRequest {
 	r.employeePayrollRunId = &employeePayrollRunId
+	return r
+}
+func (r ApiDeductionsListRequest) IncludeDeletedData(includeDeletedData bool) ApiDeductionsListRequest {
+	r.includeDeletedData = &includeDeletedData
 	return r
 }
 func (r ApiDeductionsListRequest) IncludeRemoteData(includeRemoteData bool) ApiDeductionsListRequest {
@@ -141,6 +146,9 @@ func (a *DeductionsApiService) DeductionsListExecute(r ApiDeductionsListRequest)
 	}
 	if r.employeePayrollRunId != nil {
 		localVarQueryParams.Add("employee_payroll_run_id", parameterToString(*r.employeePayrollRunId, ""))
+	}
+	if r.includeDeletedData != nil {
+		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))

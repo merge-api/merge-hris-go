@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## EmployeePayrollRunsList
 
-> PaginatedEmployeePayrollRunList EmployeePayrollRunsList(ctx).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).EndedAfter(endedAfter).EndedBefore(endedBefore).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayrollRunId(payrollRunId).RemoteId(remoteId).StartedAfter(startedAfter).StartedBefore(startedBefore).Execute()
+> PaginatedEmployeePayrollRunList EmployeePayrollRunsList(ctx).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).EndedAfter(endedAfter).EndedBefore(endedBefore).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayrollRunId(payrollRunId).RemoteId(remoteId).StartedAfter(startedAfter).StartedBefore(startedBefore).Execute()
 
 
 
@@ -38,6 +38,7 @@ func main() {
     employeeId := "employeeId_example" // string | If provided, will only return employee payroll runs for this employee. (optional)
     endedAfter := time.Now() // time.Time | If provided, will only return employee payroll runs ended after this datetime. (optional)
     endedBefore := time.Now() // time.Time | If provided, will only return employee payroll runs ended before this datetime. (optional)
+    includeDeletedData := true // bool | Whether to include data that was deleted in the third-party service. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
@@ -49,7 +50,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeePayrollRunsApi.EmployeePayrollRunsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).EndedAfter(endedAfter).EndedBefore(endedBefore).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayrollRunId(payrollRunId).RemoteId(remoteId).StartedAfter(startedAfter).StartedBefore(startedBefore).Execute()
+    resp, r, err := api_client.EmployeePayrollRunsApi.EmployeePayrollRunsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).EndedAfter(endedAfter).EndedBefore(endedBefore).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayrollRunId(payrollRunId).RemoteId(remoteId).StartedAfter(startedAfter).StartedBefore(startedBefore).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EmployeePayrollRunsApi.EmployeePayrollRunsList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -77,6 +78,7 @@ Name | Type | Description  | Notes
  **employeeId** | **string** | If provided, will only return employee payroll runs for this employee. | 
  **endedAfter** | **time.Time** | If provided, will only return employee payroll runs ended after this datetime. | 
  **endedBefore** | **time.Time** | If provided, will only return employee payroll runs ended before this datetime. | 
+ **includeDeletedData** | **bool** | Whether to include data that was deleted in the third-party service. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 

@@ -74,6 +74,209 @@ paths:
       - tokenAuth: []
       tags:
       - available-actions
+  /bank-info:
+    get:
+      description: Returns a list of `BankInfo` objects.
+      operationId: bank_info_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The bank account type
+        explode: true
+        in: query
+        name: account_type
+        required: false
+        schema:
+          enum:
+          - CHECKING
+          - SAVINGS
+          nullable: true
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: bank_name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return bank accounts for this employee.
+        explode: true
+        in: query
+        name: employee
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: If provided, will only return bank accounts for this employee.
+        examples:
+          EmployeeId:
+            summary: employee_id
+        explode: true
+        in: query
+        name: employee_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Overrides the default ordering for this endpoint.
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          enum:
+          - -remote_created_at
+          - remote_created_at
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: remote_created_at
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBankInfoList'
+      security:
+      - tokenAuth: []
+      tags:
+      - bank-info
+  /bank-info/{id}:
+    get:
+      description: Returns a `BankInfo` object with the given `id`.
+      operationId: bank_info_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankInfo'
+      security:
+      - tokenAuth: []
+      tags:
+      - bank-info
   /benefits:
     get:
       description: Returns a list of `Benefit` objects.
@@ -127,6 +330,14 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
@@ -264,6 +475,14 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
@@ -413,6 +632,14 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
@@ -605,6 +832,14 @@ paths:
           nullable: true
           type: string
         style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
         explode: true
@@ -787,6 +1022,14 @@ paths:
         schema:
           type: string
         style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
         explode: true
@@ -841,6 +1084,17 @@ paths:
         required: false
         schema:
           type: integer
+        style: form
+      - description: If provided, will only return employees for this pay group
+        examples:
+          PayGroupId:
+            summary: pay_group_id
+        explode: true
+        in: query
+        name: pay_group_id
+        required: false
+        schema:
+          type: string
         style: form
       - description: If provided, will only return Employees with this personal email
         explode: true
@@ -1005,6 +1259,14 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
@@ -1439,6 +1701,14 @@ paths:
         schema:
           type: string
         style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
         explode: true
@@ -1568,6 +1838,151 @@ paths:
       - tokenAuth: []
       tags:
       - passthrough
+  /pay-groups:
+    get:
+      description: Returns a list of `PayGroup` objects.
+      operationId: pay_groups_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPayGroupList'
+      security:
+      - tokenAuth: []
+      tags:
+      - pay-groups
+  /pay-groups/{id}:
+    get:
+      description: Returns a `PayGroup` object with the given `id`.
+      operationId: pay_groups_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayGroup'
+      security:
+      - tokenAuth: []
+      tags:
+      - pay-groups
   /payroll-runs:
     get:
       description: Returns a list of `PayrollRun` objects.
@@ -1632,6 +2047,14 @@ paths:
           nullable: true
           type: string
         style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
         explode: true
@@ -1684,9 +2107,7 @@ paths:
         required: false
         schema:
           enum:
-          - ""
           - CORRECTION
-          - null
           - OFF_CYCLE
           - REGULAR
           - SIGN_ON_BONUS
@@ -1794,7 +2215,8 @@ paths:
       - regenerate-key
   /sync-status:
     get:
-      description: Get syncing status.
+      description: 'Get syncing status. Possible values: `DISABLED`, `DONE`, `FAILED`,
+        `SYNCING`'
       operationId: sync_status_list
       parameters:
       - description: Token identifying the end user.
@@ -1858,7 +2280,7 @@ paths:
       security:
       - tokenAuth: []
       tags:
-      - sync-status
+      - force-resync
   /teams:
     get:
       description: Returns a list of `Team` objects.
@@ -1901,6 +2323,14 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
@@ -2072,6 +2502,14 @@ paths:
         schema:
           type: string
         style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
         explode: true
@@ -2125,10 +2563,8 @@ paths:
         required: false
         schema:
           enum:
-          - ""
           - BEREAVEMENT
           - JURY_DUTY
-          - null
           - PERSONAL
           - SICK
           - VACATION
@@ -2144,12 +2580,10 @@ paths:
         required: false
         schema:
           enum:
-          - ""
           - APPROVED
           - CANCELLED
           - DECLINED
           - DELETED
-          - null
           - REQUESTED
           nullable: true
           type: string
@@ -2188,27 +2622,28 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimeOffRequest'
+              $ref: '#/components/schemas/TimeOffEndpointRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/TimeOffRequest'
+              $ref: '#/components/schemas/TimeOffEndpointRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/TimeOffRequest'
+              $ref: '#/components/schemas/TimeOffEndpointRequest'
+        required: true
       responses:
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TimeOff'
+                $ref: '#/components/schemas/TimeOffResponse'
       security:
       - tokenAuth: []
       tags:
       - time-off
-  /time-off-balance:
+  /time-off-balances:
     get:
       description: Returns a list of `TimeOffBalance` objects.
-      operationId: time_off_balance_list
+      operationId: time_off_balances_list
       parameters:
       - description: Token identifying the end user.
         explode: false
@@ -2259,6 +2694,14 @@ paths:
         schema:
           type: string
         style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
       - description: Whether to include the original data Merge fetched from the third-party
           to produce these models.
         explode: true
@@ -2303,10 +2746,8 @@ paths:
         required: false
         schema:
           enum:
-          - ""
           - BEREAVEMENT
           - JURY_DUTY
-          - null
           - PERSONAL
           - SICK
           - VACATION
@@ -2332,11 +2773,11 @@ paths:
       security:
       - tokenAuth: []
       tags:
-      - time-off-balance
-  /time-off-balance/{id}:
+      - time-off-balances
+  /time-off-balances/{id}:
     get:
       description: Returns a `TimeOffBalance` object with the given `id`.
-      operationId: time_off_balance_retrieve
+      operationId: time_off_balances_retrieve
       parameters:
       - description: Token identifying the end user.
         explode: false
@@ -2372,7 +2813,7 @@ paths:
       security:
       - tokenAuth: []
       tags:
-      - time-off-balance
+      - time-off-balances
   /time-off/{id}:
     get:
       description: Returns a `TimeOff` object with the given `id`.
@@ -2674,6 +3115,11 @@ components:
       - account_token
       - integration
       type: object
+    AccountTypeEnum:
+      enum:
+      - SAVINGS
+      - CHECKING
+      type: string
     AvailableActions:
       description: |-
         # The AvailableActions Object
@@ -2730,6 +3176,84 @@ components:
       required:
       - integration
       - passthrough_available
+      type: object
+    BankInfo:
+      description: |-
+        # The BankInfo Object
+        ### Description
+        The `BankInfo` object is used to represent the Bank Account information for an Employee. This is often referenced with an Employee object.
+
+        ### Usage Example
+        Fetch from the `LIST BankInfo` endpoint and filter by `ID` to show all bank information.
+      example:
+        account_number: "439291590"
+        account_type: CHECKING
+        remote_id: "123234"
+        bank_name: Chase
+        id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+        employee: a3617eb4-dfe3-426f-921e-a65fc1661e10
+        routing_number: "089690059"
+        remote_created_at: 2021-12-06T10:11:26Z
+        remote_data:
+        - path: /bank-info
+          data:
+          - Varies by platform
+      properties:
+        id:
+          example: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "123234"
+          nullable: true
+          type: string
+        employee:
+          description: The employee with this bank account.
+          example: a3617eb4-dfe3-426f-921e-a65fc1661e10
+          format: uuid
+          nullable: true
+          type: string
+        account_number:
+          description: The account number.
+          example: "439291590"
+          maxLength: 100
+          nullable: true
+          type: string
+        routing_number:
+          description: The routing number.
+          example: "089690059"
+          nullable: true
+          type: string
+        bank_name:
+          description: The bank name.
+          example: Chase
+          nullable: true
+          type: string
+        account_type:
+          allOf:
+          - $ref: '#/components/schemas/AccountTypeEnum'
+          description: The bank account type
+          example: CHECKING
+          nullable: true
+        remote_created_at:
+          description: When the matching bank object was created in the third party
+            system.
+          example: 2021-12-06T10:11:26Z
+          format: date-time
+          nullable: true
+          type: string
+        remote_data:
+          example:
+          - path: /bank-info
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
       type: object
     Benefit:
       description: |-
@@ -3349,6 +3873,7 @@ components:
         marital_status: SINGLE
         termination_date: 2021-10-12T00:00:00Z
         employee_number: "2"
+        pay_group: ad1264e2-39be-4787-b749-f1aade9e3405
         personal_email: jane@gmail.com
       properties:
         id:
@@ -3385,7 +3910,9 @@ components:
           nullable: true
           type: string
         display_full_name:
-          description: The employee's full name, to use for display purposes.
+          description: The employee's full name, to use for display purposes. If a
+            preferred first name is available, the full name will include the preferred
+            first name.
           example: Jane Doe
           nullable: true
           type: string
@@ -3441,6 +3968,12 @@ components:
           format: uuid
           nullable: true
           type: string
+        pay_group:
+          description: The employee's pay group
+          example: ad1264e2-39be-4787-b749-f1aade9e3405
+          format: uuid
+          nullable: true
+          type: string
         ssn:
           description: The employee's social security number.
           example: "1234567890"
@@ -3472,6 +4005,7 @@ components:
           nullable: true
           type: string
         hire_date:
+          deprecated: true
           description: 'The date that the employee was hired, usually the day that
             an offer letter is signed. If an employee has multiple hire dates from
             previous employments, this represents the most recent hire date. Note:
@@ -3803,6 +4337,30 @@ components:
       - end_user_email_address
       - end_user_organization_name
       - end_user_origin_id
+      type: object
+    ErrorValidationProblem:
+      example:
+        problem_type: MISSING_REQUIRED_FIELD
+        source:
+          pointer: pointer
+        detail: custom_fields is a required field on model.
+        title: Missing Required Field
+      properties:
+        source:
+          $ref: '#/components/schemas/ValidationProblemSource'
+        title:
+          example: Missing Required Field
+          type: string
+        detail:
+          example: custom_fields is a required field on model.
+          type: string
+        problem_type:
+          example: MISSING_REQUIRED_FIELD
+          type: string
+      required:
+      - detail
+      - problem_type
+      - title
       type: object
     EthnicityEnum:
       enum:
@@ -4159,6 +4717,49 @@ components:
             $ref: '#/components/schemas/AccountDetailsAndActions'
           type: array
       type: object
+    PaginatedBankInfoList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - account_number: "439291590"
+          account_type: CHECKING
+          remote_id: "123234"
+          bank_name: Chase
+          id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+          employee: a3617eb4-dfe3-426f-921e-a65fc1661e10
+          routing_number: "089690059"
+          remote_created_at: 2021-12-06T10:11:26Z
+          remote_data:
+          - path: /bank-info
+            data:
+            - Varies by platform
+        - account_number: "439291590"
+          account_type: CHECKING
+          remote_id: "123234"
+          bank_name: Chase
+          id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+          employee: a3617eb4-dfe3-426f-921e-a65fc1661e10
+          routing_number: "089690059"
+          remote_created_at: 2021-12-06T10:11:26Z
+          remote_data:
+          - path: /bank-info
+            data:
+            - Varies by platform
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/BankInfo'
+          type: array
+      type: object
     PaginatedBenefitList:
       example:
         next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -4316,6 +4917,7 @@ components:
           marital_status: SINGLE
           termination_date: 2021-10-12T00:00:00Z
           employee_number: "2"
+          pay_group: ad1264e2-39be-4787-b749-f1aade9e3405
           personal_email: jane@gmail.com
         - display_full_name: Jane Doe
           work_email: jane@merge.dev
@@ -4348,6 +4950,7 @@ components:
           marital_status: SINGLE
           termination_date: 2021-10-12T00:00:00Z
           employee_number: "2"
+          pay_group: ad1264e2-39be-4787-b749-f1aade9e3405
           personal_email: jane@gmail.com
       properties:
         next:
@@ -4569,6 +5172,39 @@ components:
         results:
           items:
             $ref: '#/components/schemas/Location'
+          type: array
+      type: object
+    PaginatedPayGroupList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - pay_group_name: contractor
+          remote_id: "800293"
+          id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+          remote_data:
+          - path: /pay-group
+            data:
+            - Varies by platform
+        - pay_group_name: contractor
+          remote_id: "800293"
+          id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+          remote_data:
+          - path: /pay-group
+            data:
+            - Varies by platform
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/PayGroup'
           type: array
       type: object
     PaginatedPayrollRunList:
@@ -5086,6 +5722,49 @@ components:
       - THIRTEEN-MONTHLY
       - PRO_RATA
       type: string
+    PayGroup:
+      description: |-
+        # The PayGroup Object
+        ### Description
+        The `PayGroup` object is used to represent Pay Group information that employees belong to. This is often referenced with an Employee object.
+
+        ### Usage Example
+        Fetch from the `LIST PayGroup` endpoint and filter by `ID` to show all pay group information.
+      example:
+        pay_group_name: contractor
+        remote_id: "800293"
+        id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+        remote_data:
+        - path: /pay-group
+          data:
+          - Varies by platform
+      properties:
+        id:
+          example: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "800293"
+          nullable: true
+          type: string
+        pay_group_name:
+          description: The pay group name.
+          example: contractor
+          nullable: true
+          type: string
+        remote_data:
+          example:
+          - path: /pay-group
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+      type: object
     PayPeriodEnum:
       enum:
       - HOUR
@@ -5295,6 +5974,7 @@ components:
       enum:
       - JSON
       - XML
+      - MULTIPART
       type: string
     RequestTypeEnum:
       enum:
@@ -5374,6 +6054,7 @@ components:
       - SYNCING
       - DONE
       - FAILED
+      - DISABLED
       type: string
     Tax:
       description: |-
@@ -5638,6 +6319,25 @@ components:
           readOnly: true
           type: array
       type: object
+    TimeOffEndpointRequest:
+      example:
+        model:
+          approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          start_time: 2020-11-10T00:00:00Z
+          amount: 7
+          request_type: VACATION
+          employee_note: Trip to Iowa. Miss those cornfields!
+          remote_id: "19202938"
+          end_time: 2020-11-17T00:00:00Z
+          units: DAYS
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+          status: APPROVED
+      properties:
+        model:
+          $ref: '#/components/schemas/TimeOffRequest'
+      required:
+      - model
+      type: object
     TimeOffRequest:
       description: |-
         # The TimeOff Object
@@ -5717,6 +6417,62 @@ components:
           nullable: true
           type: string
       type: object
+    TimeOffResponse:
+      example:
+        warnings:
+        - problem_type: UNRECOGNIZED_FIELD
+          source:
+            pointer: pointer
+          detail: An unrecognized field, age, was passed in with request data.
+          title: Unrecognized Field
+        - problem_type: UNRECOGNIZED_FIELD
+          source:
+            pointer: pointer
+          detail: An unrecognized field, age, was passed in with request data.
+          title: Unrecognized Field
+        model:
+          approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
+          start_time: 2020-11-10T00:00:00Z
+          amount: 7
+          request_type: VACATION
+          employee_note: Trip to Iowa. Miss those cornfields!
+          remote_id: "19202938"
+          end_time: 2020-11-17T00:00:00Z
+          id: 91b2b905-e866-40c8-8be2-efe53827a0aa
+          units: DAYS
+          employee: d2f972d0-2526-434b-9409-4c3b468e08f0
+          status: APPROVED
+          remote_data:
+          - path: /leave
+            data:
+            - Varies by platform
+        errors:
+        - problem_type: MISSING_REQUIRED_FIELD
+          source:
+            pointer: pointer
+          detail: custom_fields is a required field on model.
+          title: Missing Required Field
+        - problem_type: MISSING_REQUIRED_FIELD
+          source:
+            pointer: pointer
+          detail: custom_fields is a required field on model.
+          title: Missing Required Field
+      properties:
+        model:
+          $ref: '#/components/schemas/TimeOff'
+        warnings:
+          items:
+            $ref: '#/components/schemas/WarningValidationProblem'
+          type: array
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorValidationProblem'
+          type: array
+      required:
+      - errors
+      - model
+      - warnings
+      type: object
     TimeOffStatusEnum:
       enum:
       - REQUESTED
@@ -5737,6 +6493,39 @@ components:
       - HOURS
       - DAYS
       type: string
+    ValidationProblemSource:
+      example:
+        pointer: pointer
+      properties:
+        pointer:
+          type: string
+      required:
+      - pointer
+      type: object
+    WarningValidationProblem:
+      example:
+        problem_type: UNRECOGNIZED_FIELD
+        source:
+          pointer: pointer
+        detail: An unrecognized field, age, was passed in with request data.
+        title: Unrecognized Field
+      properties:
+        source:
+          $ref: '#/components/schemas/ValidationProblemSource'
+        title:
+          example: Unrecognized Field
+          type: string
+        detail:
+          example: An unrecognized field, age, was passed in with request data.
+          type: string
+        problem_type:
+          example: UNRECOGNIZED_FIELD
+          type: string
+      required:
+      - detail
+      - problem_type
+      - title
+      type: object
   securitySchemes:
     tokenAuth:
       description: Token-based authentication with required prefix "Token"

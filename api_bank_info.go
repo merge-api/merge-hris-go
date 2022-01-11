@@ -26,77 +26,107 @@ var (
 	_ _context.Context
 )
 
-// CompaniesApiService CompaniesApi service
-type CompaniesApiService service
+// BankInfoApiService BankInfoApi service
+type BankInfoApiService service
 
-type ApiCompaniesListRequest struct {
+type ApiBankInfoListRequest struct {
 	ctx _context.Context
-	ApiService *CompaniesApiService
+	ApiService *BankInfoApiService
 	xAccountToken *string
+	accountType *string
+	bankName *string
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	employee *string
+	employeeId *string
 	includeDeletedData *bool
 	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
+	orderBy *string
 	pageSize *int32
+	remoteCreatedAt *time.Time
 	remoteId *string
 }
 
-func (r ApiCompaniesListRequest) XAccountToken(xAccountToken string) ApiCompaniesListRequest {
+func (r ApiBankInfoListRequest) XAccountToken(xAccountToken string) ApiBankInfoListRequest {
 	r.xAccountToken = &xAccountToken
 	return r
 }
-func (r ApiCompaniesListRequest) CreatedAfter(createdAfter time.Time) ApiCompaniesListRequest {
+func (r ApiBankInfoListRequest) AccountType(accountType string) ApiBankInfoListRequest {
+	r.accountType = &accountType
+	return r
+}
+func (r ApiBankInfoListRequest) BankName(bankName string) ApiBankInfoListRequest {
+	r.bankName = &bankName
+	return r
+}
+func (r ApiBankInfoListRequest) CreatedAfter(createdAfter time.Time) ApiBankInfoListRequest {
 	r.createdAfter = &createdAfter
 	return r
 }
-func (r ApiCompaniesListRequest) CreatedBefore(createdBefore time.Time) ApiCompaniesListRequest {
+func (r ApiBankInfoListRequest) CreatedBefore(createdBefore time.Time) ApiBankInfoListRequest {
 	r.createdBefore = &createdBefore
 	return r
 }
-func (r ApiCompaniesListRequest) Cursor(cursor string) ApiCompaniesListRequest {
+func (r ApiBankInfoListRequest) Cursor(cursor string) ApiBankInfoListRequest {
 	r.cursor = &cursor
 	return r
 }
-func (r ApiCompaniesListRequest) IncludeDeletedData(includeDeletedData bool) ApiCompaniesListRequest {
+func (r ApiBankInfoListRequest) Employee(employee string) ApiBankInfoListRequest {
+	r.employee = &employee
+	return r
+}
+func (r ApiBankInfoListRequest) EmployeeId(employeeId string) ApiBankInfoListRequest {
+	r.employeeId = &employeeId
+	return r
+}
+func (r ApiBankInfoListRequest) IncludeDeletedData(includeDeletedData bool) ApiBankInfoListRequest {
 	r.includeDeletedData = &includeDeletedData
 	return r
 }
-func (r ApiCompaniesListRequest) IncludeRemoteData(includeRemoteData bool) ApiCompaniesListRequest {
+func (r ApiBankInfoListRequest) IncludeRemoteData(includeRemoteData bool) ApiBankInfoListRequest {
 	r.includeRemoteData = &includeRemoteData
 	return r
 }
-func (r ApiCompaniesListRequest) ModifiedAfter(modifiedAfter time.Time) ApiCompaniesListRequest {
+func (r ApiBankInfoListRequest) ModifiedAfter(modifiedAfter time.Time) ApiBankInfoListRequest {
 	r.modifiedAfter = &modifiedAfter
 	return r
 }
-func (r ApiCompaniesListRequest) ModifiedBefore(modifiedBefore time.Time) ApiCompaniesListRequest {
+func (r ApiBankInfoListRequest) ModifiedBefore(modifiedBefore time.Time) ApiBankInfoListRequest {
 	r.modifiedBefore = &modifiedBefore
 	return r
 }
-func (r ApiCompaniesListRequest) PageSize(pageSize int32) ApiCompaniesListRequest {
+func (r ApiBankInfoListRequest) OrderBy(orderBy string) ApiBankInfoListRequest {
+	r.orderBy = &orderBy
+	return r
+}
+func (r ApiBankInfoListRequest) PageSize(pageSize int32) ApiBankInfoListRequest {
 	r.pageSize = &pageSize
 	return r
 }
-func (r ApiCompaniesListRequest) RemoteId(remoteId string) ApiCompaniesListRequest {
+func (r ApiBankInfoListRequest) RemoteCreatedAt(remoteCreatedAt time.Time) ApiBankInfoListRequest {
+	r.remoteCreatedAt = &remoteCreatedAt
+	return r
+}
+func (r ApiBankInfoListRequest) RemoteId(remoteId string) ApiBankInfoListRequest {
 	r.remoteId = &remoteId
 	return r
 }
 
-func (r ApiCompaniesListRequest) Execute() (PaginatedCompanyList, *_nethttp.Response, error) {
-	return r.ApiService.CompaniesListExecute(r)
+func (r ApiBankInfoListRequest) Execute() (PaginatedBankInfoList, *_nethttp.Response, error) {
+	return r.ApiService.BankInfoListExecute(r)
 }
 
 /*
- * CompaniesList Method for CompaniesList
- * Returns a list of `Company` objects.
+ * BankInfoList Method for BankInfoList
+ * Returns a list of `BankInfo` objects.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiCompaniesListRequest
+ * @return ApiBankInfoListRequest
  */
-func (a *CompaniesApiService) CompaniesList(ctx _context.Context) ApiCompaniesListRequest {
-	return ApiCompaniesListRequest{
+func (a *BankInfoApiService) BankInfoList(ctx _context.Context) ApiBankInfoListRequest {
+	return ApiBankInfoListRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -104,24 +134,24 @@ func (a *CompaniesApiService) CompaniesList(ctx _context.Context) ApiCompaniesLi
 
 /*
  * Execute executes the request
- * @return PaginatedCompanyList
+ * @return PaginatedBankInfoList
  */
-func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (PaginatedCompanyList, *_nethttp.Response, error) {
+func (a *BankInfoApiService) BankInfoListExecute(r ApiBankInfoListRequest) (PaginatedBankInfoList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PaginatedCompanyList
+		localVarReturnValue  PaginatedBankInfoList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompaniesApiService.CompaniesList")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BankInfoApiService.BankInfoList")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/companies"
+	localVarPath := localBasePath + "/bank-info"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -130,6 +160,12 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
 	}
 
+	if r.accountType != nil {
+		localVarQueryParams.Add("account_type", parameterToString(*r.accountType, ""))
+	}
+	if r.bankName != nil {
+		localVarQueryParams.Add("bank_name", parameterToString(*r.bankName, ""))
+	}
 	if r.createdAfter != nil {
 		localVarQueryParams.Add("created_after", parameterToString(*r.createdAfter, ""))
 	}
@@ -138,6 +174,12 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.employee != nil {
+		localVarQueryParams.Add("employee", parameterToString(*r.employee, ""))
+	}
+	if r.employeeId != nil {
+		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
 	}
 	if r.includeDeletedData != nil {
 		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
@@ -151,8 +193,14 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 	if r.modifiedBefore != nil {
 		localVarQueryParams.Add("modified_before", parameterToString(*r.modifiedBefore, ""))
 	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("order_by", parameterToString(*r.orderBy, ""))
+	}
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
+	if r.remoteCreatedAt != nil {
+		localVarQueryParams.Add("remote_created_at", parameterToString(*r.remoteCreatedAt, ""))
 	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
@@ -226,36 +274,36 @@ func (a *CompaniesApiService) CompaniesListExecute(r ApiCompaniesListRequest) (P
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiCompaniesRetrieveRequest struct {
+type ApiBankInfoRetrieveRequest struct {
 	ctx _context.Context
-	ApiService *CompaniesApiService
+	ApiService *BankInfoApiService
 	xAccountToken *string
 	id string
 	includeRemoteData *bool
 }
 
-func (r ApiCompaniesRetrieveRequest) XAccountToken(xAccountToken string) ApiCompaniesRetrieveRequest {
+func (r ApiBankInfoRetrieveRequest) XAccountToken(xAccountToken string) ApiBankInfoRetrieveRequest {
 	r.xAccountToken = &xAccountToken
 	return r
 }
-func (r ApiCompaniesRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiCompaniesRetrieveRequest {
+func (r ApiBankInfoRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiBankInfoRetrieveRequest {
 	r.includeRemoteData = &includeRemoteData
 	return r
 }
 
-func (r ApiCompaniesRetrieveRequest) Execute() (Company, *_nethttp.Response, error) {
-	return r.ApiService.CompaniesRetrieveExecute(r)
+func (r ApiBankInfoRetrieveRequest) Execute() (BankInfo, *_nethttp.Response, error) {
+	return r.ApiService.BankInfoRetrieveExecute(r)
 }
 
 /*
- * CompaniesRetrieve Method for CompaniesRetrieve
- * Returns a `Company` object with the given `id`.
+ * BankInfoRetrieve Method for BankInfoRetrieve
+ * Returns a `BankInfo` object with the given `id`.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id
- * @return ApiCompaniesRetrieveRequest
+ * @return ApiBankInfoRetrieveRequest
  */
-func (a *CompaniesApiService) CompaniesRetrieve(ctx _context.Context, id string) ApiCompaniesRetrieveRequest {
-	return ApiCompaniesRetrieveRequest{
+func (a *BankInfoApiService) BankInfoRetrieve(ctx _context.Context, id string) ApiBankInfoRetrieveRequest {
+	return ApiBankInfoRetrieveRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -264,24 +312,24 @@ func (a *CompaniesApiService) CompaniesRetrieve(ctx _context.Context, id string)
 
 /*
  * Execute executes the request
- * @return Company
+ * @return BankInfo
  */
-func (a *CompaniesApiService) CompaniesRetrieveExecute(r ApiCompaniesRetrieveRequest) (Company, *_nethttp.Response, error) {
+func (a *BankInfoApiService) BankInfoRetrieveExecute(r ApiBankInfoRetrieveRequest) (BankInfo, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  Company
+		localVarReturnValue  BankInfo
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CompaniesApiService.CompaniesRetrieve")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BankInfoApiService.BankInfoRetrieve")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/companies/{id}"
+	localVarPath := localBasePath + "/bank-info/{id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

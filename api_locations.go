@@ -36,6 +36,7 @@ type ApiLocationsListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	includeDeletedData *bool
 	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
@@ -57,6 +58,10 @@ func (r ApiLocationsListRequest) CreatedBefore(createdBefore time.Time) ApiLocat
 }
 func (r ApiLocationsListRequest) Cursor(cursor string) ApiLocationsListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiLocationsListRequest) IncludeDeletedData(includeDeletedData bool) ApiLocationsListRequest {
+	r.includeDeletedData = &includeDeletedData
 	return r
 }
 func (r ApiLocationsListRequest) IncludeRemoteData(includeRemoteData bool) ApiLocationsListRequest {
@@ -133,6 +138,9 @@ func (a *LocationsApiService) LocationsListExecute(r ApiLocationsListRequest) (P
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.includeDeletedData != nil {
+		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
