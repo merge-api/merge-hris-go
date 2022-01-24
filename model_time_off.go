@@ -25,16 +25,13 @@ type TimeOff struct {
 	Employee NullableString `json:"employee,omitempty"`
 	// The employee approving the time off request.
 	Approver NullableString `json:"approver,omitempty"`
-	// The status of this time off request.
-	Status NullableTimeOffStatusEnum `json:"status,omitempty"`
+	Status string `json:"status"`
 	// The employee note for this time off request.
 	EmployeeNote NullableString `json:"employee_note,omitempty"`
-	// The unit of time requested.
-	Units NullableUnitsEnum `json:"units,omitempty"`
+	Units string `json:"units"`
 	// The number of time off units requested.
 	Amount NullableFloat32 `json:"amount,omitempty"`
-	// The type of time off request.
-	RequestType NullableRequestTypeEnum `json:"request_type,omitempty"`
+	RequestType string `json:"request_type"`
 	// The day and time of the start of the time requested off.
 	StartTime NullableTime `json:"start_time,omitempty"`
 	// The day and time of the end of the time requested off.
@@ -46,8 +43,11 @@ type TimeOff struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTimeOff() *TimeOff {
+func NewTimeOff(status string, units string, requestType string) *TimeOff {
 	this := TimeOff{}
+	this.Status = status
+	this.Units = units
+	this.RequestType = requestType
 	return &this
 }
 
@@ -217,46 +217,28 @@ func (o *TimeOff) UnsetApprover() {
 	o.Approver.Unset()
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TimeOff) GetStatus() TimeOffStatusEnum {
-	if o == nil || o.Status.Get() == nil {
-		var ret TimeOffStatusEnum
+// GetStatus returns the Status field value
+func (o *TimeOff) GetStatus() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.Status.Get()
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TimeOff) GetStatusOk() (*TimeOffStatusEnum, bool) {
+func (o *TimeOff) GetStatusOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Status.Get(), o.Status.IsSet()
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *TimeOff) HasStatus() bool {
-	if o != nil && o.Status.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given NullableTimeOffStatusEnum and assigns it to the Status field.
-func (o *TimeOff) SetStatus(v TimeOffStatusEnum) {
-	o.Status.Set(&v)
-}
-// SetStatusNil sets the value for Status to be an explicit nil
-func (o *TimeOff) SetStatusNil() {
-	o.Status.Set(nil)
-}
-
-// UnsetStatus ensures that no value is present for Status, not even an explicit nil
-func (o *TimeOff) UnsetStatus() {
-	o.Status.Unset()
+// SetStatus sets field value
+func (o *TimeOff) SetStatus(v string) {
+	o.Status = v
 }
 
 // GetEmployeeNote returns the EmployeeNote field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -301,46 +283,28 @@ func (o *TimeOff) UnsetEmployeeNote() {
 	o.EmployeeNote.Unset()
 }
 
-// GetUnits returns the Units field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TimeOff) GetUnits() UnitsEnum {
-	if o == nil || o.Units.Get() == nil {
-		var ret UnitsEnum
+// GetUnits returns the Units field value
+func (o *TimeOff) GetUnits() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.Units.Get()
+
+	return o.Units
 }
 
-// GetUnitsOk returns a tuple with the Units field value if set, nil otherwise
+// GetUnitsOk returns a tuple with the Units field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TimeOff) GetUnitsOk() (*UnitsEnum, bool) {
+func (o *TimeOff) GetUnitsOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Units.Get(), o.Units.IsSet()
+	return &o.Units, true
 }
 
-// HasUnits returns a boolean if a field has been set.
-func (o *TimeOff) HasUnits() bool {
-	if o != nil && o.Units.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetUnits gets a reference to the given NullableUnitsEnum and assigns it to the Units field.
-func (o *TimeOff) SetUnits(v UnitsEnum) {
-	o.Units.Set(&v)
-}
-// SetUnitsNil sets the value for Units to be an explicit nil
-func (o *TimeOff) SetUnitsNil() {
-	o.Units.Set(nil)
-}
-
-// UnsetUnits ensures that no value is present for Units, not even an explicit nil
-func (o *TimeOff) UnsetUnits() {
-	o.Units.Unset()
+// SetUnits sets field value
+func (o *TimeOff) SetUnits(v string) {
+	o.Units = v
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -385,46 +349,28 @@ func (o *TimeOff) UnsetAmount() {
 	o.Amount.Unset()
 }
 
-// GetRequestType returns the RequestType field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TimeOff) GetRequestType() RequestTypeEnum {
-	if o == nil || o.RequestType.Get() == nil {
-		var ret RequestTypeEnum
+// GetRequestType returns the RequestType field value
+func (o *TimeOff) GetRequestType() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.RequestType.Get()
+
+	return o.RequestType
 }
 
-// GetRequestTypeOk returns a tuple with the RequestType field value if set, nil otherwise
+// GetRequestTypeOk returns a tuple with the RequestType field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TimeOff) GetRequestTypeOk() (*RequestTypeEnum, bool) {
+func (o *TimeOff) GetRequestTypeOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.RequestType.Get(), o.RequestType.IsSet()
+	return &o.RequestType, true
 }
 
-// HasRequestType returns a boolean if a field has been set.
-func (o *TimeOff) HasRequestType() bool {
-	if o != nil && o.RequestType.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRequestType gets a reference to the given NullableRequestTypeEnum and assigns it to the RequestType field.
-func (o *TimeOff) SetRequestType(v RequestTypeEnum) {
-	o.RequestType.Set(&v)
-}
-// SetRequestTypeNil sets the value for RequestType to be an explicit nil
-func (o *TimeOff) SetRequestTypeNil() {
-	o.RequestType.Set(nil)
-}
-
-// UnsetRequestType ensures that no value is present for RequestType, not even an explicit nil
-func (o *TimeOff) UnsetRequestType() {
-	o.RequestType.Unset()
+// SetRequestType sets field value
+func (o *TimeOff) SetRequestType(v string) {
+	o.RequestType = v
 }
 
 // GetStartTime returns the StartTime field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -558,20 +504,20 @@ func (o TimeOff) MarshalJSON() ([]byte, error) {
 	if o.Approver.IsSet() {
 		toSerialize["approver"] = o.Approver.Get()
 	}
-	if o.Status.IsSet() {
-		toSerialize["status"] = o.Status.Get()
+	if true {
+		toSerialize["status"] = o.Status
 	}
 	if o.EmployeeNote.IsSet() {
 		toSerialize["employee_note"] = o.EmployeeNote.Get()
 	}
-	if o.Units.IsSet() {
-		toSerialize["units"] = o.Units.Get()
+	if true {
+		toSerialize["units"] = o.Units
 	}
 	if o.Amount.IsSet() {
 		toSerialize["amount"] = o.Amount.Get()
 	}
-	if o.RequestType.IsSet() {
-		toSerialize["request_type"] = o.RequestType.Get()
+	if true {
+		toSerialize["request_type"] = o.RequestType
 	}
 	if o.StartTime.IsSet() {
 		toSerialize["start_time"] = o.StartTime.Get()

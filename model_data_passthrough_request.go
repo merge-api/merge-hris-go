@@ -17,19 +17,19 @@ import (
 
 // DataPassthroughRequest # The DataPassthrough Object ### Description The `DataPassthrough` object is used to send information to an otherwise-unsupported third-party endpoint.  ### Usage Example Create a `DataPassthrough` to get team hierarchies from your Rippling integration.
 type DataPassthroughRequest struct {
-	Method MethodEnum `json:"method"`
+	Method string `json:"method"`
 	Path string `json:"path"`
 	BaseUrlOverride NullableString `json:"base_url_override,omitempty"`
 	Data NullableString `json:"data,omitempty"`
 	Headers map[string]interface{} `json:"headers,omitempty"`
-	RequestFormat NullableRequestFormatEnum `json:"request_format,omitempty"`
+	RequestFormat *string `json:"request_format,omitempty"`
 }
 
 // NewDataPassthroughRequest instantiates a new DataPassthroughRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDataPassthroughRequest(method MethodEnum, path string) *DataPassthroughRequest {
+func NewDataPassthroughRequest(method string, path string) *DataPassthroughRequest {
 	this := DataPassthroughRequest{}
 	this.Method = method
 	this.Path = path
@@ -45,9 +45,9 @@ func NewDataPassthroughRequestWithDefaults() *DataPassthroughRequest {
 }
 
 // GetMethod returns the Method field value
-func (o *DataPassthroughRequest) GetMethod() MethodEnum {
+func (o *DataPassthroughRequest) GetMethod() string {
 	if o == nil {
-		var ret MethodEnum
+		var ret string
 		return ret
 	}
 
@@ -56,7 +56,7 @@ func (o *DataPassthroughRequest) GetMethod() MethodEnum {
 
 // GetMethodOk returns a tuple with the Method field value
 // and a boolean to check if the value has been set.
-func (o *DataPassthroughRequest) GetMethodOk() (*MethodEnum, bool) {
+func (o *DataPassthroughRequest) GetMethodOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -64,7 +64,7 @@ func (o *DataPassthroughRequest) GetMethodOk() (*MethodEnum, bool) {
 }
 
 // SetMethod sets field value
-func (o *DataPassthroughRequest) SetMethod(v MethodEnum) {
+func (o *DataPassthroughRequest) SetMethod(v string) {
 	o.Method = v
 }
 
@@ -209,46 +209,36 @@ func (o *DataPassthroughRequest) SetHeaders(v map[string]interface{}) {
 	o.Headers = v
 }
 
-// GetRequestFormat returns the RequestFormat field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DataPassthroughRequest) GetRequestFormat() RequestFormatEnum {
-	if o == nil || o.RequestFormat.Get() == nil {
-		var ret RequestFormatEnum
+// GetRequestFormat returns the RequestFormat field value if set, zero value otherwise.
+func (o *DataPassthroughRequest) GetRequestFormat() string {
+	if o == nil || o.RequestFormat == nil {
+		var ret string
 		return ret
 	}
-	return *o.RequestFormat.Get()
+	return *o.RequestFormat
 }
 
 // GetRequestFormatOk returns a tuple with the RequestFormat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DataPassthroughRequest) GetRequestFormatOk() (*RequestFormatEnum, bool) {
-	if o == nil  {
+func (o *DataPassthroughRequest) GetRequestFormatOk() (*string, bool) {
+	if o == nil || o.RequestFormat == nil {
 		return nil, false
 	}
-	return o.RequestFormat.Get(), o.RequestFormat.IsSet()
+	return o.RequestFormat, true
 }
 
 // HasRequestFormat returns a boolean if a field has been set.
 func (o *DataPassthroughRequest) HasRequestFormat() bool {
-	if o != nil && o.RequestFormat.IsSet() {
+	if o != nil && o.RequestFormat != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRequestFormat gets a reference to the given NullableRequestFormatEnum and assigns it to the RequestFormat field.
-func (o *DataPassthroughRequest) SetRequestFormat(v RequestFormatEnum) {
-	o.RequestFormat.Set(&v)
-}
-// SetRequestFormatNil sets the value for RequestFormat to be an explicit nil
-func (o *DataPassthroughRequest) SetRequestFormatNil() {
-	o.RequestFormat.Set(nil)
-}
-
-// UnsetRequestFormat ensures that no value is present for RequestFormat, not even an explicit nil
-func (o *DataPassthroughRequest) UnsetRequestFormat() {
-	o.RequestFormat.Unset()
+// SetRequestFormat gets a reference to the given string and assigns it to the RequestFormat field.
+func (o *DataPassthroughRequest) SetRequestFormat(v string) {
+	o.RequestFormat = &v
 }
 
 func (o DataPassthroughRequest) MarshalJSON() ([]byte, error) {
@@ -268,8 +258,8 @@ func (o DataPassthroughRequest) MarshalJSON() ([]byte, error) {
 	if o.Headers != nil {
 		toSerialize["headers"] = o.Headers
 	}
-	if o.RequestFormat.IsSet() {
-		toSerialize["request_format"] = o.RequestFormat.Get()
+	if o.RequestFormat != nil {
+		toSerialize["request_format"] = o.RequestFormat
 	}
 	return json.Marshal(toSerialize)
 }

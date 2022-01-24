@@ -26,8 +26,7 @@ type TimeOffBalance struct {
 	Balance NullableFloat32 `json:"balance,omitempty"`
 	// The amount of PTO used in terms of hours.
 	Used NullableFloat32 `json:"used,omitempty"`
-	// The policy type of this time off balance.
-	PolicyType NullablePolicyTypeEnum `json:"policy_type,omitempty"`
+	PolicyType string `json:"policy_type"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
@@ -35,8 +34,9 @@ type TimeOffBalance struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTimeOffBalance() *TimeOffBalance {
+func NewTimeOffBalance(policyType string) *TimeOffBalance {
 	this := TimeOffBalance{}
+	this.PolicyType = policyType
 	return &this
 }
 
@@ -248,46 +248,28 @@ func (o *TimeOffBalance) UnsetUsed() {
 	o.Used.Unset()
 }
 
-// GetPolicyType returns the PolicyType field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TimeOffBalance) GetPolicyType() PolicyTypeEnum {
-	if o == nil || o.PolicyType.Get() == nil {
-		var ret PolicyTypeEnum
+// GetPolicyType returns the PolicyType field value
+func (o *TimeOffBalance) GetPolicyType() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.PolicyType.Get()
+
+	return o.PolicyType
 }
 
-// GetPolicyTypeOk returns a tuple with the PolicyType field value if set, nil otherwise
+// GetPolicyTypeOk returns a tuple with the PolicyType field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TimeOffBalance) GetPolicyTypeOk() (*PolicyTypeEnum, bool) {
+func (o *TimeOffBalance) GetPolicyTypeOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.PolicyType.Get(), o.PolicyType.IsSet()
+	return &o.PolicyType, true
 }
 
-// HasPolicyType returns a boolean if a field has been set.
-func (o *TimeOffBalance) HasPolicyType() bool {
-	if o != nil && o.PolicyType.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetPolicyType gets a reference to the given NullablePolicyTypeEnum and assigns it to the PolicyType field.
-func (o *TimeOffBalance) SetPolicyType(v PolicyTypeEnum) {
-	o.PolicyType.Set(&v)
-}
-// SetPolicyTypeNil sets the value for PolicyType to be an explicit nil
-func (o *TimeOffBalance) SetPolicyTypeNil() {
-	o.PolicyType.Set(nil)
-}
-
-// UnsetPolicyType ensures that no value is present for PolicyType, not even an explicit nil
-func (o *TimeOffBalance) UnsetPolicyType() {
-	o.PolicyType.Unset()
+// SetPolicyType sets field value
+func (o *TimeOffBalance) SetPolicyType(v string) {
+	o.PolicyType = v
 }
 
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -340,8 +322,8 @@ func (o TimeOffBalance) MarshalJSON() ([]byte, error) {
 	if o.Used.IsSet() {
 		toSerialize["used"] = o.Used.Get()
 	}
-	if o.PolicyType.IsSet() {
-		toSerialize["policy_type"] = o.PolicyType.Get()
+	if true {
+		toSerialize["policy_type"] = o.PolicyType
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

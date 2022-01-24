@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-**Category** | Pointer to [**CategoryEnum**](CategoryEnum.md) |  | [optional] 
-**Status** | [**AccountDetailsAndActionsStatusEnum**](AccountDetailsAndActionsStatusEnum.md) |  | 
+**Category** | Pointer to **string** |  | [optional] 
+**Status** | **string** |  | 
 **StatusDetail** | Pointer to **string** |  | [optional] 
 **EndUserOriginId** | Pointer to **string** |  | [optional] 
 **EndUserOrganizationName** | **string** |  | 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewAccountDetailsAndActions
 
-`func NewAccountDetailsAndActions(id string, status AccountDetailsAndActionsStatusEnum, endUserOrganizationName string, endUserEmailAddress string, ) *AccountDetailsAndActions`
+`func NewAccountDetailsAndActions(id string, status string, endUserOrganizationName string, endUserEmailAddress string, ) *AccountDetailsAndActions`
 
 NewAccountDetailsAndActions instantiates a new AccountDetailsAndActions object
 This constructor will assign default values to properties that have it defined,
@@ -54,20 +54,20 @@ SetId sets Id field to given value.
 
 ### GetCategory
 
-`func (o *AccountDetailsAndActions) GetCategory() CategoryEnum`
+`func (o *AccountDetailsAndActions) GetCategory() string`
 
 GetCategory returns the Category field if non-nil, zero value otherwise.
 
 ### GetCategoryOk
 
-`func (o *AccountDetailsAndActions) GetCategoryOk() (*CategoryEnum, bool)`
+`func (o *AccountDetailsAndActions) GetCategoryOk() (*string, bool)`
 
 GetCategoryOk returns a tuple with the Category field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCategory
 
-`func (o *AccountDetailsAndActions) SetCategory(v CategoryEnum)`
+`func (o *AccountDetailsAndActions) SetCategory(v string)`
 
 SetCategory sets Category field to given value.
 
@@ -79,20 +79,20 @@ HasCategory returns a boolean if a field has been set.
 
 ### GetStatus
 
-`func (o *AccountDetailsAndActions) GetStatus() AccountDetailsAndActionsStatusEnum`
+`func (o *AccountDetailsAndActions) GetStatus() string`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *AccountDetailsAndActions) GetStatusOk() (*AccountDetailsAndActionsStatusEnum, bool)`
+`func (o *AccountDetailsAndActions) GetStatusOk() (*string, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *AccountDetailsAndActions) SetStatus(v AccountDetailsAndActionsStatusEnum)`
+`func (o *AccountDetailsAndActions) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
 

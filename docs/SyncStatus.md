@@ -8,14 +8,14 @@ Name | Type | Description | Notes
 **ModelId** | **string** |  | 
 **LastSyncStart** | **time.Time** |  | 
 **NextSyncStart** | **time.Time** |  | 
-**Status** | [**SyncStatusStatusEnum**](SyncStatusStatusEnum.md) |  | 
+**Status** | **string** |  | 
 **IsInitialSync** | **bool** |  | 
 
 ## Methods
 
 ### NewSyncStatus
 
-`func NewSyncStatus(modelName string, modelId string, lastSyncStart time.Time, nextSyncStart time.Time, status SyncStatusStatusEnum, isInitialSync bool, ) *SyncStatus`
+`func NewSyncStatus(modelName string, modelId string, lastSyncStart time.Time, nextSyncStart time.Time, status string, isInitialSync bool, ) *SyncStatus`
 
 NewSyncStatus instantiates a new SyncStatus object
 This constructor will assign default values to properties that have it defined,
@@ -112,20 +112,20 @@ SetNextSyncStart sets NextSyncStart field to given value.
 
 ### GetStatus
 
-`func (o *SyncStatus) GetStatus() SyncStatusStatusEnum`
+`func (o *SyncStatus) GetStatus() string`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *SyncStatus) GetStatusOk() (*SyncStatusStatusEnum, bool)`
+`func (o *SyncStatus) GetStatusOk() (*string, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *SyncStatus) SetStatus(v SyncStatusStatusEnum)`
+`func (o *SyncStatus) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
 

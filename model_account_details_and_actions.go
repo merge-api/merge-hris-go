@@ -18,8 +18,8 @@ import (
 // AccountDetailsAndActions # The LinkedAccount Object ### Description The `LinkedAccount` object is used to represent an end user's link with a specific integration.  ### Usage Example View a list of your organization's `LinkedAccount` objects.
 type AccountDetailsAndActions struct {
 	Id string `json:"id"`
-	Category *CategoryEnum `json:"category,omitempty"`
-	Status AccountDetailsAndActionsStatusEnum `json:"status"`
+	Category *string `json:"category,omitempty"`
+	Status string `json:"status"`
 	StatusDetail *string `json:"status_detail,omitempty"`
 	EndUserOriginId *string `json:"end_user_origin_id,omitempty"`
 	EndUserOrganizationName string `json:"end_user_organization_name"`
@@ -31,7 +31,7 @@ type AccountDetailsAndActions struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountDetailsAndActions(id string, status AccountDetailsAndActionsStatusEnum, endUserOrganizationName string, endUserEmailAddress string) *AccountDetailsAndActions {
+func NewAccountDetailsAndActions(id string, status string, endUserOrganizationName string, endUserEmailAddress string) *AccountDetailsAndActions {
 	this := AccountDetailsAndActions{}
 	this.Id = id
 	this.Status = status
@@ -73,9 +73,9 @@ func (o *AccountDetailsAndActions) SetId(v string) {
 }
 
 // GetCategory returns the Category field value if set, zero value otherwise.
-func (o *AccountDetailsAndActions) GetCategory() CategoryEnum {
+func (o *AccountDetailsAndActions) GetCategory() string {
 	if o == nil || o.Category == nil {
-		var ret CategoryEnum
+		var ret string
 		return ret
 	}
 	return *o.Category
@@ -83,7 +83,7 @@ func (o *AccountDetailsAndActions) GetCategory() CategoryEnum {
 
 // GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountDetailsAndActions) GetCategoryOk() (*CategoryEnum, bool) {
+func (o *AccountDetailsAndActions) GetCategoryOk() (*string, bool) {
 	if o == nil || o.Category == nil {
 		return nil, false
 	}
@@ -99,15 +99,15 @@ func (o *AccountDetailsAndActions) HasCategory() bool {
 	return false
 }
 
-// SetCategory gets a reference to the given CategoryEnum and assigns it to the Category field.
-func (o *AccountDetailsAndActions) SetCategory(v CategoryEnum) {
+// SetCategory gets a reference to the given string and assigns it to the Category field.
+func (o *AccountDetailsAndActions) SetCategory(v string) {
 	o.Category = &v
 }
 
 // GetStatus returns the Status field value
-func (o *AccountDetailsAndActions) GetStatus() AccountDetailsAndActionsStatusEnum {
+func (o *AccountDetailsAndActions) GetStatus() string {
 	if o == nil {
-		var ret AccountDetailsAndActionsStatusEnum
+		var ret string
 		return ret
 	}
 
@@ -116,7 +116,7 @@ func (o *AccountDetailsAndActions) GetStatus() AccountDetailsAndActionsStatusEnu
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *AccountDetailsAndActions) GetStatusOk() (*AccountDetailsAndActionsStatusEnum, bool) {
+func (o *AccountDetailsAndActions) GetStatusOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -124,7 +124,7 @@ func (o *AccountDetailsAndActions) GetStatusOk() (*AccountDetailsAndActionsStatu
 }
 
 // SetStatus sets field value
-func (o *AccountDetailsAndActions) SetStatus(v AccountDetailsAndActionsStatusEnum) {
+func (o *AccountDetailsAndActions) SetStatus(v string) {
 	o.Status = v
 }
 
