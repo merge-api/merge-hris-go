@@ -27,18 +27,13 @@ type Employment struct {
 	JobTitle NullableString `json:"job_title,omitempty"`
 	// The position's pay rate in dollars.
 	PayRate NullableFloat32 `json:"pay_rate,omitempty"`
-	// The time period this pay rate encompasses.
-	PayPeriod NullablePayPeriodEnum `json:"pay_period,omitempty"`
-	// The position's pay frequency.
-	PayFrequency NullablePayFrequencyEnum `json:"pay_frequency,omitempty"`
-	// The position's currency code.
-	PayCurrency NullablePayCurrencyEnum `json:"pay_currency,omitempty"`
-	// The position's FLSA status.
-	FlsaStatus NullableFlsaStatusEnum `json:"flsa_status,omitempty"`
+	PayPeriod string `json:"pay_period"`
+	PayFrequency string `json:"pay_frequency"`
+	PayCurrency string `json:"pay_currency"`
+	FlsaStatus string `json:"flsa_status"`
 	// The position's effective date.
 	EffectiveDate NullableTime `json:"effective_date,omitempty"`
-	// The position's type of employment.
-	EmploymentType NullableEmploymentTypeEnum `json:"employment_type,omitempty"`
+	EmploymentType string `json:"employment_type"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
@@ -46,8 +41,13 @@ type Employment struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmployment() *Employment {
+func NewEmployment(payPeriod string, payFrequency string, payCurrency string, flsaStatus string, employmentType string) *Employment {
 	this := Employment{}
+	this.PayPeriod = payPeriod
+	this.PayFrequency = payFrequency
+	this.PayCurrency = payCurrency
+	this.FlsaStatus = flsaStatus
+	this.EmploymentType = employmentType
 	return &this
 }
 
@@ -259,172 +259,100 @@ func (o *Employment) UnsetPayRate() {
 	o.PayRate.Unset()
 }
 
-// GetPayPeriod returns the PayPeriod field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employment) GetPayPeriod() PayPeriodEnum {
-	if o == nil || o.PayPeriod.Get() == nil {
-		var ret PayPeriodEnum
+// GetPayPeriod returns the PayPeriod field value
+func (o *Employment) GetPayPeriod() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.PayPeriod.Get()
+
+	return o.PayPeriod
 }
 
-// GetPayPeriodOk returns a tuple with the PayPeriod field value if set, nil otherwise
+// GetPayPeriodOk returns a tuple with the PayPeriod field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employment) GetPayPeriodOk() (*PayPeriodEnum, bool) {
+func (o *Employment) GetPayPeriodOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.PayPeriod.Get(), o.PayPeriod.IsSet()
+	return &o.PayPeriod, true
 }
 
-// HasPayPeriod returns a boolean if a field has been set.
-func (o *Employment) HasPayPeriod() bool {
-	if o != nil && o.PayPeriod.IsSet() {
-		return true
-	}
-
-	return false
+// SetPayPeriod sets field value
+func (o *Employment) SetPayPeriod(v string) {
+	o.PayPeriod = v
 }
 
-// SetPayPeriod gets a reference to the given NullablePayPeriodEnum and assigns it to the PayPeriod field.
-func (o *Employment) SetPayPeriod(v PayPeriodEnum) {
-	o.PayPeriod.Set(&v)
-}
-// SetPayPeriodNil sets the value for PayPeriod to be an explicit nil
-func (o *Employment) SetPayPeriodNil() {
-	o.PayPeriod.Set(nil)
-}
-
-// UnsetPayPeriod ensures that no value is present for PayPeriod, not even an explicit nil
-func (o *Employment) UnsetPayPeriod() {
-	o.PayPeriod.Unset()
-}
-
-// GetPayFrequency returns the PayFrequency field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employment) GetPayFrequency() PayFrequencyEnum {
-	if o == nil || o.PayFrequency.Get() == nil {
-		var ret PayFrequencyEnum
+// GetPayFrequency returns the PayFrequency field value
+func (o *Employment) GetPayFrequency() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.PayFrequency.Get()
+
+	return o.PayFrequency
 }
 
-// GetPayFrequencyOk returns a tuple with the PayFrequency field value if set, nil otherwise
+// GetPayFrequencyOk returns a tuple with the PayFrequency field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employment) GetPayFrequencyOk() (*PayFrequencyEnum, bool) {
+func (o *Employment) GetPayFrequencyOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.PayFrequency.Get(), o.PayFrequency.IsSet()
+	return &o.PayFrequency, true
 }
 
-// HasPayFrequency returns a boolean if a field has been set.
-func (o *Employment) HasPayFrequency() bool {
-	if o != nil && o.PayFrequency.IsSet() {
-		return true
-	}
-
-	return false
+// SetPayFrequency sets field value
+func (o *Employment) SetPayFrequency(v string) {
+	o.PayFrequency = v
 }
 
-// SetPayFrequency gets a reference to the given NullablePayFrequencyEnum and assigns it to the PayFrequency field.
-func (o *Employment) SetPayFrequency(v PayFrequencyEnum) {
-	o.PayFrequency.Set(&v)
-}
-// SetPayFrequencyNil sets the value for PayFrequency to be an explicit nil
-func (o *Employment) SetPayFrequencyNil() {
-	o.PayFrequency.Set(nil)
-}
-
-// UnsetPayFrequency ensures that no value is present for PayFrequency, not even an explicit nil
-func (o *Employment) UnsetPayFrequency() {
-	o.PayFrequency.Unset()
-}
-
-// GetPayCurrency returns the PayCurrency field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employment) GetPayCurrency() PayCurrencyEnum {
-	if o == nil || o.PayCurrency.Get() == nil {
-		var ret PayCurrencyEnum
+// GetPayCurrency returns the PayCurrency field value
+func (o *Employment) GetPayCurrency() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.PayCurrency.Get()
+
+	return o.PayCurrency
 }
 
-// GetPayCurrencyOk returns a tuple with the PayCurrency field value if set, nil otherwise
+// GetPayCurrencyOk returns a tuple with the PayCurrency field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employment) GetPayCurrencyOk() (*PayCurrencyEnum, bool) {
+func (o *Employment) GetPayCurrencyOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.PayCurrency.Get(), o.PayCurrency.IsSet()
+	return &o.PayCurrency, true
 }
 
-// HasPayCurrency returns a boolean if a field has been set.
-func (o *Employment) HasPayCurrency() bool {
-	if o != nil && o.PayCurrency.IsSet() {
-		return true
-	}
-
-	return false
+// SetPayCurrency sets field value
+func (o *Employment) SetPayCurrency(v string) {
+	o.PayCurrency = v
 }
 
-// SetPayCurrency gets a reference to the given NullablePayCurrencyEnum and assigns it to the PayCurrency field.
-func (o *Employment) SetPayCurrency(v PayCurrencyEnum) {
-	o.PayCurrency.Set(&v)
-}
-// SetPayCurrencyNil sets the value for PayCurrency to be an explicit nil
-func (o *Employment) SetPayCurrencyNil() {
-	o.PayCurrency.Set(nil)
-}
-
-// UnsetPayCurrency ensures that no value is present for PayCurrency, not even an explicit nil
-func (o *Employment) UnsetPayCurrency() {
-	o.PayCurrency.Unset()
-}
-
-// GetFlsaStatus returns the FlsaStatus field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employment) GetFlsaStatus() FlsaStatusEnum {
-	if o == nil || o.FlsaStatus.Get() == nil {
-		var ret FlsaStatusEnum
+// GetFlsaStatus returns the FlsaStatus field value
+func (o *Employment) GetFlsaStatus() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.FlsaStatus.Get()
+
+	return o.FlsaStatus
 }
 
-// GetFlsaStatusOk returns a tuple with the FlsaStatus field value if set, nil otherwise
+// GetFlsaStatusOk returns a tuple with the FlsaStatus field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employment) GetFlsaStatusOk() (*FlsaStatusEnum, bool) {
+func (o *Employment) GetFlsaStatusOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.FlsaStatus.Get(), o.FlsaStatus.IsSet()
+	return &o.FlsaStatus, true
 }
 
-// HasFlsaStatus returns a boolean if a field has been set.
-func (o *Employment) HasFlsaStatus() bool {
-	if o != nil && o.FlsaStatus.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetFlsaStatus gets a reference to the given NullableFlsaStatusEnum and assigns it to the FlsaStatus field.
-func (o *Employment) SetFlsaStatus(v FlsaStatusEnum) {
-	o.FlsaStatus.Set(&v)
-}
-// SetFlsaStatusNil sets the value for FlsaStatus to be an explicit nil
-func (o *Employment) SetFlsaStatusNil() {
-	o.FlsaStatus.Set(nil)
-}
-
-// UnsetFlsaStatus ensures that no value is present for FlsaStatus, not even an explicit nil
-func (o *Employment) UnsetFlsaStatus() {
-	o.FlsaStatus.Unset()
+// SetFlsaStatus sets field value
+func (o *Employment) SetFlsaStatus(v string) {
+	o.FlsaStatus = v
 }
 
 // GetEffectiveDate returns the EffectiveDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -469,46 +397,28 @@ func (o *Employment) UnsetEffectiveDate() {
 	o.EffectiveDate.Unset()
 }
 
-// GetEmploymentType returns the EmploymentType field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employment) GetEmploymentType() EmploymentTypeEnum {
-	if o == nil || o.EmploymentType.Get() == nil {
-		var ret EmploymentTypeEnum
+// GetEmploymentType returns the EmploymentType field value
+func (o *Employment) GetEmploymentType() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.EmploymentType.Get()
+
+	return o.EmploymentType
 }
 
-// GetEmploymentTypeOk returns a tuple with the EmploymentType field value if set, nil otherwise
+// GetEmploymentTypeOk returns a tuple with the EmploymentType field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employment) GetEmploymentTypeOk() (*EmploymentTypeEnum, bool) {
+func (o *Employment) GetEmploymentTypeOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.EmploymentType.Get(), o.EmploymentType.IsSet()
+	return &o.EmploymentType, true
 }
 
-// HasEmploymentType returns a boolean if a field has been set.
-func (o *Employment) HasEmploymentType() bool {
-	if o != nil && o.EmploymentType.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetEmploymentType gets a reference to the given NullableEmploymentTypeEnum and assigns it to the EmploymentType field.
-func (o *Employment) SetEmploymentType(v EmploymentTypeEnum) {
-	o.EmploymentType.Set(&v)
-}
-// SetEmploymentTypeNil sets the value for EmploymentType to be an explicit nil
-func (o *Employment) SetEmploymentTypeNil() {
-	o.EmploymentType.Set(nil)
-}
-
-// UnsetEmploymentType ensures that no value is present for EmploymentType, not even an explicit nil
-func (o *Employment) UnsetEmploymentType() {
-	o.EmploymentType.Unset()
+// SetEmploymentType sets field value
+func (o *Employment) SetEmploymentType(v string) {
+	o.EmploymentType = v
 }
 
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -561,23 +471,23 @@ func (o Employment) MarshalJSON() ([]byte, error) {
 	if o.PayRate.IsSet() {
 		toSerialize["pay_rate"] = o.PayRate.Get()
 	}
-	if o.PayPeriod.IsSet() {
-		toSerialize["pay_period"] = o.PayPeriod.Get()
+	if true {
+		toSerialize["pay_period"] = o.PayPeriod
 	}
-	if o.PayFrequency.IsSet() {
-		toSerialize["pay_frequency"] = o.PayFrequency.Get()
+	if true {
+		toSerialize["pay_frequency"] = o.PayFrequency
 	}
-	if o.PayCurrency.IsSet() {
-		toSerialize["pay_currency"] = o.PayCurrency.Get()
+	if true {
+		toSerialize["pay_currency"] = o.PayCurrency
 	}
-	if o.FlsaStatus.IsSet() {
-		toSerialize["flsa_status"] = o.FlsaStatus.Get()
+	if true {
+		toSerialize["flsa_status"] = o.FlsaStatus
 	}
 	if o.EffectiveDate.IsSet() {
 		toSerialize["effective_date"] = o.EffectiveDate.Get()
 	}
-	if o.EmploymentType.IsSet() {
-		toSerialize["employment_type"] = o.EmploymentType.Get()
+	if true {
+		toSerialize["employment_type"] = o.EmploymentType
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

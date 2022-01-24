@@ -32,7 +32,7 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    accountType := "accountType_example" // string | The bank account type (optional)
+    accountType := "accountType_example" // string | The bank account type: [CHECKING, SAVINGS] (optional)
     bankName := "bankName_example" // string |  (optional)
     createdAfter := time.Now() // time.Time | If provided, will only return objects created after this datetime. (optional)
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
@@ -72,7 +72,7 @@ Other parameters are passed through a pointer to a apiBankInfoListRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
- **accountType** | **string** | The bank account type | 
+ **accountType** | **string** | The bank account type: [CHECKING, SAVINGS] | 
  **bankName** | **string** |  | 
  **createdAfter** | **time.Time** | If provided, will only return objects created after this datetime. | 
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 

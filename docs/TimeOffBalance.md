@@ -9,14 +9,14 @@ Name | Type | Description | Notes
 **Employee** | Pointer to **NullableString** | The employee the balance belongs to. | [optional] 
 **Balance** | Pointer to **NullableFloat32** | The current PTO balance in terms of hours. | [optional] 
 **Used** | Pointer to **NullableFloat32** | The amount of PTO used in terms of hours. | [optional] 
-**PolicyType** | Pointer to [**NullablePolicyTypeEnum**](PolicyTypeEnum.md) | The policy type of this time off balance. | [optional] 
+**PolicyType** | **string** |  | 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
 ### NewTimeOffBalance
 
-`func NewTimeOffBalance() *TimeOffBalance`
+`func NewTimeOffBalance(policyType string, ) *TimeOffBalance`
 
 NewTimeOffBalance instantiates a new TimeOffBalance object
 This constructor will assign default values to properties that have it defined,
@@ -198,39 +198,24 @@ HasUsed returns a boolean if a field has been set.
 UnsetUsed ensures that no value is present for Used, not even an explicit nil
 ### GetPolicyType
 
-`func (o *TimeOffBalance) GetPolicyType() PolicyTypeEnum`
+`func (o *TimeOffBalance) GetPolicyType() string`
 
 GetPolicyType returns the PolicyType field if non-nil, zero value otherwise.
 
 ### GetPolicyTypeOk
 
-`func (o *TimeOffBalance) GetPolicyTypeOk() (*PolicyTypeEnum, bool)`
+`func (o *TimeOffBalance) GetPolicyTypeOk() (*string, bool)`
 
 GetPolicyTypeOk returns a tuple with the PolicyType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPolicyType
 
-`func (o *TimeOffBalance) SetPolicyType(v PolicyTypeEnum)`
+`func (o *TimeOffBalance) SetPolicyType(v string)`
 
 SetPolicyType sets PolicyType field to given value.
 
-### HasPolicyType
 
-`func (o *TimeOffBalance) HasPolicyType() bool`
-
-HasPolicyType returns a boolean if a field has been set.
-
-### SetPolicyTypeNil
-
-`func (o *TimeOffBalance) SetPolicyTypeNil(b bool)`
-
- SetPolicyTypeNil sets the value for PolicyType to be an explicit nil
-
-### UnsetPolicyType
-`func (o *TimeOffBalance) UnsetPolicyType()`
-
-UnsetPolicyType ensures that no value is present for PolicyType, not even an explicit nil
 ### GetRemoteData
 
 `func (o *TimeOffBalance) GetRemoteData() []RemoteData`

@@ -32,7 +32,7 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    timeOffEndpointRequest := *openapiclient.NewTimeOffEndpointRequest(*openapiclient.NewTimeOffRequest()) // TimeOffEndpointRequest | 
+    timeOffEndpointRequest := *openapiclient.NewTimeOffEndpointRequest(*openapiclient.NewTimeOffRequest("APPROVED", "DAYS", "VACATION")) // TimeOffEndpointRequest | 
     runAsync := true // bool | Whether or not third-party updates should be run asynchronously. (optional)
 
     configuration := openapiclient.NewConfiguration()

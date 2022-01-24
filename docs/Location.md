@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **State** | Pointer to **NullableString** | The location&#39;s state. Represents a region if outside of the US. | [optional] 
 **ZipCode** | Pointer to **NullableString** | The location&#39;s zip code. | [optional] 
 **Country** | Pointer to [**NullableCountryEnum**](CountryEnum.md) | The location&#39;s country. | [optional] 
+**LocationType** | Pointer to **string** |  | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
@@ -375,6 +376,31 @@ HasCountry returns a boolean if a field has been set.
 `func (o *Location) UnsetCountry()`
 
 UnsetCountry ensures that no value is present for Country, not even an explicit nil
+### GetLocationType
+
+`func (o *Location) GetLocationType() string`
+
+GetLocationType returns the LocationType field if non-nil, zero value otherwise.
+
+### GetLocationTypeOk
+
+`func (o *Location) GetLocationTypeOk() (*string, bool)`
+
+GetLocationTypeOk returns a tuple with the LocationType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLocationType
+
+`func (o *Location) SetLocationType(v string)`
+
+SetLocationType sets LocationType field to given value.
+
+### HasLocationType
+
+`func (o *Location) HasLocationType() bool`
+
+HasLocationType returns a boolean if a field has been set.
+
 ### GetRemoteData
 
 `func (o *Location) GetRemoteData() []RemoteData`

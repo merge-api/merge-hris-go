@@ -87,16 +87,12 @@ paths:
         schema:
           type: string
         style: simple
-      - description: The bank account type
+      - description: 'The bank account type: [CHECKING, SAVINGS]'
         explode: true
         in: query
         name: account_type
         required: false
         schema:
-          enum:
-          - CHECKING
-          - SAVINGS
-          nullable: true
           type: string
         style: form
       - explode: true
@@ -2106,13 +2102,6 @@ paths:
         name: run_type
         required: false
         schema:
-          enum:
-          - CORRECTION
-          - OFF_CYCLE
-          - REGULAR
-          - SIGN_ON_BONUS
-          - TERMINATION
-          nullable: true
           type: string
         style: form
       - description: If provided, will only return payroll runs started after this
@@ -2858,35 +2847,42 @@ components:
   schemas:
     AccountDetails:
       example:
-        integration: integration
-        end_user_organization_name: end_user_organization_name
-        end_user_email_address: end_user_email_address
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        category: ""
-        end_user_origin_id: end_user_origin_id
-        status: status
+        integration: BambooHR
+        end_user_organization_name: Waystar Royco
+        end_user_email_address: kendall.roy@waystar-royco.com
+        id: 0496d4c2-42e6-4072-80b3-7b69bfdc76fd
+        category: hris
+        end_user_origin_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        status: COMPLETE
       properties:
         id:
+          example: 0496d4c2-42e6-4072-80b3-7b69bfdc76fd
           format: uuid
           readOnly: true
           type: string
         integration:
+          example: BambooHR
           readOnly: true
           type: string
         category:
           allOf:
           - $ref: '#/components/schemas/CategoryEnum'
+          example: hris
           nullable: true
         end_user_origin_id:
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
           readOnly: true
           type: string
         end_user_organization_name:
+          example: Waystar Royco
           readOnly: true
           type: string
         end_user_email_address:
+          example: kendall.roy@waystar-royco.com
           readOnly: true
           type: string
         status:
+          example: COMPLETE
           readOnly: true
           type: string
       type: object
@@ -2929,8 +2925,8 @@ components:
           name: name
           square_image: square_image
           categories:
-          - null
-          - null
+          - categories
+          - categories
           slug: slug
           passthrough_available: true
         end_user_email_address: hradmin@foobar.dev
@@ -2944,13 +2940,11 @@ components:
           example: e59b1821-f85c-4e28-a6b3-1804156f3563
           type: string
         category:
-          allOf:
-          - $ref: '#/components/schemas/CategoryEnum'
           example: hris
+          type: string
         status:
-          allOf:
-          - $ref: '#/components/schemas/AccountDetailsAndActionsStatusEnum'
           example: COMPLETE
+          type: string
         status_detail:
           type: string
         end_user_origin_id:
@@ -3010,8 +3004,8 @@ components:
         name: name
         square_image: square_image
         categories:
-        - null
-        - null
+        - categories
+        - categories
         slug: slug
         passthrough_available: true
       properties:
@@ -3019,7 +3013,7 @@ components:
           type: string
         categories:
           items:
-            $ref: '#/components/schemas/CategoriesEnum'
+            type: string
           type: array
         image:
           type: string
@@ -3042,12 +3036,6 @@ components:
       - passthrough_available
       - slug
       type: object
-    AccountDetailsAndActionsStatusEnum:
-      enum:
-      - COMPLETE
-      - INCOMPLETE
-      - RELINK_NEEDED
-      type: string
     AccountIntegration:
       example:
         image: https://openapi-generator.tech
@@ -3115,11 +3103,6 @@ components:
       - account_token
       - integration
       type: object
-    AccountTypeEnum:
-      enum:
-      - SAVINGS
-      - CHECKING
-      type: string
     AvailableActions:
       description: |-
         # The AvailableActions Object
@@ -3232,11 +3215,8 @@ components:
           nullable: true
           type: string
         account_type:
-          allOf:
-          - $ref: '#/components/schemas/AccountTypeEnum'
-          description: The bank account type
           example: CHECKING
-          nullable: true
+          type: string
         remote_created_at:
           description: When the matching bank object was created in the third party
             system.
@@ -3254,6 +3234,8 @@ components:
           nullable: true
           readOnly: true
           type: array
+      required:
+      - account_type
       type: object
     Benefit:
       description: |-
@@ -3298,11 +3280,8 @@ components:
           nullable: true
           type: string
         benefit_plan_type:
-          allOf:
-          - $ref: '#/components/schemas/BenefitPlanTypeEnum'
-          description: The type of benefit plan
           example: MEDICAL
-          nullable: true
+          type: string
         employee_contribution:
           description: The employee's contribution.
           example: 23.65
@@ -3325,32 +3304,9 @@ components:
           nullable: true
           readOnly: true
           type: array
+      required:
+      - benefit_plan_type
       type: object
-    BenefitPlanTypeEnum:
-      enum:
-      - MEDICAL
-      - DENTAL
-      - VISION
-      - HSA
-      - FSA_MEDICAL
-      - FSA_DEPENDENT_CARE
-      - SIMPLE_IRA
-      - _401K
-      - ROTH_401K
-      - OTHER_NON_TAXABLE
-      - COMMUTER_TRANSIT
-      - COMMUTER_PARKING
-      - _401K_LOAN_PAYMENT
-      - SHORT_DISABILITY
-      - LONG_DISABILITY
-      - LIFE
-      - SEP_IRA
-      - SARSEP
-      - CUSTOM_TAXABLE
-      - _403B
-      - ROTH_403B
-      - STUDENT_LOAN
-      type: string
     CategoriesEnum:
       enum:
       - hris
@@ -3697,9 +3653,9 @@ components:
         base_url_override: base_url_override
       properties:
         method:
-          allOf:
-          - $ref: '#/components/schemas/MethodEnum'
           example: POST
+          minLength: 1
+          type: string
         path:
           example: /scooters
           minLength: 1
@@ -3720,10 +3676,9 @@ components:
           nullable: true
           type: object
         request_format:
-          allOf:
-          - $ref: '#/components/schemas/RequestFormatEnum'
           example: JSON
-          nullable: true
+          minLength: 1
+          type: string
       required:
       - method
       - path
@@ -3815,11 +3770,8 @@ components:
           nullable: true
           type: number
         type:
-          allOf:
-          - $ref: '#/components/schemas/TypeEnum'
-          description: The type of earning.
           example: SALARY
-          nullable: true
+          type: string
         remote_data:
           example:
           - path: /payroll-earnings
@@ -3832,6 +3784,8 @@ components:
             type: object
           nullable: true
           type: array
+      required:
+      - type
       type: object
     Employee:
       description: |-
@@ -3981,23 +3935,14 @@ components:
           nullable: true
           type: string
         gender:
-          allOf:
-          - $ref: '#/components/schemas/GenderEnum'
-          description: The employee's gender.
           example: FEMALE
-          nullable: true
+          type: string
         ethnicity:
-          allOf:
-          - $ref: '#/components/schemas/EthnicityEnum'
-          description: The employee's ethnicity.
           example: AMERICAN_INDIAN_OR_ALASKA_NATIVE
-          nullable: true
+          type: string
         marital_status:
-          allOf:
-          - $ref: '#/components/schemas/MaritalStatusEnum'
-          description: The employee's marital status.
           example: SINGLE
-          nullable: true
+          type: string
         date_of_birth:
           description: The employee's date of birth.
           example: 1990-11-10T00:00:00Z
@@ -4024,11 +3969,8 @@ components:
           nullable: true
           type: string
         employment_status:
-          allOf:
-          - $ref: '#/components/schemas/EmploymentStatusEnum'
-          description: The employment status of the employee.
           example: INACTIVE
-          nullable: true
+          type: string
         termination_date:
           description: The employee's termination date.
           example: 2021-10-12T00:00:00Z
@@ -4057,6 +3999,11 @@ components:
           description: Custom fields configured for a given model.
           nullable: true
           type: object
+      required:
+      - employment_status
+      - ethnicity
+      - gender
+      - marital_status
       type: object
     EmployeePayrollRun:
       description: |-
@@ -4246,29 +4193,17 @@ components:
           nullable: true
           type: number
         pay_period:
-          allOf:
-          - $ref: '#/components/schemas/PayPeriodEnum'
-          description: The time period this pay rate encompasses.
           example: YEAR
-          nullable: true
+          type: string
         pay_frequency:
-          allOf:
-          - $ref: '#/components/schemas/PayFrequencyEnum'
-          description: The position's pay frequency.
           example: BIWEEKLY
-          nullable: true
+          type: string
         pay_currency:
-          allOf:
-          - $ref: '#/components/schemas/PayCurrencyEnum'
-          description: The position's currency code.
           example: USD
-          nullable: true
+          type: string
         flsa_status:
-          allOf:
-          - $ref: '#/components/schemas/FlsaStatusEnum'
-          description: The position's FLSA status.
           example: EXEMPT
-          nullable: true
+          type: string
         effective_date:
           description: The position's effective date.
           example: 2020-10-06T18:42:34Z
@@ -4276,11 +4211,8 @@ components:
           nullable: true
           type: string
         employment_type:
-          allOf:
-          - $ref: '#/components/schemas/EmploymentTypeEnum'
-          description: The position's type of employment.
           example: FULL TIME
-          nullable: true
+          type: string
         remote_data:
           example:
           - path: /jobs
@@ -4291,21 +4223,13 @@ components:
           nullable: true
           readOnly: true
           type: array
+      required:
+      - employment_type
+      - flsa_status
+      - pay_currency
+      - pay_frequency
+      - pay_period
       type: object
-    EmploymentStatusEnum:
-      enum:
-      - ACTIVE
-      - PENDING
-      - INACTIVE
-      type: string
-    EmploymentTypeEnum:
-      enum:
-      - FULL_TIME
-      - PART_TIME
-      - INTERN
-      - CONTRACTOR
-      - FREELANCE
-      type: string
     EndUserDetailsRequest:
       example:
         end_user_organization_name: end_user_organization_name
@@ -4362,32 +4286,6 @@ components:
       - problem_type
       - title
       type: object
-    EthnicityEnum:
-      enum:
-      - AMERICAN_INDIAN_OR_ALASKA_NATIVE
-      - ASIAN_OR_INDIAN_SUBCONTINENT
-      - BLACK_OR_AFRICAN_AMERICAN
-      - HISPANIC_OR_LATINO
-      - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER
-      - TWO_OR_MORE_RACES
-      - WHITE
-      - PREFER_NOT_TO_DISCLOSE
-      type: string
-    FlsaStatusEnum:
-      enum:
-      - EXEMPT
-      - SALARIED_NONEXEMPT
-      - NONEXEMPT
-      - OWNER
-      type: string
-    GenderEnum:
-      enum:
-      - MALE
-      - FEMALE
-      - NON-BINARY
-      - OTHER
-      - PREFER_NOT_TO_DISCLOSE
-      type: string
     GenerateRemoteKeyRequest:
       description: |-
         # The GenerateRemoteKey Object
@@ -4414,6 +4312,7 @@ components:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         is_muted: true
         last_incident_time: 2000-01-23T04:56:07.000+00:00
+        status: status
         first_incident_time: 2000-01-23T04:56:07.000+00:00
       properties:
         id:
@@ -4421,7 +4320,8 @@ components:
           readOnly: true
           type: string
         status:
-          $ref: '#/components/schemas/IssueStatusEnum'
+          readOnly: true
+          type: string
         error_description:
           type: string
         end_user:
@@ -4442,11 +4342,6 @@ components:
       required:
       - error_description
       type: object
-    IssueStatusEnum:
-      enum:
-      - ONGOING
-      - RESOLVED
-      type: string
     LinkToken:
       example:
         integration_name: Lever
@@ -4481,6 +4376,7 @@ components:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         state: NY
         zip_code: "10027"
+        location_type: WORK
         remote_data:
         - path: /locations
           data:
@@ -4537,6 +4433,9 @@ components:
           description: The location's country.
           example: USA
           nullable: true
+        location_type:
+          example: WORK
+          type: string
         remote_data:
           example:
           - path: /locations
@@ -4548,24 +4447,6 @@ components:
           readOnly: true
           type: array
       type: object
-    MaritalStatusEnum:
-      enum:
-      - SINGLE
-      - MARRIED_FILING_JOINTLY
-      - MARRIED_FILING_SEPARATELY
-      - HEAD_OF_HOUSEHOLD
-      - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
-      type: string
-    MethodEnum:
-      enum:
-      - GET
-      - OPTIONS
-      - HEAD
-      - POST
-      - PUT
-      - PATCH
-      - DELETE
-      type: string
     ModelOperation:
       description: |-
         # The ModelOperation Object
@@ -4653,8 +4534,8 @@ components:
             name: name
             square_image: square_image
             categories:
-            - null
-            - null
+            - categories
+            - categories
             slug: slug
             passthrough_available: true
           end_user_email_address: hradmin@foobar.dev
@@ -4693,8 +4574,8 @@ components:
             name: name
             square_image: square_image
             categories:
-            - null
-            - null
+            - categories
+            - categories
             slug: slug
             passthrough_available: true
           end_user_email_address: hradmin@foobar.dev
@@ -5105,6 +4986,7 @@ components:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           is_muted: true
           last_incident_time: 2000-01-23T04:56:07.000+00:00
+          status: status
           first_incident_time: 2000-01-23T04:56:07.000+00:00
         - end_user:
             key: ""
@@ -5112,6 +4994,7 @@ components:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           is_muted: true
           last_incident_time: 2000-01-23T04:56:07.000+00:00
+          status: status
           first_incident_time: 2000-01-23T04:56:07.000+00:00
       properties:
         next:
@@ -5142,6 +5025,7 @@ components:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           state: NY
           zip_code: "10027"
+          location_type: WORK
           remote_data:
           - path: /locations
             data:
@@ -5156,6 +5040,7 @@ components:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           state: NY
           zip_code: "10027"
+          location_type: WORK
           remote_data:
           - path: /locations
             data:
@@ -5402,326 +5287,6 @@ components:
             $ref: '#/components/schemas/TimeOff'
           type: array
       type: object
-    PayCurrencyEnum:
-      enum:
-      - XUA
-      - AFN
-      - AFA
-      - ALL
-      - ALK
-      - DZD
-      - ADP
-      - AOA
-      - AOK
-      - AON
-      - AOR
-      - ARA
-      - ARS
-      - ARM
-      - ARP
-      - ARL
-      - AMD
-      - AWG
-      - AUD
-      - ATS
-      - AZN
-      - AZM
-      - BSD
-      - BHD
-      - BDT
-      - BBD
-      - BYN
-      - BYB
-      - BYR
-      - BEF
-      - BEC
-      - BEL
-      - BZD
-      - BMD
-      - BTN
-      - BOB
-      - BOL
-      - BOV
-      - BOP
-      - BAM
-      - BAD
-      - BAN
-      - BWP
-      - BRC
-      - BRZ
-      - BRE
-      - BRR
-      - BRN
-      - BRB
-      - BRL
-      - GBP
-      - BND
-      - BGL
-      - BGN
-      - BGO
-      - BGM
-      - BUK
-      - BIF
-      - XPF
-      - KHR
-      - CAD
-      - CVE
-      - KYD
-      - XAF
-      - CLE
-      - CLP
-      - CLF
-      - CNX
-      - CNY
-      - CNH
-      - COP
-      - COU
-      - KMF
-      - CDF
-      - CRC
-      - HRD
-      - HRK
-      - CUC
-      - CUP
-      - CYP
-      - CZK
-      - CSK
-      - DKK
-      - DJF
-      - DOP
-      - NLG
-      - XCD
-      - DDM
-      - ECS
-      - ECV
-      - EGP
-      - GQE
-      - ERN
-      - EEK
-      - ETB
-      - EUR
-      - XBA
-      - XEU
-      - XBB
-      - XBC
-      - XBD
-      - FKP
-      - FJD
-      - FIM
-      - FRF
-      - XFO
-      - XFU
-      - GMD
-      - GEK
-      - GEL
-      - DEM
-      - GHS
-      - GHC
-      - GIP
-      - XAU
-      - GRD
-      - GTQ
-      - GWP
-      - GNF
-      - GNS
-      - GYD
-      - HTG
-      - HNL
-      - HKD
-      - HUF
-      - IMP
-      - ISK
-      - ISJ
-      - INR
-      - IDR
-      - IRR
-      - IQD
-      - IEP
-      - ILS
-      - ILP
-      - ILR
-      - ITL
-      - JMD
-      - JPY
-      - JOD
-      - KZT
-      - KES
-      - KWD
-      - KGS
-      - LAK
-      - LVL
-      - LVR
-      - LBP
-      - LSL
-      - LRD
-      - LYD
-      - LTL
-      - LTT
-      - LUL
-      - LUC
-      - LUF
-      - MOP
-      - MKD
-      - MKN
-      - MGA
-      - MGF
-      - MWK
-      - MYR
-      - MVR
-      - MVP
-      - MLF
-      - MTL
-      - MTP
-      - MRU
-      - MRO
-      - MUR
-      - MXV
-      - MXN
-      - MXP
-      - MDC
-      - MDL
-      - MCF
-      - MNT
-      - MAD
-      - MAF
-      - MZE
-      - MZN
-      - MZM
-      - MMK
-      - NAD
-      - NPR
-      - ANG
-      - TWD
-      - NZD
-      - NIO
-      - NIC
-      - NGN
-      - KPW
-      - NOK
-      - OMR
-      - PKR
-      - XPD
-      - PAB
-      - PGK
-      - PYG
-      - PEI
-      - PEN
-      - PES
-      - PHP
-      - XPT
-      - PLN
-      - PLZ
-      - PTE
-      - GWE
-      - QAR
-      - XRE
-      - RHD
-      - RON
-      - ROL
-      - RUB
-      - RUR
-      - RWF
-      - SVC
-      - WST
-      - SAR
-      - RSD
-      - CSD
-      - SCR
-      - SLL
-      - XAG
-      - SGD
-      - SKK
-      - SIT
-      - SBD
-      - SOS
-      - ZAR
-      - ZAL
-      - KRH
-      - KRW
-      - KRO
-      - SSP
-      - SUR
-      - ESP
-      - ESA
-      - ESB
-      - XDR
-      - LKR
-      - SHP
-      - XSU
-      - SDD
-      - SDG
-      - SDP
-      - SRD
-      - SRG
-      - SZL
-      - SEK
-      - CHF
-      - SYP
-      - STN
-      - STD
-      - TVD
-      - TJR
-      - TJS
-      - TZS
-      - XTS
-      - THB
-      - XXX
-      - TPE
-      - TOP
-      - TTD
-      - TND
-      - TRY
-      - TRL
-      - TMT
-      - TMM
-      - USD
-      - USN
-      - USS
-      - UGX
-      - UGS
-      - UAH
-      - UAK
-      - AED
-      - UYW
-      - UYU
-      - UYP
-      - UYI
-      - UZS
-      - VUV
-      - VES
-      - VEB
-      - VEF
-      - VND
-      - VNN
-      - CHE
-      - CHW
-      - XOF
-      - YDD
-      - YER
-      - YUN
-      - YUD
-      - YUM
-      - YUR
-      - ZWN
-      - ZRN
-      - ZRZ
-      - ZMW
-      - ZMK
-      - ZWD
-      - ZWR
-      - ZWL
-      type: string
-    PayFrequencyEnum:
-      enum:
-      - WEEKLY
-      - BIWEEKLY
-      - MONTHLY
-      - QUARTERLY
-      - SEMIANNUALLY
-      - ANNUALLY
-      - THIRTEEN-MONTHLY
-      - PRO_RATA
-      type: string
     PayGroup:
       description: |-
         # The PayGroup Object
@@ -5765,17 +5330,6 @@ components:
           readOnly: true
           type: array
       type: object
-    PayPeriodEnum:
-      enum:
-      - HOUR
-      - DAY
-      - WEEK
-      - EVERY_TWO_WEEKS
-      - MONTH
-      - QUARTER
-      - EVERY_SIX_MONTHS
-      - YEAR
-      type: string
     PayrollRun:
       description: |-
         # The PayrollRun Object
@@ -5808,17 +5362,11 @@ components:
           nullable: true
           type: string
         run_state:
-          allOf:
-          - $ref: '#/components/schemas/RunStateEnum'
-          description: The state of the payroll run
           example: PAID
-          nullable: true
+          type: string
         run_type:
-          allOf:
-          - $ref: '#/components/schemas/RunTypeEnum'
-          description: The type of the payroll run
           example: REGULAR
-          nullable: true
+          type: string
         start_date:
           description: The day and time the payroll run started.
           example: 2020-11-08T00:00:00Z
@@ -5847,16 +5395,10 @@ components:
           nullable: true
           readOnly: true
           type: array
+      required:
+      - run_state
+      - run_type
       type: object
-    PolicyTypeEnum:
-      enum:
-      - VACATION
-      - SICK
-      - PERSONAL
-      - JURY_DUTY
-      - VOLUNTEER
-      - BEREAVEMENT
-      type: string
     RemoteData:
       properties:
         path:
@@ -5970,37 +5512,6 @@ components:
       - response
       - status
       type: object
-    RequestFormatEnum:
-      enum:
-      - JSON
-      - XML
-      - MULTIPART
-      type: string
-    RequestTypeEnum:
-      enum:
-      - VACATION
-      - SICK
-      - PERSONAL
-      - JURY_DUTY
-      - VOLUNTEER
-      - BEREAVEMENT
-      type: string
-    RunStateEnum:
-      enum:
-      - PAID
-      - DRAFT
-      - APPROVED
-      - FAILED
-      - CLOSED
-      type: string
-    RunTypeEnum:
-      enum:
-      - REGULAR
-      - OFF_CYCLE
-      - CORRECTION
-      - TERMINATION
-      - SIGN_ON_BONUS
-      type: string
     SyncStatus:
       description: |-
         # The SyncStatus Object
@@ -6032,9 +5543,8 @@ components:
           format: date-time
           type: string
         status:
-          allOf:
-          - $ref: '#/components/schemas/SyncStatusStatusEnum'
           example: SYNCING
+          type: string
         is_initial_sync:
           example: true
           type: boolean
@@ -6049,13 +5559,6 @@ components:
       x-merge-sample-json: '{"model_name": "Candidate", "model_id": "ats.Candidate",
         "last_sync_start": "2021-03-30T19:44:18.695973Z", "next_sync_start": "2021-03-30T20:44:18.662942Z",
         "status": "SYNCING", "is_initial_sync": true}'
-    SyncStatusStatusEnum:
-      enum:
-      - SYNCING
-      - DONE
-      - FAILED
-      - DISABLED
-      type: string
     Tax:
       description: |-
         # The Tax Object
@@ -6203,22 +5706,16 @@ components:
           nullable: true
           type: string
         status:
-          allOf:
-          - $ref: '#/components/schemas/TimeOffStatusEnum'
-          description: The status of this time off request.
           example: APPROVED
-          nullable: true
+          type: string
         employee_note:
           description: The employee note for this time off request.
           example: Trip to Iowa. Miss those cornfields!
           nullable: true
           type: string
         units:
-          allOf:
-          - $ref: '#/components/schemas/UnitsEnum'
-          description: The unit of time requested.
           example: DAYS
-          nullable: true
+          type: string
         amount:
           description: The number of time off units requested.
           example: 7
@@ -6226,11 +5723,8 @@ components:
           nullable: true
           type: number
         request_type:
-          allOf:
-          - $ref: '#/components/schemas/RequestTypeEnum'
-          description: The type of time off request.
           example: VACATION
-          nullable: true
+          type: string
         start_time:
           description: The day and time of the start of the time requested off.
           example: 2020-11-10T00:00:00Z
@@ -6253,6 +5747,10 @@ components:
           nullable: true
           readOnly: true
           type: array
+      required:
+      - request_type
+      - status
+      - units
       type: object
     TimeOffBalance:
       description: |-
@@ -6303,11 +5801,8 @@ components:
           nullable: true
           type: number
         policy_type:
-          allOf:
-          - $ref: '#/components/schemas/PolicyTypeEnum'
-          description: The policy type of this time off balance.
           example: VACATION
-          nullable: true
+          type: string
         remote_data:
           example:
           - path: /leave
@@ -6318,6 +5813,8 @@ components:
           nullable: true
           readOnly: true
           type: array
+      required:
+      - policy_type
       type: object
     TimeOffEndpointRequest:
       example:
@@ -6376,22 +5873,18 @@ components:
           nullable: true
           type: string
         status:
-          allOf:
-          - $ref: '#/components/schemas/TimeOffStatusEnum'
-          description: The status of this time off request.
           example: APPROVED
-          nullable: true
+          minLength: 1
+          type: string
         employee_note:
           description: The employee note for this time off request.
           example: Trip to Iowa. Miss those cornfields!
           nullable: true
           type: string
         units:
-          allOf:
-          - $ref: '#/components/schemas/UnitsEnum'
-          description: The unit of time requested.
           example: DAYS
-          nullable: true
+          minLength: 1
+          type: string
         amount:
           description: The number of time off units requested.
           example: 7
@@ -6399,11 +5892,9 @@ components:
           nullable: true
           type: number
         request_type:
-          allOf:
-          - $ref: '#/components/schemas/RequestTypeEnum'
-          description: The type of time off request.
           example: VACATION
-          nullable: true
+          minLength: 1
+          type: string
         start_time:
           description: The day and time of the start of the time requested off.
           example: 2020-11-10T00:00:00Z
@@ -6416,6 +5907,10 @@ components:
           format: date-time
           nullable: true
           type: string
+      required:
+      - request_type
+      - status
+      - units
       type: object
     TimeOffResponse:
       example:
@@ -6473,26 +5968,6 @@ components:
       - model
       - warnings
       type: object
-    TimeOffStatusEnum:
-      enum:
-      - REQUESTED
-      - APPROVED
-      - DECLINED
-      - CANCELLED
-      - DELETED
-      type: string
-    TypeEnum:
-      enum:
-      - SALARY
-      - REIMBURSEMENT
-      - OVERTIME
-      - BONUS
-      type: string
-    UnitsEnum:
-      enum:
-      - HOURS
-      - DAYS
-      type: string
     ValidationProblemSource:
       example:
         pointer: pointer

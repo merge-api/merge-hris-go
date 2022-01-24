@@ -51,20 +51,16 @@ type Employee struct {
 	PayGroup NullableString `json:"pay_group,omitempty"`
 	// The employee's social security number.
 	Ssn NullableString `json:"ssn,omitempty"`
-	// The employee's gender.
-	Gender NullableGenderEnum `json:"gender,omitempty"`
-	// The employee's ethnicity.
-	Ethnicity NullableEthnicityEnum `json:"ethnicity,omitempty"`
-	// The employee's marital status.
-	MaritalStatus NullableMaritalStatusEnum `json:"marital_status,omitempty"`
+	Gender string `json:"gender"`
+	Ethnicity string `json:"ethnicity"`
+	MaritalStatus string `json:"marital_status"`
 	// The employee's date of birth.
 	DateOfBirth NullableTime `json:"date_of_birth,omitempty"`
 	// The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you're looking for the employee's start date, refer to the start_date field.
 	HireDate NullableTime `json:"hire_date,omitempty"`
 	// The date that the employee started working. If an employee has multiple start dates from previous employments, this represents the most recent start date.
 	StartDate NullableTime `json:"start_date,omitempty"`
-	// The employment status of the employee.
-	EmploymentStatus NullableEmploymentStatusEnum `json:"employment_status,omitempty"`
+	EmploymentStatus string `json:"employment_status"`
 	// The employee's termination date.
 	TerminationDate NullableTime `json:"termination_date,omitempty"`
 	// The URL of the employee's avatar image.
@@ -78,8 +74,12 @@ type Employee struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEmployee() *Employee {
+func NewEmployee(gender string, ethnicity string, maritalStatus string, employmentStatus string) *Employee {
 	this := Employee{}
+	this.Gender = gender
+	this.Ethnicity = ethnicity
+	this.MaritalStatus = maritalStatus
+	this.EmploymentStatus = employmentStatus
 	return &this
 }
 
@@ -785,130 +785,76 @@ func (o *Employee) UnsetSsn() {
 	o.Ssn.Unset()
 }
 
-// GetGender returns the Gender field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employee) GetGender() GenderEnum {
-	if o == nil || o.Gender.Get() == nil {
-		var ret GenderEnum
+// GetGender returns the Gender field value
+func (o *Employee) GetGender() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.Gender.Get()
+
+	return o.Gender
 }
 
-// GetGenderOk returns a tuple with the Gender field value if set, nil otherwise
+// GetGenderOk returns a tuple with the Gender field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employee) GetGenderOk() (*GenderEnum, bool) {
+func (o *Employee) GetGenderOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Gender.Get(), o.Gender.IsSet()
+	return &o.Gender, true
 }
 
-// HasGender returns a boolean if a field has been set.
-func (o *Employee) HasGender() bool {
-	if o != nil && o.Gender.IsSet() {
-		return true
-	}
-
-	return false
+// SetGender sets field value
+func (o *Employee) SetGender(v string) {
+	o.Gender = v
 }
 
-// SetGender gets a reference to the given NullableGenderEnum and assigns it to the Gender field.
-func (o *Employee) SetGender(v GenderEnum) {
-	o.Gender.Set(&v)
-}
-// SetGenderNil sets the value for Gender to be an explicit nil
-func (o *Employee) SetGenderNil() {
-	o.Gender.Set(nil)
-}
-
-// UnsetGender ensures that no value is present for Gender, not even an explicit nil
-func (o *Employee) UnsetGender() {
-	o.Gender.Unset()
-}
-
-// GetEthnicity returns the Ethnicity field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employee) GetEthnicity() EthnicityEnum {
-	if o == nil || o.Ethnicity.Get() == nil {
-		var ret EthnicityEnum
+// GetEthnicity returns the Ethnicity field value
+func (o *Employee) GetEthnicity() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.Ethnicity.Get()
+
+	return o.Ethnicity
 }
 
-// GetEthnicityOk returns a tuple with the Ethnicity field value if set, nil otherwise
+// GetEthnicityOk returns a tuple with the Ethnicity field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employee) GetEthnicityOk() (*EthnicityEnum, bool) {
+func (o *Employee) GetEthnicityOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Ethnicity.Get(), o.Ethnicity.IsSet()
+	return &o.Ethnicity, true
 }
 
-// HasEthnicity returns a boolean if a field has been set.
-func (o *Employee) HasEthnicity() bool {
-	if o != nil && o.Ethnicity.IsSet() {
-		return true
-	}
-
-	return false
+// SetEthnicity sets field value
+func (o *Employee) SetEthnicity(v string) {
+	o.Ethnicity = v
 }
 
-// SetEthnicity gets a reference to the given NullableEthnicityEnum and assigns it to the Ethnicity field.
-func (o *Employee) SetEthnicity(v EthnicityEnum) {
-	o.Ethnicity.Set(&v)
-}
-// SetEthnicityNil sets the value for Ethnicity to be an explicit nil
-func (o *Employee) SetEthnicityNil() {
-	o.Ethnicity.Set(nil)
-}
-
-// UnsetEthnicity ensures that no value is present for Ethnicity, not even an explicit nil
-func (o *Employee) UnsetEthnicity() {
-	o.Ethnicity.Unset()
-}
-
-// GetMaritalStatus returns the MaritalStatus field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employee) GetMaritalStatus() MaritalStatusEnum {
-	if o == nil || o.MaritalStatus.Get() == nil {
-		var ret MaritalStatusEnum
+// GetMaritalStatus returns the MaritalStatus field value
+func (o *Employee) GetMaritalStatus() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.MaritalStatus.Get()
+
+	return o.MaritalStatus
 }
 
-// GetMaritalStatusOk returns a tuple with the MaritalStatus field value if set, nil otherwise
+// GetMaritalStatusOk returns a tuple with the MaritalStatus field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employee) GetMaritalStatusOk() (*MaritalStatusEnum, bool) {
+func (o *Employee) GetMaritalStatusOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.MaritalStatus.Get(), o.MaritalStatus.IsSet()
+	return &o.MaritalStatus, true
 }
 
-// HasMaritalStatus returns a boolean if a field has been set.
-func (o *Employee) HasMaritalStatus() bool {
-	if o != nil && o.MaritalStatus.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetMaritalStatus gets a reference to the given NullableMaritalStatusEnum and assigns it to the MaritalStatus field.
-func (o *Employee) SetMaritalStatus(v MaritalStatusEnum) {
-	o.MaritalStatus.Set(&v)
-}
-// SetMaritalStatusNil sets the value for MaritalStatus to be an explicit nil
-func (o *Employee) SetMaritalStatusNil() {
-	o.MaritalStatus.Set(nil)
-}
-
-// UnsetMaritalStatus ensures that no value is present for MaritalStatus, not even an explicit nil
-func (o *Employee) UnsetMaritalStatus() {
-	o.MaritalStatus.Unset()
+// SetMaritalStatus sets field value
+func (o *Employee) SetMaritalStatus(v string) {
+	o.MaritalStatus = v
 }
 
 // GetDateOfBirth returns the DateOfBirth field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1037,46 +983,28 @@ func (o *Employee) UnsetStartDate() {
 	o.StartDate.Unset()
 }
 
-// GetEmploymentStatus returns the EmploymentStatus field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employee) GetEmploymentStatus() EmploymentStatusEnum {
-	if o == nil || o.EmploymentStatus.Get() == nil {
-		var ret EmploymentStatusEnum
+// GetEmploymentStatus returns the EmploymentStatus field value
+func (o *Employee) GetEmploymentStatus() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.EmploymentStatus.Get()
+
+	return o.EmploymentStatus
 }
 
-// GetEmploymentStatusOk returns a tuple with the EmploymentStatus field value if set, nil otherwise
+// GetEmploymentStatusOk returns a tuple with the EmploymentStatus field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employee) GetEmploymentStatusOk() (*EmploymentStatusEnum, bool) {
+func (o *Employee) GetEmploymentStatusOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.EmploymentStatus.Get(), o.EmploymentStatus.IsSet()
+	return &o.EmploymentStatus, true
 }
 
-// HasEmploymentStatus returns a boolean if a field has been set.
-func (o *Employee) HasEmploymentStatus() bool {
-	if o != nil && o.EmploymentStatus.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetEmploymentStatus gets a reference to the given NullableEmploymentStatusEnum and assigns it to the EmploymentStatus field.
-func (o *Employee) SetEmploymentStatus(v EmploymentStatusEnum) {
-	o.EmploymentStatus.Set(&v)
-}
-// SetEmploymentStatusNil sets the value for EmploymentStatus to be an explicit nil
-func (o *Employee) SetEmploymentStatusNil() {
-	o.EmploymentStatus.Set(nil)
-}
-
-// UnsetEmploymentStatus ensures that no value is present for EmploymentStatus, not even an explicit nil
-func (o *Employee) UnsetEmploymentStatus() {
-	o.EmploymentStatus.Unset()
+// SetEmploymentStatus sets field value
+func (o *Employee) SetEmploymentStatus(v string) {
+	o.EmploymentStatus = v
 }
 
 // GetTerminationDate returns the TerminationDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1282,14 +1210,14 @@ func (o Employee) MarshalJSON() ([]byte, error) {
 	if o.Ssn.IsSet() {
 		toSerialize["ssn"] = o.Ssn.Get()
 	}
-	if o.Gender.IsSet() {
-		toSerialize["gender"] = o.Gender.Get()
+	if true {
+		toSerialize["gender"] = o.Gender
 	}
-	if o.Ethnicity.IsSet() {
-		toSerialize["ethnicity"] = o.Ethnicity.Get()
+	if true {
+		toSerialize["ethnicity"] = o.Ethnicity
 	}
-	if o.MaritalStatus.IsSet() {
-		toSerialize["marital_status"] = o.MaritalStatus.Get()
+	if true {
+		toSerialize["marital_status"] = o.MaritalStatus
 	}
 	if o.DateOfBirth.IsSet() {
 		toSerialize["date_of_birth"] = o.DateOfBirth.Get()
@@ -1300,8 +1228,8 @@ func (o Employee) MarshalJSON() ([]byte, error) {
 	if o.StartDate.IsSet() {
 		toSerialize["start_date"] = o.StartDate.Get()
 	}
-	if o.EmploymentStatus.IsSet() {
-		toSerialize["employment_status"] = o.EmploymentStatus.Get()
+	if true {
+		toSerialize["employment_status"] = o.EmploymentStatus
 	}
 	if o.TerminationDate.IsSet() {
 		toSerialize["termination_date"] = o.TerminationDate.Get()
