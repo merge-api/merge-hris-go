@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**Employee** | Pointer to **NullableString** | The employee with this bank account. | [optional] 
+**Employee** | Pointer to **NullableString** |  | [optional] 
 **AccountNumber** | Pointer to **NullableString** | The account number. | [optional] 
 **RoutingNumber** | Pointer to **NullableString** | The routing number. | [optional] 
 **BankName** | Pointer to **NullableString** | The bank name. | [optional] 
-**AccountType** | **string** |  | 
+**AccountType** | Pointer to [**NullableAccountTypeEnum**](AccountTypeEnum.md) | The bank account type | [optional] 
 **RemoteCreatedAt** | Pointer to **NullableTime** | When the matching bank object was created in the third party system. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewBankInfo
 
-`func NewBankInfo(accountType string, ) *BankInfo`
+`func NewBankInfo() *BankInfo`
 
 NewBankInfo instantiates a new BankInfo object
 This constructor will assign default values to properties that have it defined,
@@ -235,24 +235,39 @@ HasBankName returns a boolean if a field has been set.
 UnsetBankName ensures that no value is present for BankName, not even an explicit nil
 ### GetAccountType
 
-`func (o *BankInfo) GetAccountType() string`
+`func (o *BankInfo) GetAccountType() AccountTypeEnum`
 
 GetAccountType returns the AccountType field if non-nil, zero value otherwise.
 
 ### GetAccountTypeOk
 
-`func (o *BankInfo) GetAccountTypeOk() (*string, bool)`
+`func (o *BankInfo) GetAccountTypeOk() (*AccountTypeEnum, bool)`
 
 GetAccountTypeOk returns a tuple with the AccountType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccountType
 
-`func (o *BankInfo) SetAccountType(v string)`
+`func (o *BankInfo) SetAccountType(v AccountTypeEnum)`
 
 SetAccountType sets AccountType field to given value.
 
+### HasAccountType
 
+`func (o *BankInfo) HasAccountType() bool`
+
+HasAccountType returns a boolean if a field has been set.
+
+### SetAccountTypeNil
+
+`func (o *BankInfo) SetAccountTypeNil(b bool)`
+
+ SetAccountTypeNil sets the value for AccountType to be an explicit nil
+
+### UnsetAccountType
+`func (o *BankInfo) UnsetAccountType()`
+
+UnsetAccountType ensures that no value is present for AccountType, not even an explicit nil
 ### GetRemoteCreatedAt
 
 `func (o *BankInfo) GetRemoteCreatedAt() time.Time`

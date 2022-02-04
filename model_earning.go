@@ -18,11 +18,11 @@ import (
 // Earning # The Earning Object ### Description The `Earning` object is used to represent an earning for a given employee's payroll run. One run could include several earnings.  ### Usage Example Fetch from the `LIST Earnings` endpoint and filter by `ID` to show all earnings.
 type Earning struct {
 	Id *string `json:"id,omitempty"`
-	// The earning's employee payroll run.
 	EmployeePayrollRun NullableString `json:"employee_payroll_run,omitempty"`
 	// The amount earned.
 	Amount NullableFloat32 `json:"amount,omitempty"`
-	Type string `json:"type"`
+	// The type of earning.
+	Type NullableTypeEnum `json:"type,omitempty"`
 	RemoteData []map[string]interface{} `json:"remote_data,omitempty"`
 }
 
@@ -30,9 +30,8 @@ type Earning struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEarning(type_ string) *Earning {
+func NewEarning() *Earning {
 	this := Earning{}
-	this.Type = type_
 	return &this
 }
 
@@ -160,28 +159,46 @@ func (o *Earning) UnsetAmount() {
 	o.Amount.Unset()
 }
 
-// GetType returns the Type field value
-func (o *Earning) GetType() string {
-	if o == nil {
-		var ret string
+// GetType returns the Type field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Earning) GetType() TypeEnum {
+	if o == nil || o.Type.Get() == nil {
+		var ret TypeEnum
 		return ret
 	}
-
-	return o.Type
+	return *o.Type.Get()
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Earning) GetTypeOk() (*string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Earning) GetTypeOk() (*TypeEnum, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type.Get(), o.Type.IsSet()
 }
 
-// SetType sets field value
-func (o *Earning) SetType(v string) {
-	o.Type = v
+// HasType returns a boolean if a field has been set.
+func (o *Earning) HasType() bool {
+	if o != nil && o.Type.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given NullableTypeEnum and assigns it to the Type field.
+func (o *Earning) SetType(v TypeEnum) {
+	o.Type.Set(&v)
+}
+// SetTypeNil sets the value for Type to be an explicit nil
+func (o *Earning) SetTypeNil() {
+	o.Type.Set(nil)
+}
+
+// UnsetType ensures that no value is present for Type, not even an explicit nil
+func (o *Earning) UnsetType() {
+	o.Type.Unset()
 }
 
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -228,8 +245,8 @@ func (o Earning) MarshalJSON() ([]byte, error) {
 	if o.Amount.IsSet() {
 		toSerialize["amount"] = o.Amount.Get()
 	}
-	if true {
-		toSerialize["type"] = o.Type
+	if o.Type.IsSet() {
+		toSerialize["type"] = o.Type.Get()
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

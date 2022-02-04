@@ -19,8 +19,12 @@ import (
 // IssueStatusEnum the model 'IssueStatusEnum'
 type IssueStatusEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of IssueStatusEnum
 const (
+    ISSUESTATUSENUM_MERGE_NONSTANDARD_VALUE IssueStatusEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	ISSUESTATUSENUM_ONGOING IssueStatusEnum = "ONGOING"
 	ISSUESTATUSENUM_RESOLVED IssueStatusEnum = "RESOLVED"
 )
@@ -43,8 +47,8 @@ func (v *IssueStatusEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid IssueStatusEnum", value)
+    *v = ISSUESTATUSENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewIssueStatusEnumFromValue returns a pointer to a valid IssueStatusEnum
@@ -54,7 +58,8 @@ func NewIssueStatusEnumFromValue(v string) (*IssueStatusEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for IssueStatusEnum: valid values are %v", v, allowedIssueStatusEnumEnumValues)
+        ev := ISSUESTATUSENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

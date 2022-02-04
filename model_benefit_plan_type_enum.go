@@ -19,8 +19,12 @@ import (
 // BenefitPlanTypeEnum the model 'BenefitPlanTypeEnum'
 type BenefitPlanTypeEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of BenefitPlanTypeEnum
 const (
+    BENEFITPLANTYPEENUM_MERGE_NONSTANDARD_VALUE BenefitPlanTypeEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	BENEFITPLANTYPEENUM_MEDICAL BenefitPlanTypeEnum = "MEDICAL"
 	BENEFITPLANTYPEENUM_DENTAL BenefitPlanTypeEnum = "DENTAL"
 	BENEFITPLANTYPEENUM_VISION BenefitPlanTypeEnum = "VISION"
@@ -83,8 +87,8 @@ func (v *BenefitPlanTypeEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid BenefitPlanTypeEnum", value)
+    *v = BENEFITPLANTYPEENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewBenefitPlanTypeEnumFromValue returns a pointer to a valid BenefitPlanTypeEnum
@@ -94,7 +98,8 @@ func NewBenefitPlanTypeEnumFromValue(v string) (*BenefitPlanTypeEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for BenefitPlanTypeEnum: valid values are %v", v, allowedBenefitPlanTypeEnumEnumValues)
+        ev := BENEFITPLANTYPEENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

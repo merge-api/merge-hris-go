@@ -7,27 +7,27 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **EmployeeNumber** | Pointer to **NullableString** | The employee&#39;s number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user. | [optional] 
-**Company** | Pointer to **NullableString** | The ID of the employee&#39;s company. | [optional] 
+**Company** | Pointer to **NullableString** |  | [optional] 
 **FirstName** | Pointer to **NullableString** | The employee&#39;s first name. | [optional] 
 **LastName** | Pointer to **NullableString** | The employee&#39;s last name. | [optional] 
 **DisplayFullName** | Pointer to **NullableString** | The employee&#39;s full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name. | [optional] 
 **WorkEmail** | Pointer to **NullableString** | The employee&#39;s work email. | [optional] 
 **PersonalEmail** | Pointer to **NullableString** | The employee&#39;s personal email. | [optional] 
 **MobilePhoneNumber** | Pointer to **NullableString** | The employee&#39;s mobile phone number. | [optional] 
-**Employments** | Pointer to **[]string** | Array of &#x60;Employment&#x60; IDs for this Employee. | [optional] [readonly] 
-**HomeLocation** | Pointer to **NullableString** | The employee&#39;s home address. | [optional] 
-**WorkLocation** | Pointer to **NullableString** | The employee&#39;s work address. | [optional] 
-**Manager** | Pointer to **NullableString** | The employee ID of the employee&#39;s manager. | [optional] 
-**Team** | Pointer to **NullableString** | The employee&#39;s team. | [optional] 
-**PayGroup** | Pointer to **NullableString** | The employee&#39;s pay group | [optional] 
+**Employments** | Pointer to **[]string** | Array of &#x60;Employment&#x60; IDs for this Employee. | [optional] 
+**HomeLocation** | Pointer to **NullableString** |  | [optional] 
+**WorkLocation** | Pointer to **NullableString** |  | [optional] 
+**Manager** | Pointer to **NullableString** |  | [optional] 
+**Team** | Pointer to **NullableString** |  | [optional] 
+**PayGroup** | Pointer to **NullableString** |  | [optional] 
 **Ssn** | Pointer to **NullableString** | The employee&#39;s social security number. | [optional] 
-**Gender** | **string** |  | 
-**Ethnicity** | **string** |  | 
-**MaritalStatus** | **string** |  | 
+**Gender** | Pointer to [**NullableGenderEnum**](GenderEnum.md) | The employee&#39;s gender. | [optional] 
+**Ethnicity** | Pointer to [**NullableEthnicityEnum**](EthnicityEnum.md) | The employee&#39;s ethnicity. | [optional] 
+**MaritalStatus** | Pointer to [**NullableMaritalStatusEnum**](MaritalStatusEnum.md) | The employee&#39;s marital status. | [optional] 
 **DateOfBirth** | Pointer to **NullableTime** | The employee&#39;s date of birth. | [optional] 
 **HireDate** | Pointer to **NullableTime** | The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you&#39;re looking for the employee&#39;s start date, refer to the start_date field. | [optional] 
 **StartDate** | Pointer to **NullableTime** | The date that the employee started working. If an employee has multiple start dates from previous employments, this represents the most recent start date. | [optional] 
-**EmploymentStatus** | **string** |  | 
+**EmploymentStatus** | Pointer to [**NullableEmploymentStatusEnum**](EmploymentStatusEnum.md) | The employment status of the employee. | [optional] 
 **TerminationDate** | Pointer to **NullableTime** | The employee&#39;s termination date. | [optional] 
 **Avatar** | Pointer to **NullableString** | The URL of the employee&#39;s avatar image. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
@@ -37,7 +37,7 @@ Name | Type | Description | Notes
 
 ### NewEmployee
 
-`func NewEmployee(gender string, ethnicity string, maritalStatus string, employmentStatus string, ) *Employee`
+`func NewEmployee() *Employee`
 
 NewEmployee instantiates a new Employee object
 This constructor will assign default values to properties that have it defined,
@@ -629,64 +629,109 @@ HasSsn returns a boolean if a field has been set.
 UnsetSsn ensures that no value is present for Ssn, not even an explicit nil
 ### GetGender
 
-`func (o *Employee) GetGender() string`
+`func (o *Employee) GetGender() GenderEnum`
 
 GetGender returns the Gender field if non-nil, zero value otherwise.
 
 ### GetGenderOk
 
-`func (o *Employee) GetGenderOk() (*string, bool)`
+`func (o *Employee) GetGenderOk() (*GenderEnum, bool)`
 
 GetGenderOk returns a tuple with the Gender field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGender
 
-`func (o *Employee) SetGender(v string)`
+`func (o *Employee) SetGender(v GenderEnum)`
 
 SetGender sets Gender field to given value.
 
+### HasGender
 
+`func (o *Employee) HasGender() bool`
+
+HasGender returns a boolean if a field has been set.
+
+### SetGenderNil
+
+`func (o *Employee) SetGenderNil(b bool)`
+
+ SetGenderNil sets the value for Gender to be an explicit nil
+
+### UnsetGender
+`func (o *Employee) UnsetGender()`
+
+UnsetGender ensures that no value is present for Gender, not even an explicit nil
 ### GetEthnicity
 
-`func (o *Employee) GetEthnicity() string`
+`func (o *Employee) GetEthnicity() EthnicityEnum`
 
 GetEthnicity returns the Ethnicity field if non-nil, zero value otherwise.
 
 ### GetEthnicityOk
 
-`func (o *Employee) GetEthnicityOk() (*string, bool)`
+`func (o *Employee) GetEthnicityOk() (*EthnicityEnum, bool)`
 
 GetEthnicityOk returns a tuple with the Ethnicity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEthnicity
 
-`func (o *Employee) SetEthnicity(v string)`
+`func (o *Employee) SetEthnicity(v EthnicityEnum)`
 
 SetEthnicity sets Ethnicity field to given value.
 
+### HasEthnicity
 
+`func (o *Employee) HasEthnicity() bool`
+
+HasEthnicity returns a boolean if a field has been set.
+
+### SetEthnicityNil
+
+`func (o *Employee) SetEthnicityNil(b bool)`
+
+ SetEthnicityNil sets the value for Ethnicity to be an explicit nil
+
+### UnsetEthnicity
+`func (o *Employee) UnsetEthnicity()`
+
+UnsetEthnicity ensures that no value is present for Ethnicity, not even an explicit nil
 ### GetMaritalStatus
 
-`func (o *Employee) GetMaritalStatus() string`
+`func (o *Employee) GetMaritalStatus() MaritalStatusEnum`
 
 GetMaritalStatus returns the MaritalStatus field if non-nil, zero value otherwise.
 
 ### GetMaritalStatusOk
 
-`func (o *Employee) GetMaritalStatusOk() (*string, bool)`
+`func (o *Employee) GetMaritalStatusOk() (*MaritalStatusEnum, bool)`
 
 GetMaritalStatusOk returns a tuple with the MaritalStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaritalStatus
 
-`func (o *Employee) SetMaritalStatus(v string)`
+`func (o *Employee) SetMaritalStatus(v MaritalStatusEnum)`
 
 SetMaritalStatus sets MaritalStatus field to given value.
 
+### HasMaritalStatus
 
+`func (o *Employee) HasMaritalStatus() bool`
+
+HasMaritalStatus returns a boolean if a field has been set.
+
+### SetMaritalStatusNil
+
+`func (o *Employee) SetMaritalStatusNil(b bool)`
+
+ SetMaritalStatusNil sets the value for MaritalStatus to be an explicit nil
+
+### UnsetMaritalStatus
+`func (o *Employee) UnsetMaritalStatus()`
+
+UnsetMaritalStatus ensures that no value is present for MaritalStatus, not even an explicit nil
 ### GetDateOfBirth
 
 `func (o *Employee) GetDateOfBirth() time.Time`
@@ -794,24 +839,39 @@ HasStartDate returns a boolean if a field has been set.
 UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
 ### GetEmploymentStatus
 
-`func (o *Employee) GetEmploymentStatus() string`
+`func (o *Employee) GetEmploymentStatus() EmploymentStatusEnum`
 
 GetEmploymentStatus returns the EmploymentStatus field if non-nil, zero value otherwise.
 
 ### GetEmploymentStatusOk
 
-`func (o *Employee) GetEmploymentStatusOk() (*string, bool)`
+`func (o *Employee) GetEmploymentStatusOk() (*EmploymentStatusEnum, bool)`
 
 GetEmploymentStatusOk returns a tuple with the EmploymentStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmploymentStatus
 
-`func (o *Employee) SetEmploymentStatus(v string)`
+`func (o *Employee) SetEmploymentStatus(v EmploymentStatusEnum)`
 
 SetEmploymentStatus sets EmploymentStatus field to given value.
 
+### HasEmploymentStatus
 
+`func (o *Employee) HasEmploymentStatus() bool`
+
+HasEmploymentStatus returns a boolean if a field has been set.
+
+### SetEmploymentStatusNil
+
+`func (o *Employee) SetEmploymentStatusNil(b bool)`
+
+ SetEmploymentStatusNil sets the value for EmploymentStatus to be an explicit nil
+
+### UnsetEmploymentStatus
+`func (o *Employee) UnsetEmploymentStatus()`
+
+UnsetEmploymentStatus ensures that no value is present for EmploymentStatus, not even an explicit nil
 ### GetTerminationDate
 
 `func (o *Employee) GetTerminationDate() time.Time`

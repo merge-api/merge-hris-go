@@ -18,7 +18,7 @@ import (
 // AccountDetailsAndActionsIntegration struct for AccountDetailsAndActionsIntegration
 type AccountDetailsAndActionsIntegration struct {
 	Name string `json:"name"`
-	Categories []string `json:"categories"`
+	Categories []CategoriesEnum `json:"categories"`
 	Image *string `json:"image,omitempty"`
 	SquareImage *string `json:"square_image,omitempty"`
 	Color string `json:"color"`
@@ -31,7 +31,7 @@ type AccountDetailsAndActionsIntegration struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountDetailsAndActionsIntegration(name string, categories []string, color string, slug string, passthroughAvailable bool) *AccountDetailsAndActionsIntegration {
+func NewAccountDetailsAndActionsIntegration(name string, categories []CategoriesEnum, color string, slug string, passthroughAvailable bool) *AccountDetailsAndActionsIntegration {
 	this := AccountDetailsAndActionsIntegration{}
 	this.Name = name
 	this.Categories = categories
@@ -74,9 +74,9 @@ func (o *AccountDetailsAndActionsIntegration) SetName(v string) {
 }
 
 // GetCategories returns the Categories field value
-func (o *AccountDetailsAndActionsIntegration) GetCategories() []string {
+func (o *AccountDetailsAndActionsIntegration) GetCategories() []CategoriesEnum {
 	if o == nil {
-		var ret []string
+		var ret []CategoriesEnum
 		return ret
 	}
 
@@ -85,7 +85,7 @@ func (o *AccountDetailsAndActionsIntegration) GetCategories() []string {
 
 // GetCategoriesOk returns a tuple with the Categories field value
 // and a boolean to check if the value has been set.
-func (o *AccountDetailsAndActionsIntegration) GetCategoriesOk() (*[]string, bool) {
+func (o *AccountDetailsAndActionsIntegration) GetCategoriesOk() (*[]CategoriesEnum, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -93,7 +93,7 @@ func (o *AccountDetailsAndActionsIntegration) GetCategoriesOk() (*[]string, bool
 }
 
 // SetCategories sets field value
-func (o *AccountDetailsAndActionsIntegration) SetCategories(v []string) {
+func (o *AccountDetailsAndActionsIntegration) SetCategories(v []CategoriesEnum) {
 	o.Categories = v
 }
 

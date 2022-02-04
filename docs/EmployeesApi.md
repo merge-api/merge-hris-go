@@ -4,9 +4,80 @@ All URIs are relative to *https://api.merge.dev/api/hris/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**EmployeesIgnoreCreate**](EmployeesApi.md#EmployeesIgnoreCreate) | **Post** /employees/ignore/{model_id} | 
 [**EmployeesList**](EmployeesApi.md#EmployeesList) | **Get** /employees | 
 [**EmployeesRetrieve**](EmployeesApi.md#EmployeesRetrieve) | **Get** /employees/{id} | 
 
+
+
+## EmployeesIgnoreCreate
+
+> EmployeesIgnoreCreate(ctx, modelId).IgnoreCommonModelRequest(ignoreCommonModelRequest).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    modelId := TODO // string | 
+    ignoreCommonModelRequest := *openapiclient.NewIgnoreCommonModelRequest(openapiclient.ReasonEnum("GENERAL_CUSTOMER_REQUEST")) // IgnoreCommonModelRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EmployeesApi.EmployeesIgnoreCreate(context.Background(), modelId).IgnoreCommonModelRequest(ignoreCommonModelRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesIgnoreCreate``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**modelId** | [**string**](.md) |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiEmployeesIgnoreCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **ignoreCommonModelRequest** | [**IgnoreCommonModelRequest**](IgnoreCommonModelRequest.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[tokenAuth](../README.md#tokenAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## EmployeesList

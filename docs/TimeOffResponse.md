@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Model** | [**TimeOff**](TimeOff.md) |  | 
 **Warnings** | [**[]WarningValidationProblem**](WarningValidationProblem.md) |  | 
 **Errors** | [**[]ErrorValidationProblem**](ErrorValidationProblem.md) |  | 
+**Logs** | Pointer to [**[]DebugModeLog**](DebugModeLog.md) |  | [optional] 
 
 ## Methods
 
@@ -86,6 +87,31 @@ and a boolean to check if the value has been set.
 
 SetErrors sets Errors field to given value.
 
+
+### GetLogs
+
+`func (o *TimeOffResponse) GetLogs() []DebugModeLog`
+
+GetLogs returns the Logs field if non-nil, zero value otherwise.
+
+### GetLogsOk
+
+`func (o *TimeOffResponse) GetLogsOk() (*[]DebugModeLog, bool)`
+
+GetLogsOk returns a tuple with the Logs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLogs
+
+`func (o *TimeOffResponse) SetLogs(v []DebugModeLog)`
+
+SetLogs sets Logs field to given value.
+
+### HasLogs
+
+`func (o *TimeOffResponse) HasLogs() bool`
+
+HasLogs returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
-**Status** | Pointer to **string** |  | [optional] [readonly] 
+**Status** | Pointer to [**IssueStatusEnum**](IssueStatusEnum.md) |  | [optional] 
 **ErrorDescription** | **string** |  | 
 **EndUser** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 **FirstIncidentTime** | Pointer to **NullableTime** |  | [optional] 
@@ -58,20 +58,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetStatus
 
-`func (o *Issue) GetStatus() string`
+`func (o *Issue) GetStatus() IssueStatusEnum`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *Issue) GetStatusOk() (*string, bool)`
+`func (o *Issue) GetStatusOk() (*IssueStatusEnum, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *Issue) SetStatus(v string)`
+`func (o *Issue) SetStatus(v IssueStatusEnum)`
 
 SetStatus sets Status field to given value.
 

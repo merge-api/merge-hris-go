@@ -19,8 +19,12 @@ import (
 // MaritalStatusEnum the model 'MaritalStatusEnum'
 type MaritalStatusEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of MaritalStatusEnum
 const (
+    MARITALSTATUSENUM_MERGE_NONSTANDARD_VALUE MaritalStatusEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	MARITALSTATUSENUM_SINGLE MaritalStatusEnum = "SINGLE"
 	MARITALSTATUSENUM_MARRIED_FILING_JOINTLY MaritalStatusEnum = "MARRIED_FILING_JOINTLY"
 	MARITALSTATUSENUM_MARRIED_FILING_SEPARATELY MaritalStatusEnum = "MARRIED_FILING_SEPARATELY"
@@ -49,8 +53,8 @@ func (v *MaritalStatusEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid MaritalStatusEnum", value)
+    *v = MARITALSTATUSENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewMaritalStatusEnumFromValue returns a pointer to a valid MaritalStatusEnum
@@ -60,7 +64,8 @@ func NewMaritalStatusEnumFromValue(v string) (*MaritalStatusEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for MaritalStatusEnum: valid values are %v", v, allowedMaritalStatusEnumEnumValues)
+        ev := MARITALSTATUSENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

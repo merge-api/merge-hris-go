@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **State** | Pointer to **NullableString** | The location&#39;s state. Represents a region if outside of the US. | [optional] 
 **ZipCode** | Pointer to **NullableString** | The location&#39;s zip code. | [optional] 
 **Country** | Pointer to [**NullableCountryEnum**](CountryEnum.md) | The location&#39;s country. | [optional] 
-**LocationType** | Pointer to **string** |  | [optional] 
+**LocationType** | Pointer to [**NullableLocationTypeEnum**](LocationTypeEnum.md) | The location&#39;s type. Can be either WORK or HOME | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
@@ -378,20 +378,20 @@ HasCountry returns a boolean if a field has been set.
 UnsetCountry ensures that no value is present for Country, not even an explicit nil
 ### GetLocationType
 
-`func (o *Location) GetLocationType() string`
+`func (o *Location) GetLocationType() LocationTypeEnum`
 
 GetLocationType returns the LocationType field if non-nil, zero value otherwise.
 
 ### GetLocationTypeOk
 
-`func (o *Location) GetLocationTypeOk() (*string, bool)`
+`func (o *Location) GetLocationTypeOk() (*LocationTypeEnum, bool)`
 
 GetLocationTypeOk returns a tuple with the LocationType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLocationType
 
-`func (o *Location) SetLocationType(v string)`
+`func (o *Location) SetLocationType(v LocationTypeEnum)`
 
 SetLocationType sets LocationType field to given value.
 
@@ -401,6 +401,16 @@ SetLocationType sets LocationType field to given value.
 
 HasLocationType returns a boolean if a field has been set.
 
+### SetLocationTypeNil
+
+`func (o *Location) SetLocationTypeNil(b bool)`
+
+ SetLocationTypeNil sets the value for LocationType to be an explicit nil
+
+### UnsetLocationType
+`func (o *Location) UnsetLocationType()`
+
+UnsetLocationType ensures that no value is present for LocationType, not even an explicit nil
 ### GetRemoteData
 
 `func (o *Location) GetRemoteData() []RemoteData`

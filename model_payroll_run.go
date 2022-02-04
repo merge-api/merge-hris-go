@@ -21,8 +21,10 @@ type PayrollRun struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
-	RunState string `json:"run_state"`
-	RunType string `json:"run_type"`
+	// The state of the payroll run
+	RunState NullableRunStateEnum `json:"run_state,omitempty"`
+	// The type of the payroll run
+	RunType NullableRunTypeEnum `json:"run_type,omitempty"`
 	// The day and time the payroll run started.
 	StartDate NullableTime `json:"start_date,omitempty"`
 	// The day and time the payroll run ended.
@@ -36,10 +38,8 @@ type PayrollRun struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPayrollRun(runState string, runType string) *PayrollRun {
+func NewPayrollRun() *PayrollRun {
 	this := PayrollRun{}
-	this.RunState = runState
-	this.RunType = runType
 	return &this
 }
 
@@ -125,52 +125,88 @@ func (o *PayrollRun) UnsetRemoteId() {
 	o.RemoteId.Unset()
 }
 
-// GetRunState returns the RunState field value
-func (o *PayrollRun) GetRunState() string {
-	if o == nil {
-		var ret string
+// GetRunState returns the RunState field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PayrollRun) GetRunState() RunStateEnum {
+	if o == nil || o.RunState.Get() == nil {
+		var ret RunStateEnum
 		return ret
 	}
-
-	return o.RunState
+	return *o.RunState.Get()
 }
 
-// GetRunStateOk returns a tuple with the RunState field value
+// GetRunStateOk returns a tuple with the RunState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayrollRun) GetRunStateOk() (*string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PayrollRun) GetRunStateOk() (*RunStateEnum, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.RunState, true
+	return o.RunState.Get(), o.RunState.IsSet()
 }
 
-// SetRunState sets field value
-func (o *PayrollRun) SetRunState(v string) {
-	o.RunState = v
-}
-
-// GetRunType returns the RunType field value
-func (o *PayrollRun) GetRunType() string {
-	if o == nil {
-		var ret string
-		return ret
+// HasRunState returns a boolean if a field has been set.
+func (o *PayrollRun) HasRunState() bool {
+	if o != nil && o.RunState.IsSet() {
+		return true
 	}
 
-	return o.RunType
+	return false
 }
 
-// GetRunTypeOk returns a tuple with the RunType field value
+// SetRunState gets a reference to the given NullableRunStateEnum and assigns it to the RunState field.
+func (o *PayrollRun) SetRunState(v RunStateEnum) {
+	o.RunState.Set(&v)
+}
+// SetRunStateNil sets the value for RunState to be an explicit nil
+func (o *PayrollRun) SetRunStateNil() {
+	o.RunState.Set(nil)
+}
+
+// UnsetRunState ensures that no value is present for RunState, not even an explicit nil
+func (o *PayrollRun) UnsetRunState() {
+	o.RunState.Unset()
+}
+
+// GetRunType returns the RunType field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PayrollRun) GetRunType() RunTypeEnum {
+	if o == nil || o.RunType.Get() == nil {
+		var ret RunTypeEnum
+		return ret
+	}
+	return *o.RunType.Get()
+}
+
+// GetRunTypeOk returns a tuple with the RunType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayrollRun) GetRunTypeOk() (*string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PayrollRun) GetRunTypeOk() (*RunTypeEnum, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.RunType, true
+	return o.RunType.Get(), o.RunType.IsSet()
 }
 
-// SetRunType sets field value
-func (o *PayrollRun) SetRunType(v string) {
-	o.RunType = v
+// HasRunType returns a boolean if a field has been set.
+func (o *PayrollRun) HasRunType() bool {
+	if o != nil && o.RunType.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRunType gets a reference to the given NullableRunTypeEnum and assigns it to the RunType field.
+func (o *PayrollRun) SetRunType(v RunTypeEnum) {
+	o.RunType.Set(&v)
+}
+// SetRunTypeNil sets the value for RunType to be an explicit nil
+func (o *PayrollRun) SetRunTypeNil() {
+	o.RunType.Set(nil)
+}
+
+// UnsetRunType ensures that no value is present for RunType, not even an explicit nil
+func (o *PayrollRun) UnsetRunType() {
+	o.RunType.Unset()
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -340,11 +376,11 @@ func (o PayrollRun) MarshalJSON() ([]byte, error) {
 	if o.RemoteId.IsSet() {
 		toSerialize["remote_id"] = o.RemoteId.Get()
 	}
-	if true {
-		toSerialize["run_state"] = o.RunState
+	if o.RunState.IsSet() {
+		toSerialize["run_state"] = o.RunState.Get()
 	}
-	if true {
-		toSerialize["run_type"] = o.RunType
+	if o.RunType.IsSet() {
+		toSerialize["run_type"] = o.RunType.Get()
 	}
 	if o.StartDate.IsSet() {
 		toSerialize["start_date"] = o.StartDate.Get()

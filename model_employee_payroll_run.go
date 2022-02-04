@@ -21,9 +21,7 @@ type EmployeePayrollRun struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
-	// The employee whose payroll is being run.
 	Employee NullableString `json:"employee,omitempty"`
-	// The payroll being run.
 	PayrollRun NullableString `json:"payroll_run,omitempty"`
 	// The gross pay from the run.
 	GrossPay NullableFloat32 `json:"gross_pay,omitempty"`

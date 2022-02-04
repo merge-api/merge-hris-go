@@ -19,8 +19,12 @@ import (
 // CategoriesEnum the model 'CategoriesEnum'
 type CategoriesEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of CategoriesEnum
 const (
+    CATEGORIESENUM_MERGE_NONSTANDARD_VALUE CategoriesEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	CATEGORIESENUM_HRIS CategoriesEnum = "hris"
 	CATEGORIESENUM_ATS CategoriesEnum = "ats"
 	CATEGORIESENUM_ACCOUNTING CategoriesEnum = "accounting"
@@ -45,8 +49,8 @@ func (v *CategoriesEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid CategoriesEnum", value)
+    *v = CATEGORIESENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewCategoriesEnumFromValue returns a pointer to a valid CategoriesEnum
@@ -56,7 +60,8 @@ func NewCategoriesEnumFromValue(v string) (*CategoriesEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for CategoriesEnum: valid values are %v", v, allowedCategoriesEnumEnumValues)
+        ev := CATEGORIESENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

@@ -19,8 +19,12 @@ import (
 // RequestFormatEnum the model 'RequestFormatEnum'
 type RequestFormatEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of RequestFormatEnum
 const (
+    REQUESTFORMATENUM_MERGE_NONSTANDARD_VALUE RequestFormatEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	REQUESTFORMATENUM_JSON RequestFormatEnum = "JSON"
 	REQUESTFORMATENUM_XML RequestFormatEnum = "XML"
 	REQUESTFORMATENUM_MULTIPART RequestFormatEnum = "MULTIPART"
@@ -45,8 +49,8 @@ func (v *RequestFormatEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid RequestFormatEnum", value)
+    *v = REQUESTFORMATENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewRequestFormatEnumFromValue returns a pointer to a valid RequestFormatEnum
@@ -56,7 +60,8 @@ func NewRequestFormatEnumFromValue(v string) (*RequestFormatEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for RequestFormatEnum: valid values are %v", v, allowedRequestFormatEnumEnumValues)
+        ev := REQUESTFORMATENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

@@ -30,7 +30,7 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    dataPassthroughRequest := *openapiclient.NewDataPassthroughRequest("POST", "/scooters") // DataPassthroughRequest | 
+    dataPassthroughRequest := *openapiclient.NewDataPassthroughRequest(openapiclient.MethodEnum("GET"), "/scooters") // DataPassthroughRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**RunState** | **string** |  | 
-**RunType** | **string** |  | 
+**RunState** | Pointer to [**NullableRunStateEnum**](RunStateEnum.md) | The state of the payroll run | [optional] 
+**RunType** | Pointer to [**NullableRunTypeEnum**](RunTypeEnum.md) | The type of the payroll run | [optional] 
 **StartDate** | Pointer to **NullableTime** | The day and time the payroll run started. | [optional] 
 **EndDate** | Pointer to **NullableTime** | The day and time the payroll run ended. | [optional] 
 **CheckDate** | Pointer to **NullableTime** | The day and time the payroll run was checked. | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewPayrollRun
 
-`func NewPayrollRun(runState string, runType string, ) *PayrollRun`
+`func NewPayrollRun() *PayrollRun`
 
 NewPayrollRun instantiates a new PayrollRun object
 This constructor will assign default values to properties that have it defined,
@@ -94,44 +94,74 @@ HasRemoteId returns a boolean if a field has been set.
 UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
 ### GetRunState
 
-`func (o *PayrollRun) GetRunState() string`
+`func (o *PayrollRun) GetRunState() RunStateEnum`
 
 GetRunState returns the RunState field if non-nil, zero value otherwise.
 
 ### GetRunStateOk
 
-`func (o *PayrollRun) GetRunStateOk() (*string, bool)`
+`func (o *PayrollRun) GetRunStateOk() (*RunStateEnum, bool)`
 
 GetRunStateOk returns a tuple with the RunState field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRunState
 
-`func (o *PayrollRun) SetRunState(v string)`
+`func (o *PayrollRun) SetRunState(v RunStateEnum)`
 
 SetRunState sets RunState field to given value.
 
+### HasRunState
 
+`func (o *PayrollRun) HasRunState() bool`
+
+HasRunState returns a boolean if a field has been set.
+
+### SetRunStateNil
+
+`func (o *PayrollRun) SetRunStateNil(b bool)`
+
+ SetRunStateNil sets the value for RunState to be an explicit nil
+
+### UnsetRunState
+`func (o *PayrollRun) UnsetRunState()`
+
+UnsetRunState ensures that no value is present for RunState, not even an explicit nil
 ### GetRunType
 
-`func (o *PayrollRun) GetRunType() string`
+`func (o *PayrollRun) GetRunType() RunTypeEnum`
 
 GetRunType returns the RunType field if non-nil, zero value otherwise.
 
 ### GetRunTypeOk
 
-`func (o *PayrollRun) GetRunTypeOk() (*string, bool)`
+`func (o *PayrollRun) GetRunTypeOk() (*RunTypeEnum, bool)`
 
 GetRunTypeOk returns a tuple with the RunType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRunType
 
-`func (o *PayrollRun) SetRunType(v string)`
+`func (o *PayrollRun) SetRunType(v RunTypeEnum)`
 
 SetRunType sets RunType field to given value.
 
+### HasRunType
 
+`func (o *PayrollRun) HasRunType() bool`
+
+HasRunType returns a boolean if a field has been set.
+
+### SetRunTypeNil
+
+`func (o *PayrollRun) SetRunTypeNil(b bool)`
+
+ SetRunTypeNil sets the value for RunType to be an explicit nil
+
+### UnsetRunType
+`func (o *PayrollRun) UnsetRunType()`
+
+UnsetRunType ensures that no value is present for RunType, not even an explicit nil
 ### GetStartDate
 
 `func (o *PayrollRun) GetStartDate() time.Time`

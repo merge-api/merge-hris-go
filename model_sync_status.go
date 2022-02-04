@@ -22,7 +22,7 @@ type SyncStatus struct {
 	ModelId string `json:"model_id"`
 	LastSyncStart time.Time `json:"last_sync_start"`
 	NextSyncStart time.Time `json:"next_sync_start"`
-	Status string `json:"status"`
+	Status SyncStatusStatusEnum `json:"status"`
 	IsInitialSync bool `json:"is_initial_sync"`
 }
 
@@ -30,7 +30,7 @@ type SyncStatus struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSyncStatus(modelName string, modelId string, lastSyncStart time.Time, nextSyncStart time.Time, status string, isInitialSync bool) *SyncStatus {
+func NewSyncStatus(modelName string, modelId string, lastSyncStart time.Time, nextSyncStart time.Time, status SyncStatusStatusEnum, isInitialSync bool) *SyncStatus {
 	this := SyncStatus{}
 	this.ModelName = modelName
 	this.ModelId = modelId
@@ -146,9 +146,9 @@ func (o *SyncStatus) SetNextSyncStart(v time.Time) {
 }
 
 // GetStatus returns the Status field value
-func (o *SyncStatus) GetStatus() string {
+func (o *SyncStatus) GetStatus() SyncStatusStatusEnum {
 	if o == nil {
-		var ret string
+		var ret SyncStatusStatusEnum
 		return ret
 	}
 
@@ -157,7 +157,7 @@ func (o *SyncStatus) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *SyncStatus) GetStatusOk() (*string, bool) {
+func (o *SyncStatus) GetStatusOk() (*SyncStatusStatusEnum, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -165,7 +165,7 @@ func (o *SyncStatus) GetStatusOk() (*string, bool) {
 }
 
 // SetStatus sets field value
-func (o *SyncStatus) SetStatus(v string) {
+func (o *SyncStatus) SetStatus(v SyncStatusStatusEnum) {
 	o.Status = v
 }
 

@@ -19,8 +19,12 @@ import (
 // FlsaStatusEnum the model 'FlsaStatusEnum'
 type FlsaStatusEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of FlsaStatusEnum
 const (
+    FLSASTATUSENUM_MERGE_NONSTANDARD_VALUE FlsaStatusEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	FLSASTATUSENUM_EXEMPT FlsaStatusEnum = "EXEMPT"
 	FLSASTATUSENUM_SALARIED_NONEXEMPT FlsaStatusEnum = "SALARIED_NONEXEMPT"
 	FLSASTATUSENUM_NONEXEMPT FlsaStatusEnum = "NONEXEMPT"
@@ -47,8 +51,8 @@ func (v *FlsaStatusEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid FlsaStatusEnum", value)
+    *v = FLSASTATUSENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewFlsaStatusEnumFromValue returns a pointer to a valid FlsaStatusEnum
@@ -58,7 +62,8 @@ func NewFlsaStatusEnumFromValue(v string) (*FlsaStatusEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for FlsaStatusEnum: valid values are %v", v, allowedFlsaStatusEnumEnumValues)
+        ev := FLSASTATUSENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

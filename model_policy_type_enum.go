@@ -19,8 +19,12 @@ import (
 // PolicyTypeEnum the model 'PolicyTypeEnum'
 type PolicyTypeEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of PolicyTypeEnum
 const (
+    POLICYTYPEENUM_MERGE_NONSTANDARD_VALUE PolicyTypeEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	POLICYTYPEENUM_VACATION PolicyTypeEnum = "VACATION"
 	POLICYTYPEENUM_SICK PolicyTypeEnum = "SICK"
 	POLICYTYPEENUM_PERSONAL PolicyTypeEnum = "PERSONAL"
@@ -51,8 +55,8 @@ func (v *PolicyTypeEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid PolicyTypeEnum", value)
+    *v = POLICYTYPEENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewPolicyTypeEnumFromValue returns a pointer to a valid PolicyTypeEnum
@@ -62,7 +66,8 @@ func NewPolicyTypeEnumFromValue(v string) (*PolicyTypeEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for PolicyTypeEnum: valid values are %v", v, allowedPolicyTypeEnumEnumValues)
+        ev := POLICYTYPEENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

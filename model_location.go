@@ -36,7 +36,8 @@ type Location struct {
 	ZipCode NullableString `json:"zip_code,omitempty"`
 	// The location's country.
 	Country NullableCountryEnum `json:"country,omitempty"`
-	LocationType *string `json:"location_type,omitempty"`
+	// The location's type. Can be either WORK or HOME
+	LocationType NullableLocationTypeEnum `json:"location_type,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
@@ -467,36 +468,46 @@ func (o *Location) UnsetCountry() {
 	o.Country.Unset()
 }
 
-// GetLocationType returns the LocationType field value if set, zero value otherwise.
-func (o *Location) GetLocationType() string {
-	if o == nil || o.LocationType == nil {
-		var ret string
+// GetLocationType returns the LocationType field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Location) GetLocationType() LocationTypeEnum {
+	if o == nil || o.LocationType.Get() == nil {
+		var ret LocationTypeEnum
 		return ret
 	}
-	return *o.LocationType
+	return *o.LocationType.Get()
 }
 
 // GetLocationTypeOk returns a tuple with the LocationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Location) GetLocationTypeOk() (*string, bool) {
-	if o == nil || o.LocationType == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Location) GetLocationTypeOk() (*LocationTypeEnum, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return o.LocationType, true
+	return o.LocationType.Get(), o.LocationType.IsSet()
 }
 
 // HasLocationType returns a boolean if a field has been set.
 func (o *Location) HasLocationType() bool {
-	if o != nil && o.LocationType != nil {
+	if o != nil && o.LocationType.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetLocationType gets a reference to the given string and assigns it to the LocationType field.
-func (o *Location) SetLocationType(v string) {
-	o.LocationType = &v
+// SetLocationType gets a reference to the given NullableLocationTypeEnum and assigns it to the LocationType field.
+func (o *Location) SetLocationType(v LocationTypeEnum) {
+	o.LocationType.Set(&v)
+}
+// SetLocationTypeNil sets the value for LocationType to be an explicit nil
+func (o *Location) SetLocationTypeNil() {
+	o.LocationType.Set(nil)
+}
+
+// UnsetLocationType ensures that no value is present for LocationType, not even an explicit nil
+func (o *Location) UnsetLocationType() {
+	o.LocationType.Unset()
 }
 
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -564,8 +575,8 @@ func (o Location) MarshalJSON() ([]byte, error) {
 	if o.Country.IsSet() {
 		toSerialize["country"] = o.Country.Get()
 	}
-	if o.LocationType != nil {
-		toSerialize["location_type"] = o.LocationType
+	if o.LocationType.IsSet() {
+		toSerialize["location_type"] = o.LocationType.Get()
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

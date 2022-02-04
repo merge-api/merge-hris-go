@@ -19,8 +19,12 @@ import (
 // EthnicityEnum the model 'EthnicityEnum'
 type EthnicityEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of EthnicityEnum
 const (
+    ETHNICITYENUM_MERGE_NONSTANDARD_VALUE EthnicityEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	ETHNICITYENUM_AMERICAN_INDIAN_OR_ALASKA_NATIVE EthnicityEnum = "AMERICAN_INDIAN_OR_ALASKA_NATIVE"
 	ETHNICITYENUM_ASIAN_OR_INDIAN_SUBCONTINENT EthnicityEnum = "ASIAN_OR_INDIAN_SUBCONTINENT"
 	ETHNICITYENUM_BLACK_OR_AFRICAN_AMERICAN EthnicityEnum = "BLACK_OR_AFRICAN_AMERICAN"
@@ -55,8 +59,8 @@ func (v *EthnicityEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EthnicityEnum", value)
+    *v = ETHNICITYENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewEthnicityEnumFromValue returns a pointer to a valid EthnicityEnum
@@ -66,7 +70,8 @@ func NewEthnicityEnumFromValue(v string) (*EthnicityEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for EthnicityEnum: valid values are %v", v, allowedEthnicityEnumEnumValues)
+        ev := ETHNICITYENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

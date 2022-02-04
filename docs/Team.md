@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **Name** | Pointer to **NullableString** | The team&#39;s name. | [optional] 
-**ParentTeam** | Pointer to **NullableString** | The team&#39;s parent team. | [optional] 
+**ParentTeam** | Pointer to **NullableString** |  | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods

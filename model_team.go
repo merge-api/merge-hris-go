@@ -22,7 +22,6 @@ type Team struct {
 	RemoteId NullableString `json:"remote_id,omitempty"`
 	// The team's name.
 	Name NullableString `json:"name,omitempty"`
-	// The team's parent team.
 	ParentTeam NullableString `json:"parent_team,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }

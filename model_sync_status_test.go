@@ -17,7 +17,7 @@ import (
 
 func TestDeserializeSyncStatus(t *testing.T) {
     var (
-        rawJson     = []byte(`{"model_name": "Candidate", "model_id": "ats.Candidate", "last_sync_start": "2021-03-30T19:44:18.695973Z", "next_sync_start": "2021-03-30T20:44:18.662942Z", "status": "SYNCING", "is_initial_sync": true}`)
+        rawJson     = []byte(`{"model_name": "Candidate", "model_id": "ats.Candidate", "last_sync_start": "2021-03-30T19:44:18.695973Z", "next_sync_start": "2021-03-30T20:44:18.662942Z", "status": "SYNCING_DYNAMIC", "is_initial_sync": true}`)
         result      SyncStatus
     )
 
@@ -25,5 +25,9 @@ func TestDeserializeSyncStatus(t *testing.T) {
 
     if err != nil {
         t.Errorf("Failed to decode: %s", err.Error())
+    }
+
+    if result.Status != SYNCSTATUSSTATUSENUM_MERGE_NONSTANDARD_VALUE {
+        t.Errorf("Failed to handle custom enum: %s", err.Error())
     }
 }

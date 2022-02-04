@@ -19,8 +19,12 @@ import (
 // AccountTypeEnum the model 'AccountTypeEnum'
 type AccountTypeEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of AccountTypeEnum
 const (
+    ACCOUNTTYPEENUM_MERGE_NONSTANDARD_VALUE AccountTypeEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	ACCOUNTTYPEENUM_SAVINGS AccountTypeEnum = "SAVINGS"
 	ACCOUNTTYPEENUM_CHECKING AccountTypeEnum = "CHECKING"
 )
@@ -43,8 +47,8 @@ func (v *AccountTypeEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AccountTypeEnum", value)
+    *v = ACCOUNTTYPEENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewAccountTypeEnumFromValue returns a pointer to a valid AccountTypeEnum
@@ -54,7 +58,8 @@ func NewAccountTypeEnumFromValue(v string) (*AccountTypeEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for AccountTypeEnum: valid values are %v", v, allowedAccountTypeEnumEnumValues)
+        ev := ACCOUNTTYPEENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 
