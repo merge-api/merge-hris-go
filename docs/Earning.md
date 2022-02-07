@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
-**EmployeePayrollRun** | Pointer to **NullableString** | The earning&#39;s employee payroll run. | [optional] 
+**EmployeePayrollRun** | Pointer to **NullableString** |  | [optional] 
 **Amount** | Pointer to **NullableFloat32** | The amount earned. | [optional] 
-**Type** | **string** |  | 
+**Type** | Pointer to [**NullableTypeEnum**](TypeEnum.md) | The type of earning. | [optional] 
 **RemoteData** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewEarning
 
-`func NewEarning(type_ string, ) *Earning`
+`func NewEarning() *Earning`
 
 NewEarning instantiates a new Earning object
 This constructor will assign default values to properties that have it defined,
@@ -126,24 +126,39 @@ HasAmount returns a boolean if a field has been set.
 UnsetAmount ensures that no value is present for Amount, not even an explicit nil
 ### GetType
 
-`func (o *Earning) GetType() string`
+`func (o *Earning) GetType() TypeEnum`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *Earning) GetTypeOk() (*string, bool)`
+`func (o *Earning) GetTypeOk() (*TypeEnum, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *Earning) SetType(v string)`
+`func (o *Earning) SetType(v TypeEnum)`
 
 SetType sets Type field to given value.
 
+### HasType
 
+`func (o *Earning) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
+### SetTypeNil
+
+`func (o *Earning) SetTypeNil(b bool)`
+
+ SetTypeNil sets the value for Type to be an explicit nil
+
+### UnsetType
+`func (o *Earning) UnsetType()`
+
+UnsetType ensures that no value is present for Type, not even an explicit nil
 ### GetRemoteData
 
 `func (o *Earning) GetRemoteData() []map[string]interface{}`

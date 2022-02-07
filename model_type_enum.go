@@ -19,8 +19,12 @@ import (
 // TypeEnum the model 'TypeEnum'
 type TypeEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of TypeEnum
 const (
+    TYPEENUM_MERGE_NONSTANDARD_VALUE TypeEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	TYPEENUM_SALARY TypeEnum = "SALARY"
 	TYPEENUM_REIMBURSEMENT TypeEnum = "REIMBURSEMENT"
 	TYPEENUM_OVERTIME TypeEnum = "OVERTIME"
@@ -47,8 +51,8 @@ func (v *TypeEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TypeEnum", value)
+    *v = TYPEENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewTypeEnumFromValue returns a pointer to a valid TypeEnum
@@ -58,7 +62,8 @@ func NewTypeEnumFromValue(v string) (*TypeEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for TypeEnum: valid values are %v", v, allowedTypeEnumEnumValues)
+        ev := TYPEENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

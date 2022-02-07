@@ -29,6 +29,125 @@ var (
 // EmployeesApiService EmployeesApi service
 type EmployeesApiService service
 
+type ApiEmployeesIgnoreCreateRequest struct {
+	ctx _context.Context
+	ApiService *EmployeesApiService
+	modelId string
+	ignoreCommonModelRequest *IgnoreCommonModelRequest
+}
+
+func (r ApiEmployeesIgnoreCreateRequest) IgnoreCommonModelRequest(ignoreCommonModelRequest IgnoreCommonModelRequest) ApiEmployeesIgnoreCreateRequest {
+	r.ignoreCommonModelRequest = &ignoreCommonModelRequest
+	return r
+}
+
+func (r ApiEmployeesIgnoreCreateRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.EmployeesIgnoreCreateExecute(r)
+}
+
+/*
+ * EmployeesIgnoreCreate Method for EmployeesIgnoreCreate
+ * Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param modelId
+ * @return ApiEmployeesIgnoreCreateRequest
+ */
+func (a *EmployeesApiService) EmployeesIgnoreCreate(ctx _context.Context, modelId string) ApiEmployeesIgnoreCreateRequest {
+	return ApiEmployeesIgnoreCreateRequest{
+		ApiService: a,
+		ctx: ctx,
+		modelId: modelId,
+	}
+}
+
+/*
+ * Execute executes the request
+ */
+func (a *EmployeesApiService) EmployeesIgnoreCreateExecute(r ApiEmployeesIgnoreCreateRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmployeesApiService.EmployeesIgnoreCreate")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/employees/ignore/{model_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"model_id"+"}", _neturl.PathEscape(parameterToString(r.modelId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.ignoreCommonModelRequest == nil {
+		return nil, reportError("ignoreCommonModelRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json", "application/x-www-form-urlencoded", "multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.ignoreCommonModelRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["tokenAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiEmployeesListRequest struct {
 	ctx _context.Context
 	ApiService *EmployeesApiService

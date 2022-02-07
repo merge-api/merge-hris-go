@@ -18,7 +18,6 @@ import (
 // Deduction # The Deduction Object ### Description The `Deduction` object is used to represent a deduction for a given employee's payroll run. One run could include several deductions.  ### Usage Example Fetch from the `LIST Deductions` endpoint and filter by `ID` to show all deductions.
 type Deduction struct {
 	Id *string `json:"id,omitempty"`
-	// The deduction's employee payroll run.
 	EmployeePayrollRun NullableString `json:"employee_payroll_run,omitempty"`
 	// The deduction's name.
 	Name NullableString `json:"name,omitempty"`
@@ -26,7 +25,7 @@ type Deduction struct {
 	EmployeeDeduction NullableFloat32 `json:"employee_deduction,omitempty"`
 	// The amount the company is deducting.
 	CompanyDeduction NullableFloat32 `json:"company_deduction,omitempty"`
-	RemoteData []map[string]interface{} `json:"remote_data,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
 }
 
 // NewDeduction instantiates a new Deduction object
@@ -247,9 +246,9 @@ func (o *Deduction) UnsetCompanyDeduction() {
 }
 
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Deduction) GetRemoteData() []map[string]interface{} {
+func (o *Deduction) GetRemoteData() []RemoteData {
 	if o == nil  {
-		var ret []map[string]interface{}
+		var ret []RemoteData
 		return ret
 	}
 	return o.RemoteData
@@ -258,7 +257,7 @@ func (o *Deduction) GetRemoteData() []map[string]interface{} {
 // GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Deduction) GetRemoteDataOk() (*[]map[string]interface{}, bool) {
+func (o *Deduction) GetRemoteDataOk() (*[]RemoteData, bool) {
 	if o == nil || o.RemoteData == nil {
 		return nil, false
 	}
@@ -274,8 +273,8 @@ func (o *Deduction) HasRemoteData() bool {
 	return false
 }
 
-// SetRemoteData gets a reference to the given []map[string]interface{} and assigns it to the RemoteData field.
-func (o *Deduction) SetRemoteData(v []map[string]interface{}) {
+// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
+func (o *Deduction) SetRemoteData(v []RemoteData) {
 	o.RemoteData = v
 }
 

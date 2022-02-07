@@ -19,8 +19,12 @@ import (
 // SyncStatusStatusEnum the model 'SyncStatusStatusEnum'
 type SyncStatusStatusEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of SyncStatusStatusEnum
 const (
+    SYNCSTATUSSTATUSENUM_MERGE_NONSTANDARD_VALUE SyncStatusStatusEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	SYNCSTATUSSTATUSENUM_SYNCING SyncStatusStatusEnum = "SYNCING"
 	SYNCSTATUSSTATUSENUM_DONE SyncStatusStatusEnum = "DONE"
 	SYNCSTATUSSTATUSENUM_FAILED SyncStatusStatusEnum = "FAILED"
@@ -47,8 +51,8 @@ func (v *SyncStatusStatusEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid SyncStatusStatusEnum", value)
+    *v = SYNCSTATUSSTATUSENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewSyncStatusStatusEnumFromValue returns a pointer to a valid SyncStatusStatusEnum
@@ -58,7 +62,8 @@ func NewSyncStatusStatusEnumFromValue(v string) (*SyncStatusStatusEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for SyncStatusStatusEnum: valid values are %v", v, allowedSyncStatusStatusEnumEnumValues)
+        ev := SYNCSTATUSSTATUSENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

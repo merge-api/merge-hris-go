@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Categories** | **[]string** |  | 
+**Categories** | [**[]CategoriesEnum**](CategoriesEnum.md) |  | 
 **Image** | Pointer to **string** |  | [optional] 
 **SquareImage** | Pointer to **string** |  | [optional] 
 **Color** | **string** |  | 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewAccountDetailsAndActionsIntegration
 
-`func NewAccountDetailsAndActionsIntegration(name string, categories []string, color string, slug string, passthroughAvailable bool, ) *AccountDetailsAndActionsIntegration`
+`func NewAccountDetailsAndActionsIntegration(name string, categories []CategoriesEnum, color string, slug string, passthroughAvailable bool, ) *AccountDetailsAndActionsIntegration`
 
 NewAccountDetailsAndActionsIntegration instantiates a new AccountDetailsAndActionsIntegration object
 This constructor will assign default values to properties that have it defined,
@@ -54,20 +54,20 @@ SetName sets Name field to given value.
 
 ### GetCategories
 
-`func (o *AccountDetailsAndActionsIntegration) GetCategories() []string`
+`func (o *AccountDetailsAndActionsIntegration) GetCategories() []CategoriesEnum`
 
 GetCategories returns the Categories field if non-nil, zero value otherwise.
 
 ### GetCategoriesOk
 
-`func (o *AccountDetailsAndActionsIntegration) GetCategoriesOk() (*[]string, bool)`
+`func (o *AccountDetailsAndActionsIntegration) GetCategoriesOk() (*[]CategoriesEnum, bool)`
 
 GetCategoriesOk returns a tuple with the Categories field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCategories
 
-`func (o *AccountDetailsAndActionsIntegration) SetCategories(v []string)`
+`func (o *AccountDetailsAndActionsIntegration) SetCategories(v []CategoriesEnum)`
 
 SetCategories sets Categories field to given value.
 

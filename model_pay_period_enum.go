@@ -19,8 +19,12 @@ import (
 // PayPeriodEnum the model 'PayPeriodEnum'
 type PayPeriodEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of PayPeriodEnum
 const (
+    PAYPERIODENUM_MERGE_NONSTANDARD_VALUE PayPeriodEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	PAYPERIODENUM_HOUR PayPeriodEnum = "HOUR"
 	PAYPERIODENUM_DAY PayPeriodEnum = "DAY"
 	PAYPERIODENUM_WEEK PayPeriodEnum = "WEEK"
@@ -55,8 +59,8 @@ func (v *PayPeriodEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid PayPeriodEnum", value)
+    *v = PAYPERIODENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewPayPeriodEnumFromValue returns a pointer to a valid PayPeriodEnum
@@ -66,7 +70,8 @@ func NewPayPeriodEnumFromValue(v string) (*PayPeriodEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for PayPeriodEnum: valid values are %v", v, allowedPayPeriodEnumEnumValues)
+        ev := PAYPERIODENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

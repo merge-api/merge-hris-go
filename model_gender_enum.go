@@ -19,8 +19,12 @@ import (
 // GenderEnum the model 'GenderEnum'
 type GenderEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of GenderEnum
 const (
+    GENDERENUM_MERGE_NONSTANDARD_VALUE GenderEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	GENDERENUM_MALE GenderEnum = "MALE"
 	GENDERENUM_FEMALE GenderEnum = "FEMALE"
 	GENDERENUM_NON_BINARY GenderEnum = "NON-BINARY"
@@ -49,8 +53,8 @@ func (v *GenderEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid GenderEnum", value)
+    *v = GENDERENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewGenderEnumFromValue returns a pointer to a valid GenderEnum
@@ -60,7 +64,8 @@ func NewGenderEnumFromValue(v string) (*GenderEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for GenderEnum: valid values are %v", v, allowedGenderEnumEnumValues)
+        ev := GENDERENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

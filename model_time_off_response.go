@@ -20,6 +20,7 @@ type TimeOffResponse struct {
 	Model TimeOff `json:"model"`
 	Warnings []WarningValidationProblem `json:"warnings"`
 	Errors []ErrorValidationProblem `json:"errors"`
+	Logs *[]DebugModeLog `json:"logs,omitempty"`
 }
 
 // NewTimeOffResponse instantiates a new TimeOffResponse object
@@ -114,6 +115,38 @@ func (o *TimeOffResponse) SetErrors(v []ErrorValidationProblem) {
 	o.Errors = v
 }
 
+// GetLogs returns the Logs field value if set, zero value otherwise.
+func (o *TimeOffResponse) GetLogs() []DebugModeLog {
+	if o == nil || o.Logs == nil {
+		var ret []DebugModeLog
+		return ret
+	}
+	return *o.Logs
+}
+
+// GetLogsOk returns a tuple with the Logs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimeOffResponse) GetLogsOk() (*[]DebugModeLog, bool) {
+	if o == nil || o.Logs == nil {
+		return nil, false
+	}
+	return o.Logs, true
+}
+
+// HasLogs returns a boolean if a field has been set.
+func (o *TimeOffResponse) HasLogs() bool {
+	if o != nil && o.Logs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLogs gets a reference to the given []DebugModeLog and assigns it to the Logs field.
+func (o *TimeOffResponse) SetLogs(v []DebugModeLog) {
+	o.Logs = &v
+}
+
 func (o TimeOffResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -124,6 +157,9 @@ func (o TimeOffResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["errors"] = o.Errors
+	}
+	if o.Logs != nil {
+		toSerialize["logs"] = o.Logs
 	}
 	return json.Marshal(toSerialize)
 }

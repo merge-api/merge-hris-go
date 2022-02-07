@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## TimeOffCreate
 
-> TimeOffResponse TimeOffCreate(ctx).XAccountToken(xAccountToken).TimeOffEndpointRequest(timeOffEndpointRequest).RunAsync(runAsync).Execute()
+> TimeOffResponse TimeOffCreate(ctx).XAccountToken(xAccountToken).TimeOffEndpointRequest(timeOffEndpointRequest).IsDebugMode(isDebugMode).RunAsync(runAsync).Execute()
 
 
 
@@ -32,12 +32,13 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    timeOffEndpointRequest := *openapiclient.NewTimeOffEndpointRequest(*openapiclient.NewTimeOffRequest("APPROVED", "DAYS", "VACATION")) // TimeOffEndpointRequest | 
+    timeOffEndpointRequest := *openapiclient.NewTimeOffEndpointRequest(*openapiclient.NewTimeOffRequest()) // TimeOffEndpointRequest | 
+    isDebugMode := true // bool | Whether to include debug fields (such as log file links) in the response. (optional)
     runAsync := true // bool | Whether or not third-party updates should be run asynchronously. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TimeOffApi.TimeOffCreate(context.Background()).XAccountToken(xAccountToken).TimeOffEndpointRequest(timeOffEndpointRequest).RunAsync(runAsync).Execute()
+    resp, r, err := api_client.TimeOffApi.TimeOffCreate(context.Background()).XAccountToken(xAccountToken).TimeOffEndpointRequest(timeOffEndpointRequest).IsDebugMode(isDebugMode).RunAsync(runAsync).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TimeOffApi.TimeOffCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -60,6 +61,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
  **timeOffEndpointRequest** | [**TimeOffEndpointRequest**](TimeOffEndpointRequest.md) |  | 
+ **isDebugMode** | **bool** | Whether to include debug fields (such as log file links) in the response. | 
  **runAsync** | **bool** | Whether or not third-party updates should be run asynchronously. | 
 
 ### Return type

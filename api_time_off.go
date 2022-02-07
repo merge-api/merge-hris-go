@@ -34,6 +34,7 @@ type ApiTimeOffCreateRequest struct {
 	ApiService *TimeOffApiService
 	xAccountToken *string
 	timeOffEndpointRequest *TimeOffEndpointRequest
+	isDebugMode *bool
 	runAsync *bool
 }
 
@@ -43,6 +44,10 @@ func (r ApiTimeOffCreateRequest) XAccountToken(xAccountToken string) ApiTimeOffC
 }
 func (r ApiTimeOffCreateRequest) TimeOffEndpointRequest(timeOffEndpointRequest TimeOffEndpointRequest) ApiTimeOffCreateRequest {
 	r.timeOffEndpointRequest = &timeOffEndpointRequest
+	return r
+}
+func (r ApiTimeOffCreateRequest) IsDebugMode(isDebugMode bool) ApiTimeOffCreateRequest {
+	r.isDebugMode = &isDebugMode
 	return r
 }
 func (r ApiTimeOffCreateRequest) RunAsync(runAsync bool) ApiTimeOffCreateRequest {
@@ -98,6 +103,9 @@ func (a *TimeOffApiService) TimeOffCreateExecute(r ApiTimeOffCreateRequest) (Tim
 		return localVarReturnValue, nil, reportError("timeOffEndpointRequest is required and must be specified")
 	}
 
+	if r.isDebugMode != nil {
+		localVarQueryParams.Add("is_debug_mode", parameterToString(*r.isDebugMode, ""))
+	}
 	if r.runAsync != nil {
 		localVarQueryParams.Add("run_async", parameterToString(*r.runAsync, ""))
 	}

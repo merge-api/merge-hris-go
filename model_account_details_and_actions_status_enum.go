@@ -19,8 +19,12 @@ import (
 // AccountDetailsAndActionsStatusEnum the model 'AccountDetailsAndActionsStatusEnum'
 type AccountDetailsAndActionsStatusEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of AccountDetailsAndActionsStatusEnum
 const (
+    ACCOUNTDETAILSANDACTIONSSTATUSENUM_MERGE_NONSTANDARD_VALUE AccountDetailsAndActionsStatusEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	ACCOUNTDETAILSANDACTIONSSTATUSENUM_COMPLETE AccountDetailsAndActionsStatusEnum = "COMPLETE"
 	ACCOUNTDETAILSANDACTIONSSTATUSENUM_INCOMPLETE AccountDetailsAndActionsStatusEnum = "INCOMPLETE"
 	ACCOUNTDETAILSANDACTIONSSTATUSENUM_RELINK_NEEDED AccountDetailsAndActionsStatusEnum = "RELINK_NEEDED"
@@ -45,8 +49,8 @@ func (v *AccountDetailsAndActionsStatusEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid AccountDetailsAndActionsStatusEnum", value)
+    *v = ACCOUNTDETAILSANDACTIONSSTATUSENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewAccountDetailsAndActionsStatusEnumFromValue returns a pointer to a valid AccountDetailsAndActionsStatusEnum
@@ -56,7 +60,8 @@ func NewAccountDetailsAndActionsStatusEnumFromValue(v string) (*AccountDetailsAn
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for AccountDetailsAndActionsStatusEnum: valid values are %v", v, allowedAccountDetailsAndActionsStatusEnumEnumValues)
+        ev := ACCOUNTDETAILSANDACTIONSSTATUSENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

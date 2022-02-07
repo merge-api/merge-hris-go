@@ -19,8 +19,12 @@ import (
 // TimeOffStatusEnum the model 'TimeOffStatusEnum'
 type TimeOffStatusEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of TimeOffStatusEnum
 const (
+    TIMEOFFSTATUSENUM_MERGE_NONSTANDARD_VALUE TimeOffStatusEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	TIMEOFFSTATUSENUM_REQUESTED TimeOffStatusEnum = "REQUESTED"
 	TIMEOFFSTATUSENUM_APPROVED TimeOffStatusEnum = "APPROVED"
 	TIMEOFFSTATUSENUM_DECLINED TimeOffStatusEnum = "DECLINED"
@@ -49,8 +53,8 @@ func (v *TimeOffStatusEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid TimeOffStatusEnum", value)
+    *v = TIMEOFFSTATUSENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewTimeOffStatusEnumFromValue returns a pointer to a valid TimeOffStatusEnum
@@ -60,7 +64,8 @@ func NewTimeOffStatusEnumFromValue(v string) (*TimeOffStatusEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for TimeOffStatusEnum: valid values are %v", v, allowedTimeOffStatusEnumEnumValues)
+        ev := TIMEOFFSTATUSENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

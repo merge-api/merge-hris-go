@@ -19,8 +19,12 @@ import (
 // UnitsEnum the model 'UnitsEnum'
 type UnitsEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of UnitsEnum
 const (
+    UNITSENUM_MERGE_NONSTANDARD_VALUE UnitsEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	UNITSENUM_HOURS UnitsEnum = "HOURS"
 	UNITSENUM_DAYS UnitsEnum = "DAYS"
 )
@@ -43,8 +47,8 @@ func (v *UnitsEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid UnitsEnum", value)
+    *v = UNITSENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewUnitsEnumFromValue returns a pointer to a valid UnitsEnum
@@ -54,7 +58,8 @@ func NewUnitsEnumFromValue(v string) (*UnitsEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for UnitsEnum: valid values are %v", v, allowedUnitsEnumEnumValues)
+        ev := UNITSENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

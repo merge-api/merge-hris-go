@@ -19,8 +19,12 @@ import (
 // PayCurrencyEnum the model 'PayCurrencyEnum'
 type PayCurrencyEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of PayCurrencyEnum
 const (
+    PAYCURRENCYENUM_MERGE_NONSTANDARD_VALUE PayCurrencyEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	PAYCURRENCYENUM_XUA PayCurrencyEnum = "XUA"
 	PAYCURRENCYENUM_AFN PayCurrencyEnum = "AFN"
 	PAYCURRENCYENUM_AFA PayCurrencyEnum = "AFA"
@@ -651,8 +655,8 @@ func (v *PayCurrencyEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid PayCurrencyEnum", value)
+    *v = PAYCURRENCYENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewPayCurrencyEnumFromValue returns a pointer to a valid PayCurrencyEnum
@@ -662,7 +666,8 @@ func NewPayCurrencyEnumFromValue(v string) (*PayCurrencyEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for PayCurrencyEnum: valid values are %v", v, allowedPayCurrencyEnumEnumValues)
+        ev := PAYCURRENCYENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

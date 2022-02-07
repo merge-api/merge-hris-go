@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Method** | **string** |  | 
+**Method** | [**MethodEnum**](MethodEnum.md) |  | 
 **Path** | **string** |  | 
 **BaseUrlOverride** | Pointer to **NullableString** |  | [optional] 
 **Data** | Pointer to **NullableString** |  | [optional] 
 **Headers** | Pointer to **map[string]interface{}** |  | [optional] 
-**RequestFormat** | Pointer to **string** |  | [optional] 
+**RequestFormat** | Pointer to [**NullableRequestFormatEnum**](RequestFormatEnum.md) |  | [optional] 
 
 ## Methods
 
 ### NewDataPassthroughRequest
 
-`func NewDataPassthroughRequest(method string, path string, ) *DataPassthroughRequest`
+`func NewDataPassthroughRequest(method MethodEnum, path string, ) *DataPassthroughRequest`
 
 NewDataPassthroughRequest instantiates a new DataPassthroughRequest object
 This constructor will assign default values to properties that have it defined,
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetMethod
 
-`func (o *DataPassthroughRequest) GetMethod() string`
+`func (o *DataPassthroughRequest) GetMethod() MethodEnum`
 
 GetMethod returns the Method field if non-nil, zero value otherwise.
 
 ### GetMethodOk
 
-`func (o *DataPassthroughRequest) GetMethodOk() (*string, bool)`
+`func (o *DataPassthroughRequest) GetMethodOk() (*MethodEnum, bool)`
 
 GetMethodOk returns a tuple with the Method field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMethod
 
-`func (o *DataPassthroughRequest) SetMethod(v string)`
+`func (o *DataPassthroughRequest) SetMethod(v MethodEnum)`
 
 SetMethod sets Method field to given value.
 
@@ -177,20 +177,20 @@ HasHeaders returns a boolean if a field has been set.
 UnsetHeaders ensures that no value is present for Headers, not even an explicit nil
 ### GetRequestFormat
 
-`func (o *DataPassthroughRequest) GetRequestFormat() string`
+`func (o *DataPassthroughRequest) GetRequestFormat() RequestFormatEnum`
 
 GetRequestFormat returns the RequestFormat field if non-nil, zero value otherwise.
 
 ### GetRequestFormatOk
 
-`func (o *DataPassthroughRequest) GetRequestFormatOk() (*string, bool)`
+`func (o *DataPassthroughRequest) GetRequestFormatOk() (*RequestFormatEnum, bool)`
 
 GetRequestFormatOk returns a tuple with the RequestFormat field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequestFormat
 
-`func (o *DataPassthroughRequest) SetRequestFormat(v string)`
+`func (o *DataPassthroughRequest) SetRequestFormat(v RequestFormatEnum)`
 
 SetRequestFormat sets RequestFormat field to given value.
 
@@ -200,6 +200,16 @@ SetRequestFormat sets RequestFormat field to given value.
 
 HasRequestFormat returns a boolean if a field has been set.
 
+### SetRequestFormatNil
+
+`func (o *DataPassthroughRequest) SetRequestFormatNil(b bool)`
+
+ SetRequestFormatNil sets the value for RequestFormat to be an explicit nil
+
+### UnsetRequestFormat
+`func (o *DataPassthroughRequest) UnsetRequestFormat()`
+
+UnsetRequestFormat ensures that no value is present for RequestFormat, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

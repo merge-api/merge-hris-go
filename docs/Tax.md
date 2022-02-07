@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
-**EmployeePayrollRun** | Pointer to **NullableString** | The tax&#39;s employee payroll run. | [optional] 
+**EmployeePayrollRun** | Pointer to **NullableString** |  | [optional] 
 **Name** | Pointer to **NullableString** | The tax&#39;s name. | [optional] 
 **Amount** | Pointer to **NullableFloat32** | The tax amount. | [optional] 
 **EmployerTax** | Pointer to **NullableBool** | Whether or not the employer is responsible for paying the tax. | [optional] 

@@ -38,7 +38,6 @@ type ApiBankInfoListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
-	employee *string
 	employeeId *string
 	includeDeletedData *bool
 	includeRemoteData *bool
@@ -46,7 +45,6 @@ type ApiBankInfoListRequest struct {
 	modifiedBefore *time.Time
 	orderBy *string
 	pageSize *int32
-	remoteCreatedAt *time.Time
 	remoteId *string
 }
 
@@ -72,10 +70,6 @@ func (r ApiBankInfoListRequest) CreatedBefore(createdBefore time.Time) ApiBankIn
 }
 func (r ApiBankInfoListRequest) Cursor(cursor string) ApiBankInfoListRequest {
 	r.cursor = &cursor
-	return r
-}
-func (r ApiBankInfoListRequest) Employee(employee string) ApiBankInfoListRequest {
-	r.employee = &employee
 	return r
 }
 func (r ApiBankInfoListRequest) EmployeeId(employeeId string) ApiBankInfoListRequest {
@@ -104,10 +98,6 @@ func (r ApiBankInfoListRequest) OrderBy(orderBy string) ApiBankInfoListRequest {
 }
 func (r ApiBankInfoListRequest) PageSize(pageSize int32) ApiBankInfoListRequest {
 	r.pageSize = &pageSize
-	return r
-}
-func (r ApiBankInfoListRequest) RemoteCreatedAt(remoteCreatedAt time.Time) ApiBankInfoListRequest {
-	r.remoteCreatedAt = &remoteCreatedAt
 	return r
 }
 func (r ApiBankInfoListRequest) RemoteId(remoteId string) ApiBankInfoListRequest {
@@ -175,9 +165,6 @@ func (a *BankInfoApiService) BankInfoListExecute(r ApiBankInfoListRequest) (Pagi
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
 	}
-	if r.employee != nil {
-		localVarQueryParams.Add("employee", parameterToString(*r.employee, ""))
-	}
 	if r.employeeId != nil {
 		localVarQueryParams.Add("employee_id", parameterToString(*r.employeeId, ""))
 	}
@@ -198,9 +185,6 @@ func (a *BankInfoApiService) BankInfoListExecute(r ApiBankInfoListRequest) (Pagi
 	}
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
-	}
-	if r.remoteCreatedAt != nil {
-		localVarQueryParams.Add("remote_created_at", parameterToString(*r.remoteCreatedAt, ""))
 	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))

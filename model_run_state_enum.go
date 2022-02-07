@@ -19,8 +19,12 @@ import (
 // RunStateEnum the model 'RunStateEnum'
 type RunStateEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of RunStateEnum
 const (
+    RUNSTATEENUM_MERGE_NONSTANDARD_VALUE RunStateEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	RUNSTATEENUM_PAID RunStateEnum = "PAID"
 	RUNSTATEENUM_DRAFT RunStateEnum = "DRAFT"
 	RUNSTATEENUM_APPROVED RunStateEnum = "APPROVED"
@@ -49,8 +53,8 @@ func (v *RunStateEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid RunStateEnum", value)
+    *v = RUNSTATEENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewRunStateEnumFromValue returns a pointer to a valid RunStateEnum
@@ -60,7 +64,8 @@ func NewRunStateEnumFromValue(v string) (*RunStateEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for RunStateEnum: valid values are %v", v, allowedRunStateEnumEnumValues)
+        ev := RUNSTATEENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

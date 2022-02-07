@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**Employee** | Pointer to **NullableString** | The employee on the plan. | [optional] 
+**Employee** | Pointer to **NullableString** |  | [optional] 
 **ProviderName** | Pointer to **NullableString** | The name of the benefit provider. | [optional] 
-**BenefitPlanType** | **string** |  | 
+**BenefitPlanType** | Pointer to [**NullableBenefitPlanTypeEnum**](BenefitPlanTypeEnum.md) | The type of benefit plan | [optional] 
 **EmployeeContribution** | Pointer to **NullableFloat32** | The employee&#39;s contribution. | [optional] 
 **CompanyContribution** | Pointer to **NullableFloat32** | The company&#39;s contribution. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewBenefit
 
-`func NewBenefit(benefitPlanType string, ) *Benefit`
+`func NewBenefit() *Benefit`
 
 NewBenefit instantiates a new Benefit object
 This constructor will assign default values to properties that have it defined,
@@ -164,24 +164,39 @@ HasProviderName returns a boolean if a field has been set.
 UnsetProviderName ensures that no value is present for ProviderName, not even an explicit nil
 ### GetBenefitPlanType
 
-`func (o *Benefit) GetBenefitPlanType() string`
+`func (o *Benefit) GetBenefitPlanType() BenefitPlanTypeEnum`
 
 GetBenefitPlanType returns the BenefitPlanType field if non-nil, zero value otherwise.
 
 ### GetBenefitPlanTypeOk
 
-`func (o *Benefit) GetBenefitPlanTypeOk() (*string, bool)`
+`func (o *Benefit) GetBenefitPlanTypeOk() (*BenefitPlanTypeEnum, bool)`
 
 GetBenefitPlanTypeOk returns a tuple with the BenefitPlanType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBenefitPlanType
 
-`func (o *Benefit) SetBenefitPlanType(v string)`
+`func (o *Benefit) SetBenefitPlanType(v BenefitPlanTypeEnum)`
 
 SetBenefitPlanType sets BenefitPlanType field to given value.
 
+### HasBenefitPlanType
 
+`func (o *Benefit) HasBenefitPlanType() bool`
+
+HasBenefitPlanType returns a boolean if a field has been set.
+
+### SetBenefitPlanTypeNil
+
+`func (o *Benefit) SetBenefitPlanTypeNil(b bool)`
+
+ SetBenefitPlanTypeNil sets the value for BenefitPlanType to be an explicit nil
+
+### UnsetBenefitPlanType
+`func (o *Benefit) UnsetBenefitPlanType()`
+
+UnsetBenefitPlanType ensures that no value is present for BenefitPlanType, not even an explicit nil
 ### GetEmployeeContribution
 
 `func (o *Benefit) GetEmployeeContribution() float32`

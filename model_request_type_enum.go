@@ -19,8 +19,12 @@ import (
 // RequestTypeEnum the model 'RequestTypeEnum'
 type RequestTypeEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of RequestTypeEnum
 const (
+    REQUESTTYPEENUM_MERGE_NONSTANDARD_VALUE RequestTypeEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	REQUESTTYPEENUM_VACATION RequestTypeEnum = "VACATION"
 	REQUESTTYPEENUM_SICK RequestTypeEnum = "SICK"
 	REQUESTTYPEENUM_PERSONAL RequestTypeEnum = "PERSONAL"
@@ -51,8 +55,8 @@ func (v *RequestTypeEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid RequestTypeEnum", value)
+    *v = REQUESTTYPEENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewRequestTypeEnumFromValue returns a pointer to a valid RequestTypeEnum
@@ -62,7 +66,8 @@ func NewRequestTypeEnumFromValue(v string) (*RequestTypeEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for RequestTypeEnum: valid values are %v", v, allowedRequestTypeEnumEnumValues)
+        ev := REQUESTTYPEENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

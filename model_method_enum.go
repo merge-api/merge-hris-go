@@ -19,8 +19,12 @@ import (
 // MethodEnum the model 'MethodEnum'
 type MethodEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of MethodEnum
 const (
+    METHODENUM_MERGE_NONSTANDARD_VALUE MethodEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	METHODENUM_GET MethodEnum = "GET"
 	METHODENUM_OPTIONS MethodEnum = "OPTIONS"
 	METHODENUM_HEAD MethodEnum = "HEAD"
@@ -53,8 +57,8 @@ func (v *MethodEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid MethodEnum", value)
+    *v = METHODENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewMethodEnumFromValue returns a pointer to a valid MethodEnum
@@ -64,7 +68,8 @@ func NewMethodEnumFromValue(v string) (*MethodEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for MethodEnum: valid values are %v", v, allowedMethodEnumEnumValues)
+        ev := METHODENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

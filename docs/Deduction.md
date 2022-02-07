@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
-**EmployeePayrollRun** | Pointer to **NullableString** | The deduction&#39;s employee payroll run. | [optional] 
+**EmployeePayrollRun** | Pointer to **NullableString** |  | [optional] 
 **Name** | Pointer to **NullableString** | The deduction&#39;s name. | [optional] 
 **EmployeeDeduction** | Pointer to **NullableFloat32** | The amount the employee is deducting. | [optional] 
 **CompanyDeduction** | Pointer to **NullableFloat32** | The amount the company is deducting. | [optional] 
-**RemoteData** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -197,20 +197,20 @@ HasCompanyDeduction returns a boolean if a field has been set.
 UnsetCompanyDeduction ensures that no value is present for CompanyDeduction, not even an explicit nil
 ### GetRemoteData
 
-`func (o *Deduction) GetRemoteData() []map[string]interface{}`
+`func (o *Deduction) GetRemoteData() []RemoteData`
 
 GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
 
 ### GetRemoteDataOk
 
-`func (o *Deduction) GetRemoteDataOk() (*[]map[string]interface{}, bool)`
+`func (o *Deduction) GetRemoteDataOk() (*[]RemoteData, bool)`
 
 GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemoteData
 
-`func (o *Deduction) SetRemoteData(v []map[string]interface{})`
+`func (o *Deduction) SetRemoteData(v []RemoteData)`
 
 SetRemoteData sets RemoteData field to given value.
 

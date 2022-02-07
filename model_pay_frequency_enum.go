@@ -19,8 +19,12 @@ import (
 // PayFrequencyEnum the model 'PayFrequencyEnum'
 type PayFrequencyEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of PayFrequencyEnum
 const (
+    PAYFREQUENCYENUM_MERGE_NONSTANDARD_VALUE PayFrequencyEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	PAYFREQUENCYENUM_WEEKLY PayFrequencyEnum = "WEEKLY"
 	PAYFREQUENCYENUM_BIWEEKLY PayFrequencyEnum = "BIWEEKLY"
 	PAYFREQUENCYENUM_MONTHLY PayFrequencyEnum = "MONTHLY"
@@ -55,8 +59,8 @@ func (v *PayFrequencyEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid PayFrequencyEnum", value)
+    *v = PAYFREQUENCYENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewPayFrequencyEnumFromValue returns a pointer to a valid PayFrequencyEnum
@@ -66,7 +70,8 @@ func NewPayFrequencyEnumFromValue(v string) (*PayFrequencyEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for PayFrequencyEnum: valid values are %v", v, allowedPayFrequencyEnumEnumValues)
+        ev := PAYFREQUENCYENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

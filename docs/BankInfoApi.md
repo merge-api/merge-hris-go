@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## BankInfoList
 
-> PaginatedBankInfoList BankInfoList(ctx).XAccountToken(xAccountToken).AccountType(accountType).BankName(bankName).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).Employee(employee).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).OrderBy(orderBy).PageSize(pageSize).RemoteCreatedAt(remoteCreatedAt).RemoteId(remoteId).Execute()
+> PaginatedBankInfoList BankInfoList(ctx).XAccountToken(xAccountToken).AccountType(accountType).BankName(bankName).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).OrderBy(orderBy).PageSize(pageSize).RemoteId(remoteId).Execute()
 
 
 
@@ -32,12 +32,11 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    accountType := "accountType_example" // string | The bank account type: [CHECKING, SAVINGS] (optional)
-    bankName := "bankName_example" // string |  (optional)
+    accountType := "accountType_example" // string | If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING') (optional)
+    bankName := "bankName_example" // string | If provided, will only return BankInfo's with this bank name. (optional)
     createdAfter := time.Now() // time.Time | If provided, will only return objects created after this datetime. (optional)
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
-    employee := TODO // string | If provided, will only return bank accounts for this employee. (optional)
     employeeId := "employeeId_example" // string | If provided, will only return bank accounts for this employee. (optional)
     includeDeletedData := true // bool | Whether to include data that was deleted in the third-party service. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
@@ -45,12 +44,11 @@ func main() {
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
     orderBy := "orderBy_example" // string | Overrides the default ordering for this endpoint. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
-    remoteCreatedAt := time.Now() // time.Time |  (optional)
     remoteId := "remoteId_example" // string | The API provider's ID for the given object. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BankInfoApi.BankInfoList(context.Background()).XAccountToken(xAccountToken).AccountType(accountType).BankName(bankName).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).Employee(employee).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).OrderBy(orderBy).PageSize(pageSize).RemoteCreatedAt(remoteCreatedAt).RemoteId(remoteId).Execute()
+    resp, r, err := api_client.BankInfoApi.BankInfoList(context.Background()).XAccountToken(xAccountToken).AccountType(accountType).BankName(bankName).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).OrderBy(orderBy).PageSize(pageSize).RemoteId(remoteId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BankInfoApi.BankInfoList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -72,12 +70,11 @@ Other parameters are passed through a pointer to a apiBankInfoListRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
- **accountType** | **string** | The bank account type: [CHECKING, SAVINGS] | 
- **bankName** | **string** |  | 
+ **accountType** | **string** | If provided, will only return BankInfo&#39;s with this account type. Options: (&#39;SAVINGS&#39;, &#39;CHECKING&#39;) | 
+ **bankName** | **string** | If provided, will only return BankInfo&#39;s with this bank name. | 
  **createdAfter** | **time.Time** | If provided, will only return objects created after this datetime. | 
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
- **employee** | [**string**](string.md) | If provided, will only return bank accounts for this employee. | 
  **employeeId** | **string** | If provided, will only return bank accounts for this employee. | 
  **includeDeletedData** | **bool** | Whether to include data that was deleted in the third-party service. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
@@ -85,7 +82,6 @@ Name | Type | Description  | Notes
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
  **orderBy** | **string** | Overrides the default ordering for this endpoint. | 
  **pageSize** | **int32** | Number of results to return per page. | 
- **remoteCreatedAt** | **time.Time** |  | 
  **remoteId** | **string** | The API provider&#39;s ID for the given object. | 
 
 ### Return type

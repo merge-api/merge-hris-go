@@ -19,7 +19,7 @@ import (
 // Issue struct for Issue
 type Issue struct {
 	Id *string `json:"id,omitempty"`
-	Status *string `json:"status,omitempty"`
+	Status *IssueStatusEnum `json:"status,omitempty"`
 	ErrorDescription string `json:"error_description"`
 	EndUser *map[string]interface{} `json:"end_user,omitempty"`
 	FirstIncidentTime NullableTime `json:"first_incident_time,omitempty"`
@@ -78,9 +78,9 @@ func (o *Issue) SetId(v string) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *Issue) GetStatus() string {
+func (o *Issue) GetStatus() IssueStatusEnum {
 	if o == nil || o.Status == nil {
-		var ret string
+		var ret IssueStatusEnum
 		return ret
 	}
 	return *o.Status
@@ -88,7 +88,7 @@ func (o *Issue) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Issue) GetStatusOk() (*string, bool) {
+func (o *Issue) GetStatusOk() (*IssueStatusEnum, bool) {
 	if o == nil || o.Status == nil {
 		return nil, false
 	}
@@ -104,8 +104,8 @@ func (o *Issue) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *Issue) SetStatus(v string) {
+// SetStatus gets a reference to the given IssueStatusEnum and assigns it to the Status field.
+func (o *Issue) SetStatus(v IssueStatusEnum) {
 	o.Status = &v
 }
 

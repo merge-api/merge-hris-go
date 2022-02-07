@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**Employee** | Pointer to **NullableString** | The employee requesting time off. | [optional] 
-**Approver** | Pointer to **NullableString** | The employee approving the time off request. | [optional] 
-**Status** | **string** |  | 
+**Employee** | Pointer to **NullableString** |  | [optional] 
+**Approver** | Pointer to **NullableString** |  | [optional] 
+**Status** | Pointer to [**NullableTimeOffStatusEnum**](TimeOffStatusEnum.md) | The status of this time off request. | [optional] 
 **EmployeeNote** | Pointer to **NullableString** | The employee note for this time off request. | [optional] 
-**Units** | **string** |  | 
+**Units** | Pointer to [**NullableUnitsEnum**](UnitsEnum.md) | The unit of time requested. | [optional] 
 **Amount** | Pointer to **NullableFloat32** | The number of time off units requested. | [optional] 
-**RequestType** | **string** |  | 
+**RequestType** | Pointer to [**NullableRequestTypeEnum**](RequestTypeEnum.md) | The type of time off request. | [optional] 
 **StartTime** | Pointer to **NullableTime** | The day and time of the start of the time requested off. | [optional] 
 **EndTime** | Pointer to **NullableTime** | The day and time of the end of the time requested off. | [optional] 
 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewTimeOffRequest
 
-`func NewTimeOffRequest(status string, units string, requestType string, ) *TimeOffRequest`
+`func NewTimeOffRequest() *TimeOffRequest`
 
 NewTimeOffRequest instantiates a new TimeOffRequest object
 This constructor will assign default values to properties that have it defined,
@@ -141,24 +141,39 @@ HasApprover returns a boolean if a field has been set.
 UnsetApprover ensures that no value is present for Approver, not even an explicit nil
 ### GetStatus
 
-`func (o *TimeOffRequest) GetStatus() string`
+`func (o *TimeOffRequest) GetStatus() TimeOffStatusEnum`
 
 GetStatus returns the Status field if non-nil, zero value otherwise.
 
 ### GetStatusOk
 
-`func (o *TimeOffRequest) GetStatusOk() (*string, bool)`
+`func (o *TimeOffRequest) GetStatusOk() (*TimeOffStatusEnum, bool)`
 
 GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatus
 
-`func (o *TimeOffRequest) SetStatus(v string)`
+`func (o *TimeOffRequest) SetStatus(v TimeOffStatusEnum)`
 
 SetStatus sets Status field to given value.
 
+### HasStatus
 
+`func (o *TimeOffRequest) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
+### SetStatusNil
+
+`func (o *TimeOffRequest) SetStatusNil(b bool)`
+
+ SetStatusNil sets the value for Status to be an explicit nil
+
+### UnsetStatus
+`func (o *TimeOffRequest) UnsetStatus()`
+
+UnsetStatus ensures that no value is present for Status, not even an explicit nil
 ### GetEmployeeNote
 
 `func (o *TimeOffRequest) GetEmployeeNote() string`
@@ -196,24 +211,39 @@ HasEmployeeNote returns a boolean if a field has been set.
 UnsetEmployeeNote ensures that no value is present for EmployeeNote, not even an explicit nil
 ### GetUnits
 
-`func (o *TimeOffRequest) GetUnits() string`
+`func (o *TimeOffRequest) GetUnits() UnitsEnum`
 
 GetUnits returns the Units field if non-nil, zero value otherwise.
 
 ### GetUnitsOk
 
-`func (o *TimeOffRequest) GetUnitsOk() (*string, bool)`
+`func (o *TimeOffRequest) GetUnitsOk() (*UnitsEnum, bool)`
 
 GetUnitsOk returns a tuple with the Units field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnits
 
-`func (o *TimeOffRequest) SetUnits(v string)`
+`func (o *TimeOffRequest) SetUnits(v UnitsEnum)`
 
 SetUnits sets Units field to given value.
 
+### HasUnits
 
+`func (o *TimeOffRequest) HasUnits() bool`
+
+HasUnits returns a boolean if a field has been set.
+
+### SetUnitsNil
+
+`func (o *TimeOffRequest) SetUnitsNil(b bool)`
+
+ SetUnitsNil sets the value for Units to be an explicit nil
+
+### UnsetUnits
+`func (o *TimeOffRequest) UnsetUnits()`
+
+UnsetUnits ensures that no value is present for Units, not even an explicit nil
 ### GetAmount
 
 `func (o *TimeOffRequest) GetAmount() float32`
@@ -251,24 +281,39 @@ HasAmount returns a boolean if a field has been set.
 UnsetAmount ensures that no value is present for Amount, not even an explicit nil
 ### GetRequestType
 
-`func (o *TimeOffRequest) GetRequestType() string`
+`func (o *TimeOffRequest) GetRequestType() RequestTypeEnum`
 
 GetRequestType returns the RequestType field if non-nil, zero value otherwise.
 
 ### GetRequestTypeOk
 
-`func (o *TimeOffRequest) GetRequestTypeOk() (*string, bool)`
+`func (o *TimeOffRequest) GetRequestTypeOk() (*RequestTypeEnum, bool)`
 
 GetRequestTypeOk returns a tuple with the RequestType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequestType
 
-`func (o *TimeOffRequest) SetRequestType(v string)`
+`func (o *TimeOffRequest) SetRequestType(v RequestTypeEnum)`
 
 SetRequestType sets RequestType field to given value.
 
+### HasRequestType
 
+`func (o *TimeOffRequest) HasRequestType() bool`
+
+HasRequestType returns a boolean if a field has been set.
+
+### SetRequestTypeNil
+
+`func (o *TimeOffRequest) SetRequestTypeNil(b bool)`
+
+ SetRequestTypeNil sets the value for RequestType to be an explicit nil
+
+### UnsetRequestType
+`func (o *TimeOffRequest) UnsetRequestType()`
+
+UnsetRequestType ensures that no value is present for RequestType, not even an explicit nil
 ### GetStartTime
 
 `func (o *TimeOffRequest) GetStartTime() time.Time`

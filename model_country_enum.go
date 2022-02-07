@@ -19,8 +19,12 @@ import (
 // CountryEnum the model 'CountryEnum'
 type CountryEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of CountryEnum
 const (
+    COUNTRYENUM_MERGE_NONSTANDARD_VALUE CountryEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	COUNTRYENUM_AF CountryEnum = "AF"
 	COUNTRYENUM_AX CountryEnum = "AX"
 	COUNTRYENUM_AL CountryEnum = "AL"
@@ -537,8 +541,8 @@ func (v *CountryEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid CountryEnum", value)
+    *v = COUNTRYENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewCountryEnumFromValue returns a pointer to a valid CountryEnum
@@ -548,7 +552,8 @@ func NewCountryEnumFromValue(v string) (*CountryEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for CountryEnum: valid values are %v", v, allowedCountryEnumEnumValues)
+        ev := COUNTRYENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

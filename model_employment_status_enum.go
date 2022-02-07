@@ -19,8 +19,12 @@ import (
 // EmploymentStatusEnum the model 'EmploymentStatusEnum'
 type EmploymentStatusEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of EmploymentStatusEnum
 const (
+    EMPLOYMENTSTATUSENUM_MERGE_NONSTANDARD_VALUE EmploymentStatusEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	EMPLOYMENTSTATUSENUM_ACTIVE EmploymentStatusEnum = "ACTIVE"
 	EMPLOYMENTSTATUSENUM_PENDING EmploymentStatusEnum = "PENDING"
 	EMPLOYMENTSTATUSENUM_INACTIVE EmploymentStatusEnum = "INACTIVE"
@@ -45,8 +49,8 @@ func (v *EmploymentStatusEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid EmploymentStatusEnum", value)
+    *v = EMPLOYMENTSTATUSENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewEmploymentStatusEnumFromValue returns a pointer to a valid EmploymentStatusEnum
@@ -56,7 +60,8 @@ func NewEmploymentStatusEnumFromValue(v string) (*EmploymentStatusEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for EmploymentStatusEnum: valid values are %v", v, allowedEmploymentStatusEnumEnumValues)
+        ev := EMPLOYMENTSTATUSENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 

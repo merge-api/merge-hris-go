@@ -21,7 +21,6 @@ type BankInfo struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
-	// The employee with this bank account.
 	Employee NullableString `json:"employee,omitempty"`
 	// The account number.
 	AccountNumber NullableString `json:"account_number,omitempty"`
@@ -29,7 +28,8 @@ type BankInfo struct {
 	RoutingNumber NullableString `json:"routing_number,omitempty"`
 	// The bank name.
 	BankName NullableString `json:"bank_name,omitempty"`
-	AccountType string `json:"account_type"`
+	// The bank account type
+	AccountType NullableAccountTypeEnum `json:"account_type,omitempty"`
 	// When the matching bank object was created in the third party system.
 	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
@@ -39,9 +39,8 @@ type BankInfo struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBankInfo(accountType string) *BankInfo {
+func NewBankInfo() *BankInfo {
 	this := BankInfo{}
-	this.AccountType = accountType
 	return &this
 }
 
@@ -295,28 +294,46 @@ func (o *BankInfo) UnsetBankName() {
 	o.BankName.Unset()
 }
 
-// GetAccountType returns the AccountType field value
-func (o *BankInfo) GetAccountType() string {
-	if o == nil {
-		var ret string
+// GetAccountType returns the AccountType field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BankInfo) GetAccountType() AccountTypeEnum {
+	if o == nil || o.AccountType.Get() == nil {
+		var ret AccountTypeEnum
 		return ret
 	}
-
-	return o.AccountType
+	return *o.AccountType.Get()
 }
 
-// GetAccountTypeOk returns a tuple with the AccountType field value
+// GetAccountTypeOk returns a tuple with the AccountType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BankInfo) GetAccountTypeOk() (*string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BankInfo) GetAccountTypeOk() (*AccountTypeEnum, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.AccountType, true
+	return o.AccountType.Get(), o.AccountType.IsSet()
 }
 
-// SetAccountType sets field value
-func (o *BankInfo) SetAccountType(v string) {
-	o.AccountType = v
+// HasAccountType returns a boolean if a field has been set.
+func (o *BankInfo) HasAccountType() bool {
+	if o != nil && o.AccountType.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountType gets a reference to the given NullableAccountTypeEnum and assigns it to the AccountType field.
+func (o *BankInfo) SetAccountType(v AccountTypeEnum) {
+	o.AccountType.Set(&v)
+}
+// SetAccountTypeNil sets the value for AccountType to be an explicit nil
+func (o *BankInfo) SetAccountTypeNil() {
+	o.AccountType.Set(nil)
+}
+
+// UnsetAccountType ensures that no value is present for AccountType, not even an explicit nil
+func (o *BankInfo) UnsetAccountType() {
+	o.AccountType.Unset()
 }
 
 // GetRemoteCreatedAt returns the RemoteCreatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -414,8 +431,8 @@ func (o BankInfo) MarshalJSON() ([]byte, error) {
 	if o.BankName.IsSet() {
 		toSerialize["bank_name"] = o.BankName.Get()
 	}
-	if true {
-		toSerialize["account_type"] = o.AccountType
+	if o.AccountType.IsSet() {
+		toSerialize["account_type"] = o.AccountType.Get()
 	}
 	if o.RemoteCreatedAt.IsSet() {
 		toSerialize["remote_created_at"] = o.RemoteCreatedAt.Get()

@@ -19,8 +19,12 @@ import (
 // RunTypeEnum the model 'RunTypeEnum'
 type RunTypeEnum string
 
+// apologies but this is to get around an import error
+var _ = fmt.Printf
 // List of RunTypeEnum
 const (
+    RUNTYPEENUM_MERGE_NONSTANDARD_VALUE RunTypeEnum = "MERGE_NONSTANDARD_VALUE"
+    
 	RUNTYPEENUM_REGULAR RunTypeEnum = "REGULAR"
 	RUNTYPEENUM_OFF_CYCLE RunTypeEnum = "OFF_CYCLE"
 	RUNTYPEENUM_CORRECTION RunTypeEnum = "CORRECTION"
@@ -49,8 +53,8 @@ func (v *RunTypeEnum) UnmarshalJSON(src []byte) error {
 			return nil
 		}
 	}
-
-	return fmt.Errorf("%+v is not a valid RunTypeEnum", value)
+    *v = RUNTYPEENUM_MERGE_NONSTANDARD_VALUE
+    return nil
 }
 
 // NewRunTypeEnumFromValue returns a pointer to a valid RunTypeEnum
@@ -60,7 +64,8 @@ func NewRunTypeEnumFromValue(v string) (*RunTypeEnum, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for RunTypeEnum: valid values are %v", v, allowedRunTypeEnumEnumValues)
+        ev := RUNTYPEENUM_MERGE_NONSTANDARD_VALUE
+        return &ev, nil
 	}
 }
 
