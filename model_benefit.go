@@ -24,7 +24,7 @@ type Benefit struct {
 	// The name of the benefit provider.
 	ProviderName NullableString `json:"provider_name,omitempty"`
 	// The type of benefit plan
-	BenefitPlanType NullableBenefitPlanTypeEnum `json:"benefit_plan_type,omitempty"`
+	BenefitPlanType NullableString `json:"benefit_plan_type,omitempty"`
 	// The employee's contribution.
 	EmployeeContribution NullableFloat32 `json:"employee_contribution,omitempty"`
 	// The company's contribution.
@@ -208,9 +208,9 @@ func (o *Benefit) UnsetProviderName() {
 }
 
 // GetBenefitPlanType returns the BenefitPlanType field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Benefit) GetBenefitPlanType() BenefitPlanTypeEnum {
+func (o *Benefit) GetBenefitPlanType() string {
 	if o == nil || o.BenefitPlanType.Get() == nil {
-		var ret BenefitPlanTypeEnum
+		var ret string
 		return ret
 	}
 	return *o.BenefitPlanType.Get()
@@ -219,7 +219,7 @@ func (o *Benefit) GetBenefitPlanType() BenefitPlanTypeEnum {
 // GetBenefitPlanTypeOk returns a tuple with the BenefitPlanType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Benefit) GetBenefitPlanTypeOk() (*BenefitPlanTypeEnum, bool) {
+func (o *Benefit) GetBenefitPlanTypeOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -235,8 +235,8 @@ func (o *Benefit) HasBenefitPlanType() bool {
 	return false
 }
 
-// SetBenefitPlanType gets a reference to the given NullableBenefitPlanTypeEnum and assigns it to the BenefitPlanType field.
-func (o *Benefit) SetBenefitPlanType(v BenefitPlanTypeEnum) {
+// SetBenefitPlanType gets a reference to the given NullableString and assigns it to the BenefitPlanType field.
+func (o *Benefit) SetBenefitPlanType(v string) {
 	o.BenefitPlanType.Set(&v)
 }
 // SetBenefitPlanTypeNil sets the value for BenefitPlanType to be an explicit nil
