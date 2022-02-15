@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **EndUserOriginId** | **string** |  | 
 **Categories** | Pointer to [**[]CategoriesEnum**](CategoriesEnum.md) |  | [optional] 
 **Integration** | Pointer to **NullableString** |  | [optional] 
+**LinkExpiryMins** | Pointer to **int32** |  | [optional] [default to 30]
 
 ## Methods
 
@@ -149,6 +150,31 @@ HasIntegration returns a boolean if a field has been set.
 `func (o *EndUserDetailsRequest) UnsetIntegration()`
 
 UnsetIntegration ensures that no value is present for Integration, not even an explicit nil
+### GetLinkExpiryMins
+
+`func (o *EndUserDetailsRequest) GetLinkExpiryMins() int32`
+
+GetLinkExpiryMins returns the LinkExpiryMins field if non-nil, zero value otherwise.
+
+### GetLinkExpiryMinsOk
+
+`func (o *EndUserDetailsRequest) GetLinkExpiryMinsOk() (*int32, bool)`
+
+GetLinkExpiryMinsOk returns a tuple with the LinkExpiryMins field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinkExpiryMins
+
+`func (o *EndUserDetailsRequest) SetLinkExpiryMins(v int32)`
+
+SetLinkExpiryMins sets LinkExpiryMins field to given value.
+
+### HasLinkExpiryMins
+
+`func (o *EndUserDetailsRequest) HasLinkExpiryMins() bool`
+
+HasLinkExpiryMins returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -22,13 +22,12 @@ type EmployeeRequest struct {
 	RemoteId NullableString `json:"remote_id,omitempty"`
 	// The employee's number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user.
 	EmployeeNumber NullableString `json:"employee_number,omitempty"`
-	// The ID of the employee's company.
 	Company NullableString `json:"company,omitempty"`
 	// The employee's first name.
 	FirstName NullableString `json:"first_name,omitempty"`
 	// The employee's last name.
 	LastName NullableString `json:"last_name,omitempty"`
-	// The employee's full name, to use for display purposes.
+	// The employee's full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name.
 	DisplayFullName NullableString `json:"display_full_name,omitempty"`
 	// The employee's work email.
 	WorkEmail NullableString `json:"work_email,omitempty"`
@@ -36,14 +35,13 @@ type EmployeeRequest struct {
 	PersonalEmail NullableString `json:"personal_email,omitempty"`
 	// The employee's mobile phone number.
 	MobilePhoneNumber NullableString `json:"mobile_phone_number,omitempty"`
-	// The employee's home address.
+	// Array of `Employment` IDs for this Employee.
+	Employments *[]string `json:"employments,omitempty"`
 	HomeLocation NullableString `json:"home_location,omitempty"`
-	// The employee's work address.
 	WorkLocation NullableString `json:"work_location,omitempty"`
-	// The employee ID of the employee's manager.
 	Manager NullableString `json:"manager,omitempty"`
-	// The employee's team.
 	Team NullableString `json:"team,omitempty"`
+	PayGroup NullableString `json:"pay_group,omitempty"`
 	// The employee's social security number.
 	Ssn NullableString `json:"ssn,omitempty"`
 	// The employee's gender.
@@ -463,6 +461,38 @@ func (o *EmployeeRequest) UnsetMobilePhoneNumber() {
 	o.MobilePhoneNumber.Unset()
 }
 
+// GetEmployments returns the Employments field value if set, zero value otherwise.
+func (o *EmployeeRequest) GetEmployments() []string {
+	if o == nil || o.Employments == nil {
+		var ret []string
+		return ret
+	}
+	return *o.Employments
+}
+
+// GetEmploymentsOk returns a tuple with the Employments field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EmployeeRequest) GetEmploymentsOk() (*[]string, bool) {
+	if o == nil || o.Employments == nil {
+		return nil, false
+	}
+	return o.Employments, true
+}
+
+// HasEmployments returns a boolean if a field has been set.
+func (o *EmployeeRequest) HasEmployments() bool {
+	if o != nil && o.Employments != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEmployments gets a reference to the given []string and assigns it to the Employments field.
+func (o *EmployeeRequest) SetEmployments(v []string) {
+	o.Employments = &v
+}
+
 // GetHomeLocation returns the HomeLocation field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *EmployeeRequest) GetHomeLocation() string {
 	if o == nil || o.HomeLocation.Get() == nil {
@@ -629,6 +659,48 @@ func (o *EmployeeRequest) SetTeamNil() {
 // UnsetTeam ensures that no value is present for Team, not even an explicit nil
 func (o *EmployeeRequest) UnsetTeam() {
 	o.Team.Unset()
+}
+
+// GetPayGroup returns the PayGroup field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployeeRequest) GetPayGroup() string {
+	if o == nil || o.PayGroup.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.PayGroup.Get()
+}
+
+// GetPayGroupOk returns a tuple with the PayGroup field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployeeRequest) GetPayGroupOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.PayGroup.Get(), o.PayGroup.IsSet()
+}
+
+// HasPayGroup returns a boolean if a field has been set.
+func (o *EmployeeRequest) HasPayGroup() bool {
+	if o != nil && o.PayGroup.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPayGroup gets a reference to the given NullableString and assigns it to the PayGroup field.
+func (o *EmployeeRequest) SetPayGroup(v string) {
+	o.PayGroup.Set(&v)
+}
+// SetPayGroupNil sets the value for PayGroup to be an explicit nil
+func (o *EmployeeRequest) SetPayGroupNil() {
+	o.PayGroup.Set(nil)
+}
+
+// UnsetPayGroup ensures that no value is present for PayGroup, not even an explicit nil
+func (o *EmployeeRequest) UnsetPayGroup() {
+	o.PayGroup.Unset()
 }
 
 // GetSsn returns the Ssn field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1113,6 +1185,9 @@ func (o EmployeeRequest) MarshalJSON() ([]byte, error) {
 	if o.MobilePhoneNumber.IsSet() {
 		toSerialize["mobile_phone_number"] = o.MobilePhoneNumber.Get()
 	}
+	if o.Employments != nil {
+		toSerialize["employments"] = o.Employments
+	}
 	if o.HomeLocation.IsSet() {
 		toSerialize["home_location"] = o.HomeLocation.Get()
 	}
@@ -1124,6 +1199,9 @@ func (o EmployeeRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Team.IsSet() {
 		toSerialize["team"] = o.Team.Get()
+	}
+	if o.PayGroup.IsSet() {
+		toSerialize["pay_group"] = o.PayGroup.Get()
 	}
 	if o.Ssn.IsSet() {
 		toSerialize["ssn"] = o.Ssn.Get()

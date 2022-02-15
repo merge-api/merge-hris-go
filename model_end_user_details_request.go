@@ -22,6 +22,7 @@ type EndUserDetailsRequest struct {
 	EndUserOriginId string `json:"end_user_origin_id"`
 	Categories *[]CategoriesEnum `json:"categories,omitempty"`
 	Integration NullableString `json:"integration,omitempty"`
+	LinkExpiryMins *int32 `json:"link_expiry_mins,omitempty"`
 }
 
 // NewEndUserDetailsRequest instantiates a new EndUserDetailsRequest object
@@ -33,6 +34,8 @@ func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationNam
 	this.EndUserEmailAddress = endUserEmailAddress
 	this.EndUserOrganizationName = endUserOrganizationName
 	this.EndUserOriginId = endUserOriginId
+	var linkExpiryMins int32 = 30
+	this.LinkExpiryMins = &linkExpiryMins
 	return &this
 }
 
@@ -41,6 +44,8 @@ func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationNam
 // but it doesn't guarantee that properties required by API are set
 func NewEndUserDetailsRequestWithDefaults() *EndUserDetailsRequest {
 	this := EndUserDetailsRequest{}
+	var linkExpiryMins int32 = 30
+	this.LinkExpiryMins = &linkExpiryMins
 	return &this
 }
 
@@ -190,6 +195,38 @@ func (o *EndUserDetailsRequest) UnsetIntegration() {
 	o.Integration.Unset()
 }
 
+// GetLinkExpiryMins returns the LinkExpiryMins field value if set, zero value otherwise.
+func (o *EndUserDetailsRequest) GetLinkExpiryMins() int32 {
+	if o == nil || o.LinkExpiryMins == nil {
+		var ret int32
+		return ret
+	}
+	return *o.LinkExpiryMins
+}
+
+// GetLinkExpiryMinsOk returns a tuple with the LinkExpiryMins field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EndUserDetailsRequest) GetLinkExpiryMinsOk() (*int32, bool) {
+	if o == nil || o.LinkExpiryMins == nil {
+		return nil, false
+	}
+	return o.LinkExpiryMins, true
+}
+
+// HasLinkExpiryMins returns a boolean if a field has been set.
+func (o *EndUserDetailsRequest) HasLinkExpiryMins() bool {
+	if o != nil && o.LinkExpiryMins != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLinkExpiryMins gets a reference to the given int32 and assigns it to the LinkExpiryMins field.
+func (o *EndUserDetailsRequest) SetLinkExpiryMins(v int32) {
+	o.LinkExpiryMins = &v
+}
+
 func (o EndUserDetailsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -206,6 +243,9 @@ func (o EndUserDetailsRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Integration.IsSet() {
 		toSerialize["integration"] = o.Integration.Get()
+	}
+	if o.LinkExpiryMins != nil {
+		toSerialize["link_expiry_mins"] = o.LinkExpiryMins
 	}
 	return json.Marshal(toSerialize)
 }

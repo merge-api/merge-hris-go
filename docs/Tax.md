@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **NullableString** | The tax&#39;s name. | [optional] 
 **Amount** | Pointer to **NullableFloat32** | The tax amount. | [optional] 
 **EmployerTax** | Pointer to **NullableBool** | Whether or not the employer is responsible for paying the tax. | [optional] 
-**RemoteData** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**RemoteData** | Pointer to **string** |  | [optional] [readonly] 
 
 ## Methods
 
@@ -197,20 +197,20 @@ HasEmployerTax returns a boolean if a field has been set.
 UnsetEmployerTax ensures that no value is present for EmployerTax, not even an explicit nil
 ### GetRemoteData
 
-`func (o *Tax) GetRemoteData() []map[string]interface{}`
+`func (o *Tax) GetRemoteData() string`
 
 GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
 
 ### GetRemoteDataOk
 
-`func (o *Tax) GetRemoteDataOk() (*[]map[string]interface{}, bool)`
+`func (o *Tax) GetRemoteDataOk() (*string, bool)`
 
 GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemoteData
 
-`func (o *Tax) SetRemoteData(v []map[string]interface{})`
+`func (o *Tax) SetRemoteData(v string)`
 
 SetRemoteData sets RemoteData field to given value.
 
@@ -220,16 +220,6 @@ SetRemoteData sets RemoteData field to given value.
 
 HasRemoteData returns a boolean if a field has been set.
 
-### SetRemoteDataNil
-
-`func (o *Tax) SetRemoteDataNil(b bool)`
-
- SetRemoteDataNil sets the value for RemoteData to be an explicit nil
-
-### UnsetRemoteData
-`func (o *Tax) UnsetRemoteData()`
-
-UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

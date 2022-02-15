@@ -25,7 +25,7 @@ type Tax struct {
 	Amount NullableFloat32 `json:"amount,omitempty"`
 	// Whether or not the employer is responsible for paying the tax.
 	EmployerTax NullableBool `json:"employer_tax,omitempty"`
-	RemoteData []map[string]interface{} `json:"remote_data,omitempty"`
+	RemoteData *string `json:"remote_data,omitempty"`
 }
 
 // NewTax instantiates a new Tax object
@@ -245,23 +245,22 @@ func (o *Tax) UnsetEmployerTax() {
 	o.EmployerTax.Unset()
 }
 
-// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Tax) GetRemoteData() []map[string]interface{} {
-	if o == nil  {
-		var ret []map[string]interface{}
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise.
+func (o *Tax) GetRemoteData() string {
+	if o == nil || o.RemoteData == nil {
+		var ret string
 		return ret
 	}
-	return o.RemoteData
+	return *o.RemoteData
 }
 
 // GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Tax) GetRemoteDataOk() (*[]map[string]interface{}, bool) {
+func (o *Tax) GetRemoteDataOk() (*string, bool) {
 	if o == nil || o.RemoteData == nil {
 		return nil, false
 	}
-	return &o.RemoteData, true
+	return o.RemoteData, true
 }
 
 // HasRemoteData returns a boolean if a field has been set.
@@ -273,9 +272,9 @@ func (o *Tax) HasRemoteData() bool {
 	return false
 }
 
-// SetRemoteData gets a reference to the given []map[string]interface{} and assigns it to the RemoteData field.
-func (o *Tax) SetRemoteData(v []map[string]interface{}) {
-	o.RemoteData = v
+// SetRemoteData gets a reference to the given string and assigns it to the RemoteData field.
+func (o *Tax) SetRemoteData(v string) {
+	o.RemoteData = &v
 }
 
 func (o Tax) MarshalJSON() ([]byte, error) {

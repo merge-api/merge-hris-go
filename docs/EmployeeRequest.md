@@ -6,17 +6,19 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **EmployeeNumber** | Pointer to **NullableString** | The employee&#39;s number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user. | [optional] 
-**Company** | Pointer to **NullableString** | The ID of the employee&#39;s company. | [optional] 
+**Company** | Pointer to **NullableString** |  | [optional] 
 **FirstName** | Pointer to **NullableString** | The employee&#39;s first name. | [optional] 
 **LastName** | Pointer to **NullableString** | The employee&#39;s last name. | [optional] 
-**DisplayFullName** | Pointer to **NullableString** | The employee&#39;s full name, to use for display purposes. | [optional] 
+**DisplayFullName** | Pointer to **NullableString** | The employee&#39;s full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name. | [optional] 
 **WorkEmail** | Pointer to **NullableString** | The employee&#39;s work email. | [optional] 
 **PersonalEmail** | Pointer to **NullableString** | The employee&#39;s personal email. | [optional] 
 **MobilePhoneNumber** | Pointer to **NullableString** | The employee&#39;s mobile phone number. | [optional] 
-**HomeLocation** | Pointer to **NullableString** | The employee&#39;s home address. | [optional] 
-**WorkLocation** | Pointer to **NullableString** | The employee&#39;s work address. | [optional] 
-**Manager** | Pointer to **NullableString** | The employee ID of the employee&#39;s manager. | [optional] 
-**Team** | Pointer to **NullableString** | The employee&#39;s team. | [optional] 
+**Employments** | Pointer to **[]string** | Array of &#x60;Employment&#x60; IDs for this Employee. | [optional] 
+**HomeLocation** | Pointer to **NullableString** |  | [optional] 
+**WorkLocation** | Pointer to **NullableString** |  | [optional] 
+**Manager** | Pointer to **NullableString** |  | [optional] 
+**Team** | Pointer to **NullableString** |  | [optional] 
+**PayGroup** | Pointer to **NullableString** |  | [optional] 
 **Ssn** | Pointer to **NullableString** | The employee&#39;s social security number. | [optional] 
 **Gender** | Pointer to [**NullableGenderEnum**](GenderEnum.md) | The employee&#39;s gender. | [optional] 
 **Ethnicity** | Pointer to [**NullableEthnicityEnum**](EthnicityEnum.md) | The employee&#39;s ethnicity. | [optional] 
@@ -363,6 +365,31 @@ HasMobilePhoneNumber returns a boolean if a field has been set.
 `func (o *EmployeeRequest) UnsetMobilePhoneNumber()`
 
 UnsetMobilePhoneNumber ensures that no value is present for MobilePhoneNumber, not even an explicit nil
+### GetEmployments
+
+`func (o *EmployeeRequest) GetEmployments() []string`
+
+GetEmployments returns the Employments field if non-nil, zero value otherwise.
+
+### GetEmploymentsOk
+
+`func (o *EmployeeRequest) GetEmploymentsOk() (*[]string, bool)`
+
+GetEmploymentsOk returns a tuple with the Employments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmployments
+
+`func (o *EmployeeRequest) SetEmployments(v []string)`
+
+SetEmployments sets Employments field to given value.
+
+### HasEmployments
+
+`func (o *EmployeeRequest) HasEmployments() bool`
+
+HasEmployments returns a boolean if a field has been set.
+
 ### GetHomeLocation
 
 `func (o *EmployeeRequest) GetHomeLocation() string`
@@ -503,6 +530,41 @@ HasTeam returns a boolean if a field has been set.
 `func (o *EmployeeRequest) UnsetTeam()`
 
 UnsetTeam ensures that no value is present for Team, not even an explicit nil
+### GetPayGroup
+
+`func (o *EmployeeRequest) GetPayGroup() string`
+
+GetPayGroup returns the PayGroup field if non-nil, zero value otherwise.
+
+### GetPayGroupOk
+
+`func (o *EmployeeRequest) GetPayGroupOk() (*string, bool)`
+
+GetPayGroupOk returns a tuple with the PayGroup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPayGroup
+
+`func (o *EmployeeRequest) SetPayGroup(v string)`
+
+SetPayGroup sets PayGroup field to given value.
+
+### HasPayGroup
+
+`func (o *EmployeeRequest) HasPayGroup() bool`
+
+HasPayGroup returns a boolean if a field has been set.
+
+### SetPayGroupNil
+
+`func (o *EmployeeRequest) SetPayGroupNil(b bool)`
+
+ SetPayGroupNil sets the value for PayGroup to be an explicit nil
+
+### UnsetPayGroup
+`func (o *EmployeeRequest) UnsetPayGroup()`
+
+UnsetPayGroup ensures that no value is present for PayGroup, not even an explicit nil
 ### GetSsn
 
 `func (o *EmployeeRequest) GetSsn() string`
