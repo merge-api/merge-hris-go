@@ -20,6 +20,8 @@ type DebugModelLogSummary struct {
 	Url string `json:"url"`
 	Method string `json:"method"`
 	StatusCode int32 `json:"status_code"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewDebugModelLogSummary instantiates a new DebugModelLogSummary object
@@ -128,6 +130,22 @@ func (o DebugModelLogSummary) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *DebugModelLogSummary) UnmarshalJSON(src []byte) error {
+    type DebugModelLogSummaryUnmarshalTarget DebugModelLogSummary
+
+	var intermediateResult DebugModelLogSummaryUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = DebugModelLogSummary(intermediateResult)
+	return nil
+}
 type NullableDebugModelLogSummary struct {
 	value *DebugModelLogSummary
 	isSet bool
@@ -161,7 +179,11 @@ func (v NullableDebugModelLogSummary) MarshalJSON() ([]byte, error) {
 
 func (v *NullableDebugModelLogSummary) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

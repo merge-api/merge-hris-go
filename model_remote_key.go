@@ -19,6 +19,8 @@ import (
 type RemoteKey struct {
 	Name string `json:"name"`
 	Key string `json:"key"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewRemoteKey instantiates a new RemoteKey object
@@ -99,6 +101,22 @@ func (o RemoteKey) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *RemoteKey) UnmarshalJSON(src []byte) error {
+    type RemoteKeyUnmarshalTarget RemoteKey
+
+	var intermediateResult RemoteKeyUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = RemoteKey(intermediateResult)
+	return nil
+}
 type NullableRemoteKey struct {
 	value *RemoteKey
 	isSet bool
@@ -132,7 +150,11 @@ func (v NullableRemoteKey) MarshalJSON() ([]byte, error) {
 
 func (v *NullableRemoteKey) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

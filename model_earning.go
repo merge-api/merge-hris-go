@@ -22,8 +22,10 @@ type Earning struct {
 	// The amount earned.
 	Amount NullableFloat32 `json:"amount,omitempty"`
 	// The type of earning.
-	Type NullableTypeEnum `json:"type,omitempty"`
+	Type NullableEarningTypeEnum `json:"type,omitempty"`
 	RemoteData *string `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEarning instantiates a new Earning object
@@ -160,9 +162,9 @@ func (o *Earning) UnsetAmount() {
 }
 
 // GetType returns the Type field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Earning) GetType() TypeEnum {
+func (o *Earning) GetType() EarningTypeEnum {
 	if o == nil || o.Type.Get() == nil {
-		var ret TypeEnum
+		var ret EarningTypeEnum
 		return ret
 	}
 	return *o.Type.Get()
@@ -171,7 +173,7 @@ func (o *Earning) GetType() TypeEnum {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Earning) GetTypeOk() (*TypeEnum, bool) {
+func (o *Earning) GetTypeOk() (*EarningTypeEnum, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -187,8 +189,8 @@ func (o *Earning) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given NullableTypeEnum and assigns it to the Type field.
-func (o *Earning) SetType(v TypeEnum) {
+// SetType gets a reference to the given NullableEarningTypeEnum and assigns it to the Type field.
+func (o *Earning) SetType(v EarningTypeEnum) {
 	o.Type.Set(&v)
 }
 // SetTypeNil sets the value for Type to be an explicit nil
@@ -253,6 +255,22 @@ func (o Earning) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *Earning) UnmarshalJSON(src []byte) error {
+    type EarningUnmarshalTarget Earning
+
+	var intermediateResult EarningUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = Earning(intermediateResult)
+	return nil
+}
 type NullableEarning struct {
 	value *Earning
 	isSet bool
@@ -286,7 +304,11 @@ func (v NullableEarning) MarshalJSON() ([]byte, error) {
 
 func (v *NullableEarning) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

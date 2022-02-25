@@ -21,6 +21,8 @@ type WarningValidationProblem struct {
 	Title string `json:"title"`
 	Detail string `json:"detail"`
 	ProblemType string `json:"problem_type"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewWarningValidationProblem instantiates a new WarningValidationProblem object
@@ -164,6 +166,22 @@ func (o WarningValidationProblem) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *WarningValidationProblem) UnmarshalJSON(src []byte) error {
+    type WarningValidationProblemUnmarshalTarget WarningValidationProblem
+
+	var intermediateResult WarningValidationProblemUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = WarningValidationProblem(intermediateResult)
+	return nil
+}
 type NullableWarningValidationProblem struct {
 	value *WarningValidationProblem
 	isSet bool
@@ -197,7 +215,11 @@ func (v NullableWarningValidationProblem) MarshalJSON() ([]byte, error) {
 
 func (v *NullableWarningValidationProblem) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

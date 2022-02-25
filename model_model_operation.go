@@ -21,6 +21,8 @@ type ModelOperation struct {
 	AvailableOperations []string `json:"available_operations"`
 	RequiredPostParameters []string `json:"required_post_parameters"`
 	SupportedFields []string `json:"supported_fields"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewModelOperation instantiates a new ModelOperation object
@@ -157,6 +159,22 @@ func (o ModelOperation) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *ModelOperation) UnmarshalJSON(src []byte) error {
+    type ModelOperationUnmarshalTarget ModelOperation
+
+	var intermediateResult ModelOperationUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = ModelOperation(intermediateResult)
+	return nil
+}
 type NullableModelOperation struct {
 	value *ModelOperation
 	isSet bool
@@ -190,7 +208,11 @@ func (v NullableModelOperation) MarshalJSON() ([]byte, error) {
 
 func (v *NullableModelOperation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

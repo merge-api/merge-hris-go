@@ -19,6 +19,8 @@ import (
 type LinkToken struct {
 	LinkToken string `json:"link_token"`
 	IntegrationName string `json:"integration_name"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewLinkToken instantiates a new LinkToken object
@@ -99,6 +101,22 @@ func (o LinkToken) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *LinkToken) UnmarshalJSON(src []byte) error {
+    type LinkTokenUnmarshalTarget LinkToken
+
+	var intermediateResult LinkTokenUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = LinkToken(intermediateResult)
+	return nil
+}
 type NullableLinkToken struct {
 	value *LinkToken
 	isSet bool
@@ -132,7 +150,11 @@ func (v NullableLinkToken) MarshalJSON() ([]byte, error) {
 
 func (v *NullableLinkToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

@@ -75,6 +75,8 @@ type APIClient struct {
 
 	GenerateKeyApi *GenerateKeyApiService
 
+	GroupsApi *GroupsApiService
+
 	IssuesApi *IssuesApiService
 
 	LinkTokenApi *LinkTokenApiService
@@ -129,6 +131,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.EmploymentsApi = (*EmploymentsApiService)(&c.common)
 	c.ForceResyncApi = (*ForceResyncApiService)(&c.common)
 	c.GenerateKeyApi = (*GenerateKeyApiService)(&c.common)
+	c.GroupsApi = (*GroupsApiService)(&c.common)
 	c.IssuesApi = (*IssuesApiService)(&c.common)
 	c.LinkTokenApi = (*LinkTokenApiService)(&c.common)
 	c.LinkedAccountsApi = (*LinkedAccountsApiService)(&c.common)

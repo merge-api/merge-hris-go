@@ -19,6 +19,8 @@ import (
 type AccountToken struct {
 	AccountToken string `json:"account_token"`
 	Integration AccountIntegration `json:"integration"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAccountToken instantiates a new AccountToken object
@@ -99,6 +101,22 @@ func (o AccountToken) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *AccountToken) UnmarshalJSON(src []byte) error {
+    type AccountTokenUnmarshalTarget AccountToken
+
+	var intermediateResult AccountTokenUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = AccountToken(intermediateResult)
+	return nil
+}
 type NullableAccountToken struct {
 	value *AccountToken
 	isSet bool
@@ -132,7 +150,11 @@ func (v NullableAccountToken) MarshalJSON() ([]byte, error) {
 
 func (v *NullableAccountToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

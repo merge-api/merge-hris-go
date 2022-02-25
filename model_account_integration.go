@@ -28,6 +28,8 @@ type AccountIntegration struct {
 	// The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b>
 	Color *string `json:"color,omitempty"`
 	Slug *string `json:"slug,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAccountIntegration instantiates a new AccountIntegration object
@@ -275,6 +277,22 @@ func (o AccountIntegration) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *AccountIntegration) UnmarshalJSON(src []byte) error {
+    type AccountIntegrationUnmarshalTarget AccountIntegration
+
+	var intermediateResult AccountIntegrationUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = AccountIntegration(intermediateResult)
+	return nil
+}
 type NullableAccountIntegration struct {
 	value *AccountIntegration
 	isSet bool
@@ -308,7 +326,11 @@ func (v NullableAccountIntegration) MarshalJSON() ([]byte, error) {
 
 func (v *NullableAccountIntegration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

@@ -23,6 +23,8 @@ type DataPassthroughRequest struct {
 	Data NullableString `json:"data,omitempty"`
 	Headers map[string]interface{} `json:"headers,omitempty"`
 	RequestFormat NullableRequestFormatEnum `json:"request_format,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewDataPassthroughRequest instantiates a new DataPassthroughRequest object
@@ -274,6 +276,22 @@ func (o DataPassthroughRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *DataPassthroughRequest) UnmarshalJSON(src []byte) error {
+    type DataPassthroughRequestUnmarshalTarget DataPassthroughRequest
+
+	var intermediateResult DataPassthroughRequestUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = DataPassthroughRequest(intermediateResult)
+	return nil
+}
 type NullableDataPassthroughRequest struct {
 	value *DataPassthroughRequest
 	isSet bool
@@ -307,7 +325,11 @@ func (v NullableDataPassthroughRequest) MarshalJSON() ([]byte, error) {
 
 func (v *NullableDataPassthroughRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

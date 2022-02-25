@@ -18,6 +18,8 @@ import (
 // EmployeeEndpointRequest struct for EmployeeEndpointRequest
 type EmployeeEndpointRequest struct {
 	Model EmployeeRequest `json:"model"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEmployeeEndpointRequest instantiates a new EmployeeEndpointRequest object
@@ -70,6 +72,22 @@ func (o EmployeeEndpointRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *EmployeeEndpointRequest) UnmarshalJSON(src []byte) error {
+    type EmployeeEndpointRequestUnmarshalTarget EmployeeEndpointRequest
+
+	var intermediateResult EmployeeEndpointRequestUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = EmployeeEndpointRequest(intermediateResult)
+	return nil
+}
 type NullableEmployeeEndpointRequest struct {
 	value *EmployeeEndpointRequest
 	isSet bool
@@ -103,7 +121,11 @@ func (v NullableEmployeeEndpointRequest) MarshalJSON() ([]byte, error) {
 
 func (v *NullableEmployeeEndpointRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

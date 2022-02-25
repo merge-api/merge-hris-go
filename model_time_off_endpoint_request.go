@@ -18,6 +18,8 @@ import (
 // TimeOffEndpointRequest struct for TimeOffEndpointRequest
 type TimeOffEndpointRequest struct {
 	Model TimeOffRequest `json:"model"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTimeOffEndpointRequest instantiates a new TimeOffEndpointRequest object
@@ -70,6 +72,22 @@ func (o TimeOffEndpointRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *TimeOffEndpointRequest) UnmarshalJSON(src []byte) error {
+    type TimeOffEndpointRequestUnmarshalTarget TimeOffEndpointRequest
+
+	var intermediateResult TimeOffEndpointRequestUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = TimeOffEndpointRequest(intermediateResult)
+	return nil
+}
 type NullableTimeOffEndpointRequest struct {
 	value *TimeOffEndpointRequest
 	isSet bool
@@ -103,7 +121,11 @@ func (v NullableTimeOffEndpointRequest) MarshalJSON() ([]byte, error) {
 
 func (v *NullableTimeOffEndpointRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

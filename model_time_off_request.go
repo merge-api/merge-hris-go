@@ -36,6 +36,8 @@ type TimeOffRequest struct {
 	StartTime NullableTime `json:"start_time,omitempty"`
 	// The day and time of the end of the time requested off.
 	EndTime NullableTime `json:"end_time,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTimeOffRequest instantiates a new TimeOffRequest object
@@ -510,6 +512,22 @@ func (o TimeOffRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *TimeOffRequest) UnmarshalJSON(src []byte) error {
+    type TimeOffRequestUnmarshalTarget TimeOffRequest
+
+	var intermediateResult TimeOffRequestUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = TimeOffRequest(intermediateResult)
+	return nil
+}
 type NullableTimeOffRequest struct {
 	value *TimeOffRequest
 	isSet bool
@@ -543,7 +561,11 @@ func (v NullableTimeOffRequest) MarshalJSON() ([]byte, error) {
 
 func (v *NullableTimeOffRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

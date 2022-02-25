@@ -25,6 +25,8 @@ type AccountDetailsAndActionsIntegration struct {
 	Slug string `json:"slug"`
 	PassthroughAvailable bool `json:"passthrough_available"`
 	AvailableModelOperations *[]ModelOperation `json:"available_model_operations,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAccountDetailsAndActionsIntegration instantiates a new AccountDetailsAndActionsIntegration object
@@ -294,6 +296,22 @@ func (o AccountDetailsAndActionsIntegration) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *AccountDetailsAndActionsIntegration) UnmarshalJSON(src []byte) error {
+    type AccountDetailsAndActionsIntegrationUnmarshalTarget AccountDetailsAndActionsIntegration
+
+	var intermediateResult AccountDetailsAndActionsIntegrationUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = AccountDetailsAndActionsIntegration(intermediateResult)
+	return nil
+}
 type NullableAccountDetailsAndActionsIntegration struct {
 	value *AccountDetailsAndActionsIntegration
 	isSet bool
@@ -327,7 +345,11 @@ func (v NullableAccountDetailsAndActionsIntegration) MarshalJSON() ([]byte, erro
 
 func (v *NullableAccountDetailsAndActionsIntegration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

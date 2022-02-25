@@ -32,6 +32,8 @@ type PayrollRun struct {
 	// The day and time the payroll run was checked.
 	CheckDate NullableTime `json:"check_date,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPayrollRun instantiates a new PayrollRun object
@@ -397,6 +399,22 @@ func (o PayrollRun) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *PayrollRun) UnmarshalJSON(src []byte) error {
+    type PayrollRunUnmarshalTarget PayrollRun
+
+	var intermediateResult PayrollRunUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = PayrollRun(intermediateResult)
+	return nil
+}
 type NullablePayrollRun struct {
 	value *PayrollRun
 	isSet bool
@@ -430,7 +448,11 @@ func (v NullablePayrollRun) MarshalJSON() ([]byte, error) {
 
 func (v *NullablePayrollRun) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

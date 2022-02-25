@@ -29,6 +29,7 @@ type EmployeeRequest struct {
 	LastName NullableString `json:"last_name,omitempty"`
 	// The employee's full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name.
 	DisplayFullName NullableString `json:"display_full_name,omitempty"`
+	Groups *[]string `json:"groups,omitempty"`
 	// The employee's work email.
 	WorkEmail NullableString `json:"work_email,omitempty"`
 	// The employee's personal email.
@@ -64,6 +65,8 @@ type EmployeeRequest struct {
 	Avatar NullableString `json:"avatar,omitempty"`
 	// Custom fields configured for a given model.
 	CustomFields map[string]interface{} `json:"custom_fields,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEmployeeRequest instantiates a new EmployeeRequest object
@@ -333,6 +336,38 @@ func (o *EmployeeRequest) SetDisplayFullNameNil() {
 // UnsetDisplayFullName ensures that no value is present for DisplayFullName, not even an explicit nil
 func (o *EmployeeRequest) UnsetDisplayFullName() {
 	o.DisplayFullName.Unset()
+}
+
+// GetGroups returns the Groups field value if set, zero value otherwise.
+func (o *EmployeeRequest) GetGroups() []string {
+	if o == nil || o.Groups == nil {
+		var ret []string
+		return ret
+	}
+	return *o.Groups
+}
+
+// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EmployeeRequest) GetGroupsOk() (*[]string, bool) {
+	if o == nil || o.Groups == nil {
+		return nil, false
+	}
+	return o.Groups, true
+}
+
+// HasGroups returns a boolean if a field has been set.
+func (o *EmployeeRequest) HasGroups() bool {
+	if o != nil && o.Groups != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGroups gets a reference to the given []string and assigns it to the Groups field.
+func (o *EmployeeRequest) SetGroups(v []string) {
+	o.Groups = &v
 }
 
 // GetWorkEmail returns the WorkEmail field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1176,6 +1211,9 @@ func (o EmployeeRequest) MarshalJSON() ([]byte, error) {
 	if o.DisplayFullName.IsSet() {
 		toSerialize["display_full_name"] = o.DisplayFullName.Get()
 	}
+	if o.Groups != nil {
+		toSerialize["groups"] = o.Groups
+	}
 	if o.WorkEmail.IsSet() {
 		toSerialize["work_email"] = o.WorkEmail.Get()
 	}
@@ -1239,6 +1277,22 @@ func (o EmployeeRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *EmployeeRequest) UnmarshalJSON(src []byte) error {
+    type EmployeeRequestUnmarshalTarget EmployeeRequest
+
+	var intermediateResult EmployeeRequestUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = EmployeeRequest(intermediateResult)
+	return nil
+}
 type NullableEmployeeRequest struct {
 	value *EmployeeRequest
 	isSet bool
@@ -1272,7 +1326,11 @@ func (v NullableEmployeeRequest) MarshalJSON() ([]byte, error) {
 
 func (v *NullableEmployeeRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

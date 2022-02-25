@@ -20,6 +20,8 @@ type AvailableActions struct {
 	Integration AccountIntegration `json:"integration"`
 	PassthroughAvailable bool `json:"passthrough_available"`
 	AvailableModelOperations *[]ModelOperation `json:"available_model_operations,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAvailableActions instantiates a new AvailableActions object
@@ -135,6 +137,22 @@ func (o AvailableActions) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *AvailableActions) UnmarshalJSON(src []byte) error {
+    type AvailableActionsUnmarshalTarget AvailableActions
+
+	var intermediateResult AvailableActionsUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = AvailableActions(intermediateResult)
+	return nil
+}
 type NullableAvailableActions struct {
 	value *AvailableActions
 	isSet bool
@@ -168,7 +186,11 @@ func (v NullableAvailableActions) MarshalJSON() ([]byte, error) {
 
 func (v *NullableAvailableActions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

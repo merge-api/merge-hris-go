@@ -19,6 +19,8 @@ import (
 type IgnoreCommonModelRequest struct {
 	Reason ReasonEnum `json:"reason"`
 	Message *string `json:"message,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewIgnoreCommonModelRequest instantiates a new IgnoreCommonModelRequest object
@@ -106,6 +108,22 @@ func (o IgnoreCommonModelRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *IgnoreCommonModelRequest) UnmarshalJSON(src []byte) error {
+    type IgnoreCommonModelRequestUnmarshalTarget IgnoreCommonModelRequest
+
+	var intermediateResult IgnoreCommonModelRequestUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = IgnoreCommonModelRequest(intermediateResult)
+	return nil
+}
 type NullableIgnoreCommonModelRequest struct {
 	value *IgnoreCommonModelRequest
 	isSet bool
@@ -139,7 +157,11 @@ func (v NullableIgnoreCommonModelRequest) MarshalJSON() ([]byte, error) {
 
 func (v *NullableIgnoreCommonModelRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

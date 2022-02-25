@@ -20,6 +20,8 @@ type DebugModeLog struct {
 	LogId string `json:"log_id"`
 	DashboardView string `json:"dashboard_view"`
 	LogSummary DebugModelLogSummary `json:"log_summary"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewDebugModeLog instantiates a new DebugModeLog object
@@ -128,6 +130,22 @@ func (o DebugModeLog) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *DebugModeLog) UnmarshalJSON(src []byte) error {
+    type DebugModeLogUnmarshalTarget DebugModeLog
+
+	var intermediateResult DebugModeLogUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = DebugModeLog(intermediateResult)
+	return nil
+}
 type NullableDebugModeLog struct {
 	value *DebugModeLog
 	isSet bool
@@ -161,7 +179,11 @@ func (v NullableDebugModeLog) MarshalJSON() ([]byte, error) {
 
 func (v *NullableDebugModeLog) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

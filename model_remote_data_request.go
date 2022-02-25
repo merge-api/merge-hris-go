@@ -19,6 +19,8 @@ import (
 type RemoteDataRequest struct {
 	Path string `json:"path"`
 	Data *map[string]interface{} `json:"data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewRemoteDataRequest instantiates a new RemoteDataRequest object
@@ -106,6 +108,22 @@ func (o RemoteDataRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *RemoteDataRequest) UnmarshalJSON(src []byte) error {
+    type RemoteDataRequestUnmarshalTarget RemoteDataRequest
+
+	var intermediateResult RemoteDataRequestUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = RemoteDataRequest(intermediateResult)
+	return nil
+}
 type NullableRemoteDataRequest struct {
 	value *RemoteDataRequest
 	isSet bool
@@ -139,7 +157,11 @@ func (v NullableRemoteDataRequest) MarshalJSON() ([]byte, error) {
 
 func (v *NullableRemoteDataRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

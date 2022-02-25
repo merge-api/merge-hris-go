@@ -20,6 +20,8 @@ type PaginatedEmployeePayrollRunList struct {
 	Next NullableString `json:"next,omitempty"`
 	Previous NullableString `json:"previous,omitempty"`
 	Results *[]EmployeePayrollRun `json:"results,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPaginatedEmployeePayrollRunList instantiates a new PaginatedEmployeePayrollRunList object
@@ -169,6 +171,22 @@ func (o PaginatedEmployeePayrollRunList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *PaginatedEmployeePayrollRunList) UnmarshalJSON(src []byte) error {
+    type PaginatedEmployeePayrollRunListUnmarshalTarget PaginatedEmployeePayrollRunList
+
+	var intermediateResult PaginatedEmployeePayrollRunListUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = PaginatedEmployeePayrollRunList(intermediateResult)
+	return nil
+}
 type NullablePaginatedEmployeePayrollRunList struct {
 	value *PaginatedEmployeePayrollRunList
 	isSet bool
@@ -202,7 +220,11 @@ func (v NullablePaginatedEmployeePayrollRunList) MarshalJSON() ([]byte, error) {
 
 func (v *NullablePaginatedEmployeePayrollRunList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 
