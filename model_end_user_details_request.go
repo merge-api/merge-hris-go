@@ -23,6 +23,8 @@ type EndUserDetailsRequest struct {
 	Categories *[]CategoriesEnum `json:"categories,omitempty"`
 	Integration NullableString `json:"integration,omitempty"`
 	LinkExpiryMins *int32 `json:"link_expiry_mins,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEndUserDetailsRequest instantiates a new EndUserDetailsRequest object
@@ -250,6 +252,22 @@ func (o EndUserDetailsRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *EndUserDetailsRequest) UnmarshalJSON(src []byte) error {
+    type EndUserDetailsRequestUnmarshalTarget EndUserDetailsRequest
+
+	var intermediateResult EndUserDetailsRequestUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = EndUserDetailsRequest(intermediateResult)
+	return nil
+}
 type NullableEndUserDetailsRequest struct {
 	value *EndUserDetailsRequest
 	isSet bool
@@ -283,7 +301,11 @@ func (v NullableEndUserDetailsRequest) MarshalJSON() ([]byte, error) {
 
 func (v *NullableEndUserDetailsRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

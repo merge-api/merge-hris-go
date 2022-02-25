@@ -26,6 +26,8 @@ type Tax struct {
 	// Whether or not the employer is responsible for paying the tax.
 	EmployerTax NullableBool `json:"employer_tax,omitempty"`
 	RemoteData *string `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTax instantiates a new Tax object
@@ -300,6 +302,22 @@ func (o Tax) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *Tax) UnmarshalJSON(src []byte) error {
+    type TaxUnmarshalTarget Tax
+
+	var intermediateResult TaxUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = Tax(intermediateResult)
+	return nil
+}
 type NullableTax struct {
 	value *Tax
 	isSet bool
@@ -333,7 +351,11 @@ func (v NullableTax) MarshalJSON() ([]byte, error) {
 
 func (v *NullableTax) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

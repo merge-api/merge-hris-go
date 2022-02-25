@@ -24,6 +24,8 @@ type Team struct {
 	Name NullableString `json:"name,omitempty"`
 	ParentTeam NullableString `json:"parent_team,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTeam instantiates a new Team object
@@ -254,6 +256,22 @@ func (o Team) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *Team) UnmarshalJSON(src []byte) error {
+    type TeamUnmarshalTarget Team
+
+	var intermediateResult TeamUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = Team(intermediateResult)
+	return nil
+}
 type NullableTeam struct {
 	value *Team
 	isSet bool
@@ -287,7 +305,11 @@ func (v NullableTeam) MarshalJSON() ([]byte, error) {
 
 func (v *NullableTeam) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

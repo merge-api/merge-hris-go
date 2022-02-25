@@ -20,6 +20,8 @@ type PaginatedTeamList struct {
 	Next NullableString `json:"next,omitempty"`
 	Previous NullableString `json:"previous,omitempty"`
 	Results *[]Team `json:"results,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPaginatedTeamList instantiates a new PaginatedTeamList object
@@ -169,6 +171,22 @@ func (o PaginatedTeamList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *PaginatedTeamList) UnmarshalJSON(src []byte) error {
+    type PaginatedTeamListUnmarshalTarget PaginatedTeamList
+
+	var intermediateResult PaginatedTeamListUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = PaginatedTeamList(intermediateResult)
+	return nil
+}
 type NullablePaginatedTeamList struct {
 	value *PaginatedTeamList
 	isSet bool
@@ -202,7 +220,11 @@ func (v NullablePaginatedTeamList) MarshalJSON() ([]byte, error) {
 
 func (v *NullablePaginatedTeamList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

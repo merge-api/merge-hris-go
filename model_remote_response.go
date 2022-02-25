@@ -22,6 +22,8 @@ type RemoteResponse struct {
 	Status int32 `json:"status"`
 	Response map[string]interface{} `json:"response"`
 	Headers *map[string]interface{} `json:"headers,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewRemoteResponse instantiates a new RemoteResponse object
@@ -193,6 +195,22 @@ func (o RemoteResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *RemoteResponse) UnmarshalJSON(src []byte) error {
+    type RemoteResponseUnmarshalTarget RemoteResponse
+
+	var intermediateResult RemoteResponseUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = RemoteResponse(intermediateResult)
+	return nil
+}
 type NullableRemoteResponse struct {
 	value *RemoteResponse
 	isSet bool
@@ -226,7 +244,11 @@ func (v NullableRemoteResponse) MarshalJSON() ([]byte, error) {
 
 func (v *NullableRemoteResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

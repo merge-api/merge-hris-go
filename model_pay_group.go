@@ -23,6 +23,8 @@ type PayGroup struct {
 	// The pay group name.
 	PayGroupName NullableString `json:"pay_group_name,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPayGroup instantiates a new PayGroup object
@@ -208,6 +210,22 @@ func (o PayGroup) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *PayGroup) UnmarshalJSON(src []byte) error {
+    type PayGroupUnmarshalTarget PayGroup
+
+	var intermediateResult PayGroupUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = PayGroup(intermediateResult)
+	return nil
+}
 type NullablePayGroup struct {
 	value *PayGroup
 	isSet bool
@@ -241,7 +259,11 @@ func (v NullablePayGroup) MarshalJSON() ([]byte, error) {
 
 func (v *NullablePayGroup) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

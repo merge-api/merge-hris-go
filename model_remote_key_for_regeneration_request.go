@@ -18,6 +18,8 @@ import (
 // RemoteKeyForRegenerationRequest # The RemoteKeyForRegeneration Object ### Description The `RemoteKeyForRegeneration` object is used to exchange an old remote key for a new one  ### Usage Example Post a `RemoteKeyForRegeneration` to swap out an old remote key for a new one
 type RemoteKeyForRegenerationRequest struct {
 	Name string `json:"name"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewRemoteKeyForRegenerationRequest instantiates a new RemoteKeyForRegenerationRequest object
@@ -70,6 +72,22 @@ func (o RemoteKeyForRegenerationRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *RemoteKeyForRegenerationRequest) UnmarshalJSON(src []byte) error {
+    type RemoteKeyForRegenerationRequestUnmarshalTarget RemoteKeyForRegenerationRequest
+
+	var intermediateResult RemoteKeyForRegenerationRequestUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = RemoteKeyForRegenerationRequest(intermediateResult)
+	return nil
+}
 type NullableRemoteKeyForRegenerationRequest struct {
 	value *RemoteKeyForRegenerationRequest
 	isSet bool
@@ -103,7 +121,11 @@ func (v NullableRemoteKeyForRegenerationRequest) MarshalJSON() ([]byte, error) {
 
 func (v *NullableRemoteKeyForRegenerationRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

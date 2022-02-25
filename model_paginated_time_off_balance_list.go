@@ -20,6 +20,8 @@ type PaginatedTimeOffBalanceList struct {
 	Next NullableString `json:"next,omitempty"`
 	Previous NullableString `json:"previous,omitempty"`
 	Results *[]TimeOffBalance `json:"results,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPaginatedTimeOffBalanceList instantiates a new PaginatedTimeOffBalanceList object
@@ -169,6 +171,22 @@ func (o PaginatedTimeOffBalanceList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *PaginatedTimeOffBalanceList) UnmarshalJSON(src []byte) error {
+    type PaginatedTimeOffBalanceListUnmarshalTarget PaginatedTimeOffBalanceList
+
+	var intermediateResult PaginatedTimeOffBalanceListUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = PaginatedTimeOffBalanceList(intermediateResult)
+	return nil
+}
 type NullablePaginatedTimeOffBalanceList struct {
 	value *PaginatedTimeOffBalanceList
 	isSet bool
@@ -202,7 +220,11 @@ func (v NullablePaginatedTimeOffBalanceList) MarshalJSON() ([]byte, error) {
 
 func (v *NullablePaginatedTimeOffBalanceList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

@@ -20,6 +20,8 @@ type PaginatedLocationList struct {
 	Next NullableString `json:"next,omitempty"`
 	Previous NullableString `json:"previous,omitempty"`
 	Results *[]Location `json:"results,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPaginatedLocationList instantiates a new PaginatedLocationList object
@@ -169,6 +171,22 @@ func (o PaginatedLocationList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *PaginatedLocationList) UnmarshalJSON(src []byte) error {
+    type PaginatedLocationListUnmarshalTarget PaginatedLocationList
+
+	var intermediateResult PaginatedLocationListUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = PaginatedLocationList(intermediateResult)
+	return nil
+}
 type NullablePaginatedLocationList struct {
 	value *PaginatedLocationList
 	isSet bool
@@ -202,7 +220,11 @@ func (v NullablePaginatedLocationList) MarshalJSON() ([]byte, error) {
 
 func (v *NullablePaginatedLocationList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

@@ -24,6 +24,8 @@ type AccountDetails struct {
 	EndUserOrganizationName *string `json:"end_user_organization_name,omitempty"`
 	EndUserEmailAddress *string `json:"end_user_email_address,omitempty"`
 	Status *string `json:"status,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAccountDetails instantiates a new AccountDetails object
@@ -303,6 +305,22 @@ func (o AccountDetails) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *AccountDetails) UnmarshalJSON(src []byte) error {
+    type AccountDetailsUnmarshalTarget AccountDetails
+
+	var intermediateResult AccountDetailsUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = AccountDetails(intermediateResult)
+	return nil
+}
 type NullableAccountDetails struct {
 	value *AccountDetails
 	isSet bool
@@ -336,7 +354,11 @@ func (v NullableAccountDetails) MarshalJSON() ([]byte, error) {
 
 func (v *NullableAccountDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

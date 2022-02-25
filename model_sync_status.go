@@ -24,6 +24,8 @@ type SyncStatus struct {
 	NextSyncStart time.Time `json:"next_sync_start"`
 	Status SyncStatusStatusEnum `json:"status"`
 	IsInitialSync bool `json:"is_initial_sync"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewSyncStatus instantiates a new SyncStatus object
@@ -216,6 +218,22 @@ func (o SyncStatus) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *SyncStatus) UnmarshalJSON(src []byte) error {
+    type SyncStatusUnmarshalTarget SyncStatus
+
+	var intermediateResult SyncStatusUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = SyncStatus(intermediateResult)
+	return nil
+}
 type NullableSyncStatus struct {
 	value *SyncStatus
 	isSet bool
@@ -249,7 +267,11 @@ func (v NullableSyncStatus) MarshalJSON() ([]byte, error) {
 
 func (v *NullableSyncStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

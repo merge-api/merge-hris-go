@@ -1273,7 +1273,10 @@ paths:
         required: true
       responses:
         "200":
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IgnoreCommonModel'
       security:
       - tokenAuth: []
       tags:
@@ -1473,6 +1476,151 @@ paths:
       - tokenAuth: []
       tags:
       - generate-key
+  /groups:
+    get:
+      description: Returns a list of `Group` objects.
+      operationId: groups_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was deleted in the third-party service.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGroupList'
+      security:
+      - tokenAuth: []
+      tags:
+      - groups
+  /groups/{id}:
+    get:
+      description: Returns a `Group` object with the given `id`.
+      operationId: groups_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+      security:
+      - tokenAuth: []
+      tags:
+      - groups
   /issues:
     get:
       description: Gets issues.
@@ -3916,7 +4064,7 @@ components:
           type: number
         type:
           allOf:
-          - $ref: '#/components/schemas/TypeEnum'
+          - $ref: '#/components/schemas/EarningTypeEnum'
           description: The type of earning.
           example: SALARY
           nullable: true
@@ -3925,6 +4073,13 @@ components:
           readOnly: true
           type: string
       type: object
+    EarningTypeEnum:
+      enum:
+      - SALARY
+      - REIMBURSEMENT
+      - OVERTIME
+      - BONUS
+      type: string
     Employee:
       description: |-
         # The Employee Object
@@ -3952,6 +4107,8 @@ components:
           key: ""
         remote_id: "19202938"
         last_name: Doe
+        groups:
+        - 21a54124-397f-494d-985e-3c5b330b8a68
         employments:
         - 17a54124-287f-494d-965e-3c5b330c9a68
         team: 249c9faa-3045-4a31-953b-8f22d3613301
@@ -4007,6 +4164,14 @@ components:
           example: Jane Doe
           nullable: true
           type: string
+        groups:
+          example:
+          - 21a54124-397f-494d-985e-3c5b330b8a68
+          items:
+            format: uuid
+            nullable: true
+            type: string
+          type: array
         work_email:
           description: The employee's work email.
           example: jane@merge.dev
@@ -4164,6 +4329,8 @@ components:
             key: ""
           remote_id: "19202938"
           last_name: Doe
+          groups:
+          - 21a54124-397f-494d-985e-3c5b330b8a68
           employments:
           - 17a54124-287f-494d-965e-3c5b330c9a68
           team: 249c9faa-3045-4a31-953b-8f22d3613301
@@ -4340,6 +4507,8 @@ components:
           key: ""
         remote_id: "19202938"
         last_name: Doe
+        groups:
+        - 21a54124-397f-494d-985e-3c5b330b8a68
         employments:
         - 17a54124-287f-494d-965e-3c5b330c9a68
         team: 249c9faa-3045-4a31-953b-8f22d3613301
@@ -4386,6 +4555,14 @@ components:
           example: Jane Doe
           nullable: true
           type: string
+        groups:
+          example:
+          - 21a54124-397f-494d-985e-3c5b330b8a68
+          items:
+            format: uuid
+            nullable: true
+            type: string
+          type: array
         work_email:
           description: The employee's work email.
           example: jane@merge.dev
@@ -4545,6 +4722,8 @@ components:
             key: ""
           remote_id: "19202938"
           last_name: Doe
+          groups:
+          - 21a54124-397f-494d-985e-3c5b330b8a68
           employments:
           - 17a54124-287f-494d-965e-3c5b330c9a68
           team: 249c9faa-3045-4a31-953b-8f22d3613301
@@ -4822,6 +5001,86 @@ components:
       required:
       - name
       type: object
+    Group:
+      description: |-
+        # The PayGroup Object
+        ### Description
+        The `PayGroup` object is used to represent Group information that employees belong to. This is often referenced with an Employee object.
+
+        ### Usage Example
+        Fetch from the `LIST Employee` endpoint and expand groups to view an employees groups.
+      example:
+        remote_id: "800293"
+        name: COST_CENTER_US
+        id: 134e0111-0f67-44f6-98f0-597000290bb3
+        type: COST_CENTER
+        parent_group: 2ef51b11-2c4e-4b02-8d1d-50592d9e96ef
+        remote_data:
+        - path: /group
+          data:
+          - Varies by platform
+      properties:
+        id:
+          example: 134e0111-0f67-44f6-98f0-597000290bb3
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "800293"
+          nullable: true
+          type: string
+        parent_group:
+          description: The parent group for this group.
+          example: 2ef51b11-2c4e-4b02-8d1d-50592d9e96ef
+          format: uuid
+          nullable: true
+          type: string
+        name:
+          description: The group name.
+          example: COST_CENTER_US
+          nullable: true
+          type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/GroupTypeEnum'
+          description: The group type
+          example: COST_CENTER
+          nullable: true
+        remote_data:
+          example:
+          - path: /group
+            data:
+            - Varies by platform
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+      type: object
+    GroupTypeEnum:
+      enum:
+      - TEAM
+      - DEPARTMENT
+      - COST_CENTER
+      - BUSINESS_UNIT
+      type: string
+    IgnoreCommonModel:
+      example:
+        reason: GENERAL_CUSTOMER_REQUEST
+        message: deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39
+      properties:
+        reason:
+          allOf:
+          - $ref: '#/components/schemas/ReasonEnum'
+          example: GENERAL_CUSTOMER_REQUEST
+        message:
+          example: deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39
+          maxLength: 256
+          type: string
+      required:
+      - reason
+      type: object
     IgnoreCommonModelRequest:
       example:
         reason: GENERAL_CUSTOMER_REQUEST
@@ -4831,13 +5090,11 @@ components:
           allOf:
           - $ref: '#/components/schemas/ReasonEnum'
           example: GENERAL_CUSTOMER_REQUEST
-          writeOnly: true
         message:
           example: deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39
           maxLength: 256
           minLength: 1
           type: string
-          writeOnly: true
       required:
       - reason
       type: object
@@ -5351,6 +5608,8 @@ components:
             key: ""
           remote_id: "19202938"
           last_name: Doe
+          groups:
+          - 21a54124-397f-494d-985e-3c5b330b8a68
           employments:
           - 17a54124-287f-494d-965e-3c5b330c9a68
           team: 249c9faa-3045-4a31-953b-8f22d3613301
@@ -5384,6 +5643,8 @@ components:
             key: ""
           remote_id: "19202938"
           last_name: Doe
+          groups:
+          - 21a54124-397f-494d-985e-3c5b330b8a68
           employments:
           - 17a54124-287f-494d-965e-3c5b330c9a68
           team: 249c9faa-3045-4a31-953b-8f22d3613301
@@ -5539,6 +5800,43 @@ components:
         results:
           items:
             $ref: '#/components/schemas/Employment'
+          type: array
+      type: object
+    PaginatedGroupList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - remote_id: "800293"
+          name: COST_CENTER_US
+          id: 134e0111-0f67-44f6-98f0-597000290bb3
+          type: COST_CENTER
+          parent_group: 2ef51b11-2c4e-4b02-8d1d-50592d9e96ef
+          remote_data:
+          - path: /group
+            data:
+            - Varies by platform
+        - remote_id: "800293"
+          name: COST_CENTER_US
+          id: 134e0111-0f67-44f6-98f0-597000290bb3
+          type: COST_CENTER
+          parent_group: 2ef51b11-2c4e-4b02-8d1d-50592d9e96ef
+          remote_data:
+          - path: /group
+            data:
+            - Varies by platform
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Group'
           type: array
       type: object
     PaginatedIssueList:
@@ -6937,13 +7235,6 @@ components:
       - DECLINED
       - CANCELLED
       - DELETED
-      type: string
-    TypeEnum:
-      enum:
-      - SALARY
-      - REIMBURSEMENT
-      - OVERTIME
-      - BONUS
       type: string
     UnitsEnum:
       enum:

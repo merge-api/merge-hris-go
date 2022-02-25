@@ -39,6 +39,8 @@ type Employment struct {
 	// The position's type of employment.
 	EmploymentType NullableEmploymentTypeEnum `json:"employment_type,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEmployment instantiates a new Employment object
@@ -584,6 +586,22 @@ func (o Employment) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *Employment) UnmarshalJSON(src []byte) error {
+    type EmploymentUnmarshalTarget Employment
+
+	var intermediateResult EmploymentUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = Employment(intermediateResult)
+	return nil
+}
 type NullableEmployment struct {
 	value *Employment
 	isSet bool
@@ -617,7 +635,11 @@ func (v NullableEmployment) MarshalJSON() ([]byte, error) {
 
 func (v *NullableEmployment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

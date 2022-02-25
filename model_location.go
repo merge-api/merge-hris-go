@@ -39,6 +39,8 @@ type Location struct {
 	// The location's type. Can be either WORK or HOME
 	LocationType NullableLocationTypeEnum `json:"location_type,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewLocation instantiates a new Location object
@@ -584,6 +586,22 @@ func (o Location) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *Location) UnmarshalJSON(src []byte) error {
+    type LocationUnmarshalTarget Location
+
+	var intermediateResult LocationUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = Location(intermediateResult)
+	return nil
+}
 type NullableLocation struct {
 	value *Location
 	isSet bool
@@ -617,7 +635,11 @@ func (v NullableLocation) MarshalJSON() ([]byte, error) {
 
 func (v *NullableLocation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

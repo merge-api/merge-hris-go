@@ -21,6 +21,8 @@ type EmployeeResponse struct {
 	Warnings []WarningValidationProblem `json:"warnings"`
 	Errors []ErrorValidationProblem `json:"errors"`
 	Logs *[]DebugModeLog `json:"logs,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEmployeeResponse instantiates a new EmployeeResponse object
@@ -164,6 +166,22 @@ func (o EmployeeResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *EmployeeResponse) UnmarshalJSON(src []byte) error {
+    type EmployeeResponseUnmarshalTarget EmployeeResponse
+
+	var intermediateResult EmployeeResponseUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = EmployeeResponse(intermediateResult)
+	return nil
+}
 type NullableEmployeeResponse struct {
 	value *EmployeeResponse
 	isSet bool
@@ -197,7 +215,11 @@ func (v NullableEmployeeResponse) MarshalJSON() ([]byte, error) {
 
 func (v *NullableEmployeeResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

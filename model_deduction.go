@@ -26,6 +26,8 @@ type Deduction struct {
 	// The amount the company is deducting.
 	CompanyDeduction NullableFloat32 `json:"company_deduction,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewDeduction instantiates a new Deduction object
@@ -301,6 +303,22 @@ func (o Deduction) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *Deduction) UnmarshalJSON(src []byte) error {
+    type DeductionUnmarshalTarget Deduction
+
+	var intermediateResult DeductionUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = Deduction(intermediateResult)
+	return nil
+}
 type NullableDeduction struct {
 	value *Deduction
 	isSet bool
@@ -334,7 +352,11 @@ func (v NullableDeduction) MarshalJSON() ([]byte, error) {
 
 func (v *NullableDeduction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

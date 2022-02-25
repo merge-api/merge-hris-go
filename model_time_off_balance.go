@@ -28,6 +28,8 @@ type TimeOffBalance struct {
 	// The policy type of this time off balance.
 	PolicyType NullablePolicyTypeEnum `json:"policy_type,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTimeOffBalance instantiates a new TimeOffBalance object
@@ -348,6 +350,22 @@ func (o TimeOffBalance) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *TimeOffBalance) UnmarshalJSON(src []byte) error {
+    type TimeOffBalanceUnmarshalTarget TimeOffBalance
+
+	var intermediateResult TimeOffBalanceUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = TimeOffBalance(intermediateResult)
+	return nil
+}
 type NullableTimeOffBalance struct {
 	value *TimeOffBalance
 	isSet bool
@@ -381,7 +399,11 @@ func (v NullableTimeOffBalance) MarshalJSON() ([]byte, error) {
 
 func (v *NullableTimeOffBalance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

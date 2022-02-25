@@ -33,6 +33,8 @@ type BankInfo struct {
 	// When the matching bank object was created in the third party system.
 	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewBankInfo instantiates a new BankInfo object
@@ -443,6 +445,22 @@ func (o BankInfo) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *BankInfo) UnmarshalJSON(src []byte) error {
+    type BankInfoUnmarshalTarget BankInfo
+
+	var intermediateResult BankInfoUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = BankInfo(intermediateResult)
+	return nil
+}
 type NullableBankInfo struct {
 	value *BankInfo
 	isSet bool
@@ -476,7 +494,11 @@ func (v NullableBankInfo) MarshalJSON() ([]byte, error) {
 
 func (v *NullableBankInfo) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 

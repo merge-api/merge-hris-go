@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **FirstName** | Pointer to **NullableString** | The employee&#39;s first name. | [optional] 
 **LastName** | Pointer to **NullableString** | The employee&#39;s last name. | [optional] 
 **DisplayFullName** | Pointer to **NullableString** | The employee&#39;s full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name. | [optional] 
+**Groups** | Pointer to **[]string** |  | [optional] 
 **WorkEmail** | Pointer to **NullableString** | The employee&#39;s work email. | [optional] 
 **PersonalEmail** | Pointer to **NullableString** | The employee&#39;s personal email. | [optional] 
 **MobilePhoneNumber** | Pointer to **NullableString** | The employee&#39;s mobile phone number. | [optional] 
@@ -287,6 +288,31 @@ HasDisplayFullName returns a boolean if a field has been set.
 `func (o *Employee) UnsetDisplayFullName()`
 
 UnsetDisplayFullName ensures that no value is present for DisplayFullName, not even an explicit nil
+### GetGroups
+
+`func (o *Employee) GetGroups() []string`
+
+GetGroups returns the Groups field if non-nil, zero value otherwise.
+
+### GetGroupsOk
+
+`func (o *Employee) GetGroupsOk() (*[]string, bool)`
+
+GetGroupsOk returns a tuple with the Groups field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroups
+
+`func (o *Employee) SetGroups(v []string)`
+
+SetGroups sets Groups field to given value.
+
+### HasGroups
+
+`func (o *Employee) HasGroups() bool`
+
+HasGroups returns a boolean if a field has been set.
+
 ### GetWorkEmail
 
 `func (o *Employee) GetWorkEmail() string`

@@ -27,6 +27,8 @@ type Company struct {
 	// The company's Employer Identification Numbers.
 	Eins []string `json:"eins,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+    // raw json response by property name
+    responseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewCompany instantiates a new Company object
@@ -293,6 +295,22 @@ func (o Company) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
+func (v *Company) UnmarshalJSON(src []byte) error {
+    type CompanyUnmarshalTarget Company
+
+	var intermediateResult CompanyUnmarshalTarget
+	var err1 = json.Unmarshal(src, &intermediateResult)
+    if err1 != nil {
+        return err1
+    }
+    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+	if err2 != nil {
+		return err2
+	}
+
+	*v = Company(intermediateResult)
+	return nil
+}
 type NullableCompany struct {
 	value *Company
 	isSet bool
@@ -326,7 +344,11 @@ func (v NullableCompany) MarshalJSON() ([]byte, error) {
 
 func (v *NullableCompany) UnmarshalJSON(src []byte) error {
 	v.isSet = true
-	return json.Unmarshal(src, &v.value)
+	var err1 = json.Unmarshal(src, &v.value)
+    if err1 != nil {
+        return err1
+    }
+    return json.Unmarshal(src, &v.value.responseRaw)
 }
 
 
