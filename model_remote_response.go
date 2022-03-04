@@ -23,7 +23,7 @@ type RemoteResponse struct {
 	Response map[string]interface{} `json:"response"`
 	Headers *map[string]interface{} `json:"headers,omitempty"`
     // raw json response by property name
-    responseRaw map[string]json.RawMessage `json:"-"`
+    ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewRemoteResponse instantiates a new RemoteResponse object
@@ -203,7 +203,7 @@ func (v *RemoteResponse) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+    var err2 = json.Unmarshal(src, &intermediateResult.ResponseRaw)
 	if err2 != nil {
 		return err2
 	}
@@ -248,7 +248,7 @@ func (v *NullableRemoteResponse) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    return json.Unmarshal(src, &v.value.responseRaw)
+    return json.Unmarshal(src, &v.value.ResponseRaw)
 }
 
 

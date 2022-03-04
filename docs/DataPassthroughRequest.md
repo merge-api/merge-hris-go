@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Path** | **string** |  | 
 **BaseUrlOverride** | Pointer to **NullableString** |  | [optional] 
 **Data** | Pointer to **NullableString** |  | [optional] 
+**MultipartFormData** | Pointer to [**[]MultipartFormFieldRequest**](MultipartFormFieldRequest.md) | Pass an array of &#x60;MultipartFormField&#x60; objects in here instead of using the &#x60;data&#x60; param if &#x60;request_format&#x60; is set to &#x60;MULTIPART&#x60;. | [optional] 
 **Headers** | Pointer to **map[string]interface{}** |  | [optional] 
 **RequestFormat** | Pointer to [**NullableRequestFormatEnum**](RequestFormatEnum.md) |  | [optional] 
 
@@ -140,6 +141,41 @@ HasData returns a boolean if a field has been set.
 `func (o *DataPassthroughRequest) UnsetData()`
 
 UnsetData ensures that no value is present for Data, not even an explicit nil
+### GetMultipartFormData
+
+`func (o *DataPassthroughRequest) GetMultipartFormData() []MultipartFormFieldRequest`
+
+GetMultipartFormData returns the MultipartFormData field if non-nil, zero value otherwise.
+
+### GetMultipartFormDataOk
+
+`func (o *DataPassthroughRequest) GetMultipartFormDataOk() (*[]MultipartFormFieldRequest, bool)`
+
+GetMultipartFormDataOk returns a tuple with the MultipartFormData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMultipartFormData
+
+`func (o *DataPassthroughRequest) SetMultipartFormData(v []MultipartFormFieldRequest)`
+
+SetMultipartFormData sets MultipartFormData field to given value.
+
+### HasMultipartFormData
+
+`func (o *DataPassthroughRequest) HasMultipartFormData() bool`
+
+HasMultipartFormData returns a boolean if a field has been set.
+
+### SetMultipartFormDataNil
+
+`func (o *DataPassthroughRequest) SetMultipartFormDataNil(b bool)`
+
+ SetMultipartFormDataNil sets the value for MultipartFormData to be an explicit nil
+
+### UnsetMultipartFormData
+`func (o *DataPassthroughRequest) UnsetMultipartFormData()`
+
+UnsetMultipartFormData ensures that no value is present for MultipartFormData, not even an explicit nil
 ### GetHeaders
 
 `func (o *DataPassthroughRequest) GetHeaders() map[string]interface{}`

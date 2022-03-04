@@ -23,9 +23,9 @@ type Earning struct {
 	Amount NullableFloat32 `json:"amount,omitempty"`
 	// The type of earning.
 	Type NullableEarningTypeEnum `json:"type,omitempty"`
-	RemoteData *string `json:"remote_data,omitempty"`
+	RemoteData []map[string]interface{} `json:"remote_data,omitempty"`
     // raw json response by property name
-    responseRaw map[string]json.RawMessage `json:"-"`
+    ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEarning instantiates a new Earning object
@@ -203,22 +203,23 @@ func (o *Earning) UnsetType() {
 	o.Type.Unset()
 }
 
-// GetRemoteData returns the RemoteData field value if set, zero value otherwise.
-func (o *Earning) GetRemoteData() string {
-	if o == nil || o.RemoteData == nil {
-		var ret string
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Earning) GetRemoteData() []map[string]interface{} {
+	if o == nil  {
+		var ret []map[string]interface{}
 		return ret
 	}
-	return *o.RemoteData
+	return o.RemoteData
 }
 
 // GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Earning) GetRemoteDataOk() (*string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Earning) GetRemoteDataOk() (*[]map[string]interface{}, bool) {
 	if o == nil || o.RemoteData == nil {
 		return nil, false
 	}
-	return o.RemoteData, true
+	return &o.RemoteData, true
 }
 
 // HasRemoteData returns a boolean if a field has been set.
@@ -230,9 +231,9 @@ func (o *Earning) HasRemoteData() bool {
 	return false
 }
 
-// SetRemoteData gets a reference to the given string and assigns it to the RemoteData field.
-func (o *Earning) SetRemoteData(v string) {
-	o.RemoteData = &v
+// SetRemoteData gets a reference to the given []map[string]interface{} and assigns it to the RemoteData field.
+func (o *Earning) SetRemoteData(v []map[string]interface{}) {
+	o.RemoteData = v
 }
 
 func (o Earning) MarshalJSON() ([]byte, error) {
@@ -263,7 +264,7 @@ func (v *Earning) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+    var err2 = json.Unmarshal(src, &intermediateResult.ResponseRaw)
 	if err2 != nil {
 		return err2
 	}
@@ -308,7 +309,7 @@ func (v *NullableEarning) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    return json.Unmarshal(src, &v.value.responseRaw)
+    return json.Unmarshal(src, &v.value.ResponseRaw)
 }
 
 

@@ -28,12 +28,14 @@ const (
 	CATEGORYENUM_HRIS CategoryEnum = "hris"
 	CATEGORYENUM_ATS CategoryEnum = "ats"
 	CATEGORYENUM_ACCOUNTING CategoryEnum = "accounting"
+	CATEGORYENUM_TICKETING CategoryEnum = "ticketing"
 )
 
 var allowedCategoryEnumEnumValues = []CategoryEnum{
 	"hris",
 	"ats",
 	"accounting",
+	"ticketing",
 }
 
 func (v *CategoryEnum) UnmarshalJSON(src []byte) error {

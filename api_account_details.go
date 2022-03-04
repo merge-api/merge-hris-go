@@ -30,8 +30,13 @@ type AccountDetailsApiService service
 type ApiAccountDetailsRetrieveRequest struct {
 	ctx _context.Context
 	ApiService *AccountDetailsApiService
+	xAccountToken *string
 }
 
+func (r ApiAccountDetailsRetrieveRequest) XAccountToken(xAccountToken string) ApiAccountDetailsRetrieveRequest {
+	r.xAccountToken = &xAccountToken
+	return r
+}
 
 func (r ApiAccountDetailsRetrieveRequest) Execute() (AccountDetails, *_nethttp.Response, error) {
 	return r.ApiService.AccountDetailsRetrieveExecute(r)
@@ -74,6 +79,9 @@ func (a *AccountDetailsApiService) AccountDetailsRetrieveExecute(r ApiAccountDet
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
+	if r.xAccountToken == nil {
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -92,6 +100,7 @@ func (a *AccountDetailsApiService) AccountDetailsRetrieveExecute(r ApiAccountDet
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	localVarHeaderParams["X-Account-Token"] = parameterToString(*r.xAccountToken, "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

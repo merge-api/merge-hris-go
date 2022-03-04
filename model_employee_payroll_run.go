@@ -38,7 +38,7 @@ type EmployeePayrollRun struct {
 	Taxes *[]Tax `json:"taxes,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
     // raw json response by property name
-    responseRaw map[string]json.RawMessage `json:"-"`
+    ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEmployeePayrollRun instantiates a new EmployeePayrollRun object
@@ -607,7 +607,7 @@ func (v *EmployeePayrollRun) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+    var err2 = json.Unmarshal(src, &intermediateResult.ResponseRaw)
 	if err2 != nil {
 		return err2
 	}
@@ -652,7 +652,7 @@ func (v *NullableEmployeePayrollRun) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    return json.Unmarshal(src, &v.value.responseRaw)
+    return json.Unmarshal(src, &v.value.ResponseRaw)
 }
 
 
