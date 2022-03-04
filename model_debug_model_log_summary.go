@@ -21,7 +21,7 @@ type DebugModelLogSummary struct {
 	Method string `json:"method"`
 	StatusCode int32 `json:"status_code"`
     // raw json response by property name
-    responseRaw map[string]json.RawMessage `json:"-"`
+    ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewDebugModelLogSummary instantiates a new DebugModelLogSummary object
@@ -138,7 +138,7 @@ func (v *DebugModelLogSummary) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+    var err2 = json.Unmarshal(src, &intermediateResult.ResponseRaw)
 	if err2 != nil {
 		return err2
 	}
@@ -183,7 +183,7 @@ func (v *NullableDebugModelLogSummary) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    return json.Unmarshal(src, &v.value.responseRaw)
+    return json.Unmarshal(src, &v.value.ResponseRaw)
 }
 
 

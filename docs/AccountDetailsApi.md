@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## AccountDetailsRetrieve
 
-> AccountDetails AccountDetailsRetrieve(ctx).Execute()
+> AccountDetails AccountDetailsRetrieve(ctx).XAccountToken(xAccountToken).Execute()
 
 
 
@@ -29,10 +29,11 @@ import (
 )
 
 func main() {
+    xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountDetailsApi.AccountDetailsRetrieve(context.Background()).Execute()
+    resp, r, err := api_client.AccountDetailsApi.AccountDetailsRetrieve(context.Background()).XAccountToken(xAccountToken).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountDetailsApi.AccountDetailsRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -44,12 +45,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiAccountDetailsRetrieveRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xAccountToken** | **string** | Token identifying the end user. | 
 
 ### Return type
 

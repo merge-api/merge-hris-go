@@ -68,7 +68,7 @@ type Employee struct {
 	// Custom fields configured for a given model.
 	CustomFields map[string]interface{} `json:"custom_fields,omitempty"`
     // raw json response by property name
-    responseRaw map[string]json.RawMessage `json:"-"`
+    ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEmployee instantiates a new Employee object
@@ -1358,7 +1358,7 @@ func (v *Employee) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+    var err2 = json.Unmarshal(src, &intermediateResult.ResponseRaw)
 	if err2 != nil {
 		return err2
 	}
@@ -1403,7 +1403,7 @@ func (v *NullableEmployee) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    return json.Unmarshal(src, &v.value.responseRaw)
+    return json.Unmarshal(src, &v.value.ResponseRaw)
 }
 
 

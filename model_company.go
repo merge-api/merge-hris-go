@@ -28,7 +28,7 @@ type Company struct {
 	Eins []string `json:"eins,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
     // raw json response by property name
-    responseRaw map[string]json.RawMessage `json:"-"`
+    ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewCompany instantiates a new Company object
@@ -303,7 +303,7 @@ func (v *Company) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+    var err2 = json.Unmarshal(src, &intermediateResult.ResponseRaw)
 	if err2 != nil {
 		return err2
 	}
@@ -348,7 +348,7 @@ func (v *NullableCompany) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    return json.Unmarshal(src, &v.value.responseRaw)
+    return json.Unmarshal(src, &v.value.ResponseRaw)
 }
 
 

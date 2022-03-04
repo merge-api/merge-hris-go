@@ -20,7 +20,7 @@ type AccountToken struct {
 	AccountToken string `json:"account_token"`
 	Integration AccountIntegration `json:"integration"`
     // raw json response by property name
-    responseRaw map[string]json.RawMessage `json:"-"`
+    ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAccountToken instantiates a new AccountToken object
@@ -109,7 +109,7 @@ func (v *AccountToken) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+    var err2 = json.Unmarshal(src, &intermediateResult.ResponseRaw)
 	if err2 != nil {
 		return err2
 	}
@@ -154,7 +154,7 @@ func (v *NullableAccountToken) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    return json.Unmarshal(src, &v.value.responseRaw)
+    return json.Unmarshal(src, &v.value.ResponseRaw)
 }
 
 

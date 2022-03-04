@@ -20,7 +20,7 @@ type LinkToken struct {
 	LinkToken string `json:"link_token"`
 	IntegrationName string `json:"integration_name"`
     // raw json response by property name
-    responseRaw map[string]json.RawMessage `json:"-"`
+    ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewLinkToken instantiates a new LinkToken object
@@ -109,7 +109,7 @@ func (v *LinkToken) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+    var err2 = json.Unmarshal(src, &intermediateResult.ResponseRaw)
 	if err2 != nil {
 		return err2
 	}
@@ -154,7 +154,7 @@ func (v *NullableLinkToken) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    return json.Unmarshal(src, &v.value.responseRaw)
+    return json.Unmarshal(src, &v.value.ResponseRaw)
 }
 
 

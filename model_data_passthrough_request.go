@@ -21,10 +21,12 @@ type DataPassthroughRequest struct {
 	Path string `json:"path"`
 	BaseUrlOverride NullableString `json:"base_url_override,omitempty"`
 	Data NullableString `json:"data,omitempty"`
+	// Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`.
+	MultipartFormData []MultipartFormFieldRequest `json:"multipart_form_data,omitempty"`
 	Headers map[string]interface{} `json:"headers,omitempty"`
 	RequestFormat NullableRequestFormatEnum `json:"request_format,omitempty"`
     // raw json response by property name
-    responseRaw map[string]json.RawMessage `json:"-"`
+    ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewDataPassthroughRequest instantiates a new DataPassthroughRequest object
@@ -178,6 +180,39 @@ func (o *DataPassthroughRequest) UnsetData() {
 	o.Data.Unset()
 }
 
+// GetMultipartFormData returns the MultipartFormData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DataPassthroughRequest) GetMultipartFormData() []MultipartFormFieldRequest {
+	if o == nil  {
+		var ret []MultipartFormFieldRequest
+		return ret
+	}
+	return o.MultipartFormData
+}
+
+// GetMultipartFormDataOk returns a tuple with the MultipartFormData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DataPassthroughRequest) GetMultipartFormDataOk() (*[]MultipartFormFieldRequest, bool) {
+	if o == nil || o.MultipartFormData == nil {
+		return nil, false
+	}
+	return &o.MultipartFormData, true
+}
+
+// HasMultipartFormData returns a boolean if a field has been set.
+func (o *DataPassthroughRequest) HasMultipartFormData() bool {
+	if o != nil && o.MultipartFormData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMultipartFormData gets a reference to the given []MultipartFormFieldRequest and assigns it to the MultipartFormData field.
+func (o *DataPassthroughRequest) SetMultipartFormData(v []MultipartFormFieldRequest) {
+	o.MultipartFormData = v
+}
+
 // GetHeaders returns the Headers field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DataPassthroughRequest) GetHeaders() map[string]interface{} {
 	if o == nil  {
@@ -267,6 +302,9 @@ func (o DataPassthroughRequest) MarshalJSON() ([]byte, error) {
 	if o.Data.IsSet() {
 		toSerialize["data"] = o.Data.Get()
 	}
+	if o.MultipartFormData != nil {
+		toSerialize["multipart_form_data"] = o.MultipartFormData
+	}
 	if o.Headers != nil {
 		toSerialize["headers"] = o.Headers
 	}
@@ -284,7 +322,7 @@ func (v *DataPassthroughRequest) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+    var err2 = json.Unmarshal(src, &intermediateResult.ResponseRaw)
 	if err2 != nil {
 		return err2
 	}
@@ -329,7 +367,7 @@ func (v *NullableDataPassthroughRequest) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    return json.Unmarshal(src, &v.value.responseRaw)
+    return json.Unmarshal(src, &v.value.ResponseRaw)
 }
 
 

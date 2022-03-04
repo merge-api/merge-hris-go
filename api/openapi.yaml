@@ -18,6 +18,15 @@ paths:
     get:
       description: Get details for a linked account.
       operationId: account_details_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -1776,6 +1785,7 @@ paths:
           - accounting
           - ats
           - hris
+          - ticketing
           nullable: true
           type: string
         style: form
@@ -3566,12 +3576,14 @@ components:
       - hris
       - ats
       - accounting
+      - ticketing
       type: string
     CategoryEnum:
       enum:
       - hris
       - ats
       - accounting
+      - ticketing
       type: string
     Company:
       description: |-
@@ -3905,6 +3917,17 @@ components:
         method: POST
         data: '{"company": "Lime", "model": "Gen 2.5"}'
         base_url_override: base_url_override
+        multipart_form_data:
+        - data: SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=
+          content_type: application/pdf
+          file_name: resume.pdf
+          name: resume
+          encoding: BASE64
+        - data: SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=
+          content_type: application/pdf
+          file_name: resume.pdf
+          name: resume
+          encoding: BASE64
       properties:
         method:
           allOf:
@@ -3923,6 +3946,13 @@ components:
           minLength: 1
           nullable: true
           type: string
+        multipart_form_data:
+          description: Pass an array of `MultipartFormField` objects in here instead
+            of using the `data` param if `request_format` is set to `MULTIPART`.
+          items:
+            $ref: '#/components/schemas/MultipartFormFieldRequest'
+          nullable: true
+          type: array
         headers:
           additionalProperties: {}
           example:
@@ -4069,9 +4099,17 @@ components:
           example: SALARY
           nullable: true
         remote_data:
-          example: '[{"path":"/payroll-earnings","data":["Varies by platform"]}]'
-          readOnly: true
-          type: string
+          example:
+          - path: /payroll-earnings
+            data:
+            - Varies by platform
+          items:
+            additionalProperties: {}
+            description: The full data pulled from the third-party API for an object.
+            nullable: true
+            type: object
+          nullable: true
+          type: array
       type: object
     EarningTypeEnum:
       enum:
@@ -4895,6 +4933,11 @@ components:
       - CONTRACTOR
       - FREELANCE
       type: string
+    EncodingEnum:
+      enum:
+      - RAW
+      - BASE64
+      type: string
     EndUserDetailsRequest:
       example:
         end_user_organization_name: end_user_organization_name
@@ -5321,6 +5364,54 @@ components:
       - model_name
       - required_post_parameters
       - supported_fields
+      type: object
+    MultipartFormFieldRequest:
+      description: |-
+        # The MultipartFormField Object
+        ### Description
+        The `MultipartFormField` object is used to represent fields in an HTTP request using `multipart/form-data`.
+
+        ### Usage Example
+        Create a `MultipartFormField` to define a multipart form entry.
+      example:
+        data: SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=
+        content_type: application/pdf
+        file_name: resume.pdf
+        name: resume
+        encoding: BASE64
+      properties:
+        name:
+          description: The name of the form field
+          example: resume
+          minLength: 1
+          type: string
+        data:
+          description: The data for the form field.
+          example: SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=
+          minLength: 1
+          type: string
+        encoding:
+          allOf:
+          - $ref: '#/components/schemas/EncodingEnum'
+          description: The encoding of the value of `data`. Defaults to `RAW` if not
+            defined.
+          example: BASE64
+          nullable: true
+        file_name:
+          description: The file name of the form field, if the field is for a file.
+          example: resume.pdf
+          minLength: 1
+          nullable: true
+          type: string
+        content_type:
+          description: The MIME type of the file, if the field is for a file.
+          example: application/pdf
+          minLength: 1
+          nullable: true
+          type: string
+      required:
+      - data
+      - name
       type: object
     PaginatedAccountDetailsAndActionsList:
       example:
@@ -6845,9 +6936,17 @@ components:
           nullable: true
           type: boolean
         remote_data:
-          example: '[{"path":"/tax","data":["Varies by platform"]}]'
-          readOnly: true
-          type: string
+          example:
+          - path: /tax
+            data:
+            - Varies by platform
+          items:
+            additionalProperties: {}
+            description: The full data pulled from the third-party API for an object.
+            nullable: true
+            type: object
+          nullable: true
+          type: array
       type: object
     Team:
       description: |-

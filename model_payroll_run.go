@@ -33,7 +33,7 @@ type PayrollRun struct {
 	CheckDate NullableTime `json:"check_date,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
     // raw json response by property name
-    responseRaw map[string]json.RawMessage `json:"-"`
+    ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPayrollRun instantiates a new PayrollRun object
@@ -407,7 +407,7 @@ func (v *PayrollRun) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    var err2 = json.Unmarshal(src, &intermediateResult.responseRaw)
+    var err2 = json.Unmarshal(src, &intermediateResult.ResponseRaw)
 	if err2 != nil {
 		return err2
 	}
@@ -452,7 +452,7 @@ func (v *NullablePayrollRun) UnmarshalJSON(src []byte) error {
     if err1 != nil {
         return err1
     }
-    return json.Unmarshal(src, &v.value.responseRaw)
+    return json.Unmarshal(src, &v.value.ResponseRaw)
 }
 
 
