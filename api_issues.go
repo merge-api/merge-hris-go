@@ -18,6 +18,7 @@ import (
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
+	"time"
 )
 
 // Linger please
@@ -35,8 +36,12 @@ type ApiIssuesListRequest struct {
 	cursor *string
 	endDate *string
 	endUserOrganizationName *string
+	firstIncidentTimeAfter *time.Time
+	firstIncidentTimeBefore *time.Time
 	includeMuted *string
 	integrationName *string
+	lastIncidentTimeAfter *time.Time
+	lastIncidentTimeBefore *time.Time
 	pageSize *int32
 	startDate *string
 	status *string
@@ -58,12 +63,28 @@ func (r ApiIssuesListRequest) EndUserOrganizationName(endUserOrganizationName st
 	r.endUserOrganizationName = &endUserOrganizationName
 	return r
 }
+func (r ApiIssuesListRequest) FirstIncidentTimeAfter(firstIncidentTimeAfter time.Time) ApiIssuesListRequest {
+	r.firstIncidentTimeAfter = &firstIncidentTimeAfter
+	return r
+}
+func (r ApiIssuesListRequest) FirstIncidentTimeBefore(firstIncidentTimeBefore time.Time) ApiIssuesListRequest {
+	r.firstIncidentTimeBefore = &firstIncidentTimeBefore
+	return r
+}
 func (r ApiIssuesListRequest) IncludeMuted(includeMuted string) ApiIssuesListRequest {
 	r.includeMuted = &includeMuted
 	return r
 }
 func (r ApiIssuesListRequest) IntegrationName(integrationName string) ApiIssuesListRequest {
 	r.integrationName = &integrationName
+	return r
+}
+func (r ApiIssuesListRequest) LastIncidentTimeAfter(lastIncidentTimeAfter time.Time) ApiIssuesListRequest {
+	r.lastIncidentTimeAfter = &lastIncidentTimeAfter
+	return r
+}
+func (r ApiIssuesListRequest) LastIncidentTimeBefore(lastIncidentTimeBefore time.Time) ApiIssuesListRequest {
+	r.lastIncidentTimeBefore = &lastIncidentTimeBefore
 	return r
 }
 func (r ApiIssuesListRequest) PageSize(pageSize int32) ApiIssuesListRequest {
@@ -133,11 +154,23 @@ func (a *IssuesApiService) IssuesListExecute(r ApiIssuesListRequest) (PaginatedI
 	if r.endUserOrganizationName != nil {
 		localVarQueryParams.Add("end_user_organization_name", parameterToString(*r.endUserOrganizationName, ""))
 	}
+	if r.firstIncidentTimeAfter != nil {
+		localVarQueryParams.Add("first_incident_time_after", parameterToString(*r.firstIncidentTimeAfter, ""))
+	}
+	if r.firstIncidentTimeBefore != nil {
+		localVarQueryParams.Add("first_incident_time_before", parameterToString(*r.firstIncidentTimeBefore, ""))
+	}
 	if r.includeMuted != nil {
 		localVarQueryParams.Add("include_muted", parameterToString(*r.includeMuted, ""))
 	}
 	if r.integrationName != nil {
 		localVarQueryParams.Add("integration_name", parameterToString(*r.integrationName, ""))
+	}
+	if r.lastIncidentTimeAfter != nil {
+		localVarQueryParams.Add("last_incident_time_after", parameterToString(*r.lastIncidentTimeAfter, ""))
+	}
+	if r.lastIncidentTimeBefore != nil {
+		localVarQueryParams.Add("last_incident_time_before", parameterToString(*r.lastIncidentTimeBefore, ""))
 	}
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))

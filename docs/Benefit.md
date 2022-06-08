@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **BenefitPlanType** | Pointer to **NullableString** | The type of benefit plan | [optional] 
 **EmployeeContribution** | Pointer to **NullableFloat32** | The employee&#39;s contribution. | [optional] 
 **CompanyContribution** | Pointer to **NullableFloat32** | The company&#39;s contribution. | [optional] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted on the third-party. | [optional] [readonly] 
 
 ## Methods
 
@@ -267,41 +267,31 @@ HasCompanyContribution returns a boolean if a field has been set.
 `func (o *Benefit) UnsetCompanyContribution()`
 
 UnsetCompanyContribution ensures that no value is present for CompanyContribution, not even an explicit nil
-### GetRemoteData
+### GetRemoteWasDeleted
 
-`func (o *Benefit) GetRemoteData() []RemoteData`
+`func (o *Benefit) GetRemoteWasDeleted() bool`
 
-GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
 
-### GetRemoteDataOk
+### GetRemoteWasDeletedOk
 
-`func (o *Benefit) GetRemoteDataOk() (*[]RemoteData, bool)`
+`func (o *Benefit) GetRemoteWasDeletedOk() (*bool, bool)`
 
-GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRemoteData
+### SetRemoteWasDeleted
 
-`func (o *Benefit) SetRemoteData(v []RemoteData)`
+`func (o *Benefit) SetRemoteWasDeleted(v bool)`
 
-SetRemoteData sets RemoteData field to given value.
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
 
-### HasRemoteData
+### HasRemoteWasDeleted
 
-`func (o *Benefit) HasRemoteData() bool`
+`func (o *Benefit) HasRemoteWasDeleted() bool`
 
-HasRemoteData returns a boolean if a field has been set.
+HasRemoteWasDeleted returns a boolean if a field has been set.
 
-### SetRemoteDataNil
-
-`func (o *Benefit) SetRemoteDataNil(b bool)`
-
- SetRemoteDataNil sets the value for RemoteData to be an explicit nil
-
-### UnsetRemoteData
-`func (o *Benefit) UnsetRemoteData()`
-
-UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## SyncStatusResyncCreate
 
-> SyncStatus SyncStatusResyncCreate(ctx).XAccountToken(xAccountToken).Execute()
+> []SyncStatus SyncStatusResyncCreate(ctx).XAccountToken(xAccountToken).Execute()
 
 
 
@@ -38,7 +38,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ForceResyncApi.SyncStatusResyncCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `SyncStatusResyncCreate`: SyncStatus
+    // response from `SyncStatusResyncCreate`: []SyncStatus
     fmt.Fprintf(os.Stdout, "Response from `ForceResyncApi.SyncStatusResyncCreate`: %v\n", resp)
 }
 ```
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SyncStatus**](SyncStatus.md)
+[**[]SyncStatus**](SyncStatus.md)
 
 ### Authorization
 

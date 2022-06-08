@@ -38,7 +38,7 @@ func (r ApiSyncStatusResyncCreateRequest) XAccountToken(xAccountToken string) Ap
 	return r
 }
 
-func (r ApiSyncStatusResyncCreateRequest) Execute() (SyncStatus, *_nethttp.Response, error) {
+func (r ApiSyncStatusResyncCreateRequest) Execute() ([]SyncStatus, *_nethttp.Response, error) {
 	return r.ApiService.SyncStatusResyncCreateExecute(r)
 }
 
@@ -57,16 +57,16 @@ func (a *ForceResyncApiService) SyncStatusResyncCreate(ctx _context.Context) Api
 
 /*
  * Execute executes the request
- * @return SyncStatus
+ * @return []SyncStatus
  */
-func (a *ForceResyncApiService) SyncStatusResyncCreateExecute(r ApiSyncStatusResyncCreateRequest) (SyncStatus, *_nethttp.Response, error) {
+func (a *ForceResyncApiService) SyncStatusResyncCreateExecute(r ApiSyncStatusResyncCreateRequest) ([]SyncStatus, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SyncStatus
+		localVarReturnValue  []SyncStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ForceResyncApiService.SyncStatusResyncCreate")

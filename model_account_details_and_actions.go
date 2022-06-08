@@ -24,6 +24,7 @@ type AccountDetailsAndActions struct {
 	EndUserOriginId *string `json:"end_user_origin_id,omitempty"`
 	EndUserOrganizationName string `json:"end_user_organization_name"`
 	EndUserEmailAddress string `json:"end_user_email_address"`
+	WebhookListenerUrl string `json:"webhook_listener_url"`
 	Integration *AccountDetailsAndActionsIntegration `json:"integration,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
@@ -33,12 +34,13 @@ type AccountDetailsAndActions struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountDetailsAndActions(id string, status AccountDetailsAndActionsStatusEnum, endUserOrganizationName string, endUserEmailAddress string) *AccountDetailsAndActions {
+func NewAccountDetailsAndActions(id string, status AccountDetailsAndActionsStatusEnum, endUserOrganizationName string, endUserEmailAddress string, webhookListenerUrl string) *AccountDetailsAndActions {
 	this := AccountDetailsAndActions{}
 	this.Id = id
 	this.Status = status
 	this.EndUserOrganizationName = endUserOrganizationName
 	this.EndUserEmailAddress = endUserEmailAddress
+	this.WebhookListenerUrl = webhookListenerUrl
 	return &this
 }
 
@@ -242,6 +244,30 @@ func (o *AccountDetailsAndActions) SetEndUserEmailAddress(v string) {
 	o.EndUserEmailAddress = v
 }
 
+// GetWebhookListenerUrl returns the WebhookListenerUrl field value
+func (o *AccountDetailsAndActions) GetWebhookListenerUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.WebhookListenerUrl
+}
+
+// GetWebhookListenerUrlOk returns a tuple with the WebhookListenerUrl field value
+// and a boolean to check if the value has been set.
+func (o *AccountDetailsAndActions) GetWebhookListenerUrlOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.WebhookListenerUrl, true
+}
+
+// SetWebhookListenerUrl sets field value
+func (o *AccountDetailsAndActions) SetWebhookListenerUrl(v string) {
+	o.WebhookListenerUrl = v
+}
+
 // GetIntegration returns the Integration field value if set, zero value otherwise.
 func (o *AccountDetailsAndActions) GetIntegration() AccountDetailsAndActionsIntegration {
 	if o == nil || o.Integration == nil {
@@ -296,6 +322,9 @@ func (o AccountDetailsAndActions) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["end_user_email_address"] = o.EndUserEmailAddress
+	}
+	if true {
+		toSerialize["webhook_listener_url"] = o.WebhookListenerUrl
 	}
 	if o.Integration != nil {
 		toSerialize["integration"] = o.Integration

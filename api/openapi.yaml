@@ -1017,6 +1017,38 @@ paths:
         schema:
           type: string
         style: form
+      - description: If provided, will only return employees with this display name.
+        explode: true
+        in: query
+        name: display_full_name
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: If provided, will only return employees with this employment
+          status.
+        explode: true
+        in: query
+        name: employment_status
+        required: false
+        schema:
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - PENDING
+          nullable: true
+          type: string
+        style: form
+      - description: If provided, will only return employees with this first name.
+        explode: true
+        in: query
+        name: first_name
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
       - description: Whether to include data that was deleted in the third-party service.
         explode: true
         in: query
@@ -1042,6 +1074,15 @@ paths:
         required: false
         schema:
           type: boolean
+        style: form
+      - description: If provided, will only return employees with this last name.
+        explode: true
+        in: query
+        name: last_name
+        required: false
+        schema:
+          nullable: true
+          type: string
         style: form
       - description: If provided, will only return employees for this manager.
         examples:
@@ -1260,6 +1301,14 @@ paths:
         stored for audit purposes.
       operationId: employees_ignore_create
       parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
       - explode: false
         in: path
         name: model_id
@@ -1292,6 +1341,29 @@ paths:
       - employees
       x-extra-tags:
       - ignore-model
+  /employees/meta/post:
+    get:
+      description: Returns metadata for `Employee` POSTs.
+      operationId: employees_meta_post_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetaResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - employees
   /employments:
     get:
       description: Returns a list of `Employment` objects.
@@ -1670,6 +1742,28 @@ paths:
         schema:
           type: string
         style: form
+      - description: If provided, will only return issues whose first incident time
+          was after this datetime.
+        explode: true
+        in: query
+        name: first_incident_time_after
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: If provided, will only return issues whose first incident time
+          was before this datetime.
+        explode: true
+        in: query
+        name: first_incident_time_before
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
       - description: If True, will include muted issues
         explode: true
         in: query
@@ -1683,6 +1777,28 @@ paths:
         name: integration_name
         required: false
         schema:
+          type: string
+        style: form
+      - description: If provided, will only return issues whose first incident time
+          was after this datetime.
+        explode: true
+        in: query
+        name: last_incident_time_after
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: If provided, will only return issues whose first incident time
+          was before this datetime.
+        explode: true
+        in: query
+        name: last_incident_time_before
+        required: false
+        schema:
+          format: date-time
+          nullable: true
           type: string
         style: form
       - description: Number of results to return per page.
@@ -1784,6 +1900,7 @@ paths:
           enum:
           - accounting
           - ats
+          - crm
           - hris
           - ticketing
           nullable: true
@@ -1801,21 +1918,27 @@ paths:
         schema:
           type: string
         style: form
-      - explode: true
+      - description: If provided, will only return linked accounts associated with
+          the given email address.
+        explode: true
         in: query
         name: end_user_email_address
         required: false
         schema:
           type: string
         style: form
-      - explode: true
+      - description: If provided, will only return linked accounts associated with
+          the given organization name.
+        explode: true
         in: query
         name: end_user_organization_name
         required: false
         schema:
           type: string
         style: form
-      - explode: true
+      - description: If provided, will only return linked accounts associated with
+          the given origin ID.
+        explode: true
         in: query
         name: end_user_origin_id
         required: false
@@ -1823,7 +1946,7 @@ paths:
           type: string
         style: form
       - description: Comma-separated list of EndUser origin IDs, making it possible
-          to specify multiple EndUsers at once
+          to specify multiple EndUsers at once.
         explode: true
         in: query
         name: end_user_origin_ids
@@ -1840,7 +1963,7 @@ paths:
           type: string
         style: form
       - description: Comma-separated list of LinkedAccount IDs, making it possible
-          to specify multiple LinkedAccounts at once
+          to specify multiple LinkedAccounts at once.
         explode: true
         in: query
         name: ids
@@ -1848,7 +1971,9 @@ paths:
         schema:
           type: string
         style: form
-      - explode: true
+      - description: If provided, will only return linked accounts associated with
+          the given integration name.
+        explode: true
         in: query
         name: integration_name
         required: false
@@ -1856,7 +1981,7 @@ paths:
           type: string
         style: form
       - description: If included, will only include test linked accounts. If not included,
-          will only include non-test linked accounts
+          will only include non-test linked accounts.
         explode: true
         in: query
         name: is_test_account
@@ -2508,7 +2633,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SyncStatus'
+                items:
+                  $ref: '#/components/schemas/SyncStatus'
+                type: array
       security:
       - tokenAuth: []
       tags:
@@ -3095,6 +3222,88 @@ paths:
       - tokenAuth: []
       tags:
       - time-off
+  /time-off/meta/post:
+    get:
+      description: Returns metadata for `TimeOff` POSTs.
+      operationId: time_off_meta_post_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetaResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - time-off
+  /webhook-receivers:
+    get:
+      description: Returns a list of `WebhookReceiver` objects.
+      operationId: webhook_receivers_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WebhookReceiver'
+                type: array
+      security:
+      - tokenAuth: []
+      tags:
+      - webhook-receivers
+    post:
+      description: Creates a `WebhookReceiver` object with the given values.
+      operationId: webhook_receivers_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookReceiverRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WebhookReceiverRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WebhookReceiverRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookReceiver'
+      security:
+      - tokenAuth: []
+      tags:
+      - webhook-receivers
 components:
   schemas:
     AccountDetails:
@@ -3105,7 +3314,9 @@ components:
         id: 0496d4c2-42e6-4072-80b3-7b69bfdc76fd
         category: hris
         end_user_origin_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        integration_slug: bamboohr
         status: COMPLETE
+        webhook_listener_url: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
       properties:
         id:
           example: 0496d4c2-42e6-4072-80b3-7b69bfdc76fd
@@ -3114,6 +3325,10 @@ components:
           type: string
         integration:
           example: BambooHR
+          readOnly: true
+          type: string
+        integration_slug:
+          example: bamboohr
           readOnly: true
           type: string
         category:
@@ -3131,10 +3346,16 @@ components:
           type: string
         end_user_email_address:
           example: kendall.roy@waystar-royco.com
+          format: email
           readOnly: true
           type: string
         status:
           example: COMPLETE
+          readOnly: true
+          type: string
+        webhook_listener_url:
+          example: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
+          format: uri
           readOnly: true
           type: string
       type: object
@@ -3187,6 +3408,7 @@ components:
         end_user_origin_id: 3ac95cde-6c7f-4eef-afec-be710b42308d
         status: COMPLETE
         status_detail: status_detail
+        webhook_listener_url: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
       properties:
         id:
           example: e59b1821-f85c-4e28-a6b3-1804156f3563
@@ -3210,6 +3432,9 @@ components:
         end_user_email_address:
           example: hradmin@foobar.dev
           type: string
+        webhook_listener_url:
+          example: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
+          type: string
         integration:
           $ref: '#/components/schemas/AccountDetailsAndActionsIntegration'
       required:
@@ -3217,14 +3442,17 @@ components:
       - end_user_organization_name
       - id
       - status
+      - webhook_listener_url
       type: object
       x-merge-sample-json: '{"id": "e59b1821-f85c-4e28-a6b3-1804156f3563", "category":
         "hris", "status": "COMPLETE", "status_detail": null, "end_user_origin_id":
         "3ac95cde-6c7f-4eef-afec-be710b42308d", "end_user_organization_name": "Foo
-        Bar, LLC", "end_user_email_address": "hradmin@foobar.dev", "integration":
-        {"name": "SAP SuccessFactors", "categories": ["hris", "ats"], "image": "https://cdn.merge.dev/SuccessFactors_Logo.png",
-        "square_image": "https://cdn.merge.dev/SuccessFactors_Square_Logo.jpg", "color":
-        "#F6A704", "slug": "sap-successfactors", "passthrough_available": true, "available_model_operations":
+        Bar, LLC", "end_user_email_address": "hradmin@foobar.dev", "webhook_listener_url":
+        "https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4",
+        "integration": {"name": "SAP SuccessFactors", "categories": ["hris", "ats"],
+        "image": "https://cdn.merge.dev/SuccessFactors_Logo.png", "square_image":
+        "https://cdn.merge.dev/SuccessFactors_Square_Logo.jpg", "color": "#F6A704",
+        "slug": "sap-successfactors", "passthrough_available": true, "available_model_operations":
         [{"model_name": "Candidate", "available_operations": ["FETCH", "CREATE"],
         "required_post_parameters": ["remote_user_id"], "supported_fields": ["first_name",
         "last_name", "company", "title"]}]}}'
@@ -3439,13 +3667,10 @@ components:
         remote_id: "123234"
         bank_name: Chase
         id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+        remote_was_deleted: true
         employee: a3617eb4-dfe3-426f-921e-a65fc1661e10
         routing_number: "089690059"
         remote_created_at: 2021-12-06T10:11:26Z
-        remote_data:
-        - path: /bank-info
-          data:
-          - Varies by platform
       properties:
         id:
           example: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
@@ -3491,16 +3716,11 @@ components:
           format: date-time
           nullable: true
           type: string
-        remote_data:
-          example:
-          - path: /bank-info
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     Benefit:
       description: |-
@@ -3516,12 +3736,9 @@ components:
         benefit_plan_type: MEDICAL
         company_contribution: 150.0
         id: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
+        remote_was_deleted: true
         employee: d2f972d0-2526-434b-9409-4c3b468e08f0
         provider_name: Blue Shield of California
-        remote_data:
-        - path: /benefits
-          data:
-          - Varies by platform
       properties:
         id:
           example: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
@@ -3560,16 +3777,11 @@ components:
           format: float
           nullable: true
           type: number
-        remote_data:
-          example:
-          - path: /benefits
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     CategoriesEnum:
       enum:
@@ -3577,6 +3789,7 @@ components:
       - ats
       - accounting
       - ticketing
+      - crm
       type: string
     CategoryEnum:
       enum:
@@ -3584,12 +3797,13 @@ components:
       - ats
       - accounting
       - ticketing
+      - crm
       type: string
     Company:
       description: |-
         # The Company Object
         ### Description
-        The `Company` object is used to represent a Company.
+        The `Company` object is used to represent a Company within the HRIS / Payroll system.
 
         ### Usage Example
         Fetch from the `LIST Companies` endpoint and filter by `ID` to show all companies.
@@ -3600,12 +3814,9 @@ components:
         - 11-0011000
         remote_id: "19202938"
         id: 1b998423-db0a-4037-a4cf-f79c60cb67b3
-        legal_name: We Love Integrations Inc.
-        display_name: We Love Integrations
-        remote_data:
-        - path: /companies
-          data:
-          - Varies by platform
+        legal_name: Waystar Royco, Inc.
+        remote_was_deleted: true
+        display_name: Waystar Royco
       properties:
         id:
           example: 1b998423-db0a-4037-a4cf-f79c60cb67b3
@@ -3619,12 +3830,12 @@ components:
           type: string
         legal_name:
           description: The company's legal name.
-          example: We Love Integrations Inc.
+          example: Waystar Royco, Inc.
           nullable: true
           type: string
         display_name:
           description: The company's display name.
-          example: We Love Integrations
+          example: Waystar Royco
           nullable: true
           type: string
         eins:
@@ -3638,16 +3849,11 @@ components:
             type: string
           nullable: true
           type: array
-        remote_data:
-          example:
-          - path: /companies
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     CountryEnum:
       enum:
@@ -3955,6 +4161,9 @@ components:
           type: array
         headers:
           additionalProperties: {}
+          description: The headers to use for the request (Merge will handle the account's
+            authorization headers). `Content-Type` header is required for passthrough.
+            Choose content type corresponding to expected format of receiving server.
           example:
             EXTRA-HEADER: value
           nullable: true
@@ -3990,6 +4199,10 @@ components:
       - log_id
       - log_summary
       type: object
+      x-merge-sample-json: '{"log_id": "99433219-8017-4acd-bb3c-ceb23d663832", "dashboard_view":
+        "https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832", "log_summary":
+        {"url": "https://harvest.greenhouse.io/v1/candidates/", "method": "POST",
+        "status_code": 200}}'
     DebugModelLogSummary:
       example:
         status_code: 200
@@ -4010,6 +4223,8 @@ components:
       - status_code
       - url
       type: object
+      x-merge-sample-json: '{"url": "https://harvest.greenhouse.io/v1/candidates/",
+        "method": "POST", "status_code": 200}'
     Deduction:
       description: |-
         # The Deduction Object
@@ -4024,10 +4239,7 @@ components:
         company_deduction: 78.78
         id: 5fd439fc-1b64-4755-b275-64918936c365
         employee_deduction: 34.54
-        remote_data:
-        - path: /payroll-deduction
-          data:
-          - Varies by platform
+        remote_was_deleted: true
       properties:
         id:
           example: 5fd439fc-1b64-4755-b275-64918936c365
@@ -4056,16 +4268,10 @@ components:
           format: float
           nullable: true
           type: number
-        remote_data:
-          example:
-          - path: /payroll-deduction
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
-          readOnly: true
-          type: array
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
+          type: boolean
       type: object
     Earning:
       description: |-
@@ -4098,18 +4304,10 @@ components:
           description: The type of earning.
           example: SALARY
           nullable: true
-        remote_data:
-          example:
-          - path: /payroll-earnings
-            data:
-            - Varies by platform
-          items:
-            additionalProperties: {}
-            description: The full data pulled from the third-party API for an object.
-            nullable: true
-            type: object
-          nullable: true
-          type: array
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
+          type: boolean
       type: object
     EarningTypeEnum:
       enum:
@@ -4127,10 +4325,10 @@ components:
         ### Usage Example
         Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
       example:
-        display_full_name: Jane Doe
-        work_email: jane@merge.dev
-        gender: FEMALE
-        ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+        display_full_name: Cousin Greg Hirsch
+        work_email: greg@merge.dev
+        gender: MALE
+        ethnicity: WHITE
         date_of_birth: 1990-11-10T00:00:00Z
         work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
         ssn: "1234567890"
@@ -4138,13 +4336,13 @@ components:
         home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
         id: 0958cbc6-6040-430a-848e-aafacbadf4ae
         employment_status: INACTIVE
-        first_name: Jane
+        first_name: Greg
         start_date: 2020-10-11T00:00:00Z
         manager: 0048ea5b-911e-4dff-9364-92070dea62ff
         custom_fields:
           key: ""
         remote_id: "19202938"
-        last_name: Doe
+        last_name: Hirsch
         groups:
         - 21a54124-397f-494d-985e-3c5b330b8a68
         employments:
@@ -4153,15 +4351,12 @@ components:
         hire_date: 2020-10-10T00:00:00Z
         avatar: http://alturl.com/h2h8m
         mobile_phone_number: +1234567890
-        remote_data:
-        - path: /people
-          data:
-          - Varies by platform
         marital_status: SINGLE
         termination_date: 2021-10-12T00:00:00Z
         employee_number: "2"
         pay_group: ad1264e2-39be-4787-b749-f1aade9e3405
-        personal_email: jane@gmail.com
+        remote_was_deleted: true
+        personal_email: greg@gmail.com
       properties:
         id:
           example: 0958cbc6-6040-430a-848e-aafacbadf4ae
@@ -4176,7 +4371,8 @@ components:
         employee_number:
           description: 'The employee''s number that appears in the remote UI. Note:
             This is distinct from the remote_id field, which is a unique identifier
-            for the employee set by the remote API, and is not exposed to the user.'
+            for the employee set by the remote API, and is not exposed to the user.
+            This value can also change in many API providers.'
           example: "2"
           nullable: true
           type: string
@@ -4187,19 +4383,19 @@ components:
           type: string
         first_name:
           description: The employee's first name.
-          example: Jane
+          example: Greg
           nullable: true
           type: string
         last_name:
           description: The employee's last name.
-          example: Doe
+          example: Hirsch
           nullable: true
           type: string
         display_full_name:
           description: The employee's full name, to use for display purposes. If a
             preferred first name is available, the full name will include the preferred
             first name.
-          example: Jane Doe
+          example: Cousin Greg Hirsch
           nullable: true
           type: string
         groups:
@@ -4212,14 +4408,14 @@ components:
           type: array
         work_email:
           description: The employee's work email.
-          example: jane@merge.dev
+          example: greg@merge.dev
           format: email
           maxLength: 254
           nullable: true
           type: string
         personal_email:
           description: The employee's personal email.
-          example: jane@gmail.com
+          example: greg@gmail.com
           format: email
           maxLength: 254
           nullable: true
@@ -4273,13 +4469,13 @@ components:
           allOf:
           - $ref: '#/components/schemas/GenderEnum'
           description: The employee's gender.
-          example: FEMALE
+          example: MALE
           nullable: true
         ethnicity:
           allOf:
           - $ref: '#/components/schemas/EthnicityEnum'
           description: The employee's ethnicity.
-          example: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+          example: WHITE
           nullable: true
         marital_status:
           allOf:
@@ -4331,42 +4527,35 @@ components:
           maxLength: 2000
           nullable: true
           type: string
-        remote_data:
-          example:
-          - path: /people
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
-          readOnly: true
-          type: array
         custom_fields:
           additionalProperties: {}
           description: Custom fields configured for a given model.
           nullable: true
           type: object
+        remote_was_deleted:
+          readOnly: true
+          type: boolean
       type: object
     EmployeeEndpointRequest:
       example:
         model:
-          display_full_name: Jane Doe
-          work_email: jane@merge.dev
-          gender: FEMALE
-          ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+          display_full_name: Cousin Greg Hirsch
+          work_email: greg@merge.dev
+          gender: MALE
+          ethnicity: WHITE
           date_of_birth: 1990-11-10T00:00:00Z
           work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           ssn: "1234567890"
           company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
           home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
           employment_status: INACTIVE
-          first_name: Jane
+          first_name: Greg
           start_date: 2020-10-11T00:00:00Z
           manager: 0048ea5b-911e-4dff-9364-92070dea62ff
           custom_fields:
             key: ""
           remote_id: "19202938"
-          last_name: Doe
+          last_name: Hirsch
           groups:
           - 21a54124-397f-494d-985e-3c5b330b8a68
           employments:
@@ -4379,7 +4568,7 @@ components:
           termination_date: 2021-10-12T00:00:00Z
           employee_number: "2"
           pay_group: ad1264e2-39be-4787-b749-f1aade9e3405
-          personal_email: jane@gmail.com
+          personal_email: greg@gmail.com
       properties:
         model:
           $ref: '#/components/schemas/EmployeeRequest'
@@ -4410,10 +4599,6 @@ components:
           employee_deduction: 34.54
           company_deduction: 78.78
         payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
-        remote_data:
-        - path: /employee-payroll
-          data:
-          - Varies by platform
         net_pay: 865.78
         earnings:
         - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
@@ -4424,6 +4609,7 @@ components:
           type: OVERTIME
         check_date: 2020-11-10T00:00:00Z
         id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+        remote_was_deleted: true
         start_date: 2020-11-08T00:00:00Z
       properties:
         id:
@@ -4508,16 +4694,11 @@ components:
             $ref: '#/components/schemas/Tax'
           readOnly: true
           type: array
-        remote_data:
-          example:
-          - path: /employee-payroll
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     EmployeeRequest:
       description: |-
@@ -4528,23 +4709,23 @@ components:
         ### Usage Example
         Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
       example:
-        display_full_name: Jane Doe
-        work_email: jane@merge.dev
-        gender: FEMALE
-        ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+        display_full_name: Cousin Greg Hirsch
+        work_email: greg@merge.dev
+        gender: MALE
+        ethnicity: WHITE
         date_of_birth: 1990-11-10T00:00:00Z
         work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
         ssn: "1234567890"
         company: 8d9fd929-436c-4fd4-a48b-0c61f68d6178
         home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
         employment_status: INACTIVE
-        first_name: Jane
+        first_name: Greg
         start_date: 2020-10-11T00:00:00Z
         manager: 0048ea5b-911e-4dff-9364-92070dea62ff
         custom_fields:
           key: ""
         remote_id: "19202938"
-        last_name: Doe
+        last_name: Hirsch
         groups:
         - 21a54124-397f-494d-985e-3c5b330b8a68
         employments:
@@ -4557,7 +4738,7 @@ components:
         termination_date: 2021-10-12T00:00:00Z
         employee_number: "2"
         pay_group: ad1264e2-39be-4787-b749-f1aade9e3405
-        personal_email: jane@gmail.com
+        personal_email: greg@gmail.com
       properties:
         remote_id:
           description: The third-party API ID of the matching object.
@@ -4567,7 +4748,8 @@ components:
         employee_number:
           description: 'The employee''s number that appears in the remote UI. Note:
             This is distinct from the remote_id field, which is a unique identifier
-            for the employee set by the remote API, and is not exposed to the user.'
+            for the employee set by the remote API, and is not exposed to the user.
+            This value can also change in many API providers.'
           example: "2"
           nullable: true
           type: string
@@ -4578,19 +4760,19 @@ components:
           type: string
         first_name:
           description: The employee's first name.
-          example: Jane
+          example: Greg
           nullable: true
           type: string
         last_name:
           description: The employee's last name.
-          example: Doe
+          example: Hirsch
           nullable: true
           type: string
         display_full_name:
           description: The employee's full name, to use for display purposes. If a
             preferred first name is available, the full name will include the preferred
             first name.
-          example: Jane Doe
+          example: Cousin Greg Hirsch
           nullable: true
           type: string
         groups:
@@ -4603,14 +4785,14 @@ components:
           type: array
         work_email:
           description: The employee's work email.
-          example: jane@merge.dev
+          example: greg@merge.dev
           format: email
           maxLength: 254
           nullable: true
           type: string
         personal_email:
           description: The employee's personal email.
-          example: jane@gmail.com
+          example: greg@gmail.com
           format: email
           maxLength: 254
           nullable: true
@@ -4664,13 +4846,13 @@ components:
           allOf:
           - $ref: '#/components/schemas/GenderEnum'
           description: The employee's gender.
-          example: FEMALE
+          example: MALE
           nullable: true
         ethnicity:
           allOf:
           - $ref: '#/components/schemas/EthnicityEnum'
           description: The employee's ethnicity.
-          example: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+          example: WHITE
           nullable: true
         marital_status:
           allOf:
@@ -4742,10 +4924,10 @@ components:
           detail: An unrecognized field, age, was passed in with request data.
           title: Unrecognized Field
         model:
-          display_full_name: Jane Doe
-          work_email: jane@merge.dev
-          gender: FEMALE
-          ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+          display_full_name: Cousin Greg Hirsch
+          work_email: greg@merge.dev
+          gender: MALE
+          ethnicity: WHITE
           date_of_birth: 1990-11-10T00:00:00Z
           work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           ssn: "1234567890"
@@ -4753,13 +4935,13 @@ components:
           home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
           id: 0958cbc6-6040-430a-848e-aafacbadf4ae
           employment_status: INACTIVE
-          first_name: Jane
+          first_name: Greg
           start_date: 2020-10-11T00:00:00Z
           manager: 0048ea5b-911e-4dff-9364-92070dea62ff
           custom_fields:
             key: ""
           remote_id: "19202938"
-          last_name: Doe
+          last_name: Hirsch
           groups:
           - 21a54124-397f-494d-985e-3c5b330b8a68
           employments:
@@ -4768,15 +4950,12 @@ components:
           hire_date: 2020-10-10T00:00:00Z
           avatar: http://alturl.com/h2h8m
           mobile_phone_number: +1234567890
-          remote_data:
-          - path: /people
-            data:
-            - Varies by platform
           marital_status: SINGLE
           termination_date: 2021-10-12T00:00:00Z
           employee_number: "2"
           pay_group: ad1264e2-39be-4787-b749-f1aade9e3405
-          personal_email: jane@gmail.com
+          remote_was_deleted: true
+          personal_email: greg@gmail.com
         logs:
         - log_id: 99433219-8017-4acd-bb3c-ceb23d663832
           dashboard_view: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
@@ -4827,24 +5006,24 @@ components:
         ### Description
         The `Employment` object is used to represent an employment position at a company. These are associated with the employee filling the role.
 
+        Please note: Employment objects are constructed if the object does not exist in the remote system.
+
         ### Usage Example
         Fetch from the `LIST Employments` endpoint and filter by `ID` to show all employees.
       example:
         employment_type: FULL TIME
-        flsa_status: EXEMPT
         remote_id: "19202938"
-        effective_date: 2020-10-06T18:42:34Z
         pay_period: YEAR
         pay_frequency: BIWEEKLY
-        id: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
         employee: 0958cbc6-6040-430a-848e-aafacbadf4ae
-        job_title: Software Engineer
-        pay_rate: 80000.00
         pay_currency: USD
-        remote_data:
-        - path: /jobs
-          data:
-          - Varies by platform
+        flsa_status: EXEMPT
+        effective_date: 2023-10-06T18:42:34Z
+        pay_group: d4e4837f-9900-484c-ac40-528365bb08ef
+        id: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
+        remote_was_deleted: true
+        job_title: Executive Assistant to Tom Wambsgans
+        pay_rate: 50000.00
       properties:
         id:
           example: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
@@ -4863,12 +5042,12 @@ components:
           type: string
         job_title:
           description: The position's title.
-          example: Software Engineer
+          example: Executive Assistant to Tom Wambsgans
           nullable: true
           type: string
         pay_rate:
           description: The position's pay rate in dollars.
-          example: 80000.00
+          example: 50000.00
           format: float
           nullable: true
           type: number
@@ -4890,6 +5069,11 @@ components:
           description: The position's currency code.
           example: USD
           nullable: true
+        pay_group:
+          example: d4e4837f-9900-484c-ac40-528365bb08ef
+          format: uuid
+          nullable: true
+          type: string
         flsa_status:
           allOf:
           - $ref: '#/components/schemas/FlsaStatusEnum'
@@ -4898,7 +5082,7 @@ components:
           nullable: true
         effective_date:
           description: The position's effective date.
-          example: 2020-10-06T18:42:34Z
+          example: 2023-10-06T18:42:34Z
           format: date-time
           nullable: true
           type: string
@@ -4908,16 +5092,11 @@ components:
           description: The position's type of employment.
           example: FULL TIME
           nullable: true
-        remote_data:
-          example:
-          - path: /jobs
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     EmploymentStatusEnum:
       enum:
@@ -4937,6 +5116,7 @@ components:
       enum:
       - RAW
       - BASE64
+      - GZIP_BASE64
       type: string
     EndUserDetailsRequest:
       example:
@@ -4950,12 +5130,15 @@ components:
         link_expiry_mins: 85
       properties:
         end_user_email_address:
+          maxLength: 100
           minLength: 1
           type: string
         end_user_organization_name:
+          maxLength: 100
           minLength: 1
           type: string
         end_user_origin_id:
+          maxLength: 100
           minLength: 1
           type: string
         categories:
@@ -4963,15 +5146,20 @@ components:
             $ref: '#/components/schemas/CategoriesEnum'
           type: array
         integration:
+          description: The slug of a specific pre-selected integration for this linking
+            flow token, for examples of slugs see https://www.merge.dev/docs/basics/integration-metadata
           minLength: 1
           nullable: true
           type: string
         link_expiry_mins:
           default: 30
+          description: An integer number of minutes between [30, 720] for how long
+            this token is valid. Defaults to 30
           maximum: 720
           minimum: 30
           type: integer
       required:
+      - categories
       - end_user_email_address
       - end_user_organization_name
       - end_user_origin_id
@@ -5046,22 +5234,21 @@ components:
       type: object
     Group:
       description: |-
-        # The PayGroup Object
+        # The Group Object
         ### Description
-        The `PayGroup` object is used to represent Group information that employees belong to. This is often referenced with an Employee object.
+        The `Group` object is used to represent Group information that employees belong to. This is often referenced with an Employee object.
+
+        Please note: The teams object will fulfill most use cases. The Groups object is for power-users that want all types of groups at a company and the optionality of pulling multiple groups for an employee.
 
         ### Usage Example
-        Fetch from the `LIST Employee` endpoint and expand groups to view an employees groups.
+        Fetch from the `LIST Employee` endpoint and expand groups to view an employee's groups.
       example:
         remote_id: "800293"
         name: COST_CENTER_US
         id: 134e0111-0f67-44f6-98f0-597000290bb3
+        remote_was_deleted: true
         type: COST_CENTER
         parent_group: 2ef51b11-2c4e-4b02-8d1d-50592d9e96ef
-        remote_data:
-        - path: /group
-          data:
-          - Varies by platform
       properties:
         id:
           example: 134e0111-0f67-44f6-98f0-597000290bb3
@@ -5090,16 +5277,11 @@ components:
           description: The group type
           example: COST_CENTER
           nullable: true
-        remote_data:
-          example:
-          - path: /group
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     GroupTypeEnum:
       enum:
@@ -5197,6 +5379,19 @@ components:
       - integration_name
       - link_token
       type: object
+    LinkedAccountStatus:
+      example:
+        linked_account_status: linked_account_status
+        can_make_request: true
+      properties:
+        linked_account_status:
+          type: string
+        can_make_request:
+          type: boolean
+      required:
+      - can_make_request
+      - linked_account_status
+      type: object
     Location:
       description: |-
         # The Location Object
@@ -5213,16 +5408,14 @@ components:
         street_2: 2nd Floor
         name: NYC Office
         phone_number: +1111111111
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        id: f5e6a151-f44e-449a-afb1-8fd781905958
         state: NY
+        remote_was_deleted: true
         zip_code: "10027"
         location_type: WORK
-        remote_data:
-        - path: /locations
-          data:
-          - Varies by platform
       properties:
         id:
+          example: f5e6a151-f44e-449a-afb1-8fd781905958
           format: uuid
           readOnly: true
           type: string
@@ -5263,7 +5456,7 @@ components:
           nullable: true
           type: string
         zip_code:
-          description: The location's zip code.
+          description: The location's zip code or postal code.
           example: "10027"
           nullable: true
           type: string
@@ -5279,16 +5472,11 @@ components:
           description: The location's type. Can be either WORK or HOME
           example: WORK
           nullable: true
-        remote_data:
-          example:
-          - path: /locations
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     LocationTypeEnum:
       enum:
@@ -5303,6 +5491,30 @@ components:
       - HEAD_OF_HOUSEHOLD
       - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
       type: string
+    MetaResponse:
+      example:
+        has_required_linked_account_params: true
+        request_schema:
+          key: ""
+        has_conditional_params: true
+        status:
+          linked_account_status: linked_account_status
+          can_make_request: true
+      properties:
+        request_schema:
+          additionalProperties: {}
+          type: object
+        status:
+          $ref: '#/components/schemas/LinkedAccountStatus'
+        has_conditional_params:
+          type: boolean
+        has_required_linked_account_params:
+          type: boolean
+      required:
+      - has_conditional_params
+      - has_required_linked_account_params
+      - request_schema
+      type: object
     MethodEnum:
       enum:
       - GET
@@ -5458,6 +5670,7 @@ components:
           end_user_origin_id: 3ac95cde-6c7f-4eef-afec-be710b42308d
           status: COMPLETE
           status_detail: status_detail
+          webhook_listener_url: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
         - end_user_organization_name: Foo Bar, LLC
           integration:
             image: image
@@ -5498,6 +5711,7 @@ components:
           end_user_origin_id: 3ac95cde-6c7f-4eef-afec-be710b42308d
           status: COMPLETE
           status_detail: status_detail
+          webhook_listener_url: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -5522,25 +5736,19 @@ components:
           remote_id: "123234"
           bank_name: Chase
           id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+          remote_was_deleted: true
           employee: a3617eb4-dfe3-426f-921e-a65fc1661e10
           routing_number: "089690059"
           remote_created_at: 2021-12-06T10:11:26Z
-          remote_data:
-          - path: /bank-info
-            data:
-            - Varies by platform
         - account_number: "439291590"
           account_type: CHECKING
           remote_id: "123234"
           bank_name: Chase
           id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
+          remote_was_deleted: true
           employee: a3617eb4-dfe3-426f-921e-a65fc1661e10
           routing_number: "089690059"
           remote_created_at: 2021-12-06T10:11:26Z
-          remote_data:
-          - path: /bank-info
-            data:
-            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -5565,23 +5773,17 @@ components:
           benefit_plan_type: MEDICAL
           company_contribution: 150.0
           id: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
+          remote_was_deleted: true
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           provider_name: Blue Shield of California
-          remote_data:
-          - path: /benefits
-            data:
-            - Varies by platform
         - employee_contribution: 23.65
           remote_id: "19202938"
           benefit_plan_type: MEDICAL
           company_contribution: 150.0
           id: 3fe5ae7a-f1ba-4529-b7af-84e86dc6d232
+          remote_was_deleted: true
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           provider_name: Blue Shield of California
-          remote_data:
-          - path: /benefits
-            data:
-            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -5607,24 +5809,18 @@ components:
           - 11-0011000
           remote_id: "19202938"
           id: 1b998423-db0a-4037-a4cf-f79c60cb67b3
-          legal_name: We Love Integrations Inc.
-          display_name: We Love Integrations
-          remote_data:
-          - path: /companies
-            data:
-            - Varies by platform
+          legal_name: Waystar Royco, Inc.
+          remote_was_deleted: true
+          display_name: Waystar Royco
         - eins:
           - 12-3456789
           - 12-3451111
           - 11-0011000
           remote_id: "19202938"
           id: 1b998423-db0a-4037-a4cf-f79c60cb67b3
-          legal_name: We Love Integrations Inc.
-          display_name: We Love Integrations
-          remote_data:
-          - path: /companies
-            data:
-            - Varies by platform
+          legal_name: Waystar Royco, Inc.
+          remote_was_deleted: true
+          display_name: Waystar Royco
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -5649,19 +5845,13 @@ components:
           company_deduction: 78.78
           id: 5fd439fc-1b64-4755-b275-64918936c365
           employee_deduction: 34.54
-          remote_data:
-          - path: /payroll-deduction
-            data:
-            - Varies by platform
+          remote_was_deleted: true
         - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
           name: Social Security
           company_deduction: 78.78
           id: 5fd439fc-1b64-4755-b275-64918936c365
           employee_deduction: 34.54
-          remote_data:
-          - path: /payroll-deduction
-            data:
-            - Varies by platform
+          remote_was_deleted: true
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -5681,10 +5871,10 @@ components:
         next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
         previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
         results:
-        - display_full_name: Jane Doe
-          work_email: jane@merge.dev
-          gender: FEMALE
-          ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+        - display_full_name: Cousin Greg Hirsch
+          work_email: greg@merge.dev
+          gender: MALE
+          ethnicity: WHITE
           date_of_birth: 1990-11-10T00:00:00Z
           work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           ssn: "1234567890"
@@ -5692,13 +5882,13 @@ components:
           home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
           id: 0958cbc6-6040-430a-848e-aafacbadf4ae
           employment_status: INACTIVE
-          first_name: Jane
+          first_name: Greg
           start_date: 2020-10-11T00:00:00Z
           manager: 0048ea5b-911e-4dff-9364-92070dea62ff
           custom_fields:
             key: ""
           remote_id: "19202938"
-          last_name: Doe
+          last_name: Hirsch
           groups:
           - 21a54124-397f-494d-985e-3c5b330b8a68
           employments:
@@ -5707,19 +5897,16 @@ components:
           hire_date: 2020-10-10T00:00:00Z
           avatar: http://alturl.com/h2h8m
           mobile_phone_number: +1234567890
-          remote_data:
-          - path: /people
-            data:
-            - Varies by platform
           marital_status: SINGLE
           termination_date: 2021-10-12T00:00:00Z
           employee_number: "2"
           pay_group: ad1264e2-39be-4787-b749-f1aade9e3405
-          personal_email: jane@gmail.com
-        - display_full_name: Jane Doe
-          work_email: jane@merge.dev
-          gender: FEMALE
-          ethnicity: AMERICAN_INDIAN_OR_ALASKA_NATIVE
+          remote_was_deleted: true
+          personal_email: greg@gmail.com
+        - display_full_name: Cousin Greg Hirsch
+          work_email: greg@merge.dev
+          gender: MALE
+          ethnicity: WHITE
           date_of_birth: 1990-11-10T00:00:00Z
           work_location: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           ssn: "1234567890"
@@ -5727,13 +5914,13 @@ components:
           home_location: d2f972d0-2526-434b-9409-4c3b468e08f0
           id: 0958cbc6-6040-430a-848e-aafacbadf4ae
           employment_status: INACTIVE
-          first_name: Jane
+          first_name: Greg
           start_date: 2020-10-11T00:00:00Z
           manager: 0048ea5b-911e-4dff-9364-92070dea62ff
           custom_fields:
             key: ""
           remote_id: "19202938"
-          last_name: Doe
+          last_name: Hirsch
           groups:
           - 21a54124-397f-494d-985e-3c5b330b8a68
           employments:
@@ -5742,15 +5929,12 @@ components:
           hire_date: 2020-10-10T00:00:00Z
           avatar: http://alturl.com/h2h8m
           mobile_phone_number: +1234567890
-          remote_data:
-          - path: /people
-            data:
-            - Varies by platform
           marital_status: SINGLE
           termination_date: 2021-10-12T00:00:00Z
           employee_number: "2"
           pay_group: ad1264e2-39be-4787-b749-f1aade9e3405
-          personal_email: jane@gmail.com
+          remote_was_deleted: true
+          personal_email: greg@gmail.com
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -5785,10 +5969,6 @@ components:
             employee_deduction: 34.54
             company_deduction: 78.78
           payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
-          remote_data:
-          - path: /employee-payroll
-            data:
-            - Varies by platform
           net_pay: 865.78
           earnings:
           - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
@@ -5799,6 +5979,7 @@ components:
             type: OVERTIME
           check_date: 2020-11-10T00:00:00Z
           id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          remote_was_deleted: true
           start_date: 2020-11-08T00:00:00Z
         - end_date: 2020-11-09T00:00:00Z
           remote_id: "19202938"
@@ -5815,10 +5996,6 @@ components:
             employee_deduction: 34.54
             company_deduction: 78.78
           payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
-          remote_data:
-          - path: /employee-payroll
-            data:
-            - Varies by platform
           net_pay: 865.78
           earnings:
           - employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
@@ -5829,6 +6006,7 @@ components:
             type: OVERTIME
           check_date: 2020-11-10T00:00:00Z
           id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          remote_was_deleted: true
           start_date: 2020-11-08T00:00:00Z
       properties:
         next:
@@ -5850,35 +6028,31 @@ components:
         previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
         results:
         - employment_type: FULL TIME
-          flsa_status: EXEMPT
           remote_id: "19202938"
-          effective_date: 2020-10-06T18:42:34Z
           pay_period: YEAR
           pay_frequency: BIWEEKLY
-          id: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
           employee: 0958cbc6-6040-430a-848e-aafacbadf4ae
-          job_title: Software Engineer
-          pay_rate: 80000.00
           pay_currency: USD
-          remote_data:
-          - path: /jobs
-            data:
-            - Varies by platform
+          flsa_status: EXEMPT
+          effective_date: 2023-10-06T18:42:34Z
+          pay_group: d4e4837f-9900-484c-ac40-528365bb08ef
+          id: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
+          remote_was_deleted: true
+          job_title: Executive Assistant to Tom Wambsgans
+          pay_rate: 50000.00
         - employment_type: FULL TIME
-          flsa_status: EXEMPT
           remote_id: "19202938"
-          effective_date: 2020-10-06T18:42:34Z
           pay_period: YEAR
           pay_frequency: BIWEEKLY
-          id: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
           employee: 0958cbc6-6040-430a-848e-aafacbadf4ae
-          job_title: Software Engineer
-          pay_rate: 80000.00
           pay_currency: USD
-          remote_data:
-          - path: /jobs
-            data:
-            - Varies by platform
+          flsa_status: EXEMPT
+          effective_date: 2023-10-06T18:42:34Z
+          pay_group: d4e4837f-9900-484c-ac40-528365bb08ef
+          id: 65d8ffd0-211b-4ba4-b85a-fbe2ce220982
+          remote_was_deleted: true
+          job_title: Executive Assistant to Tom Wambsgans
+          pay_rate: 50000.00
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -5901,21 +6075,15 @@ components:
         - remote_id: "800293"
           name: COST_CENTER_US
           id: 134e0111-0f67-44f6-98f0-597000290bb3
+          remote_was_deleted: true
           type: COST_CENTER
           parent_group: 2ef51b11-2c4e-4b02-8d1d-50592d9e96ef
-          remote_data:
-          - path: /group
-            data:
-            - Varies by platform
         - remote_id: "800293"
           name: COST_CENTER_US
           id: 134e0111-0f67-44f6-98f0-597000290bb3
+          remote_was_deleted: true
           type: COST_CENTER
           parent_group: 2ef51b11-2c4e-4b02-8d1d-50592d9e96ef
-          remote_data:
-          - path: /group
-            data:
-            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -5975,14 +6143,11 @@ components:
           street_2: 2nd Floor
           name: NYC Office
           phone_number: +1111111111
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: f5e6a151-f44e-449a-afb1-8fd781905958
           state: NY
+          remote_was_deleted: true
           zip_code: "10027"
           location_type: WORK
-          remote_data:
-          - path: /locations
-            data:
-            - Varies by platform
         - country: USA
           street_1: 2920 Broadway
           city: 'New York '
@@ -5990,14 +6155,11 @@ components:
           street_2: 2nd Floor
           name: NYC Office
           phone_number: +1111111111
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: f5e6a151-f44e-449a-afb1-8fd781905958
           state: NY
+          remote_was_deleted: true
           zip_code: "10027"
           location_type: WORK
-          remote_data:
-          - path: /locations
-            data:
-            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -6020,17 +6182,11 @@ components:
         - pay_group_name: contractor
           remote_id: "800293"
           id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
-          remote_data:
-          - path: /pay-group
-            data:
-            - Varies by platform
+          remote_was_deleted: true
         - pay_group_name: contractor
           remote_id: "800293"
           id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
-          remote_data:
-          - path: /pay-group
-            data:
-            - Varies by platform
+          remote_was_deleted: true
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -6056,22 +6212,16 @@ components:
           run_state: PAID
           id: 37336947-b3d4-4a4c-a310-ab6ab510e079
           run_type: REGULAR
+          remote_was_deleted: true
           start_date: 2020-11-08T00:00:00Z
-          remote_data:
-          - path: /payroll
-            data:
-            - Varies by platform
         - end_date: 2020-11-15T00:00:00Z
           check_date: 2020-11-15T00:00:00Z
           remote_id: "19202938"
           run_state: PAID
           id: 37336947-b3d4-4a4c-a310-ab6ab510e079
           run_type: REGULAR
+          remote_was_deleted: true
           start_date: 2020-11-08T00:00:00Z
-          remote_data:
-          - path: /payroll
-            data:
-            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -6126,18 +6276,12 @@ components:
           remote_id: "19202938"
           name: Engineering
           id: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
-          remote_data:
-          - path: /teams
-            data:
-            - Varies by platform
+          remote_was_deleted: true
         - parent_team: 1b998423-db0a-4037-a4cf-f79c60cb67b3
           remote_id: "19202938"
           name: Engineering
           id: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
-          remote_data:
-          - path: /teams
-            data:
-            - Varies by platform
+          remote_was_deleted: true
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -6162,21 +6306,15 @@ components:
           remote_id: "19202938"
           id: 91b2b905-e866-40c8-8be2-efe53827a0aa
           used: 45.0
+          remote_was_deleted: true
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
-          remote_data:
-          - path: /leave
-            data:
-            - Varies by platform
         - policy_type: VACATION
           balance: 60.0
           remote_id: "19202938"
           id: 91b2b905-e866-40c8-8be2-efe53827a0aa
           used: 45.0
+          remote_was_deleted: true
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
-          remote_data:
-          - path: /leave
-            data:
-            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -6198,34 +6336,28 @@ components:
         results:
         - approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           start_time: 2020-11-10T00:00:00Z
-          amount: 7
+          amount: 3
           request_type: VACATION
-          employee_note: Trip to Iowa. Miss those cornfields!
+          employee_note: Moving into the new apartment Kendall Roy gave me!
           remote_id: "19202938"
           end_time: 2020-11-17T00:00:00Z
           id: 91b2b905-e866-40c8-8be2-efe53827a0aa
           units: DAYS
+          remote_was_deleted: true
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           status: APPROVED
-          remote_data:
-          - path: /leave
-            data:
-            - Varies by platform
         - approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           start_time: 2020-11-10T00:00:00Z
-          amount: 7
+          amount: 3
           request_type: VACATION
-          employee_note: Trip to Iowa. Miss those cornfields!
+          employee_note: Moving into the new apartment Kendall Roy gave me!
           remote_id: "19202938"
           end_time: 2020-11-17T00:00:00Z
           id: 91b2b905-e866-40c8-8be2-efe53827a0aa
           units: DAYS
+          remote_was_deleted: true
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           status: APPROVED
-          remote_data:
-          - path: /leave
-            data:
-            - Varies by platform
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -6572,10 +6704,7 @@ components:
         pay_group_name: contractor
         remote_id: "800293"
         id: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
-        remote_data:
-        - path: /pay-group
-          data:
-          - Varies by platform
+        remote_was_deleted: true
       properties:
         id:
           example: fd1e0fb5-8f92-4ec9-9f32-179cf732867d
@@ -6592,16 +6721,11 @@ components:
           example: contractor
           nullable: true
           type: string
-        remote_data:
-          example:
-          - path: /pay-group
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     PayPeriodEnum:
       enum:
@@ -6618,7 +6742,7 @@ components:
       description: |-
         # The PayrollRun Object
         ### Description
-        The `PayrollRun` object is used to represent a payroll run.
+        The `PayrollRun` object is used to represent a payroll run. This payroll run is not specific to an employee.
 
         ### Usage Example
         Fetch from the `LIST PayrollRuns` endpoint and filter by `ID` to show all payroll runs.
@@ -6629,11 +6753,8 @@ components:
         run_state: PAID
         id: 37336947-b3d4-4a4c-a310-ab6ab510e079
         run_type: REGULAR
+        remote_was_deleted: true
         start_date: 2020-11-08T00:00:00Z
-        remote_data:
-        - path: /payroll
-          data:
-          - Varies by platform
       properties:
         id:
           example: 37336947-b3d4-4a4c-a310-ab6ab510e079
@@ -6675,16 +6796,11 @@ components:
           format: date-time
           nullable: true
           type: string
-        remote_data:
-          example:
-          - path: /payroll
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     PolicyTypeEnum:
       enum:
@@ -6701,27 +6817,6 @@ components:
       - GDPR
       - OTHER
       type: string
-    RemoteData:
-      properties:
-        path:
-          type: string
-        data:
-          additionalProperties: {}
-          type: object
-      required:
-      - path
-      type: object
-    RemoteDataRequest:
-      properties:
-        path:
-          minLength: 1
-          type: string
-        data:
-          additionalProperties: {}
-          type: object
-      required:
-      - path
-      type: object
     RemoteKey:
       description: |-
         # The RemoteKey Object
@@ -6935,18 +7030,10 @@ components:
           example: false
           nullable: true
           type: boolean
-        remote_data:
-          example:
-          - path: /tax
-            data:
-            - Varies by platform
-          items:
-            additionalProperties: {}
-            description: The full data pulled from the third-party API for an object.
-            nullable: true
-            type: object
-          nullable: true
-          type: array
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
+          type: boolean
       type: object
     Team:
       description: |-
@@ -6961,10 +7048,7 @@ components:
         remote_id: "19202938"
         name: Engineering
         id: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
-        remote_data:
-        - path: /teams
-          data:
-          - Varies by platform
+        remote_was_deleted: true
       properties:
         id:
           example: 13a72919-9fae-4f54-81ca-ddfd8712a1ba
@@ -6986,16 +7070,11 @@ components:
           format: uuid
           nullable: true
           type: string
-        remote_data:
-          example:
-          - path: /teams
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     TimeOff:
       description: |-
@@ -7008,19 +7087,16 @@ components:
       example:
         approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
         start_time: 2020-11-10T00:00:00Z
-        amount: 7
+        amount: 3
         request_type: VACATION
-        employee_note: Trip to Iowa. Miss those cornfields!
+        employee_note: Moving into the new apartment Kendall Roy gave me!
         remote_id: "19202938"
         end_time: 2020-11-17T00:00:00Z
         id: 91b2b905-e866-40c8-8be2-efe53827a0aa
         units: DAYS
+        remote_was_deleted: true
         employee: d2f972d0-2526-434b-9409-4c3b468e08f0
         status: APPROVED
-        remote_data:
-        - path: /leave
-          data:
-          - Varies by platform
       properties:
         id:
           example: 91b2b905-e866-40c8-8be2-efe53827a0aa
@@ -7050,7 +7126,7 @@ components:
           nullable: true
         employee_note:
           description: The employee note for this time off request.
-          example: Trip to Iowa. Miss those cornfields!
+          example: Moving into the new apartment Kendall Roy gave me!
           nullable: true
           type: string
         units:
@@ -7061,7 +7137,7 @@ components:
           nullable: true
         amount:
           description: The number of time off units requested.
-          example: 7
+          example: 3
           format: float
           nullable: true
           type: number
@@ -7083,16 +7159,9 @@ components:
           format: date-time
           nullable: true
           type: string
-        remote_data:
-          example:
-          - path: /leave
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
           readOnly: true
-          type: array
+          type: boolean
       type: object
     TimeOffBalance:
       description: |-
@@ -7108,11 +7177,8 @@ components:
         remote_id: "19202938"
         id: 91b2b905-e866-40c8-8be2-efe53827a0aa
         used: 45.0
+        remote_was_deleted: true
         employee: d2f972d0-2526-434b-9409-4c3b468e08f0
-        remote_data:
-        - path: /leave
-          data:
-          - Varies by platform
       properties:
         id:
           example: 91b2b905-e866-40c8-8be2-efe53827a0aa
@@ -7130,7 +7196,9 @@ components:
           nullable: true
           type: string
         balance:
-          description: The current PTO balance in terms of hours.
+          description: The current remaining PTO balance in terms of hours. This does
+            not represent the starting PTO balance. If the API provider only provides
+            PTO balance in terms of days, we estimate 8 hours per day.
           example: 60.0
           format: float
           nullable: true
@@ -7147,25 +7215,20 @@ components:
           description: The policy type of this time off balance.
           example: VACATION
           nullable: true
-        remote_data:
-          example:
-          - path: /leave
-            data:
-            - Varies by platform
-          items:
-            $ref: '#/components/schemas/RemoteData'
-          nullable: true
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted on the
+            third-party.
           readOnly: true
-          type: array
+          type: boolean
       type: object
     TimeOffEndpointRequest:
       example:
         model:
           approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           start_time: 2020-11-10T00:00:00Z
-          amount: 7
+          amount: 3
           request_type: VACATION
-          employee_note: Trip to Iowa. Miss those cornfields!
+          employee_note: Moving into the new apartment Kendall Roy gave me!
           remote_id: "19202938"
           end_time: 2020-11-17T00:00:00Z
           units: DAYS
@@ -7188,9 +7251,9 @@ components:
       example:
         approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
         start_time: 2020-11-10T00:00:00Z
-        amount: 7
+        amount: 3
         request_type: VACATION
-        employee_note: Trip to Iowa. Miss those cornfields!
+        employee_note: Moving into the new apartment Kendall Roy gave me!
         remote_id: "19202938"
         end_time: 2020-11-17T00:00:00Z
         units: DAYS
@@ -7220,7 +7283,7 @@ components:
           nullable: true
         employee_note:
           description: The employee note for this time off request.
-          example: Trip to Iowa. Miss those cornfields!
+          example: Moving into the new apartment Kendall Roy gave me!
           nullable: true
           type: string
         units:
@@ -7231,7 +7294,7 @@ components:
           nullable: true
         amount:
           description: The number of time off units requested.
-          example: 7
+          example: 3
           format: float
           nullable: true
           type: number
@@ -7270,19 +7333,16 @@ components:
         model:
           approver: 9efbc633-3387-4306-aa55-e2c635e6bb4f
           start_time: 2020-11-10T00:00:00Z
-          amount: 7
+          amount: 3
           request_type: VACATION
-          employee_note: Trip to Iowa. Miss those cornfields!
+          employee_note: Moving into the new apartment Kendall Roy gave me!
           remote_id: "19202938"
           end_time: 2020-11-17T00:00:00Z
           id: 91b2b905-e866-40c8-8be2-efe53827a0aa
           units: DAYS
+          remote_was_deleted: true
           employee: d2f972d0-2526-434b-9409-4c3b468e08f0
           status: APPROVED
-          remote_data:
-          - path: /leave
-            data:
-            - Varies by platform
         logs:
         - log_id: 99433219-8017-4acd-bb3c-ceb23d663832
           dashboard_view: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
@@ -7373,9 +7433,43 @@ components:
       - problem_type
       - title
       type: object
+    WebhookReceiver:
+      example:
+        is_active: true
+        event: event
+        key: key
+      properties:
+        event:
+          type: string
+        is_active:
+          type: boolean
+        key:
+          type: string
+      required:
+      - event
+      - is_active
+      type: object
+    WebhookReceiverRequest:
+      example:
+        is_active: true
+        event: event
+        key: key
+      properties:
+        event:
+          minLength: 1
+          type: string
+        is_active:
+          type: boolean
+        key:
+          minLength: 1
+          type: string
+      required:
+      - event
+      - is_active
+      type: object
   securitySchemes:
     tokenAuth:
-      description: Token-based authentication with required prefix "Token"
+      description: Token-based authentication with required prefix "Bearer"
       in: header
       name: Authorization
       type: apiKey

@@ -183,10 +183,15 @@ func (a *EmployeesApiService) EmployeesCreateExecute(r ApiEmployeesCreateRequest
 type ApiEmployeesIgnoreCreateRequest struct {
 	ctx _context.Context
 	ApiService *EmployeesApiService
+	xAccountToken *string
 	modelId string
 	ignoreCommonModelRequest *IgnoreCommonModelRequest
 }
 
+func (r ApiEmployeesIgnoreCreateRequest) XAccountToken(xAccountToken string) ApiEmployeesIgnoreCreateRequest {
+	r.xAccountToken = &xAccountToken
+	return r
+}
 func (r ApiEmployeesIgnoreCreateRequest) IgnoreCommonModelRequest(ignoreCommonModelRequest IgnoreCommonModelRequest) ApiEmployeesIgnoreCreateRequest {
 	r.ignoreCommonModelRequest = &ignoreCommonModelRequest
 	return r
@@ -236,6 +241,9 @@ func (a *EmployeesApiService) EmployeesIgnoreCreateExecute(r ApiEmployeesIgnoreC
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
+	if r.xAccountToken == nil {
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
+	}
 	if r.ignoreCommonModelRequest == nil {
 		return localVarReturnValue, nil, reportError("ignoreCommonModelRequest is required and must be specified")
 	}
@@ -257,6 +265,7 @@ func (a *EmployeesApiService) EmployeesIgnoreCreateExecute(r ApiEmployeesIgnoreC
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	localVarHeaderParams["X-Account-Token"] = parameterToString(*r.xAccountToken, "")
 	// body params
 	localVarPostBody = r.ignoreCommonModelRequest
 	if r.ctx != nil {
@@ -318,9 +327,13 @@ type ApiEmployeesListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	displayFullName *string
+	employmentStatus *string
+	firstName *string
 	includeDeletedData *bool
 	includeRemoteData *bool
 	includeSensitiveFields *bool
+	lastName *string
 	managerId *string
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
@@ -353,6 +366,18 @@ func (r ApiEmployeesListRequest) Cursor(cursor string) ApiEmployeesListRequest {
 	r.cursor = &cursor
 	return r
 }
+func (r ApiEmployeesListRequest) DisplayFullName(displayFullName string) ApiEmployeesListRequest {
+	r.displayFullName = &displayFullName
+	return r
+}
+func (r ApiEmployeesListRequest) EmploymentStatus(employmentStatus string) ApiEmployeesListRequest {
+	r.employmentStatus = &employmentStatus
+	return r
+}
+func (r ApiEmployeesListRequest) FirstName(firstName string) ApiEmployeesListRequest {
+	r.firstName = &firstName
+	return r
+}
 func (r ApiEmployeesListRequest) IncludeDeletedData(includeDeletedData bool) ApiEmployeesListRequest {
 	r.includeDeletedData = &includeDeletedData
 	return r
@@ -363,6 +388,10 @@ func (r ApiEmployeesListRequest) IncludeRemoteData(includeRemoteData bool) ApiEm
 }
 func (r ApiEmployeesListRequest) IncludeSensitiveFields(includeSensitiveFields bool) ApiEmployeesListRequest {
 	r.includeSensitiveFields = &includeSensitiveFields
+	return r
+}
+func (r ApiEmployeesListRequest) LastName(lastName string) ApiEmployeesListRequest {
+	r.lastName = &lastName
 	return r
 }
 func (r ApiEmployeesListRequest) ManagerId(managerId string) ApiEmployeesListRequest {
@@ -463,6 +492,15 @@ func (a *EmployeesApiService) EmployeesListExecute(r ApiEmployeesListRequest) (P
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
 	}
+	if r.displayFullName != nil {
+		localVarQueryParams.Add("display_full_name", parameterToString(*r.displayFullName, ""))
+	}
+	if r.employmentStatus != nil {
+		localVarQueryParams.Add("employment_status", parameterToString(*r.employmentStatus, ""))
+	}
+	if r.firstName != nil {
+		localVarQueryParams.Add("first_name", parameterToString(*r.firstName, ""))
+	}
 	if r.includeDeletedData != nil {
 		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
@@ -471,6 +509,9 @@ func (a *EmployeesApiService) EmployeesListExecute(r ApiEmployeesListRequest) (P
 	}
 	if r.includeSensitiveFields != nil {
 		localVarQueryParams.Add("include_sensitive_fields", parameterToString(*r.includeSensitiveFields, ""))
+	}
+	if r.lastName != nil {
+		localVarQueryParams.Add("last_name", parameterToString(*r.lastName, ""))
 	}
 	if r.managerId != nil {
 		localVarQueryParams.Add("manager_id", parameterToString(*r.managerId, ""))
@@ -502,6 +543,131 @@ func (a *EmployeesApiService) EmployeesListExecute(r ApiEmployeesListRequest) (P
 	if r.workLocationId != nil {
 		localVarQueryParams.Add("work_location_id", parameterToString(*r.workLocationId, ""))
 	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	localVarHeaderParams["X-Account-Token"] = parameterToString(*r.xAccountToken, "")
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["tokenAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiEmployeesMetaPostRetrieveRequest struct {
+	ctx _context.Context
+	ApiService *EmployeesApiService
+	xAccountToken *string
+}
+
+func (r ApiEmployeesMetaPostRetrieveRequest) XAccountToken(xAccountToken string) ApiEmployeesMetaPostRetrieveRequest {
+	r.xAccountToken = &xAccountToken
+	return r
+}
+
+func (r ApiEmployeesMetaPostRetrieveRequest) Execute() (MetaResponse, *_nethttp.Response, error) {
+	return r.ApiService.EmployeesMetaPostRetrieveExecute(r)
+}
+
+/*
+ * EmployeesMetaPostRetrieve Method for EmployeesMetaPostRetrieve
+ * Returns metadata for `Employee` POSTs.
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiEmployeesMetaPostRetrieveRequest
+ */
+func (a *EmployeesApiService) EmployeesMetaPostRetrieve(ctx _context.Context) ApiEmployeesMetaPostRetrieveRequest {
+	return ApiEmployeesMetaPostRetrieveRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return MetaResponse
+ */
+func (a *EmployeesApiService) EmployeesMetaPostRetrieveExecute(r ApiEmployeesMetaPostRetrieveRequest) (MetaResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  MetaResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmployeesApiService.EmployeesMetaPostRetrieve")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/employees/meta/post"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.xAccountToken == nil {
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
+	}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
