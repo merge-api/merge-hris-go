@@ -29,6 +29,7 @@ const (
 	CATEGORYENUM_ATS CategoryEnum = "ats"
 	CATEGORYENUM_ACCOUNTING CategoryEnum = "accounting"
 	CATEGORYENUM_TICKETING CategoryEnum = "ticketing"
+	CATEGORYENUM_CRM CategoryEnum = "crm"
 )
 
 var allowedCategoryEnumEnumValues = []CategoryEnum{
@@ -36,6 +37,7 @@ var allowedCategoryEnumEnumValues = []CategoryEnum{
 	"ats",
 	"accounting",
 	"ticketing",
+	"crm",
 }
 
 func (v *CategoryEnum) UnmarshalJSON(src []byte) error {

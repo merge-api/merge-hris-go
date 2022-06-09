@@ -11,13 +11,14 @@ Name | Type | Description | Notes
 **EndUserOriginId** | Pointer to **string** |  | [optional] 
 **EndUserOrganizationName** | **string** |  | 
 **EndUserEmailAddress** | **string** |  | 
+**WebhookListenerUrl** | **string** |  | 
 **Integration** | Pointer to [**AccountDetailsAndActionsIntegration**](AccountDetailsAndActionsIntegration.md) |  | [optional] 
 
 ## Methods
 
 ### NewAccountDetailsAndActions
 
-`func NewAccountDetailsAndActions(id string, status AccountDetailsAndActionsStatusEnum, endUserOrganizationName string, endUserEmailAddress string, ) *AccountDetailsAndActions`
+`func NewAccountDetailsAndActions(id string, status AccountDetailsAndActionsStatusEnum, endUserOrganizationName string, endUserEmailAddress string, webhookListenerUrl string, ) *AccountDetailsAndActions`
 
 NewAccountDetailsAndActions instantiates a new AccountDetailsAndActions object
 This constructor will assign default values to properties that have it defined,
@@ -185,6 +186,26 @@ and a boolean to check if the value has been set.
 `func (o *AccountDetailsAndActions) SetEndUserEmailAddress(v string)`
 
 SetEndUserEmailAddress sets EndUserEmailAddress field to given value.
+
+
+### GetWebhookListenerUrl
+
+`func (o *AccountDetailsAndActions) GetWebhookListenerUrl() string`
+
+GetWebhookListenerUrl returns the WebhookListenerUrl field if non-nil, zero value otherwise.
+
+### GetWebhookListenerUrlOk
+
+`func (o *AccountDetailsAndActions) GetWebhookListenerUrlOk() (*string, bool)`
+
+GetWebhookListenerUrlOk returns a tuple with the WebhookListenerUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWebhookListenerUrl
+
+`func (o *AccountDetailsAndActions) SetWebhookListenerUrl(v string)`
+
+SetWebhookListenerUrl sets WebhookListenerUrl field to given value.
 
 
 ### GetIntegration

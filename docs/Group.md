@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ParentGroup** | Pointer to **NullableString** | The parent group for this group. | [optional] 
 **Name** | Pointer to **NullableString** | The group name. | [optional] 
 **Type** | Pointer to [**NullableGroupTypeEnum**](GroupTypeEnum.md) | The group type | [optional] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted on the third-party. | [optional] [readonly] 
 
 ## Methods
 
@@ -195,41 +195,31 @@ HasType returns a boolean if a field has been set.
 `func (o *Group) UnsetType()`
 
 UnsetType ensures that no value is present for Type, not even an explicit nil
-### GetRemoteData
+### GetRemoteWasDeleted
 
-`func (o *Group) GetRemoteData() []RemoteData`
+`func (o *Group) GetRemoteWasDeleted() bool`
 
-GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
 
-### GetRemoteDataOk
+### GetRemoteWasDeletedOk
 
-`func (o *Group) GetRemoteDataOk() (*[]RemoteData, bool)`
+`func (o *Group) GetRemoteWasDeletedOk() (*bool, bool)`
 
-GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRemoteData
+### SetRemoteWasDeleted
 
-`func (o *Group) SetRemoteData(v []RemoteData)`
+`func (o *Group) SetRemoteWasDeleted(v bool)`
 
-SetRemoteData sets RemoteData field to given value.
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
 
-### HasRemoteData
+### HasRemoteWasDeleted
 
-`func (o *Group) HasRemoteData() bool`
+`func (o *Group) HasRemoteWasDeleted() bool`
 
-HasRemoteData returns a boolean if a field has been set.
+HasRemoteWasDeleted returns a boolean if a field has been set.
 
-### SetRemoteDataNil
-
-`func (o *Group) SetRemoteDataNil(b bool)`
-
- SetRemoteDataNil sets the value for RemoteData to be an explicit nil
-
-### UnsetRemoteData
-`func (o *Group) UnsetRemoteData()`
-
-UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

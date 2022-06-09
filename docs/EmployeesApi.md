@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**EmployeesCreate**](EmployeesApi.md#EmployeesCreate) | **Post** /employees | 
 [**EmployeesIgnoreCreate**](EmployeesApi.md#EmployeesIgnoreCreate) | **Post** /employees/ignore/{model_id} | 
 [**EmployeesList**](EmployeesApi.md#EmployeesList) | **Get** /employees | 
+[**EmployeesMetaPostRetrieve**](EmployeesApi.md#EmployeesMetaPostRetrieve) | **Get** /employees/meta/post | 
 [**EmployeesRetrieve**](EmployeesApi.md#EmployeesRetrieve) | **Get** /employees/{id} | 
 
 
@@ -85,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## EmployeesIgnoreCreate
 
-> IgnoreCommonModel EmployeesIgnoreCreate(ctx, modelId).IgnoreCommonModelRequest(ignoreCommonModelRequest).Execute()
+> IgnoreCommonModel EmployeesIgnoreCreate(ctx, modelId).XAccountToken(xAccountToken).IgnoreCommonModelRequest(ignoreCommonModelRequest).Execute()
 
 
 
@@ -104,12 +105,13 @@ import (
 )
 
 func main() {
+    xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     modelId := TODO // string | 
     ignoreCommonModelRequest := *openapiclient.NewIgnoreCommonModelRequest(openapiclient.ReasonEnum("GENERAL_CUSTOMER_REQUEST")) // IgnoreCommonModelRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeesApi.EmployeesIgnoreCreate(context.Background(), modelId).IgnoreCommonModelRequest(ignoreCommonModelRequest).Execute()
+    resp, r, err := api_client.EmployeesApi.EmployeesIgnoreCreate(context.Background(), modelId).XAccountToken(xAccountToken).IgnoreCommonModelRequest(ignoreCommonModelRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesIgnoreCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -134,6 +136,7 @@ Other parameters are passed through a pointer to a apiEmployeesIgnoreCreateReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **xAccountToken** | **string** | Token identifying the end user. | 
 
  **ignoreCommonModelRequest** | [**IgnoreCommonModelRequest**](IgnoreCommonModelRequest.md) |  | 
 
@@ -157,7 +160,7 @@ Name | Type | Description  | Notes
 
 ## EmployeesList
 
-> PaginatedEmployeeList EmployeesList(ctx).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayGroupId(payGroupId).PersonalEmail(personalEmail).RemoteId(remoteId).TeamId(teamId).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
+> PaginatedEmployeeList EmployeesList(ctx).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).DisplayFullName(displayFullName).EmploymentStatus(employmentStatus).FirstName(firstName).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).LastName(lastName).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayGroupId(payGroupId).PersonalEmail(personalEmail).RemoteId(remoteId).TeamId(teamId).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
 
 
 
@@ -182,9 +185,13 @@ func main() {
     createdAfter := time.Now() // time.Time | If provided, will only return objects created after this datetime. (optional)
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
+    displayFullName := "displayFullName_example" // string | If provided, will only return employees with this display name. (optional)
+    employmentStatus := "employmentStatus_example" // string | If provided, will only return employees with this employment status. (optional)
+    firstName := "firstName_example" // string | If provided, will only return employees with this first name. (optional)
     includeDeletedData := true // bool | Whether to include data that was deleted in the third-party service. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     includeSensitiveFields := true // bool | Whether to include sensitive fields (such as social security numbers) in the response. (optional)
+    lastName := "lastName_example" // string | If provided, will only return employees with this last name. (optional)
     managerId := "managerId_example" // string | If provided, will only return employees for this manager. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
@@ -198,7 +205,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeesApi.EmployeesList(context.Background()).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayGroupId(payGroupId).PersonalEmail(personalEmail).RemoteId(remoteId).TeamId(teamId).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
+    resp, r, err := api_client.EmployeesApi.EmployeesList(context.Background()).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).DisplayFullName(displayFullName).EmploymentStatus(employmentStatus).FirstName(firstName).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).LastName(lastName).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayGroupId(payGroupId).PersonalEmail(personalEmail).RemoteId(remoteId).TeamId(teamId).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -224,9 +231,13 @@ Name | Type | Description  | Notes
  **createdAfter** | **time.Time** | If provided, will only return objects created after this datetime. | 
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
+ **displayFullName** | **string** | If provided, will only return employees with this display name. | 
+ **employmentStatus** | **string** | If provided, will only return employees with this employment status. | 
+ **firstName** | **string** | If provided, will only return employees with this first name. | 
  **includeDeletedData** | **bool** | Whether to include data that was deleted in the third-party service. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **includeSensitiveFields** | **bool** | Whether to include sensitive fields (such as social security numbers) in the response. | 
+ **lastName** | **string** | If provided, will only return employees with this last name. | 
  **managerId** | **string** | If provided, will only return employees for this manager. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
@@ -241,6 +252,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PaginatedEmployeeList**](PaginatedEmployeeList.md)
+
+### Authorization
+
+[tokenAuth](../README.md#tokenAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## EmployeesMetaPostRetrieve
+
+> MetaResponse EmployeesMetaPostRetrieve(ctx).XAccountToken(xAccountToken).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EmployeesApi.EmployeesMetaPostRetrieve(context.Background()).XAccountToken(xAccountToken).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesMetaPostRetrieve``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `EmployeesMetaPostRetrieve`: MetaResponse
+    fmt.Fprintf(os.Stdout, "Response from `EmployeesApi.EmployeesMetaPostRetrieve`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiEmployeesMetaPostRetrieveRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xAccountToken** | **string** | Token identifying the end user. | 
+
+### Return type
+
+[**MetaResponse**](MetaResponse.md)
 
 ### Authorization
 

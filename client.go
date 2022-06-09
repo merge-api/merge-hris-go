@@ -100,6 +100,8 @@ type APIClient struct {
 	TimeOffApi *TimeOffApiService
 
 	TimeOffBalancesApi *TimeOffBalancesApiService
+
+	WebhookReceiversApi *WebhookReceiversApiService
 }
 
 type service struct {
@@ -144,6 +146,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.TeamsApi = (*TeamsApiService)(&c.common)
 	c.TimeOffApi = (*TimeOffApiService)(&c.common)
 	c.TimeOffBalancesApi = (*TimeOffBalancesApiService)(&c.common)
+	c.WebhookReceiversApi = (*WebhookReceiversApiService)(&c.common)
 
 	return c
 }

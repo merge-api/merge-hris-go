@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **Employee** | Pointer to **NullableString** |  | [optional] 
-**Balance** | Pointer to **NullableFloat32** | The current PTO balance in terms of hours. | [optional] 
+**Balance** | Pointer to **NullableFloat32** | The current remaining PTO balance in terms of hours. This does not represent the starting PTO balance. If the API provider only provides PTO balance in terms of days, we estimate 8 hours per day. | [optional] 
 **Used** | Pointer to **NullableFloat32** | The amount of PTO used in terms of hours. | [optional] 
 **PolicyType** | Pointer to [**NullablePolicyTypeEnum**](PolicyTypeEnum.md) | The policy type of this time off balance. | [optional] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted on the third-party. | [optional] [readonly] 
 
 ## Methods
 
@@ -231,41 +231,31 @@ HasPolicyType returns a boolean if a field has been set.
 `func (o *TimeOffBalance) UnsetPolicyType()`
 
 UnsetPolicyType ensures that no value is present for PolicyType, not even an explicit nil
-### GetRemoteData
+### GetRemoteWasDeleted
 
-`func (o *TimeOffBalance) GetRemoteData() []RemoteData`
+`func (o *TimeOffBalance) GetRemoteWasDeleted() bool`
 
-GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
 
-### GetRemoteDataOk
+### GetRemoteWasDeletedOk
 
-`func (o *TimeOffBalance) GetRemoteDataOk() (*[]RemoteData, bool)`
+`func (o *TimeOffBalance) GetRemoteWasDeletedOk() (*bool, bool)`
 
-GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRemoteData
+### SetRemoteWasDeleted
 
-`func (o *TimeOffBalance) SetRemoteData(v []RemoteData)`
+`func (o *TimeOffBalance) SetRemoteWasDeleted(v bool)`
 
-SetRemoteData sets RemoteData field to given value.
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
 
-### HasRemoteData
+### HasRemoteWasDeleted
 
-`func (o *TimeOffBalance) HasRemoteData() bool`
+`func (o *TimeOffBalance) HasRemoteWasDeleted() bool`
 
-HasRemoteData returns a boolean if a field has been set.
+HasRemoteWasDeleted returns a boolean if a field has been set.
 
-### SetRemoteDataNil
-
-`func (o *TimeOffBalance) SetRemoteDataNil(b bool)`
-
- SetRemoteDataNil sets the value for RemoteData to be an explicit nil
-
-### UnsetRemoteData
-`func (o *TimeOffBalance) UnsetRemoteData()`
-
-UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

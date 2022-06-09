@@ -6,11 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **Integration** | Pointer to **string** |  | [optional] [readonly] 
+**IntegrationSlug** | Pointer to **string** |  | [optional] [readonly] 
 **Category** | Pointer to [**NullableCategoryEnum**](CategoryEnum.md) |  | [optional] 
 **EndUserOriginId** | Pointer to **string** |  | [optional] [readonly] 
 **EndUserOrganizationName** | Pointer to **string** |  | [optional] [readonly] 
 **EndUserEmailAddress** | Pointer to **string** |  | [optional] [readonly] 
 **Status** | Pointer to **string** |  | [optional] [readonly] 
+**WebhookListenerUrl** | Pointer to **string** |  | [optional] [readonly] 
 
 ## Methods
 
@@ -80,6 +82,31 @@ SetIntegration sets Integration field to given value.
 `func (o *AccountDetails) HasIntegration() bool`
 
 HasIntegration returns a boolean if a field has been set.
+
+### GetIntegrationSlug
+
+`func (o *AccountDetails) GetIntegrationSlug() string`
+
+GetIntegrationSlug returns the IntegrationSlug field if non-nil, zero value otherwise.
+
+### GetIntegrationSlugOk
+
+`func (o *AccountDetails) GetIntegrationSlugOk() (*string, bool)`
+
+GetIntegrationSlugOk returns a tuple with the IntegrationSlug field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegrationSlug
+
+`func (o *AccountDetails) SetIntegrationSlug(v string)`
+
+SetIntegrationSlug sets IntegrationSlug field to given value.
+
+### HasIntegrationSlug
+
+`func (o *AccountDetails) HasIntegrationSlug() bool`
+
+HasIntegrationSlug returns a boolean if a field has been set.
 
 ### GetCategory
 
@@ -215,6 +242,31 @@ SetStatus sets Status field to given value.
 `func (o *AccountDetails) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetWebhookListenerUrl
+
+`func (o *AccountDetails) GetWebhookListenerUrl() string`
+
+GetWebhookListenerUrl returns the WebhookListenerUrl field if non-nil, zero value otherwise.
+
+### GetWebhookListenerUrlOk
+
+`func (o *AccountDetails) GetWebhookListenerUrlOk() (*string, bool)`
+
+GetWebhookListenerUrlOk returns a tuple with the WebhookListenerUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWebhookListenerUrl
+
+`func (o *AccountDetails) SetWebhookListenerUrl(v string)`
+
+SetWebhookListenerUrl sets WebhookListenerUrl field to given value.
+
+### HasWebhookListenerUrl
+
+`func (o *AccountDetails) HasWebhookListenerUrl() bool`
+
+HasWebhookListenerUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// Employment # The Employment Object ### Description The `Employment` object is used to represent an employment position at a company. These are associated with the employee filling the role.  ### Usage Example Fetch from the `LIST Employments` endpoint and filter by `ID` to show all employees.
+// Employment # The Employment Object ### Description The `Employment` object is used to represent an employment position at a company. These are associated with the employee filling the role.  Please note: Employment objects are constructed if the object does not exist in the remote system.  ### Usage Example Fetch from the `LIST Employments` endpoint and filter by `ID` to show all employees.
 type Employment struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
@@ -32,13 +32,15 @@ type Employment struct {
 	PayFrequency NullablePayFrequencyEnum `json:"pay_frequency,omitempty"`
 	// The position's currency code.
 	PayCurrency NullablePayCurrencyEnum `json:"pay_currency,omitempty"`
+	PayGroup NullableString `json:"pay_group,omitempty"`
 	// The position's FLSA status.
 	FlsaStatus NullableFlsaStatusEnum `json:"flsa_status,omitempty"`
 	// The position's effective date.
 	EffectiveDate NullableTime `json:"effective_date,omitempty"`
 	// The position's type of employment.
 	EmploymentType NullableEmploymentTypeEnum `json:"employment_type,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	// Indicates whether or not this object has been deleted on the third-party.
+	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -386,6 +388,48 @@ func (o *Employment) UnsetPayCurrency() {
 	o.PayCurrency.Unset()
 }
 
+// GetPayGroup returns the PayGroup field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Employment) GetPayGroup() string {
+	if o == nil || o.PayGroup.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.PayGroup.Get()
+}
+
+// GetPayGroupOk returns a tuple with the PayGroup field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Employment) GetPayGroupOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.PayGroup.Get(), o.PayGroup.IsSet()
+}
+
+// HasPayGroup returns a boolean if a field has been set.
+func (o *Employment) HasPayGroup() bool {
+	if o != nil && o.PayGroup.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPayGroup gets a reference to the given NullableString and assigns it to the PayGroup field.
+func (o *Employment) SetPayGroup(v string) {
+	o.PayGroup.Set(&v)
+}
+// SetPayGroupNil sets the value for PayGroup to be an explicit nil
+func (o *Employment) SetPayGroupNil() {
+	o.PayGroup.Set(nil)
+}
+
+// UnsetPayGroup ensures that no value is present for PayGroup, not even an explicit nil
+func (o *Employment) UnsetPayGroup() {
+	o.PayGroup.Unset()
+}
+
 // GetFlsaStatus returns the FlsaStatus field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Employment) GetFlsaStatus() FlsaStatusEnum {
 	if o == nil || o.FlsaStatus.Get() == nil {
@@ -512,37 +556,36 @@ func (o *Employment) UnsetEmploymentType() {
 	o.EmploymentType.Unset()
 }
 
-// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Employment) GetRemoteData() []RemoteData {
-	if o == nil  {
-		var ret []RemoteData
+// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
+func (o *Employment) GetRemoteWasDeleted() bool {
+	if o == nil || o.RemoteWasDeleted == nil {
+		var ret bool
 		return ret
 	}
-	return o.RemoteData
+	return *o.RemoteWasDeleted
 }
 
-// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Employment) GetRemoteDataOk() (*[]RemoteData, bool) {
-	if o == nil || o.RemoteData == nil {
+func (o *Employment) GetRemoteWasDeletedOk() (*bool, bool) {
+	if o == nil || o.RemoteWasDeleted == nil {
 		return nil, false
 	}
-	return &o.RemoteData, true
+	return o.RemoteWasDeleted, true
 }
 
-// HasRemoteData returns a boolean if a field has been set.
-func (o *Employment) HasRemoteData() bool {
-	if o != nil && o.RemoteData != nil {
+// HasRemoteWasDeleted returns a boolean if a field has been set.
+func (o *Employment) HasRemoteWasDeleted() bool {
+	if o != nil && o.RemoteWasDeleted != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
-func (o *Employment) SetRemoteData(v []RemoteData) {
-	o.RemoteData = v
+// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
+func (o *Employment) SetRemoteWasDeleted(v bool) {
+	o.RemoteWasDeleted = &v
 }
 
 func (o Employment) MarshalJSON() ([]byte, error) {
@@ -571,6 +614,9 @@ func (o Employment) MarshalJSON() ([]byte, error) {
 	if o.PayCurrency.IsSet() {
 		toSerialize["pay_currency"] = o.PayCurrency.Get()
 	}
+	if o.PayGroup.IsSet() {
+		toSerialize["pay_group"] = o.PayGroup.Get()
+	}
 	if o.FlsaStatus.IsSet() {
 		toSerialize["flsa_status"] = o.FlsaStatus.Get()
 	}
@@ -580,8 +626,8 @@ func (o Employment) MarshalJSON() ([]byte, error) {
 	if o.EmploymentType.IsSet() {
 		toSerialize["employment_type"] = o.EmploymentType.Get()
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
+	if o.RemoteWasDeleted != nil {
+		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
 	}
 	return json.Marshal(toSerialize)
 }

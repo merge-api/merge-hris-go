@@ -12,10 +12,11 @@ Name | Type | Description | Notes
 **PayPeriod** | Pointer to [**NullablePayPeriodEnum**](PayPeriodEnum.md) | The time period this pay rate encompasses. | [optional] 
 **PayFrequency** | Pointer to [**NullablePayFrequencyEnum**](PayFrequencyEnum.md) | The position&#39;s pay frequency. | [optional] 
 **PayCurrency** | Pointer to [**NullablePayCurrencyEnum**](PayCurrencyEnum.md) | The position&#39;s currency code. | [optional] 
+**PayGroup** | Pointer to **NullableString** |  | [optional] 
 **FlsaStatus** | Pointer to [**NullableFlsaStatusEnum**](FlsaStatusEnum.md) | The position&#39;s FLSA status. | [optional] 
 **EffectiveDate** | Pointer to **NullableTime** | The position&#39;s effective date. | [optional] 
 **EmploymentType** | Pointer to [**NullableEmploymentTypeEnum**](EmploymentTypeEnum.md) | The position&#39;s type of employment. | [optional] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted on the third-party. | [optional] [readonly] 
 
 ## Methods
 
@@ -306,6 +307,41 @@ HasPayCurrency returns a boolean if a field has been set.
 `func (o *Employment) UnsetPayCurrency()`
 
 UnsetPayCurrency ensures that no value is present for PayCurrency, not even an explicit nil
+### GetPayGroup
+
+`func (o *Employment) GetPayGroup() string`
+
+GetPayGroup returns the PayGroup field if non-nil, zero value otherwise.
+
+### GetPayGroupOk
+
+`func (o *Employment) GetPayGroupOk() (*string, bool)`
+
+GetPayGroupOk returns a tuple with the PayGroup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPayGroup
+
+`func (o *Employment) SetPayGroup(v string)`
+
+SetPayGroup sets PayGroup field to given value.
+
+### HasPayGroup
+
+`func (o *Employment) HasPayGroup() bool`
+
+HasPayGroup returns a boolean if a field has been set.
+
+### SetPayGroupNil
+
+`func (o *Employment) SetPayGroupNil(b bool)`
+
+ SetPayGroupNil sets the value for PayGroup to be an explicit nil
+
+### UnsetPayGroup
+`func (o *Employment) UnsetPayGroup()`
+
+UnsetPayGroup ensures that no value is present for PayGroup, not even an explicit nil
 ### GetFlsaStatus
 
 `func (o *Employment) GetFlsaStatus() FlsaStatusEnum`
@@ -411,41 +447,31 @@ HasEmploymentType returns a boolean if a field has been set.
 `func (o *Employment) UnsetEmploymentType()`
 
 UnsetEmploymentType ensures that no value is present for EmploymentType, not even an explicit nil
-### GetRemoteData
+### GetRemoteWasDeleted
 
-`func (o *Employment) GetRemoteData() []RemoteData`
+`func (o *Employment) GetRemoteWasDeleted() bool`
 
-GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
 
-### GetRemoteDataOk
+### GetRemoteWasDeletedOk
 
-`func (o *Employment) GetRemoteDataOk() (*[]RemoteData, bool)`
+`func (o *Employment) GetRemoteWasDeletedOk() (*bool, bool)`
 
-GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRemoteData
+### SetRemoteWasDeleted
 
-`func (o *Employment) SetRemoteData(v []RemoteData)`
+`func (o *Employment) SetRemoteWasDeleted(v bool)`
 
-SetRemoteData sets RemoteData field to given value.
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
 
-### HasRemoteData
+### HasRemoteWasDeleted
 
-`func (o *Employment) HasRemoteData() bool`
+`func (o *Employment) HasRemoteWasDeleted() bool`
 
-HasRemoteData returns a boolean if a field has been set.
+HasRemoteWasDeleted returns a boolean if a field has been set.
 
-### SetRemoteDataNil
-
-`func (o *Employment) SetRemoteDataNil(b bool)`
-
- SetRemoteDataNil sets the value for RemoteData to be an explicit nil
-
-### UnsetRemoteData
-`func (o *Employment) UnsetRemoteData()`
-
-UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

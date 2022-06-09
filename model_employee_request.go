@@ -20,7 +20,7 @@ import (
 type EmployeeRequest struct {
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
-	// The employee's number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user.
+	// The employee's number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user. This value can also change in many API providers.
 	EmployeeNumber NullableString `json:"employee_number,omitempty"`
 	Company NullableString `json:"company,omitempty"`
 	// The employee's first name.

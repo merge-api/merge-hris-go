@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## IssuesList
 
-> PaginatedIssueList IssuesList(ctx).AccountToken(accountToken).Cursor(cursor).EndDate(endDate).EndUserOrganizationName(endUserOrganizationName).IncludeMuted(includeMuted).IntegrationName(integrationName).PageSize(pageSize).StartDate(startDate).Status(status).Execute()
+> PaginatedIssueList IssuesList(ctx).AccountToken(accountToken).Cursor(cursor).EndDate(endDate).EndUserOrganizationName(endUserOrganizationName).FirstIncidentTimeAfter(firstIncidentTimeAfter).FirstIncidentTimeBefore(firstIncidentTimeBefore).IncludeMuted(includeMuted).IntegrationName(integrationName).LastIncidentTimeAfter(lastIncidentTimeAfter).LastIncidentTimeBefore(lastIncidentTimeBefore).PageSize(pageSize).StartDate(startDate).Status(status).Execute()
 
 
 
@@ -26,6 +26,7 @@ import (
     "context"
     "fmt"
     "os"
+    "time"
     openapiclient "./openapi"
 )
 
@@ -34,15 +35,19 @@ func main() {
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     endDate := "endDate_example" // string | If included, will only include issues whose most recent action occurred before this time (optional)
     endUserOrganizationName := "endUserOrganizationName_example" // string |  (optional)
+    firstIncidentTimeAfter := time.Now() // time.Time | If provided, will only return issues whose first incident time was after this datetime. (optional)
+    firstIncidentTimeBefore := time.Now() // time.Time | If provided, will only return issues whose first incident time was before this datetime. (optional)
     includeMuted := "includeMuted_example" // string | If True, will include muted issues (optional)
     integrationName := "integrationName_example" // string |  (optional)
+    lastIncidentTimeAfter := time.Now() // time.Time | If provided, will only return issues whose first incident time was after this datetime. (optional)
+    lastIncidentTimeBefore := time.Now() // time.Time | If provided, will only return issues whose first incident time was before this datetime. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
     startDate := "startDate_example" // string | If included, will only include issues whose most recent action occurred after this time (optional)
     status := "status_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IssuesApi.IssuesList(context.Background()).AccountToken(accountToken).Cursor(cursor).EndDate(endDate).EndUserOrganizationName(endUserOrganizationName).IncludeMuted(includeMuted).IntegrationName(integrationName).PageSize(pageSize).StartDate(startDate).Status(status).Execute()
+    resp, r, err := api_client.IssuesApi.IssuesList(context.Background()).AccountToken(accountToken).Cursor(cursor).EndDate(endDate).EndUserOrganizationName(endUserOrganizationName).FirstIncidentTimeAfter(firstIncidentTimeAfter).FirstIncidentTimeBefore(firstIncidentTimeBefore).IncludeMuted(includeMuted).IntegrationName(integrationName).LastIncidentTimeAfter(lastIncidentTimeAfter).LastIncidentTimeBefore(lastIncidentTimeBefore).PageSize(pageSize).StartDate(startDate).Status(status).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IssuesApi.IssuesList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,8 +72,12 @@ Name | Type | Description  | Notes
  **cursor** | **string** | The pagination cursor value. | 
  **endDate** | **string** | If included, will only include issues whose most recent action occurred before this time | 
  **endUserOrganizationName** | **string** |  | 
+ **firstIncidentTimeAfter** | **time.Time** | If provided, will only return issues whose first incident time was after this datetime. | 
+ **firstIncidentTimeBefore** | **time.Time** | If provided, will only return issues whose first incident time was before this datetime. | 
  **includeMuted** | **string** | If True, will include muted issues | 
  **integrationName** | **string** |  | 
+ **lastIncidentTimeAfter** | **time.Time** | If provided, will only return issues whose first incident time was after this datetime. | 
+ **lastIncidentTimeBefore** | **time.Time** | If provided, will only return issues whose first incident time was before this datetime. | 
  **pageSize** | **int32** | Number of results to return per page. | 
  **startDate** | **string** | If included, will only include issues whose most recent action occurred after this time | 
  **status** | **string** |  | 

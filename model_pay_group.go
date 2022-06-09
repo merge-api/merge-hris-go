@@ -22,7 +22,8 @@ type PayGroup struct {
 	RemoteId NullableString `json:"remote_id,omitempty"`
 	// The pay group name.
 	PayGroupName NullableString `json:"pay_group_name,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	// Indicates whether or not this object has been deleted on the third-party.
+	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -160,37 +161,36 @@ func (o *PayGroup) UnsetPayGroupName() {
 	o.PayGroupName.Unset()
 }
 
-// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *PayGroup) GetRemoteData() []RemoteData {
-	if o == nil  {
-		var ret []RemoteData
+// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
+func (o *PayGroup) GetRemoteWasDeleted() bool {
+	if o == nil || o.RemoteWasDeleted == nil {
+		var ret bool
 		return ret
 	}
-	return o.RemoteData
+	return *o.RemoteWasDeleted
 }
 
-// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PayGroup) GetRemoteDataOk() (*[]RemoteData, bool) {
-	if o == nil || o.RemoteData == nil {
+func (o *PayGroup) GetRemoteWasDeletedOk() (*bool, bool) {
+	if o == nil || o.RemoteWasDeleted == nil {
 		return nil, false
 	}
-	return &o.RemoteData, true
+	return o.RemoteWasDeleted, true
 }
 
-// HasRemoteData returns a boolean if a field has been set.
-func (o *PayGroup) HasRemoteData() bool {
-	if o != nil && o.RemoteData != nil {
+// HasRemoteWasDeleted returns a boolean if a field has been set.
+func (o *PayGroup) HasRemoteWasDeleted() bool {
+	if o != nil && o.RemoteWasDeleted != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
-func (o *PayGroup) SetRemoteData(v []RemoteData) {
-	o.RemoteData = v
+// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
+func (o *PayGroup) SetRemoteWasDeleted(v bool) {
+	o.RemoteWasDeleted = &v
 }
 
 func (o PayGroup) MarshalJSON() ([]byte, error) {
@@ -204,8 +204,8 @@ func (o PayGroup) MarshalJSON() ([]byte, error) {
 	if o.PayGroupName.IsSet() {
 		toSerialize["pay_group_name"] = o.PayGroupName.Get()
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
+	if o.RemoteWasDeleted != nil {
+		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
 	}
 	return json.Marshal(toSerialize)
 }

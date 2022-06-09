@@ -20,8 +20,10 @@ type EndUserDetailsRequest struct {
 	EndUserEmailAddress string `json:"end_user_email_address"`
 	EndUserOrganizationName string `json:"end_user_organization_name"`
 	EndUserOriginId string `json:"end_user_origin_id"`
-	Categories *[]CategoriesEnum `json:"categories,omitempty"`
+	Categories []CategoriesEnum `json:"categories"`
+	// The slug of a specific pre-selected integration for this linking flow token, for examples of slugs see https://www.merge.dev/docs/basics/integration-metadata
 	Integration NullableString `json:"integration,omitempty"`
+	// An integer number of minutes between [30, 720] for how long this token is valid. Defaults to 30
 	LinkExpiryMins *int32 `json:"link_expiry_mins,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
@@ -31,11 +33,12 @@ type EndUserDetailsRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationName string, endUserOriginId string) *EndUserDetailsRequest {
+func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationName string, endUserOriginId string, categories []CategoriesEnum) *EndUserDetailsRequest {
 	this := EndUserDetailsRequest{}
 	this.EndUserEmailAddress = endUserEmailAddress
 	this.EndUserOrganizationName = endUserOrganizationName
 	this.EndUserOriginId = endUserOriginId
+	this.Categories = categories
 	var linkExpiryMins int32 = 30
 	this.LinkExpiryMins = &linkExpiryMins
 	return &this
@@ -123,36 +126,28 @@ func (o *EndUserDetailsRequest) SetEndUserOriginId(v string) {
 	o.EndUserOriginId = v
 }
 
-// GetCategories returns the Categories field value if set, zero value otherwise.
+// GetCategories returns the Categories field value
 func (o *EndUserDetailsRequest) GetCategories() []CategoriesEnum {
-	if o == nil || o.Categories == nil {
+	if o == nil {
 		var ret []CategoriesEnum
 		return ret
 	}
-	return *o.Categories
+
+	return o.Categories
 }
 
-// GetCategoriesOk returns a tuple with the Categories field value if set, nil otherwise
+// GetCategoriesOk returns a tuple with the Categories field value
 // and a boolean to check if the value has been set.
 func (o *EndUserDetailsRequest) GetCategoriesOk() (*[]CategoriesEnum, bool) {
-	if o == nil || o.Categories == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Categories, true
+	return &o.Categories, true
 }
 
-// HasCategories returns a boolean if a field has been set.
-func (o *EndUserDetailsRequest) HasCategories() bool {
-	if o != nil && o.Categories != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCategories gets a reference to the given []CategoriesEnum and assigns it to the Categories field.
+// SetCategories sets field value
 func (o *EndUserDetailsRequest) SetCategories(v []CategoriesEnum) {
-	o.Categories = &v
+	o.Categories = v
 }
 
 // GetIntegration returns the Integration field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -240,7 +235,7 @@ func (o EndUserDetailsRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["end_user_origin_id"] = o.EndUserOriginId
 	}
-	if o.Categories != nil {
+	if true {
 		toSerialize["categories"] = o.Categories
 	}
 	if o.Integration.IsSet() {

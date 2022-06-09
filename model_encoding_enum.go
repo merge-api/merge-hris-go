@@ -27,11 +27,13 @@ const (
     
 	ENCODINGENUM_RAW EncodingEnum = "RAW"
 	ENCODINGENUM_BASE64 EncodingEnum = "BASE64"
+	ENCODINGENUM_GZIP_BASE64 EncodingEnum = "GZIP_BASE64"
 )
 
 var allowedEncodingEnumEnumValues = []EncodingEnum{
 	"RAW",
 	"BASE64",
+	"GZIP_BASE64",
 }
 
 func (v *EncodingEnum) UnmarshalJSON(src []byte) error {

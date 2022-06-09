@@ -7,15 +7,15 @@ Name | Type | Description | Notes
 **EndUserEmailAddress** | **string** |  | 
 **EndUserOrganizationName** | **string** |  | 
 **EndUserOriginId** | **string** |  | 
-**Categories** | Pointer to [**[]CategoriesEnum**](CategoriesEnum.md) |  | [optional] 
-**Integration** | Pointer to **NullableString** |  | [optional] 
-**LinkExpiryMins** | Pointer to **int32** |  | [optional] [default to 30]
+**Categories** | [**[]CategoriesEnum**](CategoriesEnum.md) |  | 
+**Integration** | Pointer to **NullableString** | The slug of a specific pre-selected integration for this linking flow token, for examples of slugs see https://www.merge.dev/docs/basics/integration-metadata | [optional] 
+**LinkExpiryMins** | Pointer to **int32** | An integer number of minutes between [30, 720] for how long this token is valid. Defaults to 30 | [optional] [default to 30]
 
 ## Methods
 
 ### NewEndUserDetailsRequest
 
-`func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationName string, endUserOriginId string, ) *EndUserDetailsRequest`
+`func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationName string, endUserOriginId string, categories []CategoriesEnum, ) *EndUserDetailsRequest`
 
 NewEndUserDetailsRequest instantiates a new EndUserDetailsRequest object
 This constructor will assign default values to properties that have it defined,
@@ -109,11 +109,6 @@ and a boolean to check if the value has been set.
 
 SetCategories sets Categories field to given value.
 
-### HasCategories
-
-`func (o *EndUserDetailsRequest) HasCategories() bool`
-
-HasCategories returns a boolean if a field has been set.
 
 ### GetIntegration
 

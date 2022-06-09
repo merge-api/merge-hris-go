@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **NullableString** | The tax&#39;s name. | [optional] 
 **Amount** | Pointer to **NullableFloat32** | The tax amount. | [optional] 
 **EmployerTax** | Pointer to **NullableBool** | Whether or not the employer is responsible for paying the tax. | [optional] 
-**RemoteData** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted on the third-party. | [optional] 
 
 ## Methods
 
@@ -195,41 +195,31 @@ HasEmployerTax returns a boolean if a field has been set.
 `func (o *Tax) UnsetEmployerTax()`
 
 UnsetEmployerTax ensures that no value is present for EmployerTax, not even an explicit nil
-### GetRemoteData
+### GetRemoteWasDeleted
 
-`func (o *Tax) GetRemoteData() []map[string]interface{}`
+`func (o *Tax) GetRemoteWasDeleted() bool`
 
-GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
 
-### GetRemoteDataOk
+### GetRemoteWasDeletedOk
 
-`func (o *Tax) GetRemoteDataOk() (*[]map[string]interface{}, bool)`
+`func (o *Tax) GetRemoteWasDeletedOk() (*bool, bool)`
 
-GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRemoteData
+### SetRemoteWasDeleted
 
-`func (o *Tax) SetRemoteData(v []map[string]interface{})`
+`func (o *Tax) SetRemoteWasDeleted(v bool)`
 
-SetRemoteData sets RemoteData field to given value.
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
 
-### HasRemoteData
+### HasRemoteWasDeleted
 
-`func (o *Tax) HasRemoteData() bool`
+`func (o *Tax) HasRemoteWasDeleted() bool`
 
-HasRemoteData returns a boolean if a field has been set.
+HasRemoteWasDeleted returns a boolean if a field has been set.
 
-### SetRemoteDataNil
-
-`func (o *Tax) SetRemoteDataNil(b bool)`
-
- SetRemoteDataNil sets the value for RemoteData to be an explicit nil
-
-### UnsetRemoteData
-`func (o *Tax) UnsetRemoteData()`
-
-UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
