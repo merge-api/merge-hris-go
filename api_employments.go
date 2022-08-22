@@ -43,6 +43,7 @@ type ApiEmploymentsListRequest struct {
 	modifiedBefore *time.Time
 	orderBy *string
 	pageSize *int32
+	remoteFields *string
 	remoteId *string
 }
 
@@ -88,6 +89,10 @@ func (r ApiEmploymentsListRequest) OrderBy(orderBy string) ApiEmploymentsListReq
 }
 func (r ApiEmploymentsListRequest) PageSize(pageSize int32) ApiEmploymentsListRequest {
 	r.pageSize = &pageSize
+	return r
+}
+func (r ApiEmploymentsListRequest) RemoteFields(remoteFields string) ApiEmploymentsListRequest {
+	r.remoteFields = &remoteFields
 	return r
 }
 func (r ApiEmploymentsListRequest) RemoteId(remoteId string) ApiEmploymentsListRequest {
@@ -170,6 +175,9 @@ func (a *EmploymentsApiService) EmploymentsListExecute(r ApiEmploymentsListReque
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
+	if r.remoteFields != nil {
+		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
@@ -248,6 +256,7 @@ type ApiEmploymentsRetrieveRequest struct {
 	xAccountToken *string
 	id string
 	includeRemoteData *bool
+	remoteFields *string
 }
 
 func (r ApiEmploymentsRetrieveRequest) XAccountToken(xAccountToken string) ApiEmploymentsRetrieveRequest {
@@ -256,6 +265,10 @@ func (r ApiEmploymentsRetrieveRequest) XAccountToken(xAccountToken string) ApiEm
 }
 func (r ApiEmploymentsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiEmploymentsRetrieveRequest {
 	r.includeRemoteData = &includeRemoteData
+	return r
+}
+func (r ApiEmploymentsRetrieveRequest) RemoteFields(remoteFields string) ApiEmploymentsRetrieveRequest {
+	r.remoteFields = &remoteFields
 	return r
 }
 
@@ -309,6 +322,9 @@ func (a *EmploymentsApiService) EmploymentsRetrieveExecute(r ApiEmploymentsRetri
 
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
+	if r.remoteFields != nil {
+		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

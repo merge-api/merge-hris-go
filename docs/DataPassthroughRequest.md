@@ -9,8 +9,9 @@ Name | Type | Description | Notes
 **BaseUrlOverride** | Pointer to **NullableString** |  | [optional] 
 **Data** | Pointer to **NullableString** |  | [optional] 
 **MultipartFormData** | Pointer to [**[]MultipartFormFieldRequest**](MultipartFormFieldRequest.md) | Pass an array of &#x60;MultipartFormField&#x60; objects in here instead of using the &#x60;data&#x60; param if &#x60;request_format&#x60; is set to &#x60;MULTIPART&#x60;. | [optional] 
-**Headers** | Pointer to **map[string]interface{}** |  | [optional] 
+**Headers** | Pointer to **map[string]interface{}** | The headers to use for the request (Merge will handle the account&#39;s authorization headers). &#x60;Content-Type&#x60; header is required for passthrough. Choose content type corresponding to expected format of receiving server. | [optional] 
 **RequestFormat** | Pointer to [**NullableRequestFormatEnum**](RequestFormatEnum.md) |  | [optional] 
+**NormalizeResponse** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -246,6 +247,31 @@ HasRequestFormat returns a boolean if a field has been set.
 `func (o *DataPassthroughRequest) UnsetRequestFormat()`
 
 UnsetRequestFormat ensures that no value is present for RequestFormat, not even an explicit nil
+### GetNormalizeResponse
+
+`func (o *DataPassthroughRequest) GetNormalizeResponse() bool`
+
+GetNormalizeResponse returns the NormalizeResponse field if non-nil, zero value otherwise.
+
+### GetNormalizeResponseOk
+
+`func (o *DataPassthroughRequest) GetNormalizeResponseOk() (*bool, bool)`
+
+GetNormalizeResponseOk returns a tuple with the NormalizeResponse field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNormalizeResponse
+
+`func (o *DataPassthroughRequest) SetNormalizeResponse(v bool)`
+
+SetNormalizeResponse sets NormalizeResponse field to given value.
+
+### HasNormalizeResponse
+
+`func (o *DataPassthroughRequest) HasNormalizeResponse() bool`
+
+HasNormalizeResponse returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

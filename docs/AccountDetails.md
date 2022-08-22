@@ -6,11 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **Integration** | Pointer to **string** |  | [optional] [readonly] 
+**IntegrationSlug** | Pointer to **string** |  | [optional] [readonly] 
 **Category** | Pointer to [**NullableCategoryEnum**](CategoryEnum.md) |  | [optional] 
 **EndUserOriginId** | Pointer to **string** |  | [optional] [readonly] 
 **EndUserOrganizationName** | Pointer to **string** |  | [optional] [readonly] 
 **EndUserEmailAddress** | Pointer to **string** |  | [optional] [readonly] 
 **Status** | Pointer to **string** |  | [optional] [readonly] 
+**WebhookListenerUrl** | Pointer to **string** |  | [optional] [readonly] 
+**IsDuplicate** | Pointer to **NullableBool** | Whether a Production Linked Account&#39;s credentials match another existing Production Linked Account. This field is &#x60;null&#x60; for Test Linked Accounts, incomplete Production Linked Accounts, and ignored duplicate Production Linked Account sets. | [optional] [readonly] 
 
 ## Methods
 
@@ -80,6 +83,31 @@ SetIntegration sets Integration field to given value.
 `func (o *AccountDetails) HasIntegration() bool`
 
 HasIntegration returns a boolean if a field has been set.
+
+### GetIntegrationSlug
+
+`func (o *AccountDetails) GetIntegrationSlug() string`
+
+GetIntegrationSlug returns the IntegrationSlug field if non-nil, zero value otherwise.
+
+### GetIntegrationSlugOk
+
+`func (o *AccountDetails) GetIntegrationSlugOk() (*string, bool)`
+
+GetIntegrationSlugOk returns a tuple with the IntegrationSlug field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegrationSlug
+
+`func (o *AccountDetails) SetIntegrationSlug(v string)`
+
+SetIntegrationSlug sets IntegrationSlug field to given value.
+
+### HasIntegrationSlug
+
+`func (o *AccountDetails) HasIntegrationSlug() bool`
+
+HasIntegrationSlug returns a boolean if a field has been set.
 
 ### GetCategory
 
@@ -216,6 +244,66 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
+### GetWebhookListenerUrl
+
+`func (o *AccountDetails) GetWebhookListenerUrl() string`
+
+GetWebhookListenerUrl returns the WebhookListenerUrl field if non-nil, zero value otherwise.
+
+### GetWebhookListenerUrlOk
+
+`func (o *AccountDetails) GetWebhookListenerUrlOk() (*string, bool)`
+
+GetWebhookListenerUrlOk returns a tuple with the WebhookListenerUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWebhookListenerUrl
+
+`func (o *AccountDetails) SetWebhookListenerUrl(v string)`
+
+SetWebhookListenerUrl sets WebhookListenerUrl field to given value.
+
+### HasWebhookListenerUrl
+
+`func (o *AccountDetails) HasWebhookListenerUrl() bool`
+
+HasWebhookListenerUrl returns a boolean if a field has been set.
+
+### GetIsDuplicate
+
+`func (o *AccountDetails) GetIsDuplicate() bool`
+
+GetIsDuplicate returns the IsDuplicate field if non-nil, zero value otherwise.
+
+### GetIsDuplicateOk
+
+`func (o *AccountDetails) GetIsDuplicateOk() (*bool, bool)`
+
+GetIsDuplicateOk returns a tuple with the IsDuplicate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsDuplicate
+
+`func (o *AccountDetails) SetIsDuplicate(v bool)`
+
+SetIsDuplicate sets IsDuplicate field to given value.
+
+### HasIsDuplicate
+
+`func (o *AccountDetails) HasIsDuplicate() bool`
+
+HasIsDuplicate returns a boolean if a field has been set.
+
+### SetIsDuplicateNil
+
+`func (o *AccountDetails) SetIsDuplicateNil(b bool)`
+
+ SetIsDuplicateNil sets the value for IsDuplicate to be an explicit nil
+
+### UnsetIsDuplicate
+`func (o *AccountDetails) UnsetIsDuplicate()`
+
+UnsetIsDuplicate ensures that no value is present for IsDuplicate, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// PayrollRun # The PayrollRun Object ### Description The `PayrollRun` object is used to represent a payroll run.  ### Usage Example Fetch from the `LIST PayrollRuns` endpoint and filter by `ID` to show all payroll runs.
+// PayrollRun # The PayrollRun Object ### Description The `PayrollRun` object is used to represent a payroll run. This payroll run is not specific to an employee.  ### Usage Example Fetch from the `LIST PayrollRuns` endpoint and filter by `ID` to show all payroll runs.
 type PayrollRun struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
@@ -32,6 +32,8 @@ type PayrollRun struct {
 	// The day and time the payroll run was checked.
 	CheckDate NullableTime `json:"check_date,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	// Indicates whether or not this object has been deleted by third party webhooks.
+	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -370,6 +372,38 @@ func (o *PayrollRun) SetRemoteData(v []RemoteData) {
 	o.RemoteData = v
 }
 
+// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
+func (o *PayrollRun) GetRemoteWasDeleted() bool {
+	if o == nil || o.RemoteWasDeleted == nil {
+		var ret bool
+		return ret
+	}
+	return *o.RemoteWasDeleted
+}
+
+// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayrollRun) GetRemoteWasDeletedOk() (*bool, bool) {
+	if o == nil || o.RemoteWasDeleted == nil {
+		return nil, false
+	}
+	return o.RemoteWasDeleted, true
+}
+
+// HasRemoteWasDeleted returns a boolean if a field has been set.
+func (o *PayrollRun) HasRemoteWasDeleted() bool {
+	if o != nil && o.RemoteWasDeleted != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
+func (o *PayrollRun) SetRemoteWasDeleted(v bool) {
+	o.RemoteWasDeleted = &v
+}
+
 func (o PayrollRun) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -395,6 +429,9 @@ func (o PayrollRun) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData
+	}
+	if o.RemoteWasDeleted != nil {
+		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
 	}
 	return json.Marshal(toSerialize)
 }

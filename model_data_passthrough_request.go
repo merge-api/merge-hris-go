@@ -23,8 +23,10 @@ type DataPassthroughRequest struct {
 	Data NullableString `json:"data,omitempty"`
 	// Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`.
 	MultipartFormData []MultipartFormFieldRequest `json:"multipart_form_data,omitempty"`
+	// The headers to use for the request (Merge will handle the account's authorization headers). `Content-Type` header is required for passthrough. Choose content type corresponding to expected format of receiving server.
 	Headers map[string]interface{} `json:"headers,omitempty"`
 	RequestFormat NullableRequestFormatEnum `json:"request_format,omitempty"`
+	NormalizeResponse *bool `json:"normalize_response,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -288,6 +290,38 @@ func (o *DataPassthroughRequest) UnsetRequestFormat() {
 	o.RequestFormat.Unset()
 }
 
+// GetNormalizeResponse returns the NormalizeResponse field value if set, zero value otherwise.
+func (o *DataPassthroughRequest) GetNormalizeResponse() bool {
+	if o == nil || o.NormalizeResponse == nil {
+		var ret bool
+		return ret
+	}
+	return *o.NormalizeResponse
+}
+
+// GetNormalizeResponseOk returns a tuple with the NormalizeResponse field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DataPassthroughRequest) GetNormalizeResponseOk() (*bool, bool) {
+	if o == nil || o.NormalizeResponse == nil {
+		return nil, false
+	}
+	return o.NormalizeResponse, true
+}
+
+// HasNormalizeResponse returns a boolean if a field has been set.
+func (o *DataPassthroughRequest) HasNormalizeResponse() bool {
+	if o != nil && o.NormalizeResponse != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNormalizeResponse gets a reference to the given bool and assigns it to the NormalizeResponse field.
+func (o *DataPassthroughRequest) SetNormalizeResponse(v bool) {
+	o.NormalizeResponse = &v
+}
+
 func (o DataPassthroughRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -310,6 +344,9 @@ func (o DataPassthroughRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.RequestFormat.IsSet() {
 		toSerialize["request_format"] = o.RequestFormat.Get()
+	}
+	if o.NormalizeResponse != nil {
+		toSerialize["normalize_response"] = o.NormalizeResponse
 	}
 	return json.Marshal(toSerialize)
 }

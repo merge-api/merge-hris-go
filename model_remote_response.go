@@ -21,6 +21,7 @@ type RemoteResponse struct {
 	Path string `json:"path"`
 	Status int32 `json:"status"`
 	Response map[string]interface{} `json:"response"`
+	ResponseHeaders *map[string]interface{} `json:"response_headers,omitempty"`
 	Headers *map[string]interface{} `json:"headers,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
@@ -143,6 +144,38 @@ func (o *RemoteResponse) SetResponse(v map[string]interface{}) {
 	o.Response = v
 }
 
+// GetResponseHeaders returns the ResponseHeaders field value if set, zero value otherwise.
+func (o *RemoteResponse) GetResponseHeaders() map[string]interface{} {
+	if o == nil || o.ResponseHeaders == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return *o.ResponseHeaders
+}
+
+// GetResponseHeadersOk returns a tuple with the ResponseHeaders field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RemoteResponse) GetResponseHeadersOk() (*map[string]interface{}, bool) {
+	if o == nil || o.ResponseHeaders == nil {
+		return nil, false
+	}
+	return o.ResponseHeaders, true
+}
+
+// HasResponseHeaders returns a boolean if a field has been set.
+func (o *RemoteResponse) HasResponseHeaders() bool {
+	if o != nil && o.ResponseHeaders != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetResponseHeaders gets a reference to the given map[string]interface{} and assigns it to the ResponseHeaders field.
+func (o *RemoteResponse) SetResponseHeaders(v map[string]interface{}) {
+	o.ResponseHeaders = &v
+}
+
 // GetHeaders returns the Headers field value if set, zero value otherwise.
 func (o *RemoteResponse) GetHeaders() map[string]interface{} {
 	if o == nil || o.Headers == nil {
@@ -188,6 +221,9 @@ func (o RemoteResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["response"] = o.Response
+	}
+	if o.ResponseHeaders != nil {
+		toSerialize["response_headers"] = o.ResponseHeaders
 	}
 	if o.Headers != nil {
 		toSerialize["headers"] = o.Headers

@@ -16,7 +16,14 @@ import (
 )
 
 func TestDeserializeDebugModelLogSummary(t *testing.T) {
-    /*
-    No test json responses were defined for DebugModelLogSummary
-    */
+    var (
+        rawJson     = []byte(`{"url": "https://harvest.greenhouse.io/v1/candidates/", "method": "POST", "status_code": 200}`)
+        result      DebugModelLogSummary
+    )
+
+    err := NewAPIClient(NewConfiguration()).decode(&result, rawJson, "application/json")
+
+    if err != nil {
+        t.Errorf("Failed to decode: %s", err.Error())
+    }
 }

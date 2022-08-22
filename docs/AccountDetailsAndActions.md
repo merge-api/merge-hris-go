@@ -11,13 +11,15 @@ Name | Type | Description | Notes
 **EndUserOriginId** | Pointer to **string** |  | [optional] 
 **EndUserOrganizationName** | **string** |  | 
 **EndUserEmailAddress** | **string** |  | 
+**WebhookListenerUrl** | **string** |  | 
+**IsDuplicate** | Pointer to **NullableBool** | Whether a Production Linked Account&#39;s credentials match another existing Production Linked Account. This field is &#x60;null&#x60; for Test Linked Accounts, incomplete Production Linked Accounts, and ignored duplicate Production Linked Account sets. | [optional] 
 **Integration** | Pointer to [**AccountDetailsAndActionsIntegration**](AccountDetailsAndActionsIntegration.md) |  | [optional] 
 
 ## Methods
 
 ### NewAccountDetailsAndActions
 
-`func NewAccountDetailsAndActions(id string, status AccountDetailsAndActionsStatusEnum, endUserOrganizationName string, endUserEmailAddress string, ) *AccountDetailsAndActions`
+`func NewAccountDetailsAndActions(id string, status AccountDetailsAndActionsStatusEnum, endUserOrganizationName string, endUserEmailAddress string, webhookListenerUrl string, ) *AccountDetailsAndActions`
 
 NewAccountDetailsAndActions instantiates a new AccountDetailsAndActions object
 This constructor will assign default values to properties that have it defined,
@@ -187,6 +189,61 @@ and a boolean to check if the value has been set.
 SetEndUserEmailAddress sets EndUserEmailAddress field to given value.
 
 
+### GetWebhookListenerUrl
+
+`func (o *AccountDetailsAndActions) GetWebhookListenerUrl() string`
+
+GetWebhookListenerUrl returns the WebhookListenerUrl field if non-nil, zero value otherwise.
+
+### GetWebhookListenerUrlOk
+
+`func (o *AccountDetailsAndActions) GetWebhookListenerUrlOk() (*string, bool)`
+
+GetWebhookListenerUrlOk returns a tuple with the WebhookListenerUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWebhookListenerUrl
+
+`func (o *AccountDetailsAndActions) SetWebhookListenerUrl(v string)`
+
+SetWebhookListenerUrl sets WebhookListenerUrl field to given value.
+
+
+### GetIsDuplicate
+
+`func (o *AccountDetailsAndActions) GetIsDuplicate() bool`
+
+GetIsDuplicate returns the IsDuplicate field if non-nil, zero value otherwise.
+
+### GetIsDuplicateOk
+
+`func (o *AccountDetailsAndActions) GetIsDuplicateOk() (*bool, bool)`
+
+GetIsDuplicateOk returns a tuple with the IsDuplicate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsDuplicate
+
+`func (o *AccountDetailsAndActions) SetIsDuplicate(v bool)`
+
+SetIsDuplicate sets IsDuplicate field to given value.
+
+### HasIsDuplicate
+
+`func (o *AccountDetailsAndActions) HasIsDuplicate() bool`
+
+HasIsDuplicate returns a boolean if a field has been set.
+
+### SetIsDuplicateNil
+
+`func (o *AccountDetailsAndActions) SetIsDuplicateNil(b bool)`
+
+ SetIsDuplicateNil sets the value for IsDuplicate to be an explicit nil
+
+### UnsetIsDuplicate
+`func (o *AccountDetailsAndActions) UnsetIsDuplicate()`
+
+UnsetIsDuplicate ensures that no value is present for IsDuplicate, not even an explicit nil
 ### GetIntegration
 
 `func (o *AccountDetailsAndActions) GetIntegration() AccountDetailsAndActionsIntegration`

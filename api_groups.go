@@ -41,6 +41,7 @@ type ApiGroupsListRequest struct {
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
+	remoteFields *string
 	remoteId *string
 }
 
@@ -78,6 +79,10 @@ func (r ApiGroupsListRequest) ModifiedBefore(modifiedBefore time.Time) ApiGroups
 }
 func (r ApiGroupsListRequest) PageSize(pageSize int32) ApiGroupsListRequest {
 	r.pageSize = &pageSize
+	return r
+}
+func (r ApiGroupsListRequest) RemoteFields(remoteFields string) ApiGroupsListRequest {
+	r.remoteFields = &remoteFields
 	return r
 }
 func (r ApiGroupsListRequest) RemoteId(remoteId string) ApiGroupsListRequest {
@@ -153,6 +158,9 @@ func (a *GroupsApiService) GroupsListExecute(r ApiGroupsListRequest) (PaginatedG
 	}
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
+	if r.remoteFields != nil {
+		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
 	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
@@ -232,6 +240,7 @@ type ApiGroupsRetrieveRequest struct {
 	xAccountToken *string
 	id string
 	includeRemoteData *bool
+	remoteFields *string
 }
 
 func (r ApiGroupsRetrieveRequest) XAccountToken(xAccountToken string) ApiGroupsRetrieveRequest {
@@ -240,6 +249,10 @@ func (r ApiGroupsRetrieveRequest) XAccountToken(xAccountToken string) ApiGroupsR
 }
 func (r ApiGroupsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiGroupsRetrieveRequest {
 	r.includeRemoteData = &includeRemoteData
+	return r
+}
+func (r ApiGroupsRetrieveRequest) RemoteFields(remoteFields string) ApiGroupsRetrieveRequest {
+	r.remoteFields = &remoteFields
 	return r
 }
 
@@ -293,6 +306,9 @@ func (a *GroupsApiService) GroupsRetrieveExecute(r ApiGroupsRetrieveRequest) (Gr
 
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
+	if r.remoteFields != nil {
+		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -43,6 +43,7 @@ type ApiTimeOffBalancesListRequest struct {
 	modifiedBefore *time.Time
 	pageSize *int32
 	policyType *string
+	remoteFields *string
 	remoteId *string
 }
 
@@ -88,6 +89,10 @@ func (r ApiTimeOffBalancesListRequest) PageSize(pageSize int32) ApiTimeOffBalanc
 }
 func (r ApiTimeOffBalancesListRequest) PolicyType(policyType string) ApiTimeOffBalancesListRequest {
 	r.policyType = &policyType
+	return r
+}
+func (r ApiTimeOffBalancesListRequest) RemoteFields(remoteFields string) ApiTimeOffBalancesListRequest {
+	r.remoteFields = &remoteFields
 	return r
 }
 func (r ApiTimeOffBalancesListRequest) RemoteId(remoteId string) ApiTimeOffBalancesListRequest {
@@ -170,6 +175,9 @@ func (a *TimeOffBalancesApiService) TimeOffBalancesListExecute(r ApiTimeOffBalan
 	if r.policyType != nil {
 		localVarQueryParams.Add("policy_type", parameterToString(*r.policyType, ""))
 	}
+	if r.remoteFields != nil {
+		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
@@ -248,6 +256,7 @@ type ApiTimeOffBalancesRetrieveRequest struct {
 	xAccountToken *string
 	id string
 	includeRemoteData *bool
+	remoteFields *string
 }
 
 func (r ApiTimeOffBalancesRetrieveRequest) XAccountToken(xAccountToken string) ApiTimeOffBalancesRetrieveRequest {
@@ -256,6 +265,10 @@ func (r ApiTimeOffBalancesRetrieveRequest) XAccountToken(xAccountToken string) A
 }
 func (r ApiTimeOffBalancesRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiTimeOffBalancesRetrieveRequest {
 	r.includeRemoteData = &includeRemoteData
+	return r
+}
+func (r ApiTimeOffBalancesRetrieveRequest) RemoteFields(remoteFields string) ApiTimeOffBalancesRetrieveRequest {
+	r.remoteFields = &remoteFields
 	return r
 }
 
@@ -309,6 +322,9 @@ func (a *TimeOffBalancesApiService) TimeOffBalancesRetrieveExecute(r ApiTimeOffB
 
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
+	if r.remoteFields != nil {
+		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

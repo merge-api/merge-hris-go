@@ -19,11 +19,15 @@ import (
 type AccountDetails struct {
 	Id *string `json:"id,omitempty"`
 	Integration *string `json:"integration,omitempty"`
+	IntegrationSlug *string `json:"integration_slug,omitempty"`
 	Category NullableCategoryEnum `json:"category,omitempty"`
 	EndUserOriginId *string `json:"end_user_origin_id,omitempty"`
 	EndUserOrganizationName *string `json:"end_user_organization_name,omitempty"`
 	EndUserEmailAddress *string `json:"end_user_email_address,omitempty"`
 	Status *string `json:"status,omitempty"`
+	WebhookListenerUrl *string `json:"webhook_listener_url,omitempty"`
+	// Whether a Production Linked Account's credentials match another existing Production Linked Account. This field is `null` for Test Linked Accounts, incomplete Production Linked Accounts, and ignored duplicate Production Linked Account sets.
+	IsDuplicate NullableBool `json:"is_duplicate,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -107,6 +111,38 @@ func (o *AccountDetails) HasIntegration() bool {
 // SetIntegration gets a reference to the given string and assigns it to the Integration field.
 func (o *AccountDetails) SetIntegration(v string) {
 	o.Integration = &v
+}
+
+// GetIntegrationSlug returns the IntegrationSlug field value if set, zero value otherwise.
+func (o *AccountDetails) GetIntegrationSlug() string {
+	if o == nil || o.IntegrationSlug == nil {
+		var ret string
+		return ret
+	}
+	return *o.IntegrationSlug
+}
+
+// GetIntegrationSlugOk returns a tuple with the IntegrationSlug field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountDetails) GetIntegrationSlugOk() (*string, bool) {
+	if o == nil || o.IntegrationSlug == nil {
+		return nil, false
+	}
+	return o.IntegrationSlug, true
+}
+
+// HasIntegrationSlug returns a boolean if a field has been set.
+func (o *AccountDetails) HasIntegrationSlug() bool {
+	if o != nil && o.IntegrationSlug != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationSlug gets a reference to the given string and assigns it to the IntegrationSlug field.
+func (o *AccountDetails) SetIntegrationSlug(v string) {
+	o.IntegrationSlug = &v
 }
 
 // GetCategory returns the Category field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -279,6 +315,80 @@ func (o *AccountDetails) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetWebhookListenerUrl returns the WebhookListenerUrl field value if set, zero value otherwise.
+func (o *AccountDetails) GetWebhookListenerUrl() string {
+	if o == nil || o.WebhookListenerUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.WebhookListenerUrl
+}
+
+// GetWebhookListenerUrlOk returns a tuple with the WebhookListenerUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountDetails) GetWebhookListenerUrlOk() (*string, bool) {
+	if o == nil || o.WebhookListenerUrl == nil {
+		return nil, false
+	}
+	return o.WebhookListenerUrl, true
+}
+
+// HasWebhookListenerUrl returns a boolean if a field has been set.
+func (o *AccountDetails) HasWebhookListenerUrl() bool {
+	if o != nil && o.WebhookListenerUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWebhookListenerUrl gets a reference to the given string and assigns it to the WebhookListenerUrl field.
+func (o *AccountDetails) SetWebhookListenerUrl(v string) {
+	o.WebhookListenerUrl = &v
+}
+
+// GetIsDuplicate returns the IsDuplicate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AccountDetails) GetIsDuplicate() bool {
+	if o == nil || o.IsDuplicate.Get() == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsDuplicate.Get()
+}
+
+// GetIsDuplicateOk returns a tuple with the IsDuplicate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AccountDetails) GetIsDuplicateOk() (*bool, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.IsDuplicate.Get(), o.IsDuplicate.IsSet()
+}
+
+// HasIsDuplicate returns a boolean if a field has been set.
+func (o *AccountDetails) HasIsDuplicate() bool {
+	if o != nil && o.IsDuplicate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDuplicate gets a reference to the given NullableBool and assigns it to the IsDuplicate field.
+func (o *AccountDetails) SetIsDuplicate(v bool) {
+	o.IsDuplicate.Set(&v)
+}
+// SetIsDuplicateNil sets the value for IsDuplicate to be an explicit nil
+func (o *AccountDetails) SetIsDuplicateNil() {
+	o.IsDuplicate.Set(nil)
+}
+
+// UnsetIsDuplicate ensures that no value is present for IsDuplicate, not even an explicit nil
+func (o *AccountDetails) UnsetIsDuplicate() {
+	o.IsDuplicate.Unset()
+}
+
 func (o AccountDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -286,6 +396,9 @@ func (o AccountDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.Integration != nil {
 		toSerialize["integration"] = o.Integration
+	}
+	if o.IntegrationSlug != nil {
+		toSerialize["integration_slug"] = o.IntegrationSlug
 	}
 	if o.Category.IsSet() {
 		toSerialize["category"] = o.Category.Get()
@@ -301,6 +414,12 @@ func (o AccountDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
+	}
+	if o.WebhookListenerUrl != nil {
+		toSerialize["webhook_listener_url"] = o.WebhookListenerUrl
+	}
+	if o.IsDuplicate.IsSet() {
+		toSerialize["is_duplicate"] = o.IsDuplicate.Get()
 	}
 	return json.Marshal(toSerialize)
 }

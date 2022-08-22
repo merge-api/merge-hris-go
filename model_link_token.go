@@ -19,6 +19,7 @@ import (
 type LinkToken struct {
 	LinkToken string `json:"link_token"`
 	IntegrationName string `json:"integration_name"`
+	MagicLinkUrl *string `json:"magic_link_url,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -90,6 +91,38 @@ func (o *LinkToken) SetIntegrationName(v string) {
 	o.IntegrationName = v
 }
 
+// GetMagicLinkUrl returns the MagicLinkUrl field value if set, zero value otherwise.
+func (o *LinkToken) GetMagicLinkUrl() string {
+	if o == nil || o.MagicLinkUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.MagicLinkUrl
+}
+
+// GetMagicLinkUrlOk returns a tuple with the MagicLinkUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LinkToken) GetMagicLinkUrlOk() (*string, bool) {
+	if o == nil || o.MagicLinkUrl == nil {
+		return nil, false
+	}
+	return o.MagicLinkUrl, true
+}
+
+// HasMagicLinkUrl returns a boolean if a field has been set.
+func (o *LinkToken) HasMagicLinkUrl() bool {
+	if o != nil && o.MagicLinkUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMagicLinkUrl gets a reference to the given string and assigns it to the MagicLinkUrl field.
+func (o *LinkToken) SetMagicLinkUrl(v string) {
+	o.MagicLinkUrl = &v
+}
+
 func (o LinkToken) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -97,6 +130,9 @@ func (o LinkToken) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["integration_name"] = o.IntegrationName
+	}
+	if o.MagicLinkUrl != nil {
+		toSerialize["magic_link_url"] = o.MagicLinkUrl
 	}
 	return json.Marshal(toSerialize)
 }

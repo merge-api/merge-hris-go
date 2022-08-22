@@ -12,10 +12,12 @@ Name | Type | Description | Notes
 **PayPeriod** | Pointer to [**NullablePayPeriodEnum**](PayPeriodEnum.md) | The time period this pay rate encompasses. | [optional] 
 **PayFrequency** | Pointer to [**NullablePayFrequencyEnum**](PayFrequencyEnum.md) | The position&#39;s pay frequency. | [optional] 
 **PayCurrency** | Pointer to [**NullablePayCurrencyEnum**](PayCurrencyEnum.md) | The position&#39;s currency code. | [optional] 
+**PayGroup** | Pointer to **NullableString** |  | [optional] 
 **FlsaStatus** | Pointer to [**NullableFlsaStatusEnum**](FlsaStatusEnum.md) | The position&#39;s FLSA status. | [optional] 
 **EffectiveDate** | Pointer to **NullableTime** | The position&#39;s effective date. | [optional] 
 **EmploymentType** | Pointer to [**NullableEmploymentTypeEnum**](EmploymentTypeEnum.md) | The position&#39;s type of employment. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted by third party webhooks. | [optional] [readonly] 
 
 ## Methods
 
@@ -306,6 +308,41 @@ HasPayCurrency returns a boolean if a field has been set.
 `func (o *Employment) UnsetPayCurrency()`
 
 UnsetPayCurrency ensures that no value is present for PayCurrency, not even an explicit nil
+### GetPayGroup
+
+`func (o *Employment) GetPayGroup() string`
+
+GetPayGroup returns the PayGroup field if non-nil, zero value otherwise.
+
+### GetPayGroupOk
+
+`func (o *Employment) GetPayGroupOk() (*string, bool)`
+
+GetPayGroupOk returns a tuple with the PayGroup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPayGroup
+
+`func (o *Employment) SetPayGroup(v string)`
+
+SetPayGroup sets PayGroup field to given value.
+
+### HasPayGroup
+
+`func (o *Employment) HasPayGroup() bool`
+
+HasPayGroup returns a boolean if a field has been set.
+
+### SetPayGroupNil
+
+`func (o *Employment) SetPayGroupNil(b bool)`
+
+ SetPayGroupNil sets the value for PayGroup to be an explicit nil
+
+### UnsetPayGroup
+`func (o *Employment) UnsetPayGroup()`
+
+UnsetPayGroup ensures that no value is present for PayGroup, not even an explicit nil
 ### GetFlsaStatus
 
 `func (o *Employment) GetFlsaStatus() FlsaStatusEnum`
@@ -446,6 +483,31 @@ HasRemoteData returns a boolean if a field has been set.
 `func (o *Employment) UnsetRemoteData()`
 
 UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
+### GetRemoteWasDeleted
+
+`func (o *Employment) GetRemoteWasDeleted() bool`
+
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
+
+### GetRemoteWasDeletedOk
+
+`func (o *Employment) GetRemoteWasDeletedOk() (*bool, bool)`
+
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteWasDeleted
+
+`func (o *Employment) SetRemoteWasDeleted(v bool)`
+
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
+
+### HasRemoteWasDeleted
+
+`func (o *Employment) HasRemoteWasDeleted() bool`
+
+HasRemoteWasDeleted returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

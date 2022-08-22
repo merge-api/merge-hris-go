@@ -38,6 +38,7 @@ type ApiLinkedAccountsListRequest struct {
 	endUserOriginIds *string
 	id *string
 	ids *string
+	includeDuplicates *bool
 	integrationName *string
 	isTestAccount *string
 	pageSize *int32
@@ -74,6 +75,10 @@ func (r ApiLinkedAccountsListRequest) Id(id string) ApiLinkedAccountsListRequest
 }
 func (r ApiLinkedAccountsListRequest) Ids(ids string) ApiLinkedAccountsListRequest {
 	r.ids = &ids
+	return r
+}
+func (r ApiLinkedAccountsListRequest) IncludeDuplicates(includeDuplicates bool) ApiLinkedAccountsListRequest {
+	r.includeDuplicates = &includeDuplicates
 	return r
 }
 func (r ApiLinkedAccountsListRequest) IntegrationName(integrationName string) ApiLinkedAccountsListRequest {
@@ -158,6 +163,9 @@ func (a *LinkedAccountsApiService) LinkedAccountsListExecute(r ApiLinkedAccounts
 	}
 	if r.ids != nil {
 		localVarQueryParams.Add("ids", parameterToString(*r.ids, ""))
+	}
+	if r.includeDuplicates != nil {
+		localVarQueryParams.Add("include_duplicates", parameterToString(*r.includeDuplicates, ""))
 	}
 	if r.integrationName != nil {
 		localVarQueryParams.Add("integration_name", parameterToString(*r.integrationName, ""))

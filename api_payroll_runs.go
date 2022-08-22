@@ -43,6 +43,7 @@ type ApiPayrollRunsListRequest struct {
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
+	remoteFields *string
 	remoteId *string
 	runType *string
 	startedAfter *time.Time
@@ -91,6 +92,10 @@ func (r ApiPayrollRunsListRequest) ModifiedBefore(modifiedBefore time.Time) ApiP
 }
 func (r ApiPayrollRunsListRequest) PageSize(pageSize int32) ApiPayrollRunsListRequest {
 	r.pageSize = &pageSize
+	return r
+}
+func (r ApiPayrollRunsListRequest) RemoteFields(remoteFields string) ApiPayrollRunsListRequest {
+	r.remoteFields = &remoteFields
 	return r
 }
 func (r ApiPayrollRunsListRequest) RemoteId(remoteId string) ApiPayrollRunsListRequest {
@@ -185,6 +190,9 @@ func (a *PayrollRunsApiService) PayrollRunsListExecute(r ApiPayrollRunsListReque
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
+	if r.remoteFields != nil {
+		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
@@ -272,6 +280,7 @@ type ApiPayrollRunsRetrieveRequest struct {
 	xAccountToken *string
 	id string
 	includeRemoteData *bool
+	remoteFields *string
 }
 
 func (r ApiPayrollRunsRetrieveRequest) XAccountToken(xAccountToken string) ApiPayrollRunsRetrieveRequest {
@@ -280,6 +289,10 @@ func (r ApiPayrollRunsRetrieveRequest) XAccountToken(xAccountToken string) ApiPa
 }
 func (r ApiPayrollRunsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiPayrollRunsRetrieveRequest {
 	r.includeRemoteData = &includeRemoteData
+	return r
+}
+func (r ApiPayrollRunsRetrieveRequest) RemoteFields(remoteFields string) ApiPayrollRunsRetrieveRequest {
+	r.remoteFields = &remoteFields
 	return r
 }
 
@@ -333,6 +346,9 @@ func (a *PayrollRunsApiService) PayrollRunsRetrieveExecute(r ApiPayrollRunsRetri
 
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
+	if r.remoteFields != nil {
+		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

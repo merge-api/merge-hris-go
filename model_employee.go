@@ -21,7 +21,7 @@ type Employee struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
-	// The employee's number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user.
+	// The employee's number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user. This value can also change in many API providers.
 	EmployeeNumber NullableString `json:"employee_number,omitempty"`
 	Company NullableString `json:"company,omitempty"`
 	// The employee's first name.
@@ -30,6 +30,8 @@ type Employee struct {
 	LastName NullableString `json:"last_name,omitempty"`
 	// The employee's full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name.
 	DisplayFullName NullableString `json:"display_full_name,omitempty"`
+	// The employee's username that appears in the remote UI.
+	Username NullableString `json:"username,omitempty"`
 	Groups *[]string `json:"groups,omitempty"`
 	// The employee's work email.
 	WorkEmail NullableString `json:"work_email,omitempty"`
@@ -58,6 +60,8 @@ type Employee struct {
 	HireDate NullableTime `json:"hire_date,omitempty"`
 	// The date that the employee started working. If an employee has multiple start dates from previous employments, this represents the most recent start date.
 	StartDate NullableTime `json:"start_date,omitempty"`
+	// When the third party's employee was created.
+	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
 	// The employment status of the employee.
 	EmploymentStatus NullableEmploymentStatusEnum `json:"employment_status,omitempty"`
 	// The employee's termination date.
@@ -67,6 +71,7 @@ type Employee struct {
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// Custom fields configured for a given model.
 	CustomFields map[string]interface{} `json:"custom_fields,omitempty"`
+	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -370,6 +375,48 @@ func (o *Employee) SetDisplayFullNameNil() {
 // UnsetDisplayFullName ensures that no value is present for DisplayFullName, not even an explicit nil
 func (o *Employee) UnsetDisplayFullName() {
 	o.DisplayFullName.Unset()
+}
+
+// GetUsername returns the Username field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Employee) GetUsername() string {
+	if o == nil || o.Username.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.Username.Get()
+}
+
+// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Employee) GetUsernameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Username.Get(), o.Username.IsSet()
+}
+
+// HasUsername returns a boolean if a field has been set.
+func (o *Employee) HasUsername() bool {
+	if o != nil && o.Username.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetUsername gets a reference to the given NullableString and assigns it to the Username field.
+func (o *Employee) SetUsername(v string) {
+	o.Username.Set(&v)
+}
+// SetUsernameNil sets the value for Username to be an explicit nil
+func (o *Employee) SetUsernameNil() {
+	o.Username.Set(nil)
+}
+
+// UnsetUsername ensures that no value is present for Username, not even an explicit nil
+func (o *Employee) UnsetUsername() {
+	o.Username.Unset()
 }
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
@@ -1066,6 +1113,48 @@ func (o *Employee) UnsetStartDate() {
 	o.StartDate.Unset()
 }
 
+// GetRemoteCreatedAt returns the RemoteCreatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Employee) GetRemoteCreatedAt() time.Time {
+	if o == nil || o.RemoteCreatedAt.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.RemoteCreatedAt.Get()
+}
+
+// GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Employee) GetRemoteCreatedAtOk() (*time.Time, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.RemoteCreatedAt.Get(), o.RemoteCreatedAt.IsSet()
+}
+
+// HasRemoteCreatedAt returns a boolean if a field has been set.
+func (o *Employee) HasRemoteCreatedAt() bool {
+	if o != nil && o.RemoteCreatedAt.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteCreatedAt gets a reference to the given NullableTime and assigns it to the RemoteCreatedAt field.
+func (o *Employee) SetRemoteCreatedAt(v time.Time) {
+	o.RemoteCreatedAt.Set(&v)
+}
+// SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
+func (o *Employee) SetRemoteCreatedAtNil() {
+	o.RemoteCreatedAt.Set(nil)
+}
+
+// UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
+func (o *Employee) UnsetRemoteCreatedAt() {
+	o.RemoteCreatedAt.Unset()
+}
+
 // GetEmploymentStatus returns the EmploymentStatus field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Employee) GetEmploymentStatus() EmploymentStatusEnum {
 	if o == nil || o.EmploymentStatus.Get() == nil {
@@ -1258,6 +1347,38 @@ func (o *Employee) SetCustomFields(v map[string]interface{}) {
 	o.CustomFields = v
 }
 
+// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
+func (o *Employee) GetRemoteWasDeleted() bool {
+	if o == nil || o.RemoteWasDeleted == nil {
+		var ret bool
+		return ret
+	}
+	return *o.RemoteWasDeleted
+}
+
+// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Employee) GetRemoteWasDeletedOk() (*bool, bool) {
+	if o == nil || o.RemoteWasDeleted == nil {
+		return nil, false
+	}
+	return o.RemoteWasDeleted, true
+}
+
+// HasRemoteWasDeleted returns a boolean if a field has been set.
+func (o *Employee) HasRemoteWasDeleted() bool {
+	if o != nil && o.RemoteWasDeleted != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
+func (o *Employee) SetRemoteWasDeleted(v bool) {
+	o.RemoteWasDeleted = &v
+}
+
 func (o Employee) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -1280,6 +1401,9 @@ func (o Employee) MarshalJSON() ([]byte, error) {
 	}
 	if o.DisplayFullName.IsSet() {
 		toSerialize["display_full_name"] = o.DisplayFullName.Get()
+	}
+	if o.Username.IsSet() {
+		toSerialize["username"] = o.Username.Get()
 	}
 	if o.Groups != nil {
 		toSerialize["groups"] = o.Groups
@@ -1332,6 +1456,9 @@ func (o Employee) MarshalJSON() ([]byte, error) {
 	if o.StartDate.IsSet() {
 		toSerialize["start_date"] = o.StartDate.Get()
 	}
+	if o.RemoteCreatedAt.IsSet() {
+		toSerialize["remote_created_at"] = o.RemoteCreatedAt.Get()
+	}
 	if o.EmploymentStatus.IsSet() {
 		toSerialize["employment_status"] = o.EmploymentStatus.Get()
 	}
@@ -1346,6 +1473,9 @@ func (o Employee) MarshalJSON() ([]byte, error) {
 	}
 	if o.CustomFields != nil {
 		toSerialize["custom_fields"] = o.CustomFields
+	}
+	if o.RemoteWasDeleted != nil {
+		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
 	}
 	return json.Marshal(toSerialize)
 }
