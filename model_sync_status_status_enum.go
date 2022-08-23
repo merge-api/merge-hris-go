@@ -29,6 +29,7 @@ const (
 	SYNCSTATUSSTATUSENUM_DONE SyncStatusStatusEnum = "DONE"
 	SYNCSTATUSSTATUSENUM_FAILED SyncStatusStatusEnum = "FAILED"
 	SYNCSTATUSSTATUSENUM_DISABLED SyncStatusStatusEnum = "DISABLED"
+	SYNCSTATUSSTATUSENUM_PAUSED SyncStatusStatusEnum = "PAUSED"
 )
 
 var allowedSyncStatusStatusEnumEnumValues = []SyncStatusStatusEnum{
@@ -36,6 +37,7 @@ var allowedSyncStatusStatusEnumEnumValues = []SyncStatusStatusEnum{
 	"DONE",
 	"FAILED",
 	"DISABLED",
+	"PAUSED",
 }
 
 func (v *SyncStatusStatusEnum) UnmarshalJSON(src []byte) error {

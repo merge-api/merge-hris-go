@@ -33,6 +33,8 @@ type BankInfo struct {
 	// When the matching bank object was created in the third party system.
 	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	// Indicates whether or not this object has been deleted by third party webhooks.
+	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
     // raw json response by property name
     ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -413,6 +415,38 @@ func (o *BankInfo) SetRemoteData(v []RemoteData) {
 	o.RemoteData = v
 }
 
+// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
+func (o *BankInfo) GetRemoteWasDeleted() bool {
+	if o == nil || o.RemoteWasDeleted == nil {
+		var ret bool
+		return ret
+	}
+	return *o.RemoteWasDeleted
+}
+
+// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BankInfo) GetRemoteWasDeletedOk() (*bool, bool) {
+	if o == nil || o.RemoteWasDeleted == nil {
+		return nil, false
+	}
+	return o.RemoteWasDeleted, true
+}
+
+// HasRemoteWasDeleted returns a boolean if a field has been set.
+func (o *BankInfo) HasRemoteWasDeleted() bool {
+	if o != nil && o.RemoteWasDeleted != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
+func (o *BankInfo) SetRemoteWasDeleted(v bool) {
+	o.RemoteWasDeleted = &v
+}
+
 func (o BankInfo) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -441,6 +475,9 @@ func (o BankInfo) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData
+	}
+	if o.RemoteWasDeleted != nil {
+		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
 	}
 	return json.Marshal(toSerialize)
 }

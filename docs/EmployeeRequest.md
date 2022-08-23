@@ -5,11 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**EmployeeNumber** | Pointer to **NullableString** | The employee&#39;s number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user. | [optional] 
+**EmployeeNumber** | Pointer to **NullableString** | The employee&#39;s number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user. This value can also change in many API providers. | [optional] 
 **Company** | Pointer to **NullableString** |  | [optional] 
 **FirstName** | Pointer to **NullableString** | The employee&#39;s first name. | [optional] 
 **LastName** | Pointer to **NullableString** | The employee&#39;s last name. | [optional] 
 **DisplayFullName** | Pointer to **NullableString** | The employee&#39;s full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name. | [optional] 
+**Username** | Pointer to **NullableString** | The employee&#39;s username that appears in the remote UI. | [optional] 
 **Groups** | Pointer to **[]string** |  | [optional] 
 **WorkEmail** | Pointer to **NullableString** | The employee&#39;s work email. | [optional] 
 **PersonalEmail** | Pointer to **NullableString** | The employee&#39;s personal email. | [optional] 
@@ -27,6 +28,7 @@ Name | Type | Description | Notes
 **DateOfBirth** | Pointer to **NullableTime** | The employee&#39;s date of birth. | [optional] 
 **HireDate** | Pointer to **NullableTime** | The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you&#39;re looking for the employee&#39;s start date, refer to the start_date field. | [optional] 
 **StartDate** | Pointer to **NullableTime** | The date that the employee started working. If an employee has multiple start dates from previous employments, this represents the most recent start date. | [optional] 
+**RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s employee was created. | [optional] 
 **EmploymentStatus** | Pointer to [**NullableEmploymentStatusEnum**](EmploymentStatusEnum.md) | The employment status of the employee. | [optional] 
 **TerminationDate** | Pointer to **NullableTime** | The employee&#39;s termination date. | [optional] 
 **Avatar** | Pointer to **NullableString** | The URL of the employee&#39;s avatar image. | [optional] 
@@ -261,6 +263,41 @@ HasDisplayFullName returns a boolean if a field has been set.
 `func (o *EmployeeRequest) UnsetDisplayFullName()`
 
 UnsetDisplayFullName ensures that no value is present for DisplayFullName, not even an explicit nil
+### GetUsername
+
+`func (o *EmployeeRequest) GetUsername() string`
+
+GetUsername returns the Username field if non-nil, zero value otherwise.
+
+### GetUsernameOk
+
+`func (o *EmployeeRequest) GetUsernameOk() (*string, bool)`
+
+GetUsernameOk returns a tuple with the Username field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUsername
+
+`func (o *EmployeeRequest) SetUsername(v string)`
+
+SetUsername sets Username field to given value.
+
+### HasUsername
+
+`func (o *EmployeeRequest) HasUsername() bool`
+
+HasUsername returns a boolean if a field has been set.
+
+### SetUsernameNil
+
+`func (o *EmployeeRequest) SetUsernameNil(b bool)`
+
+ SetUsernameNil sets the value for Username to be an explicit nil
+
+### UnsetUsername
+`func (o *EmployeeRequest) UnsetUsername()`
+
+UnsetUsername ensures that no value is present for Username, not even an explicit nil
 ### GetGroups
 
 `func (o *EmployeeRequest) GetGroups() []string`
@@ -836,6 +873,41 @@ HasStartDate returns a boolean if a field has been set.
 `func (o *EmployeeRequest) UnsetStartDate()`
 
 UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
+### GetRemoteCreatedAt
+
+`func (o *EmployeeRequest) GetRemoteCreatedAt() time.Time`
+
+GetRemoteCreatedAt returns the RemoteCreatedAt field if non-nil, zero value otherwise.
+
+### GetRemoteCreatedAtOk
+
+`func (o *EmployeeRequest) GetRemoteCreatedAtOk() (*time.Time, bool)`
+
+GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteCreatedAt
+
+`func (o *EmployeeRequest) SetRemoteCreatedAt(v time.Time)`
+
+SetRemoteCreatedAt sets RemoteCreatedAt field to given value.
+
+### HasRemoteCreatedAt
+
+`func (o *EmployeeRequest) HasRemoteCreatedAt() bool`
+
+HasRemoteCreatedAt returns a boolean if a field has been set.
+
+### SetRemoteCreatedAtNil
+
+`func (o *EmployeeRequest) SetRemoteCreatedAtNil(b bool)`
+
+ SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
+
+### UnsetRemoteCreatedAt
+`func (o *EmployeeRequest) UnsetRemoteCreatedAt()`
+
+UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
 ### GetEmploymentStatus
 
 `func (o *EmployeeRequest) GetEmploymentStatus() EmploymentStatusEnum`

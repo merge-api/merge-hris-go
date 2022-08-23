@@ -36,7 +36,7 @@ func main() {
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     employeePayrollRunId := "employeePayrollRunId_example" // string | If provided, will only return deductions for this employee payroll run. (optional)
-    includeDeletedData := true // bool | Whether to include data that was deleted in the third-party service. (optional)
+    includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
  **employeePayrollRunId** | **string** | If provided, will only return deductions for this employee payroll run. | 
- **includeDeletedData** | **bool** | Whether to include data that was deleted in the third-party service. | 
+ **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 

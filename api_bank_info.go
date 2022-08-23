@@ -45,6 +45,7 @@ type ApiBankInfoListRequest struct {
 	modifiedBefore *time.Time
 	orderBy *string
 	pageSize *int32
+	remoteFields *string
 	remoteId *string
 }
 
@@ -98,6 +99,10 @@ func (r ApiBankInfoListRequest) OrderBy(orderBy string) ApiBankInfoListRequest {
 }
 func (r ApiBankInfoListRequest) PageSize(pageSize int32) ApiBankInfoListRequest {
 	r.pageSize = &pageSize
+	return r
+}
+func (r ApiBankInfoListRequest) RemoteFields(remoteFields string) ApiBankInfoListRequest {
+	r.remoteFields = &remoteFields
 	return r
 }
 func (r ApiBankInfoListRequest) RemoteId(remoteId string) ApiBankInfoListRequest {
@@ -186,6 +191,9 @@ func (a *BankInfoApiService) BankInfoListExecute(r ApiBankInfoListRequest) (Pagi
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
+	if r.remoteFields != nil {
+		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
@@ -264,6 +272,7 @@ type ApiBankInfoRetrieveRequest struct {
 	xAccountToken *string
 	id string
 	includeRemoteData *bool
+	remoteFields *string
 }
 
 func (r ApiBankInfoRetrieveRequest) XAccountToken(xAccountToken string) ApiBankInfoRetrieveRequest {
@@ -272,6 +281,10 @@ func (r ApiBankInfoRetrieveRequest) XAccountToken(xAccountToken string) ApiBankI
 }
 func (r ApiBankInfoRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiBankInfoRetrieveRequest {
 	r.includeRemoteData = &includeRemoteData
+	return r
+}
+func (r ApiBankInfoRetrieveRequest) RemoteFields(remoteFields string) ApiBankInfoRetrieveRequest {
+	r.remoteFields = &remoteFields
 	return r
 }
 
@@ -325,6 +338,9 @@ func (a *BankInfoApiService) BankInfoRetrieveExecute(r ApiBankInfoRetrieveReques
 
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
+	if r.remoteFields != nil {
+		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

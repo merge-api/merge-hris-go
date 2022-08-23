@@ -38,7 +38,7 @@ func main() {
     employeeId := "employeeId_example" // string | If provided, will only return employee payroll runs for this employee. (optional)
     endedAfter := time.Now() // time.Time | If provided, will only return employee payroll runs ended after this datetime. (optional)
     endedBefore := time.Now() // time.Time | If provided, will only return employee payroll runs ended before this datetime. (optional)
-    includeDeletedData := true // bool | Whether to include data that was deleted in the third-party service. (optional)
+    includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
  **employeeId** | **string** | If provided, will only return employee payroll runs for this employee. | 
  **endedAfter** | **time.Time** | If provided, will only return employee payroll runs ended after this datetime. | 
  **endedBefore** | **time.Time** | If provided, will only return employee payroll runs ended before this datetime. | 
- **includeDeletedData** | **bool** | Whether to include data that was deleted in the third-party service. | 
+ **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 

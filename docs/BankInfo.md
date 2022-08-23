@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **AccountType** | Pointer to [**NullableAccountTypeEnum**](AccountTypeEnum.md) | The bank account type | [optional] 
 **RemoteCreatedAt** | Pointer to **NullableTime** | When the matching bank object was created in the third party system. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted by third party webhooks. | [optional] [readonly] 
 
 ## Methods
 
@@ -338,6 +339,31 @@ HasRemoteData returns a boolean if a field has been set.
 `func (o *BankInfo) UnsetRemoteData()`
 
 UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
+### GetRemoteWasDeleted
+
+`func (o *BankInfo) GetRemoteWasDeleted() bool`
+
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
+
+### GetRemoteWasDeletedOk
+
+`func (o *BankInfo) GetRemoteWasDeletedOk() (*bool, bool)`
+
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteWasDeleted
+
+`func (o *BankInfo) SetRemoteWasDeleted(v bool)`
+
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
+
+### HasRemoteWasDeleted
+
+`func (o *BankInfo) HasRemoteWasDeleted() bool`
+
+HasRemoteWasDeleted returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-    endUserDetailsRequest := *openapiclient.NewEndUserDetailsRequest("EndUserEmailAddress_example", "EndUserOrganizationName_example", "EndUserOriginId_example") // EndUserDetailsRequest | 
+    endUserDetailsRequest := *openapiclient.NewEndUserDetailsRequest("EndUserEmailAddress_example", "EndUserOrganizationName_example", "EndUserOriginId_example", []openapiclient.CategoriesEnum{openapiclient.CategoriesEnum("hris")}) // EndUserDetailsRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

@@ -4,18 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EndUserEmailAddress** | **string** |  | 
-**EndUserOrganizationName** | **string** |  | 
-**EndUserOriginId** | **string** |  | 
-**Categories** | Pointer to [**[]CategoriesEnum**](CategoriesEnum.md) |  | [optional] 
-**Integration** | Pointer to **NullableString** |  | [optional] 
-**LinkExpiryMins** | Pointer to **int32** |  | [optional] [default to 30]
+**EndUserEmailAddress** | **string** | Your end user&#39;s email address. | 
+**EndUserOrganizationName** | **string** | Your end user&#39;s organization. | 
+**EndUserOriginId** | **string** | Unique ID for your end user. | 
+**Categories** | [**[]CategoriesEnum**](CategoriesEnum.md) | The integration categories to show in Merge Link. | 
+**Integration** | Pointer to **NullableString** | The slug of a specific pre-selected integration for this linking flow token. For examples of slugs, see https://www.merge.dev/docs/basics/integration-metadata/. | [optional] 
+**LinkExpiryMins** | Pointer to **int32** | An integer number of minutes between [30, 720 or 10080 if for a Magic Link URL] for how long this token is valid. Defaults to 30. | [optional] [default to 30]
+**ShouldCreateMagicLinkUrl** | Pointer to **NullableBool** | Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/product/integrations,-fast.-say-hello-to-magic-link/. | [optional] [default to false]
 
 ## Methods
 
 ### NewEndUserDetailsRequest
 
-`func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationName string, endUserOriginId string, ) *EndUserDetailsRequest`
+`func NewEndUserDetailsRequest(endUserEmailAddress string, endUserOrganizationName string, endUserOriginId string, categories []CategoriesEnum, ) *EndUserDetailsRequest`
 
 NewEndUserDetailsRequest instantiates a new EndUserDetailsRequest object
 This constructor will assign default values to properties that have it defined,
@@ -109,11 +110,6 @@ and a boolean to check if the value has been set.
 
 SetCategories sets Categories field to given value.
 
-### HasCategories
-
-`func (o *EndUserDetailsRequest) HasCategories() bool`
-
-HasCategories returns a boolean if a field has been set.
 
 ### GetIntegration
 
@@ -175,6 +171,41 @@ SetLinkExpiryMins sets LinkExpiryMins field to given value.
 
 HasLinkExpiryMins returns a boolean if a field has been set.
 
+### GetShouldCreateMagicLinkUrl
+
+`func (o *EndUserDetailsRequest) GetShouldCreateMagicLinkUrl() bool`
+
+GetShouldCreateMagicLinkUrl returns the ShouldCreateMagicLinkUrl field if non-nil, zero value otherwise.
+
+### GetShouldCreateMagicLinkUrlOk
+
+`func (o *EndUserDetailsRequest) GetShouldCreateMagicLinkUrlOk() (*bool, bool)`
+
+GetShouldCreateMagicLinkUrlOk returns a tuple with the ShouldCreateMagicLinkUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShouldCreateMagicLinkUrl
+
+`func (o *EndUserDetailsRequest) SetShouldCreateMagicLinkUrl(v bool)`
+
+SetShouldCreateMagicLinkUrl sets ShouldCreateMagicLinkUrl field to given value.
+
+### HasShouldCreateMagicLinkUrl
+
+`func (o *EndUserDetailsRequest) HasShouldCreateMagicLinkUrl() bool`
+
+HasShouldCreateMagicLinkUrl returns a boolean if a field has been set.
+
+### SetShouldCreateMagicLinkUrlNil
+
+`func (o *EndUserDetailsRequest) SetShouldCreateMagicLinkUrlNil(b bool)`
+
+ SetShouldCreateMagicLinkUrlNil sets the value for ShouldCreateMagicLinkUrl to be an explicit nil
+
+### UnsetShouldCreateMagicLinkUrl
+`func (o *EndUserDetailsRequest) UnsetShouldCreateMagicLinkUrl()`
+
+UnsetShouldCreateMagicLinkUrl ensures that no value is present for ShouldCreateMagicLinkUrl, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

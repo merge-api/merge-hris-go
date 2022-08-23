@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Path** | **string** |  | 
 **Status** | **int32** |  | 
 **Response** | **map[string]interface{}** |  | 
+**ResponseHeaders** | Pointer to **map[string]interface{}** |  | [optional] 
 **Headers** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
@@ -108,6 +109,31 @@ and a boolean to check if the value has been set.
 
 SetResponse sets Response field to given value.
 
+
+### GetResponseHeaders
+
+`func (o *RemoteResponse) GetResponseHeaders() map[string]interface{}`
+
+GetResponseHeaders returns the ResponseHeaders field if non-nil, zero value otherwise.
+
+### GetResponseHeadersOk
+
+`func (o *RemoteResponse) GetResponseHeadersOk() (*map[string]interface{}, bool)`
+
+GetResponseHeadersOk returns a tuple with the ResponseHeaders field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResponseHeaders
+
+`func (o *RemoteResponse) SetResponseHeaders(v map[string]interface{})`
+
+SetResponseHeaders sets ResponseHeaders field to given value.
+
+### HasResponseHeaders
+
+`func (o *RemoteResponse) HasResponseHeaders() bool`
+
+HasResponseHeaders returns a boolean if a field has been set.
 
 ### GetHeaders
 
