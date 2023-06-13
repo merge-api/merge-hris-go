@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-go@v2
       - name: build
         run: |
-          go build
+          go mod download golang.org/x/oauth2 && go get golang.org/x/oauth2 && go build
       - name: test
         run: |
           go test -v
