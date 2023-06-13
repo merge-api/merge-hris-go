@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// UnitsEnum the model 'UnitsEnum'
+// UnitsEnum * `HOURS` - HOURS * `DAYS` - DAYS
 type UnitsEnum string
 
 // apologies but this is to get around an import error

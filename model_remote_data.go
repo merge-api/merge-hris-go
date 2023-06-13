@@ -19,8 +19,8 @@ import (
 type RemoteData struct {
 	Path string `json:"path"`
 	Data *map[string]interface{} `json:"data,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewRemoteData instantiates a new RemoteData object

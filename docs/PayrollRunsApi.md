@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## PayrollRunsList
 
-> PaginatedPayrollRunList PayrollRunsList(ctx).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EndedAfter(endedAfter).EndedBefore(endedBefore).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteFields(remoteFields).RemoteId(remoteId).RunType(runType).StartedAfter(startedAfter).StartedBefore(startedBefore).Execute()
+> PaginatedPayrollRunList PayrollRunsList(ctx).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EndedAfter(endedAfter).EndedBefore(endedBefore).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteFields(remoteFields).RemoteId(remoteId).RunType(runType).ShowEnumOrigins(showEnumOrigins).StartedAfter(startedAfter).StartedBefore(startedBefore).Execute()
 
 
 
@@ -39,18 +39,19 @@ func main() {
     endedBefore := time.Now() // time.Time | If provided, will only return payroll runs ended before this datetime. (optional)
     includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
-    modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
+    modifiedAfter := time.Now() // time.Time | If provided, only objects synced by Merge after this date time will be returned. (optional)
+    modifiedBefore := time.Now() // time.Time | If provided, only objects synced by Merge before this date time will be returned. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
-    remoteFields := "run_state,run_type" // string | Which fields should be returned in non-normalized form. (optional)
+    remoteFields := "run_state,run_type" // string | Deprecated. Use show_enum_origins. (optional)
     remoteId := "remoteId_example" // string | The API provider's ID for the given object. (optional)
-    runType := "runType_example" // string | If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS') (optional)
+    runType := "runType_example" // string | If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS')  * `REGULAR` - REGULAR * `OFF_CYCLE` - OFF_CYCLE * `CORRECTION` - CORRECTION * `TERMINATION` - TERMINATION * `SIGN_ON_BONUS` - SIGN_ON_BONUS (optional)
+    showEnumOrigins := "run_state,run_type" // string | Which fields should be returned in non-normalized form. (optional)
     startedAfter := time.Now() // time.Time | If provided, will only return payroll runs started after this datetime. (optional)
     startedBefore := time.Now() // time.Time | If provided, will only return payroll runs started before this datetime. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PayrollRunsApi.PayrollRunsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EndedAfter(endedAfter).EndedBefore(endedBefore).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteFields(remoteFields).RemoteId(remoteId).RunType(runType).StartedAfter(startedAfter).StartedBefore(startedBefore).Execute()
+    resp, r, err := api_client.PayrollRunsApi.PayrollRunsList(context.Background()).XAccountToken(xAccountToken).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EndedAfter(endedAfter).EndedBefore(endedBefore).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).RemoteFields(remoteFields).RemoteId(remoteId).RunType(runType).ShowEnumOrigins(showEnumOrigins).StartedAfter(startedAfter).StartedBefore(startedBefore).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PayrollRunsApi.PayrollRunsList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -79,12 +80,13 @@ Name | Type | Description  | Notes
  **endedBefore** | **time.Time** | If provided, will only return payroll runs ended before this datetime. | 
  **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
- **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
+ **modifiedAfter** | **time.Time** | If provided, only objects synced by Merge after this date time will be returned. | 
+ **modifiedBefore** | **time.Time** | If provided, only objects synced by Merge before this date time will be returned. | 
  **pageSize** | **int32** | Number of results to return per page. | 
- **remoteFields** | **string** | Which fields should be returned in non-normalized form. | 
+ **remoteFields** | **string** | Deprecated. Use show_enum_origins. | 
  **remoteId** | **string** | The API provider&#39;s ID for the given object. | 
- **runType** | **string** | If provided, will only return PayrollRun&#39;s with this status. Options: (&#39;REGULAR&#39;, &#39;OFF_CYCLE&#39;, &#39;CORRECTION&#39;, &#39;TERMINATION&#39;, &#39;SIGN_ON_BONUS&#39;) | 
+ **runType** | **string** | If provided, will only return PayrollRun&#39;s with this status. Options: (&#39;REGULAR&#39;, &#39;OFF_CYCLE&#39;, &#39;CORRECTION&#39;, &#39;TERMINATION&#39;, &#39;SIGN_ON_BONUS&#39;)  * &#x60;REGULAR&#x60; - REGULAR * &#x60;OFF_CYCLE&#x60; - OFF_CYCLE * &#x60;CORRECTION&#x60; - CORRECTION * &#x60;TERMINATION&#x60; - TERMINATION * &#x60;SIGN_ON_BONUS&#x60; - SIGN_ON_BONUS | 
+ **showEnumOrigins** | **string** | Which fields should be returned in non-normalized form. | 
  **startedAfter** | **time.Time** | If provided, will only return payroll runs started after this datetime. | 
  **startedBefore** | **time.Time** | If provided, will only return payroll runs started before this datetime. | 
 
@@ -108,7 +110,7 @@ Name | Type | Description  | Notes
 
 ## PayrollRunsRetrieve
 
-> PayrollRun PayrollRunsRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).Execute()
+> PayrollRun PayrollRunsRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).ShowEnumOrigins(showEnumOrigins).Execute()
 
 
 
@@ -130,11 +132,12 @@ func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     id := TODO // string | 
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    remoteFields := "run_state,run_type" // string | Which fields should be returned in non-normalized form. (optional)
+    remoteFields := "run_state,run_type" // string | Deprecated. Use show_enum_origins. (optional)
+    showEnumOrigins := "run_state,run_type" // string | Which fields should be returned in non-normalized form. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PayrollRunsApi.PayrollRunsRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).Execute()
+    resp, r, err := api_client.PayrollRunsApi.PayrollRunsRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).ShowEnumOrigins(showEnumOrigins).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PayrollRunsApi.PayrollRunsRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -162,7 +165,8 @@ Name | Type | Description  | Notes
  **xAccountToken** | **string** | Token identifying the end user. | 
 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **remoteFields** | **string** | Which fields should be returned in non-normalized form. | 
+ **remoteFields** | **string** | Deprecated. Use show_enum_origins. | 
+ **showEnumOrigins** | **string** | Which fields should be returned in non-normalized form. | 
 
 ### Return type
 

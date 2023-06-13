@@ -46,6 +46,7 @@ type ApiPayrollRunsListRequest struct {
 	remoteFields *string
 	remoteId *string
 	runType *string
+	showEnumOrigins *string
 	startedAfter *time.Time
 	startedBefore *time.Time
 }
@@ -104,6 +105,10 @@ func (r ApiPayrollRunsListRequest) RemoteId(remoteId string) ApiPayrollRunsListR
 }
 func (r ApiPayrollRunsListRequest) RunType(runType string) ApiPayrollRunsListRequest {
 	r.runType = &runType
+	return r
+}
+func (r ApiPayrollRunsListRequest) ShowEnumOrigins(showEnumOrigins string) ApiPayrollRunsListRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 func (r ApiPayrollRunsListRequest) StartedAfter(startedAfter time.Time) ApiPayrollRunsListRequest {
@@ -199,6 +204,9 @@ func (a *PayrollRunsApiService) PayrollRunsListExecute(r ApiPayrollRunsListReque
 	if r.runType != nil {
 		localVarQueryParams.Add("run_type", parameterToString(*r.runType, ""))
 	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
+	}
 	if r.startedAfter != nil {
 		localVarQueryParams.Add("started_after", parameterToString(*r.startedAfter, ""))
 	}
@@ -281,6 +289,7 @@ type ApiPayrollRunsRetrieveRequest struct {
 	id string
 	includeRemoteData *bool
 	remoteFields *string
+	showEnumOrigins *string
 }
 
 func (r ApiPayrollRunsRetrieveRequest) XAccountToken(xAccountToken string) ApiPayrollRunsRetrieveRequest {
@@ -293,6 +302,10 @@ func (r ApiPayrollRunsRetrieveRequest) IncludeRemoteData(includeRemoteData bool)
 }
 func (r ApiPayrollRunsRetrieveRequest) RemoteFields(remoteFields string) ApiPayrollRunsRetrieveRequest {
 	r.remoteFields = &remoteFields
+	return r
+}
+func (r ApiPayrollRunsRetrieveRequest) ShowEnumOrigins(showEnumOrigins string) ApiPayrollRunsRetrieveRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -349,6 +362,9 @@ func (a *PayrollRunsApiService) PayrollRunsRetrieveExecute(r ApiPayrollRunsRetri
 	}
 	if r.remoteFields != nil {
 		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

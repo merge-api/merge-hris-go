@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// PayPeriodEnum the model 'PayPeriodEnum'
+// PayPeriodEnum * `HOUR` - HOUR * `DAY` - DAY * `WEEK` - WEEK * `EVERY_TWO_WEEKS` - EVERY_TWO_WEEKS * `SEMIMONTHLY` - SEMIMONTHLY * `MONTH` - MONTH * `QUARTER` - QUARTER * `EVERY_SIX_MONTHS` - EVERY_SIX_MONTHS * `YEAR` - YEAR
 type PayPeriodEnum string
 
 // apologies but this is to get around an import error
@@ -29,6 +29,7 @@ const (
 	PAYPERIODENUM_DAY PayPeriodEnum = "DAY"
 	PAYPERIODENUM_WEEK PayPeriodEnum = "WEEK"
 	PAYPERIODENUM_EVERY_TWO_WEEKS PayPeriodEnum = "EVERY_TWO_WEEKS"
+	PAYPERIODENUM_SEMIMONTHLY PayPeriodEnum = "SEMIMONTHLY"
 	PAYPERIODENUM_MONTH PayPeriodEnum = "MONTH"
 	PAYPERIODENUM_QUARTER PayPeriodEnum = "QUARTER"
 	PAYPERIODENUM_EVERY_SIX_MONTHS PayPeriodEnum = "EVERY_SIX_MONTHS"
@@ -40,6 +41,7 @@ var allowedPayPeriodEnumEnumValues = []PayPeriodEnum{
 	"DAY",
 	"WEEK",
 	"EVERY_TWO_WEEKS",
+	"SEMIMONTHLY",
 	"MONTH",
 	"QUARTER",
 	"EVERY_SIX_MONTHS",

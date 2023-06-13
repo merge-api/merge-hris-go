@@ -17,11 +17,11 @@ import (
 
 // EndUserDetailsRequest struct for EndUserDetailsRequest
 type EndUserDetailsRequest struct {
-	// Your end user's email address.
+	// Your end user's email address. This is purely for identification purposes - setting this value will not cause any emails to be sent.
 	EndUserEmailAddress string `json:"end_user_email_address"`
 	// Your end user's organization.
 	EndUserOrganizationName string `json:"end_user_organization_name"`
-	// Unique ID for your end user.
+	// This unique identifier typically represents the ID for your end user in your product's database. This value must be distinct from other Linked Accounts' unique identifiers.
 	EndUserOriginId string `json:"end_user_origin_id"`
 	// The integration categories to show in Merge Link.
 	Categories []CategoriesEnum `json:"categories"`
@@ -31,8 +31,10 @@ type EndUserDetailsRequest struct {
 	LinkExpiryMins *int32 `json:"link_expiry_mins,omitempty"`
 	// Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/product/integrations,-fast.-say-hello-to-magic-link/.
 	ShouldCreateMagicLinkUrl NullableBool `json:"should_create_magic_link_url,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
+	CommonModels []CommonModelScopesBodyRequest `json:"common_models,omitempty"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEndUserDetailsRequest instantiates a new EndUserDetailsRequest object
@@ -276,6 +278,39 @@ func (o *EndUserDetailsRequest) UnsetShouldCreateMagicLinkUrl() {
 	o.ShouldCreateMagicLinkUrl.Unset()
 }
 
+// GetCommonModels returns the CommonModels field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EndUserDetailsRequest) GetCommonModels() []CommonModelScopesBodyRequest {
+	if o == nil  {
+		var ret []CommonModelScopesBodyRequest
+		return ret
+	}
+	return o.CommonModels
+}
+
+// GetCommonModelsOk returns a tuple with the CommonModels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EndUserDetailsRequest) GetCommonModelsOk() (*[]CommonModelScopesBodyRequest, bool) {
+	if o == nil || o.CommonModels == nil {
+		return nil, false
+	}
+	return &o.CommonModels, true
+}
+
+// HasCommonModels returns a boolean if a field has been set.
+func (o *EndUserDetailsRequest) HasCommonModels() bool {
+	if o != nil && o.CommonModels != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCommonModels gets a reference to the given []CommonModelScopesBodyRequest and assigns it to the CommonModels field.
+func (o *EndUserDetailsRequest) SetCommonModels(v []CommonModelScopesBodyRequest) {
+	o.CommonModels = v
+}
+
 func (o EndUserDetailsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -298,6 +333,9 @@ func (o EndUserDetailsRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.ShouldCreateMagicLinkUrl.IsSet() {
 		toSerialize["should_create_magic_link_url"] = o.ShouldCreateMagicLinkUrl.Get()
+	}
+	if o.CommonModels != nil {
+		toSerialize["common_models"] = o.CommonModels
 	}
 	return json.Marshal(toSerialize)
 }

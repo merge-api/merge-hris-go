@@ -19,7 +19,7 @@ import (
 type AccountIntegration struct {
 	// Company name.
 	Name string `json:"name"`
-	// Category or categories this integration belongs to. Multiple categories should be comma separated.<br/><br>Example: For [ats, hris], enter <i>ats,hris</i>
+	// Category or categories this integration belongs to. Multiple categories should be comma separated, i.e. [ats, hris].
 	Categories *[]CategoriesEnum `json:"categories,omitempty"`
 	// Company logo in rectangular shape. <b>Upload an image with a clear background.</b>
 	Image NullableString `json:"image,omitempty"`
@@ -28,8 +28,12 @@ type AccountIntegration struct {
 	// The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b>
 	Color *string `json:"color,omitempty"`
 	Slug *string `json:"slug,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// If checked, this integration will not appear in the linking flow, and will appear elsewhere with a Beta tag.
+	IsInBeta *bool `json:"is_in_beta,omitempty"`
+	// Mapping of API endpoints to documentation urls for support. Example: {'GET': [['/common-model-scopes', 'https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve'],['/common-model-actions', 'https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve']], 'POST': []}
+	ApiEndpointsToDocumentationUrls *map[string]interface{} `json:"api_endpoints_to_documentation_urls,omitempty"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAccountIntegration instantiates a new AccountIntegration object
@@ -254,6 +258,70 @@ func (o *AccountIntegration) SetSlug(v string) {
 	o.Slug = &v
 }
 
+// GetIsInBeta returns the IsInBeta field value if set, zero value otherwise.
+func (o *AccountIntegration) GetIsInBeta() bool {
+	if o == nil || o.IsInBeta == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsInBeta
+}
+
+// GetIsInBetaOk returns a tuple with the IsInBeta field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountIntegration) GetIsInBetaOk() (*bool, bool) {
+	if o == nil || o.IsInBeta == nil {
+		return nil, false
+	}
+	return o.IsInBeta, true
+}
+
+// HasIsInBeta returns a boolean if a field has been set.
+func (o *AccountIntegration) HasIsInBeta() bool {
+	if o != nil && o.IsInBeta != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsInBeta gets a reference to the given bool and assigns it to the IsInBeta field.
+func (o *AccountIntegration) SetIsInBeta(v bool) {
+	o.IsInBeta = &v
+}
+
+// GetApiEndpointsToDocumentationUrls returns the ApiEndpointsToDocumentationUrls field value if set, zero value otherwise.
+func (o *AccountIntegration) GetApiEndpointsToDocumentationUrls() map[string]interface{} {
+	if o == nil || o.ApiEndpointsToDocumentationUrls == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return *o.ApiEndpointsToDocumentationUrls
+}
+
+// GetApiEndpointsToDocumentationUrlsOk returns a tuple with the ApiEndpointsToDocumentationUrls field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountIntegration) GetApiEndpointsToDocumentationUrlsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.ApiEndpointsToDocumentationUrls == nil {
+		return nil, false
+	}
+	return o.ApiEndpointsToDocumentationUrls, true
+}
+
+// HasApiEndpointsToDocumentationUrls returns a boolean if a field has been set.
+func (o *AccountIntegration) HasApiEndpointsToDocumentationUrls() bool {
+	if o != nil && o.ApiEndpointsToDocumentationUrls != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetApiEndpointsToDocumentationUrls gets a reference to the given map[string]interface{} and assigns it to the ApiEndpointsToDocumentationUrls field.
+func (o *AccountIntegration) SetApiEndpointsToDocumentationUrls(v map[string]interface{}) {
+	o.ApiEndpointsToDocumentationUrls = &v
+}
+
 func (o AccountIntegration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -273,6 +341,12 @@ func (o AccountIntegration) MarshalJSON() ([]byte, error) {
 	}
 	if o.Slug != nil {
 		toSerialize["slug"] = o.Slug
+	}
+	if o.IsInBeta != nil {
+		toSerialize["is_in_beta"] = o.IsInBeta
+	}
+	if o.ApiEndpointsToDocumentationUrls != nil {
+		toSerialize["api_endpoints_to_documentation_urls"] = o.ApiEndpointsToDocumentationUrls
 	}
 	return json.Marshal(toSerialize)
 }

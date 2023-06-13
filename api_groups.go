@@ -43,6 +43,8 @@ type ApiGroupsListRequest struct {
 	pageSize *int32
 	remoteFields *string
 	remoteId *string
+	showEnumOrigins *string
+	types *string
 }
 
 func (r ApiGroupsListRequest) XAccountToken(xAccountToken string) ApiGroupsListRequest {
@@ -87,6 +89,14 @@ func (r ApiGroupsListRequest) RemoteFields(remoteFields string) ApiGroupsListReq
 }
 func (r ApiGroupsListRequest) RemoteId(remoteId string) ApiGroupsListRequest {
 	r.remoteId = &remoteId
+	return r
+}
+func (r ApiGroupsListRequest) ShowEnumOrigins(showEnumOrigins string) ApiGroupsListRequest {
+	r.showEnumOrigins = &showEnumOrigins
+	return r
+}
+func (r ApiGroupsListRequest) Types(types string) ApiGroupsListRequest {
+	r.types = &types
 	return r
 }
 
@@ -165,6 +175,12 @@ func (a *GroupsApiService) GroupsListExecute(r ApiGroupsListRequest) (PaginatedG
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
+	}
+	if r.types != nil {
+		localVarQueryParams.Add("types", parameterToString(*r.types, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -241,6 +257,7 @@ type ApiGroupsRetrieveRequest struct {
 	id string
 	includeRemoteData *bool
 	remoteFields *string
+	showEnumOrigins *string
 }
 
 func (r ApiGroupsRetrieveRequest) XAccountToken(xAccountToken string) ApiGroupsRetrieveRequest {
@@ -253,6 +270,10 @@ func (r ApiGroupsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiG
 }
 func (r ApiGroupsRetrieveRequest) RemoteFields(remoteFields string) ApiGroupsRetrieveRequest {
 	r.remoteFields = &remoteFields
+	return r
+}
+func (r ApiGroupsRetrieveRequest) ShowEnumOrigins(showEnumOrigins string) ApiGroupsRetrieveRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -309,6 +330,9 @@ func (a *GroupsApiService) GroupsRetrieveExecute(r ApiGroupsRetrieveRequest) (Gr
 	}
 	if r.remoteFields != nil {
 		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

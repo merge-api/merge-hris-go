@@ -18,8 +18,8 @@ import (
 // GenerateRemoteKeyRequest # The GenerateRemoteKey Object ### Description The `GenerateRemoteKey` object is used to represent a request for a new remote key.  ### Usage Example Post a `GenerateRemoteKey` to create a new remote key.
 type GenerateRemoteKeyRequest struct {
 	Name string `json:"name"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewGenerateRemoteKeyRequest instantiates a new GenerateRemoteKeyRequest object

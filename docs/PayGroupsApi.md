@@ -37,8 +37,8 @@ func main() {
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
-    modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
+    modifiedAfter := time.Now() // time.Time | If provided, only objects synced by Merge after this date time will be returned. (optional)
+    modifiedBefore := time.Now() // time.Time | If provided, only objects synced by Merge before this date time will be returned. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
     remoteId := "remoteId_example" // string | The API provider's ID for the given object. (optional)
 
@@ -71,8 +71,8 @@ Name | Type | Description  | Notes
  **cursor** | **string** | The pagination cursor value. | 
  **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
- **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
+ **modifiedAfter** | **time.Time** | If provided, only objects synced by Merge after this date time will be returned. | 
+ **modifiedBefore** | **time.Time** | If provided, only objects synced by Merge before this date time will be returned. | 
  **pageSize** | **int32** | Number of results to return per page. | 
  **remoteId** | **string** | The API provider&#39;s ID for the given object. | 
 

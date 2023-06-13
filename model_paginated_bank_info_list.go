@@ -20,8 +20,8 @@ type PaginatedBankInfoList struct {
 	Next NullableString `json:"next,omitempty"`
 	Previous NullableString `json:"previous,omitempty"`
 	Results *[]BankInfo `json:"results,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPaginatedBankInfoList instantiates a new PaginatedBankInfoList object

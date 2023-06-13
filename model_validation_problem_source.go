@@ -18,8 +18,8 @@ import (
 // ValidationProblemSource struct for ValidationProblemSource
 type ValidationProblemSource struct {
 	Pointer string `json:"pointer"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewValidationProblemSource instantiates a new ValidationProblemSource object

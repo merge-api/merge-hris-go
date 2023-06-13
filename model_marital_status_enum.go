@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// MaritalStatusEnum the model 'MaritalStatusEnum'
+// MaritalStatusEnum * `SINGLE` - SINGLE * `MARRIED_FILING_JOINTLY` - MARRIED_FILING_JOINTLY * `MARRIED_FILING_SEPARATELY` - MARRIED_FILING_SEPARATELY * `HEAD_OF_HOUSEHOLD` - HEAD_OF_HOUSEHOLD * `QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD` - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
 type MaritalStatusEnum string
 
 // apologies but this is to get around an import error

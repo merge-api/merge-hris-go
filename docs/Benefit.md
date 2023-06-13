@@ -6,13 +6,17 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**Employee** | Pointer to **NullableString** |  | [optional] 
+**Employee** | Pointer to **NullableString** | The employee on the plan. | [optional] 
 **ProviderName** | Pointer to **NullableString** | The name of the benefit provider. | [optional] 
 **BenefitPlanType** | Pointer to **NullableString** | The type of benefit plan | [optional] 
-**EmployeeContribution** | Pointer to **NullableFloat32** | The employee&#39;s contribution. | [optional] 
-**CompanyContribution** | Pointer to **NullableFloat32** | The company&#39;s contribution. | [optional] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**EmployeeContribution** | Pointer to **NullableFloat64** | The employee&#39;s contribution. | [optional] 
+**CompanyContribution** | Pointer to **NullableFloat64** | The company&#39;s contribution. | [optional] 
+**StartDate** | Pointer to **NullableTime** | The day and time the benefit started. | [optional] 
+**EndDate** | Pointer to **NullableTime** | The day and time the benefit ended. | [optional] 
 **RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted by third party webhooks. | [optional] [readonly] 
+**FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**ModifiedAt** | Pointer to **time.Time** | This is the datetime that this object was last updated by Merge | [optional] [readonly] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -200,20 +204,20 @@ HasBenefitPlanType returns a boolean if a field has been set.
 UnsetBenefitPlanType ensures that no value is present for BenefitPlanType, not even an explicit nil
 ### GetEmployeeContribution
 
-`func (o *Benefit) GetEmployeeContribution() float32`
+`func (o *Benefit) GetEmployeeContribution() float64`
 
 GetEmployeeContribution returns the EmployeeContribution field if non-nil, zero value otherwise.
 
 ### GetEmployeeContributionOk
 
-`func (o *Benefit) GetEmployeeContributionOk() (*float32, bool)`
+`func (o *Benefit) GetEmployeeContributionOk() (*float64, bool)`
 
 GetEmployeeContributionOk returns a tuple with the EmployeeContribution field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmployeeContribution
 
-`func (o *Benefit) SetEmployeeContribution(v float32)`
+`func (o *Benefit) SetEmployeeContribution(v float64)`
 
 SetEmployeeContribution sets EmployeeContribution field to given value.
 
@@ -235,20 +239,20 @@ HasEmployeeContribution returns a boolean if a field has been set.
 UnsetEmployeeContribution ensures that no value is present for EmployeeContribution, not even an explicit nil
 ### GetCompanyContribution
 
-`func (o *Benefit) GetCompanyContribution() float32`
+`func (o *Benefit) GetCompanyContribution() float64`
 
 GetCompanyContribution returns the CompanyContribution field if non-nil, zero value otherwise.
 
 ### GetCompanyContributionOk
 
-`func (o *Benefit) GetCompanyContributionOk() (*float32, bool)`
+`func (o *Benefit) GetCompanyContributionOk() (*float64, bool)`
 
 GetCompanyContributionOk returns a tuple with the CompanyContribution field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompanyContribution
 
-`func (o *Benefit) SetCompanyContribution(v float32)`
+`func (o *Benefit) SetCompanyContribution(v float64)`
 
 SetCompanyContribution sets CompanyContribution field to given value.
 
@@ -268,6 +272,161 @@ HasCompanyContribution returns a boolean if a field has been set.
 `func (o *Benefit) UnsetCompanyContribution()`
 
 UnsetCompanyContribution ensures that no value is present for CompanyContribution, not even an explicit nil
+### GetStartDate
+
+`func (o *Benefit) GetStartDate() time.Time`
+
+GetStartDate returns the StartDate field if non-nil, zero value otherwise.
+
+### GetStartDateOk
+
+`func (o *Benefit) GetStartDateOk() (*time.Time, bool)`
+
+GetStartDateOk returns a tuple with the StartDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStartDate
+
+`func (o *Benefit) SetStartDate(v time.Time)`
+
+SetStartDate sets StartDate field to given value.
+
+### HasStartDate
+
+`func (o *Benefit) HasStartDate() bool`
+
+HasStartDate returns a boolean if a field has been set.
+
+### SetStartDateNil
+
+`func (o *Benefit) SetStartDateNil(b bool)`
+
+ SetStartDateNil sets the value for StartDate to be an explicit nil
+
+### UnsetStartDate
+`func (o *Benefit) UnsetStartDate()`
+
+UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
+### GetEndDate
+
+`func (o *Benefit) GetEndDate() time.Time`
+
+GetEndDate returns the EndDate field if non-nil, zero value otherwise.
+
+### GetEndDateOk
+
+`func (o *Benefit) GetEndDateOk() (*time.Time, bool)`
+
+GetEndDateOk returns a tuple with the EndDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEndDate
+
+`func (o *Benefit) SetEndDate(v time.Time)`
+
+SetEndDate sets EndDate field to given value.
+
+### HasEndDate
+
+`func (o *Benefit) HasEndDate() bool`
+
+HasEndDate returns a boolean if a field has been set.
+
+### SetEndDateNil
+
+`func (o *Benefit) SetEndDateNil(b bool)`
+
+ SetEndDateNil sets the value for EndDate to be an explicit nil
+
+### UnsetEndDate
+`func (o *Benefit) UnsetEndDate()`
+
+UnsetEndDate ensures that no value is present for EndDate, not even an explicit nil
+### GetRemoteWasDeleted
+
+`func (o *Benefit) GetRemoteWasDeleted() bool`
+
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
+
+### GetRemoteWasDeletedOk
+
+`func (o *Benefit) GetRemoteWasDeletedOk() (*bool, bool)`
+
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteWasDeleted
+
+`func (o *Benefit) SetRemoteWasDeleted(v bool)`
+
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
+
+### HasRemoteWasDeleted
+
+`func (o *Benefit) HasRemoteWasDeleted() bool`
+
+HasRemoteWasDeleted returns a boolean if a field has been set.
+
+### GetFieldMappings
+
+`func (o *Benefit) GetFieldMappings() map[string]interface{}`
+
+GetFieldMappings returns the FieldMappings field if non-nil, zero value otherwise.
+
+### GetFieldMappingsOk
+
+`func (o *Benefit) GetFieldMappingsOk() (*map[string]interface{}, bool)`
+
+GetFieldMappingsOk returns a tuple with the FieldMappings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFieldMappings
+
+`func (o *Benefit) SetFieldMappings(v map[string]interface{})`
+
+SetFieldMappings sets FieldMappings field to given value.
+
+### HasFieldMappings
+
+`func (o *Benefit) HasFieldMappings() bool`
+
+HasFieldMappings returns a boolean if a field has been set.
+
+### SetFieldMappingsNil
+
+`func (o *Benefit) SetFieldMappingsNil(b bool)`
+
+ SetFieldMappingsNil sets the value for FieldMappings to be an explicit nil
+
+### UnsetFieldMappings
+`func (o *Benefit) UnsetFieldMappings()`
+
+UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetModifiedAt
+
+`func (o *Benefit) GetModifiedAt() time.Time`
+
+GetModifiedAt returns the ModifiedAt field if non-nil, zero value otherwise.
+
+### GetModifiedAtOk
+
+`func (o *Benefit) GetModifiedAtOk() (*time.Time, bool)`
+
+GetModifiedAtOk returns a tuple with the ModifiedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModifiedAt
+
+`func (o *Benefit) SetModifiedAt(v time.Time)`
+
+SetModifiedAt sets ModifiedAt field to given value.
+
+### HasModifiedAt
+
+`func (o *Benefit) HasModifiedAt() bool`
+
+HasModifiedAt returns a boolean if a field has been set.
+
 ### GetRemoteData
 
 `func (o *Benefit) GetRemoteData() []RemoteData`
@@ -303,31 +462,6 @@ HasRemoteData returns a boolean if a field has been set.
 `func (o *Benefit) UnsetRemoteData()`
 
 UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
-### GetRemoteWasDeleted
-
-`func (o *Benefit) GetRemoteWasDeleted() bool`
-
-GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
-
-### GetRemoteWasDeletedOk
-
-`func (o *Benefit) GetRemoteWasDeletedOk() (*bool, bool)`
-
-GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteWasDeleted
-
-`func (o *Benefit) SetRemoteWasDeleted(v bool)`
-
-SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
-
-### HasRemoteWasDeleted
-
-`func (o *Benefit) HasRemoteWasDeleted() bool`
-
-HasRemoteWasDeleted returns a boolean if a field has been set.
-
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

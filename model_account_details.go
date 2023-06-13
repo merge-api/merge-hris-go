@@ -28,8 +28,8 @@ type AccountDetails struct {
 	WebhookListenerUrl *string `json:"webhook_listener_url,omitempty"`
 	// Whether a Production Linked Account's credentials match another existing Production Linked Account. This field is `null` for Test Linked Accounts, incomplete Production Linked Accounts, and ignored duplicate Production Linked Account sets.
 	IsDuplicate NullableBool `json:"is_duplicate,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAccountDetails instantiates a new AccountDetails object

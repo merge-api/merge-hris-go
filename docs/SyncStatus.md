@@ -6,16 +6,17 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ModelName** | **string** |  | 
 **ModelId** | **string** |  | 
-**LastSyncStart** | **time.Time** |  | 
-**NextSyncStart** | **time.Time** |  | 
+**LastSyncStart** | Pointer to **time.Time** |  | [optional] 
+**NextSyncStart** | Pointer to **time.Time** |  | [optional] 
 **Status** | [**SyncStatusStatusEnum**](SyncStatusStatusEnum.md) |  | 
 **IsInitialSync** | **bool** |  | 
+**SelectiveSyncConfigurationsUsage** | Pointer to [**SelectiveSyncConfigurationsUsageEnum**](SelectiveSyncConfigurationsUsageEnum.md) |  | [optional] 
 
 ## Methods
 
 ### NewSyncStatus
 
-`func NewSyncStatus(modelName string, modelId string, lastSyncStart time.Time, nextSyncStart time.Time, status SyncStatusStatusEnum, isInitialSync bool, ) *SyncStatus`
+`func NewSyncStatus(modelName string, modelId string, status SyncStatusStatusEnum, isInitialSync bool, ) *SyncStatus`
 
 NewSyncStatus instantiates a new SyncStatus object
 This constructor will assign default values to properties that have it defined,
@@ -89,6 +90,11 @@ and a boolean to check if the value has been set.
 
 SetLastSyncStart sets LastSyncStart field to given value.
 
+### HasLastSyncStart
+
+`func (o *SyncStatus) HasLastSyncStart() bool`
+
+HasLastSyncStart returns a boolean if a field has been set.
 
 ### GetNextSyncStart
 
@@ -109,6 +115,11 @@ and a boolean to check if the value has been set.
 
 SetNextSyncStart sets NextSyncStart field to given value.
 
+### HasNextSyncStart
+
+`func (o *SyncStatus) HasNextSyncStart() bool`
+
+HasNextSyncStart returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -149,6 +160,31 @@ and a boolean to check if the value has been set.
 
 SetIsInitialSync sets IsInitialSync field to given value.
 
+
+### GetSelectiveSyncConfigurationsUsage
+
+`func (o *SyncStatus) GetSelectiveSyncConfigurationsUsage() SelectiveSyncConfigurationsUsageEnum`
+
+GetSelectiveSyncConfigurationsUsage returns the SelectiveSyncConfigurationsUsage field if non-nil, zero value otherwise.
+
+### GetSelectiveSyncConfigurationsUsageOk
+
+`func (o *SyncStatus) GetSelectiveSyncConfigurationsUsageOk() (*SelectiveSyncConfigurationsUsageEnum, bool)`
+
+GetSelectiveSyncConfigurationsUsageOk returns a tuple with the SelectiveSyncConfigurationsUsage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelectiveSyncConfigurationsUsage
+
+`func (o *SyncStatus) SetSelectiveSyncConfigurationsUsage(v SelectiveSyncConfigurationsUsageEnum)`
+
+SetSelectiveSyncConfigurationsUsage sets SelectiveSyncConfigurationsUsage field to given value.
+
+### HasSelectiveSyncConfigurationsUsage
+
+`func (o *SyncStatus) HasSelectiveSyncConfigurationsUsage() bool`
+
+HasSelectiveSyncConfigurationsUsage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -45,6 +45,7 @@ type ApiEmploymentsListRequest struct {
 	pageSize *int32
 	remoteFields *string
 	remoteId *string
+	showEnumOrigins *string
 }
 
 func (r ApiEmploymentsListRequest) XAccountToken(xAccountToken string) ApiEmploymentsListRequest {
@@ -97,6 +98,10 @@ func (r ApiEmploymentsListRequest) RemoteFields(remoteFields string) ApiEmployme
 }
 func (r ApiEmploymentsListRequest) RemoteId(remoteId string) ApiEmploymentsListRequest {
 	r.remoteId = &remoteId
+	return r
+}
+func (r ApiEmploymentsListRequest) ShowEnumOrigins(showEnumOrigins string) ApiEmploymentsListRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -181,6 +186,9 @@ func (a *EmploymentsApiService) EmploymentsListExecute(r ApiEmploymentsListReque
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -257,6 +265,7 @@ type ApiEmploymentsRetrieveRequest struct {
 	id string
 	includeRemoteData *bool
 	remoteFields *string
+	showEnumOrigins *string
 }
 
 func (r ApiEmploymentsRetrieveRequest) XAccountToken(xAccountToken string) ApiEmploymentsRetrieveRequest {
@@ -269,6 +278,10 @@ func (r ApiEmploymentsRetrieveRequest) IncludeRemoteData(includeRemoteData bool)
 }
 func (r ApiEmploymentsRetrieveRequest) RemoteFields(remoteFields string) ApiEmploymentsRetrieveRequest {
 	r.remoteFields = &remoteFields
+	return r
+}
+func (r ApiEmploymentsRetrieveRequest) ShowEnumOrigins(showEnumOrigins string) ApiEmploymentsRetrieveRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -325,6 +338,9 @@ func (a *EmploymentsApiService) EmploymentsRetrieveExecute(r ApiEmploymentsRetri
 	}
 	if r.remoteFields != nil {
 		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

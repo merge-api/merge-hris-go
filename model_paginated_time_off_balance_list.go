@@ -20,8 +20,8 @@ type PaginatedTimeOffBalanceList struct {
 	Next NullableString `json:"next,omitempty"`
 	Previous NullableString `json:"previous,omitempty"`
 	Results *[]TimeOffBalance `json:"results,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPaginatedTimeOffBalanceList instantiates a new PaginatedTimeOffBalanceList object

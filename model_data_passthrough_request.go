@@ -26,9 +26,10 @@ type DataPassthroughRequest struct {
 	// The headers to use for the request (Merge will handle the account's authorization headers). `Content-Type` header is required for passthrough. Choose content type corresponding to expected format of receiving server.
 	Headers map[string]interface{} `json:"headers,omitempty"`
 	RequestFormat NullableRequestFormatEnum `json:"request_format,omitempty"`
+	// Optional. If true, the response will always be an object of the form `{\"type\": T, \"value\": ...}` where `T` will be one of `string, boolean, number, null, array, object`.
 	NormalizeResponse *bool `json:"normalize_response,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewDataPassthroughRequest instantiates a new DataPassthroughRequest object

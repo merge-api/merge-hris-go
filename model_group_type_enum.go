@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// GroupTypeEnum the model 'GroupTypeEnum'
+// GroupTypeEnum * `TEAM` - TEAM * `DEPARTMENT` - DEPARTMENT * `COST_CENTER` - COST_CENTER * `BUSINESS_UNIT` - BUSINESS_UNIT * `GROUP` - GROUP
 type GroupTypeEnum string
 
 // apologies but this is to get around an import error
@@ -29,6 +29,7 @@ const (
 	GROUPTYPEENUM_DEPARTMENT GroupTypeEnum = "DEPARTMENT"
 	GROUPTYPEENUM_COST_CENTER GroupTypeEnum = "COST_CENTER"
 	GROUPTYPEENUM_BUSINESS_UNIT GroupTypeEnum = "BUSINESS_UNIT"
+	GROUPTYPEENUM_GROUP GroupTypeEnum = "GROUP"
 )
 
 var allowedGroupTypeEnumEnumValues = []GroupTypeEnum{
@@ -36,6 +37,7 @@ var allowedGroupTypeEnumEnumValues = []GroupTypeEnum{
 	"DEPARTMENT",
 	"COST_CENTER",
 	"BUSINESS_UNIT",
+	"GROUP",
 }
 
 func (v *GroupTypeEnum) UnmarshalJSON(src []byte) error {

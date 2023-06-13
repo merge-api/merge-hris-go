@@ -20,8 +20,8 @@ type WebhookReceiver struct {
 	Event string `json:"event"`
 	IsActive bool `json:"is_active"`
 	Key *string `json:"key,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewWebhookReceiver instantiates a new WebhookReceiver object

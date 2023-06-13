@@ -19,8 +19,8 @@ import (
 type LinkedAccountStatus struct {
 	LinkedAccountStatus string `json:"linked_account_status"`
 	CanMakeRequest bool `json:"can_make_request"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewLinkedAccountStatus instantiates a new LinkedAccountStatus object

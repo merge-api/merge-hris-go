@@ -39,11 +39,11 @@ func main() {
     firstIncidentTimeBefore := time.Now() // time.Time | If provided, will only return issues whose first incident time was before this datetime. (optional)
     includeMuted := "includeMuted_example" // string | If True, will include muted issues (optional)
     integrationName := "integrationName_example" // string |  (optional)
-    lastIncidentTimeAfter := time.Now() // time.Time | If provided, will only return issues whose first incident time was after this datetime. (optional)
-    lastIncidentTimeBefore := time.Now() // time.Time | If provided, will only return issues whose first incident time was before this datetime. (optional)
+    lastIncidentTimeAfter := time.Now() // time.Time | If provided, will only return issues whose last incident time was after this datetime. (optional)
+    lastIncidentTimeBefore := time.Now() // time.Time | If provided, will only return issues whose last incident time was before this datetime. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
     startDate := "startDate_example" // string | If included, will only include issues whose most recent action occurred after this time (optional)
-    status := "status_example" // string |  (optional)
+    status := "status_example" // string | Status of the issue. Options: ('ONGOING', 'RESOLVED')  * `ONGOING` - ONGOING * `RESOLVED` - RESOLVED (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -76,11 +76,11 @@ Name | Type | Description  | Notes
  **firstIncidentTimeBefore** | **time.Time** | If provided, will only return issues whose first incident time was before this datetime. | 
  **includeMuted** | **string** | If True, will include muted issues | 
  **integrationName** | **string** |  | 
- **lastIncidentTimeAfter** | **time.Time** | If provided, will only return issues whose first incident time was after this datetime. | 
- **lastIncidentTimeBefore** | **time.Time** | If provided, will only return issues whose first incident time was before this datetime. | 
+ **lastIncidentTimeAfter** | **time.Time** | If provided, will only return issues whose last incident time was after this datetime. | 
+ **lastIncidentTimeBefore** | **time.Time** | If provided, will only return issues whose last incident time was before this datetime. | 
  **pageSize** | **int32** | Number of results to return per page. | 
  **startDate** | **string** | If included, will only include issues whose most recent action occurred after this time | 
- **status** | **string** |  | 
+ **status** | **string** | Status of the issue. Options: (&#39;ONGOING&#39;, &#39;RESOLVED&#39;)  * &#x60;ONGOING&#x60; - ONGOING * &#x60;RESOLVED&#x60; - RESOLVED | 
 
 ### Return type
 

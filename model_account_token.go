@@ -19,8 +19,8 @@ import (
 type AccountToken struct {
 	AccountToken string `json:"account_token"`
 	Integration AccountIntegration `json:"integration"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAccountToken instantiates a new AccountToken object

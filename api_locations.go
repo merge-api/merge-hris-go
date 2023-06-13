@@ -43,6 +43,7 @@ type ApiLocationsListRequest struct {
 	pageSize *int32
 	remoteFields *string
 	remoteId *string
+	showEnumOrigins *string
 }
 
 func (r ApiLocationsListRequest) XAccountToken(xAccountToken string) ApiLocationsListRequest {
@@ -87,6 +88,10 @@ func (r ApiLocationsListRequest) RemoteFields(remoteFields string) ApiLocationsL
 }
 func (r ApiLocationsListRequest) RemoteId(remoteId string) ApiLocationsListRequest {
 	r.remoteId = &remoteId
+	return r
+}
+func (r ApiLocationsListRequest) ShowEnumOrigins(showEnumOrigins string) ApiLocationsListRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -165,6 +170,9 @@ func (a *LocationsApiService) LocationsListExecute(r ApiLocationsListRequest) (P
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -241,6 +249,7 @@ type ApiLocationsRetrieveRequest struct {
 	id string
 	includeRemoteData *bool
 	remoteFields *string
+	showEnumOrigins *string
 }
 
 func (r ApiLocationsRetrieveRequest) XAccountToken(xAccountToken string) ApiLocationsRetrieveRequest {
@@ -253,6 +262,10 @@ func (r ApiLocationsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) A
 }
 func (r ApiLocationsRetrieveRequest) RemoteFields(remoteFields string) ApiLocationsRetrieveRequest {
 	r.remoteFields = &remoteFields
+	return r
+}
+func (r ApiLocationsRetrieveRequest) ShowEnumOrigins(showEnumOrigins string) ApiLocationsRetrieveRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -309,6 +322,9 @@ func (a *LocationsApiService) LocationsRetrieveExecute(r ApiLocationsRetrieveReq
 	}
 	if r.remoteFields != nil {
 		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

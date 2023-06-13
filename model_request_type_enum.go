@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// RequestTypeEnum the model 'RequestTypeEnum'
+// RequestTypeEnum * `VACATION` - VACATION * `SICK` - SICK * `PERSONAL` - PERSONAL * `JURY_DUTY` - JURY_DUTY * `VOLUNTEER` - VOLUNTEER * `BEREAVEMENT` - BEREAVEMENT
 type RequestTypeEnum string
 
 // apologies but this is to get around an import error

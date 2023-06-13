@@ -47,6 +47,7 @@ type ApiBankInfoListRequest struct {
 	pageSize *int32
 	remoteFields *string
 	remoteId *string
+	showEnumOrigins *string
 }
 
 func (r ApiBankInfoListRequest) XAccountToken(xAccountToken string) ApiBankInfoListRequest {
@@ -107,6 +108,10 @@ func (r ApiBankInfoListRequest) RemoteFields(remoteFields string) ApiBankInfoLis
 }
 func (r ApiBankInfoListRequest) RemoteId(remoteId string) ApiBankInfoListRequest {
 	r.remoteId = &remoteId
+	return r
+}
+func (r ApiBankInfoListRequest) ShowEnumOrigins(showEnumOrigins string) ApiBankInfoListRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -197,6 +202,9 @@ func (a *BankInfoApiService) BankInfoListExecute(r ApiBankInfoListRequest) (Pagi
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -273,6 +281,7 @@ type ApiBankInfoRetrieveRequest struct {
 	id string
 	includeRemoteData *bool
 	remoteFields *string
+	showEnumOrigins *string
 }
 
 func (r ApiBankInfoRetrieveRequest) XAccountToken(xAccountToken string) ApiBankInfoRetrieveRequest {
@@ -285,6 +294,10 @@ func (r ApiBankInfoRetrieveRequest) IncludeRemoteData(includeRemoteData bool) Ap
 }
 func (r ApiBankInfoRetrieveRequest) RemoteFields(remoteFields string) ApiBankInfoRetrieveRequest {
 	r.remoteFields = &remoteFields
+	return r
+}
+func (r ApiBankInfoRetrieveRequest) ShowEnumOrigins(showEnumOrigins string) ApiBankInfoRetrieveRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -341,6 +354,9 @@ func (a *BankInfoApiService) BankInfoRetrieveExecute(r ApiBankInfoRetrieveReques
 	}
 	if r.remoteFields != nil {
 		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

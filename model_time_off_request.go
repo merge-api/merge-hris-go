@@ -16,28 +16,30 @@ import (
 	"time"
 )
 
-// TimeOffRequest # The TimeOff Object ### Description The `TimeOff` object is used to represent a Time Off Request filed by an employee.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
+// TimeOffRequest # The TimeOff Object ### Description The `TimeOff` object is used to represent all employees' Time Off entries.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
 type TimeOffRequest struct {
-	// The third-party API ID of the matching object.
-	RemoteId NullableString `json:"remote_id,omitempty"`
+	// The employee requesting time off.
 	Employee NullableString `json:"employee,omitempty"`
+	// The Merge ID of the employee with the ability to approve the time off request.
 	Approver NullableString `json:"approver,omitempty"`
-	// The status of this time off request.
+	// The status of this time off request.  * `REQUESTED` - REQUESTED * `APPROVED` - APPROVED * `DECLINED` - DECLINED * `CANCELLED` - CANCELLED * `DELETED` - DELETED
 	Status NullableTimeOffStatusEnum `json:"status,omitempty"`
 	// The employee note for this time off request.
 	EmployeeNote NullableString `json:"employee_note,omitempty"`
-	// The unit of time requested.
+	// The measurement that the third-party integration uses to count time requested.  * `HOURS` - HOURS * `DAYS` - DAYS
 	Units NullableUnitsEnum `json:"units,omitempty"`
-	// The number of time off units requested.
-	Amount NullableFloat32 `json:"amount,omitempty"`
-	// The type of time off request.
+	// The time off quantity measured by the prescribed “units”.
+	Amount NullableFloat64 `json:"amount,omitempty"`
+	// The type of time off request.  * `VACATION` - VACATION * `SICK` - SICK * `PERSONAL` - PERSONAL * `JURY_DUTY` - JURY_DUTY * `VOLUNTEER` - VOLUNTEER * `BEREAVEMENT` - BEREAVEMENT
 	RequestType NullableRequestTypeEnum `json:"request_type,omitempty"`
 	// The day and time of the start of the time requested off.
 	StartTime NullableTime `json:"start_time,omitempty"`
 	// The day and time of the end of the time requested off.
 	EndTime NullableTime `json:"end_time,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	IntegrationParams map[string]interface{} `json:"integration_params,omitempty"`
+	LinkedAccountParams map[string]interface{} `json:"linked_account_params,omitempty"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTimeOffRequest instantiates a new TimeOffRequest object
@@ -55,48 +57,6 @@ func NewTimeOffRequest() *TimeOffRequest {
 func NewTimeOffRequestWithDefaults() *TimeOffRequest {
 	this := TimeOffRequest{}
 	return &this
-}
-
-// GetRemoteId returns the RemoteId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TimeOffRequest) GetRemoteId() string {
-	if o == nil || o.RemoteId.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.RemoteId.Get()
-}
-
-// GetRemoteIdOk returns a tuple with the RemoteId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TimeOffRequest) GetRemoteIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteId.Get(), o.RemoteId.IsSet()
-}
-
-// HasRemoteId returns a boolean if a field has been set.
-func (o *TimeOffRequest) HasRemoteId() bool {
-	if o != nil && o.RemoteId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteId gets a reference to the given NullableString and assigns it to the RemoteId field.
-func (o *TimeOffRequest) SetRemoteId(v string) {
-	o.RemoteId.Set(&v)
-}
-// SetRemoteIdNil sets the value for RemoteId to be an explicit nil
-func (o *TimeOffRequest) SetRemoteIdNil() {
-	o.RemoteId.Set(nil)
-}
-
-// UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
-func (o *TimeOffRequest) UnsetRemoteId() {
-	o.RemoteId.Unset()
 }
 
 // GetEmployee returns the Employee field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -310,9 +270,9 @@ func (o *TimeOffRequest) UnsetUnits() {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TimeOffRequest) GetAmount() float32 {
+func (o *TimeOffRequest) GetAmount() float64 {
 	if o == nil || o.Amount.Get() == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Amount.Get()
@@ -321,7 +281,7 @@ func (o *TimeOffRequest) GetAmount() float32 {
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TimeOffRequest) GetAmountOk() (*float32, bool) {
+func (o *TimeOffRequest) GetAmountOk() (*float64, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -337,8 +297,8 @@ func (o *TimeOffRequest) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given NullableFloat32 and assigns it to the Amount field.
-func (o *TimeOffRequest) SetAmount(v float32) {
+// SetAmount gets a reference to the given NullableFloat64 and assigns it to the Amount field.
+func (o *TimeOffRequest) SetAmount(v float64) {
 	o.Amount.Set(&v)
 }
 // SetAmountNil sets the value for Amount to be an explicit nil
@@ -477,11 +437,74 @@ func (o *TimeOffRequest) UnsetEndTime() {
 	o.EndTime.Unset()
 }
 
+// GetIntegrationParams returns the IntegrationParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TimeOffRequest) GetIntegrationParams() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.IntegrationParams
+}
+
+// GetIntegrationParamsOk returns a tuple with the IntegrationParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TimeOffRequest) GetIntegrationParamsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.IntegrationParams == nil {
+		return nil, false
+	}
+	return &o.IntegrationParams, true
+}
+
+// HasIntegrationParams returns a boolean if a field has been set.
+func (o *TimeOffRequest) HasIntegrationParams() bool {
+	if o != nil && o.IntegrationParams != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationParams gets a reference to the given map[string]interface{} and assigns it to the IntegrationParams field.
+func (o *TimeOffRequest) SetIntegrationParams(v map[string]interface{}) {
+	o.IntegrationParams = v
+}
+
+// GetLinkedAccountParams returns the LinkedAccountParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TimeOffRequest) GetLinkedAccountParams() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.LinkedAccountParams
+}
+
+// GetLinkedAccountParamsOk returns a tuple with the LinkedAccountParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TimeOffRequest) GetLinkedAccountParamsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.LinkedAccountParams == nil {
+		return nil, false
+	}
+	return &o.LinkedAccountParams, true
+}
+
+// HasLinkedAccountParams returns a boolean if a field has been set.
+func (o *TimeOffRequest) HasLinkedAccountParams() bool {
+	if o != nil && o.LinkedAccountParams != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLinkedAccountParams gets a reference to the given map[string]interface{} and assigns it to the LinkedAccountParams field.
+func (o *TimeOffRequest) SetLinkedAccountParams(v map[string]interface{}) {
+	o.LinkedAccountParams = v
+}
+
 func (o TimeOffRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RemoteId.IsSet() {
-		toSerialize["remote_id"] = o.RemoteId.Get()
-	}
 	if o.Employee.IsSet() {
 		toSerialize["employee"] = o.Employee.Get()
 	}
@@ -508,6 +531,12 @@ func (o TimeOffRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.EndTime.IsSet() {
 		toSerialize["end_time"] = o.EndTime.Get()
+	}
+	if o.IntegrationParams != nil {
+		toSerialize["integration_params"] = o.IntegrationParams
+	}
+	if o.LinkedAccountParams != nil {
+		toSerialize["linked_account_params"] = o.LinkedAccountParams
 	}
 	return json.Marshal(toSerialize)
 }

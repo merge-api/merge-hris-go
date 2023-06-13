@@ -61,8 +61,6 @@ type APIClient struct {
 
 	CompaniesApi *CompaniesApiService
 
-	DeductionsApi *DeductionsApiService
-
 	DeleteAccountApi *DeleteAccountApiService
 
 	EmployeePayrollRunsApi *EmployeePayrollRunsApiService
@@ -92,6 +90,8 @@ type APIClient struct {
 	PayrollRunsApi *PayrollRunsApiService
 
 	RegenerateKeyApi *RegenerateKeyApiService
+
+	SelectiveSyncApi *SelectiveSyncApiService
 
 	SyncStatusApi *SyncStatusApiService
 
@@ -126,7 +126,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.BankInfoApi = (*BankInfoApiService)(&c.common)
 	c.BenefitsApi = (*BenefitsApiService)(&c.common)
 	c.CompaniesApi = (*CompaniesApiService)(&c.common)
-	c.DeductionsApi = (*DeductionsApiService)(&c.common)
 	c.DeleteAccountApi = (*DeleteAccountApiService)(&c.common)
 	c.EmployeePayrollRunsApi = (*EmployeePayrollRunsApiService)(&c.common)
 	c.EmployeesApi = (*EmployeesApiService)(&c.common)
@@ -142,6 +141,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.PayGroupsApi = (*PayGroupsApiService)(&c.common)
 	c.PayrollRunsApi = (*PayrollRunsApiService)(&c.common)
 	c.RegenerateKeyApi = (*RegenerateKeyApiService)(&c.common)
+	c.SelectiveSyncApi = (*SelectiveSyncApiService)(&c.common)
 	c.SyncStatusApi = (*SyncStatusApiService)(&c.common)
 	c.TeamsApi = (*TeamsApiService)(&c.common)
 	c.TimeOffApi = (*TimeOffApiService)(&c.common)

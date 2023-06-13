@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// MethodEnum the model 'MethodEnum'
+// MethodEnum * `GET` - GET * `OPTIONS` - OPTIONS * `HEAD` - HEAD * `POST` - POST * `PUT` - PUT * `PATCH` - PATCH * `DELETE` - DELETE
 type MethodEnum string
 
 // apologies but this is to get around an import error

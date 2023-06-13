@@ -45,6 +45,7 @@ type ApiTimeOffBalancesListRequest struct {
 	policyType *string
 	remoteFields *string
 	remoteId *string
+	showEnumOrigins *string
 }
 
 func (r ApiTimeOffBalancesListRequest) XAccountToken(xAccountToken string) ApiTimeOffBalancesListRequest {
@@ -97,6 +98,10 @@ func (r ApiTimeOffBalancesListRequest) RemoteFields(remoteFields string) ApiTime
 }
 func (r ApiTimeOffBalancesListRequest) RemoteId(remoteId string) ApiTimeOffBalancesListRequest {
 	r.remoteId = &remoteId
+	return r
+}
+func (r ApiTimeOffBalancesListRequest) ShowEnumOrigins(showEnumOrigins string) ApiTimeOffBalancesListRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -181,6 +186,9 @@ func (a *TimeOffBalancesApiService) TimeOffBalancesListExecute(r ApiTimeOffBalan
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -257,6 +265,7 @@ type ApiTimeOffBalancesRetrieveRequest struct {
 	id string
 	includeRemoteData *bool
 	remoteFields *string
+	showEnumOrigins *string
 }
 
 func (r ApiTimeOffBalancesRetrieveRequest) XAccountToken(xAccountToken string) ApiTimeOffBalancesRetrieveRequest {
@@ -269,6 +278,10 @@ func (r ApiTimeOffBalancesRetrieveRequest) IncludeRemoteData(includeRemoteData b
 }
 func (r ApiTimeOffBalancesRetrieveRequest) RemoteFields(remoteFields string) ApiTimeOffBalancesRetrieveRequest {
 	r.remoteFields = &remoteFields
+	return r
+}
+func (r ApiTimeOffBalancesRetrieveRequest) ShowEnumOrigins(showEnumOrigins string) ApiTimeOffBalancesRetrieveRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -325,6 +338,9 @@ func (a *TimeOffBalancesApiService) TimeOffBalancesRetrieveExecute(r ApiTimeOffB
 	}
 	if r.remoteFields != nil {
 		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

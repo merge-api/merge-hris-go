@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestSchema** | **map[string]interface{}** |  | 
+**RemoteFieldClasses** | Pointer to **map[string]interface{}** |  | [optional] 
 **Status** | Pointer to [**LinkedAccountStatus**](LinkedAccountStatus.md) |  | [optional] 
 **HasConditionalParams** | **bool** |  | 
 **HasRequiredLinkedAccountParams** | **bool** |  | 
@@ -47,6 +48,31 @@ and a boolean to check if the value has been set.
 
 SetRequestSchema sets RequestSchema field to given value.
 
+
+### GetRemoteFieldClasses
+
+`func (o *MetaResponse) GetRemoteFieldClasses() map[string]interface{}`
+
+GetRemoteFieldClasses returns the RemoteFieldClasses field if non-nil, zero value otherwise.
+
+### GetRemoteFieldClassesOk
+
+`func (o *MetaResponse) GetRemoteFieldClassesOk() (*map[string]interface{}, bool)`
+
+GetRemoteFieldClassesOk returns a tuple with the RemoteFieldClasses field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteFieldClasses
+
+`func (o *MetaResponse) SetRemoteFieldClasses(v map[string]interface{})`
+
+SetRemoteFieldClasses sets RemoteFieldClasses field to given value.
+
+### HasRemoteFieldClasses
+
+`func (o *MetaResponse) HasRemoteFieldClasses() bool`
+
+HasRemoteFieldClasses returns a boolean if a field has been set.
 
 ### GetStatus
 

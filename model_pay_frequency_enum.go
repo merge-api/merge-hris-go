@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// PayFrequencyEnum the model 'PayFrequencyEnum'
+// PayFrequencyEnum * `WEEKLY` - WEEKLY * `BIWEEKLY` - BIWEEKLY * `MONTHLY` - MONTHLY * `QUARTERLY` - QUARTERLY * `SEMIANNUALLY` - SEMIANNUALLY * `ANNUALLY` - ANNUALLY * `THIRTEEN-MONTHLY` - THIRTEEN-MONTHLY * `PRO_RATA` - PRO_RATA * `SEMIMONTHLY` - SEMIMONTHLY
 type PayFrequencyEnum string
 
 // apologies but this is to get around an import error
@@ -33,6 +33,7 @@ const (
 	PAYFREQUENCYENUM_ANNUALLY PayFrequencyEnum = "ANNUALLY"
 	PAYFREQUENCYENUM_THIRTEEN_MONTHLY PayFrequencyEnum = "THIRTEEN-MONTHLY"
 	PAYFREQUENCYENUM_PRO_RATA PayFrequencyEnum = "PRO_RATA"
+	PAYFREQUENCYENUM_SEMIMONTHLY PayFrequencyEnum = "SEMIMONTHLY"
 )
 
 var allowedPayFrequencyEnumEnumValues = []PayFrequencyEnum{
@@ -44,6 +45,7 @@ var allowedPayFrequencyEnumEnumValues = []PayFrequencyEnum{
 	"ANNUALLY",
 	"THIRTEEN-MONTHLY",
 	"PRO_RATA",
+	"SEMIMONTHLY",
 }
 
 func (v *PayFrequencyEnum) UnmarshalJSON(src []byte) error {

@@ -18,8 +18,8 @@ import (
 // EmployeeEndpointRequest struct for EmployeeEndpointRequest
 type EmployeeEndpointRequest struct {
 	Model EmployeeRequest `json:"model"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEmployeeEndpointRequest instantiates a new EmployeeEndpointRequest object

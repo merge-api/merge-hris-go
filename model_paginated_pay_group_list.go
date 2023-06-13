@@ -20,8 +20,8 @@ type PaginatedPayGroupList struct {
 	Next NullableString `json:"next,omitempty"`
 	Previous NullableString `json:"previous,omitempty"`
 	Results *[]PayGroup `json:"results,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPaginatedPayGroupList instantiates a new PaginatedPayGroupList object

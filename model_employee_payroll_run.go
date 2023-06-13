@@ -16,17 +16,19 @@ import (
 	"time"
 )
 
-// EmployeePayrollRun # The EmployeePayrollRun Object ### Description The `EmployeePayrollRun` object is used to represent a payroll run for a specific employee.  ### Usage Example Fetch from the `LIST EmployeePayrollRun` endpoint and filter by `ID` to show all employee payroll runs.
+// EmployeePayrollRun # The EmployeePayrollRun Object ### Description The `EmployeePayrollRun` object is used to represent an employee's pay statement for a specific payroll run.  ### Usage Example Fetch from the `LIST EmployeePayrollRun` endpoint and filter by `ID` to show all employee payroll runs.
 type EmployeePayrollRun struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
+	// The employee whose payroll is being run.
 	Employee NullableString `json:"employee,omitempty"`
+	// The payroll being run.
 	PayrollRun NullableString `json:"payroll_run,omitempty"`
-	// The gross pay from the run.
-	GrossPay NullableFloat32 `json:"gross_pay,omitempty"`
-	// The net pay from the run.
-	NetPay NullableFloat32 `json:"net_pay,omitempty"`
+	// The total earnings throughout a given period for an employee before any deductions are made.
+	GrossPay NullableFloat64 `json:"gross_pay,omitempty"`
+	// The take-home pay throughout a given period for an employee after deductions are made.
+	NetPay NullableFloat64 `json:"net_pay,omitempty"`
 	// The day and time the payroll run started.
 	StartDate NullableTime `json:"start_date,omitempty"`
 	// The day and time the payroll run ended.
@@ -36,11 +38,14 @@ type EmployeePayrollRun struct {
 	Earnings *[]Earning `json:"earnings,omitempty"`
 	Deductions *[]Deduction `json:"deductions,omitempty"`
 	Taxes *[]Tax `json:"taxes,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// Indicates whether or not this object has been deleted by third party webhooks.
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	// This is the datetime that this object was last updated by Merge
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEmployeePayrollRun instantiates a new EmployeePayrollRun object
@@ -219,9 +224,9 @@ func (o *EmployeePayrollRun) UnsetPayrollRun() {
 }
 
 // GetGrossPay returns the GrossPay field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *EmployeePayrollRun) GetGrossPay() float32 {
+func (o *EmployeePayrollRun) GetGrossPay() float64 {
 	if o == nil || o.GrossPay.Get() == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.GrossPay.Get()
@@ -230,7 +235,7 @@ func (o *EmployeePayrollRun) GetGrossPay() float32 {
 // GetGrossPayOk returns a tuple with the GrossPay field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *EmployeePayrollRun) GetGrossPayOk() (*float32, bool) {
+func (o *EmployeePayrollRun) GetGrossPayOk() (*float64, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -246,8 +251,8 @@ func (o *EmployeePayrollRun) HasGrossPay() bool {
 	return false
 }
 
-// SetGrossPay gets a reference to the given NullableFloat32 and assigns it to the GrossPay field.
-func (o *EmployeePayrollRun) SetGrossPay(v float32) {
+// SetGrossPay gets a reference to the given NullableFloat64 and assigns it to the GrossPay field.
+func (o *EmployeePayrollRun) SetGrossPay(v float64) {
 	o.GrossPay.Set(&v)
 }
 // SetGrossPayNil sets the value for GrossPay to be an explicit nil
@@ -261,9 +266,9 @@ func (o *EmployeePayrollRun) UnsetGrossPay() {
 }
 
 // GetNetPay returns the NetPay field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *EmployeePayrollRun) GetNetPay() float32 {
+func (o *EmployeePayrollRun) GetNetPay() float64 {
 	if o == nil || o.NetPay.Get() == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.NetPay.Get()
@@ -272,7 +277,7 @@ func (o *EmployeePayrollRun) GetNetPay() float32 {
 // GetNetPayOk returns a tuple with the NetPay field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *EmployeePayrollRun) GetNetPayOk() (*float32, bool) {
+func (o *EmployeePayrollRun) GetNetPayOk() (*float64, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -288,8 +293,8 @@ func (o *EmployeePayrollRun) HasNetPay() bool {
 	return false
 }
 
-// SetNetPay gets a reference to the given NullableFloat32 and assigns it to the NetPay field.
-func (o *EmployeePayrollRun) SetNetPay(v float32) {
+// SetNetPay gets a reference to the given NullableFloat64 and assigns it to the NetPay field.
+func (o *EmployeePayrollRun) SetNetPay(v float64) {
 	o.NetPay.Set(&v)
 }
 // SetNetPayNil sets the value for NetPay to be an explicit nil
@@ -524,6 +529,103 @@ func (o *EmployeePayrollRun) SetTaxes(v []Tax) {
 	o.Taxes = &v
 }
 
+// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
+func (o *EmployeePayrollRun) GetRemoteWasDeleted() bool {
+	if o == nil || o.RemoteWasDeleted == nil {
+		var ret bool
+		return ret
+	}
+	return *o.RemoteWasDeleted
+}
+
+// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EmployeePayrollRun) GetRemoteWasDeletedOk() (*bool, bool) {
+	if o == nil || o.RemoteWasDeleted == nil {
+		return nil, false
+	}
+	return o.RemoteWasDeleted, true
+}
+
+// HasRemoteWasDeleted returns a boolean if a field has been set.
+func (o *EmployeePayrollRun) HasRemoteWasDeleted() bool {
+	if o != nil && o.RemoteWasDeleted != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
+func (o *EmployeePayrollRun) SetRemoteWasDeleted(v bool) {
+	o.RemoteWasDeleted = &v
+}
+
+// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployeePayrollRun) GetFieldMappings() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.FieldMappings
+}
+
+// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployeePayrollRun) GetFieldMappingsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.FieldMappings == nil {
+		return nil, false
+	}
+	return &o.FieldMappings, true
+}
+
+// HasFieldMappings returns a boolean if a field has been set.
+func (o *EmployeePayrollRun) HasFieldMappings() bool {
+	if o != nil && o.FieldMappings != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFieldMappings gets a reference to the given map[string]interface{} and assigns it to the FieldMappings field.
+func (o *EmployeePayrollRun) SetFieldMappings(v map[string]interface{}) {
+	o.FieldMappings = v
+}
+
+// GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
+func (o *EmployeePayrollRun) GetModifiedAt() time.Time {
+	if o == nil || o.ModifiedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.ModifiedAt
+}
+
+// GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EmployeePayrollRun) GetModifiedAtOk() (*time.Time, bool) {
+	if o == nil || o.ModifiedAt == nil {
+		return nil, false
+	}
+	return o.ModifiedAt, true
+}
+
+// HasModifiedAt returns a boolean if a field has been set.
+func (o *EmployeePayrollRun) HasModifiedAt() bool {
+	if o != nil && o.ModifiedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetModifiedAt gets a reference to the given time.Time and assigns it to the ModifiedAt field.
+func (o *EmployeePayrollRun) SetModifiedAt(v time.Time) {
+	o.ModifiedAt = &v
+}
+
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *EmployeePayrollRun) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -555,38 +657,6 @@ func (o *EmployeePayrollRun) HasRemoteData() bool {
 // SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
 func (o *EmployeePayrollRun) SetRemoteData(v []RemoteData) {
 	o.RemoteData = v
-}
-
-// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
-func (o *EmployeePayrollRun) GetRemoteWasDeleted() bool {
-	if o == nil || o.RemoteWasDeleted == nil {
-		var ret bool
-		return ret
-	}
-	return *o.RemoteWasDeleted
-}
-
-// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EmployeePayrollRun) GetRemoteWasDeletedOk() (*bool, bool) {
-	if o == nil || o.RemoteWasDeleted == nil {
-		return nil, false
-	}
-	return o.RemoteWasDeleted, true
-}
-
-// HasRemoteWasDeleted returns a boolean if a field has been set.
-func (o *EmployeePayrollRun) HasRemoteWasDeleted() bool {
-	if o != nil && o.RemoteWasDeleted != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
-func (o *EmployeePayrollRun) SetRemoteWasDeleted(v bool) {
-	o.RemoteWasDeleted = &v
 }
 
 func (o EmployeePayrollRun) MarshalJSON() ([]byte, error) {
@@ -627,11 +697,17 @@ func (o EmployeePayrollRun) MarshalJSON() ([]byte, error) {
 	if o.Taxes != nil {
 		toSerialize["taxes"] = o.Taxes
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
-	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
+	}
+	if o.FieldMappings != nil {
+		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.ModifiedAt != nil {
+		toSerialize["modified_at"] = o.ModifiedAt
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

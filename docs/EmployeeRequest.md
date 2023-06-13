@@ -4,9 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**EmployeeNumber** | Pointer to **NullableString** | The employee&#39;s number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user. This value can also change in many API providers. | [optional] 
-**Company** | Pointer to **NullableString** |  | [optional] 
+**EmployeeNumber** | Pointer to **NullableString** | The employee&#39;s number that appears in the third-party integration&#39;s UI. | [optional] 
+**Company** | Pointer to **NullableString** | The ID of the employee&#39;s company. | [optional] 
 **FirstName** | Pointer to **NullableString** | The employee&#39;s first name. | [optional] 
 **LastName** | Pointer to **NullableString** | The employee&#39;s last name. | [optional] 
 **DisplayFullName** | Pointer to **NullableString** | The employee&#39;s full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name. | [optional] 
@@ -16,23 +15,23 @@ Name | Type | Description | Notes
 **PersonalEmail** | Pointer to **NullableString** | The employee&#39;s personal email. | [optional] 
 **MobilePhoneNumber** | Pointer to **NullableString** | The employee&#39;s mobile phone number. | [optional] 
 **Employments** | Pointer to **[]string** | Array of &#x60;Employment&#x60; IDs for this Employee. | [optional] 
-**HomeLocation** | Pointer to **NullableString** |  | [optional] 
-**WorkLocation** | Pointer to **NullableString** |  | [optional] 
-**Manager** | Pointer to **NullableString** |  | [optional] 
-**Team** | Pointer to **NullableString** |  | [optional] 
-**PayGroup** | Pointer to **NullableString** |  | [optional] 
+**HomeLocation** | Pointer to **NullableString** | The employee&#39;s home address. | [optional] 
+**WorkLocation** | Pointer to **NullableString** | The employee&#39;s work address. | [optional] 
+**Manager** | Pointer to **NullableString** | The employee ID of the employee&#39;s manager. | [optional] 
+**Team** | Pointer to **NullableString** | The employee&#39;s team. | [optional] 
+**PayGroup** | Pointer to **NullableString** | The employee&#39;s pay group | [optional] 
 **Ssn** | Pointer to **NullableString** | The employee&#39;s social security number. | [optional] 
-**Gender** | Pointer to [**NullableGenderEnum**](GenderEnum.md) | The employee&#39;s gender. | [optional] 
-**Ethnicity** | Pointer to [**NullableEthnicityEnum**](EthnicityEnum.md) | The employee&#39;s ethnicity. | [optional] 
-**MaritalStatus** | Pointer to [**NullableMaritalStatusEnum**](MaritalStatusEnum.md) | The employee&#39;s marital status. | [optional] 
+**Gender** | Pointer to [**NullableGenderEnum**](GenderEnum.md) | The employee&#39;s gender.  * &#x60;MALE&#x60; - MALE * &#x60;FEMALE&#x60; - FEMALE * &#x60;NON-BINARY&#x60; - NON-BINARY * &#x60;OTHER&#x60; - OTHER * &#x60;PREFER_NOT_TO_DISCLOSE&#x60; - PREFER_NOT_TO_DISCLOSE | [optional] 
+**Ethnicity** | Pointer to [**NullableEthnicityEnum**](EthnicityEnum.md) | The employee&#39;s ethnicity.  * &#x60;AMERICAN_INDIAN_OR_ALASKA_NATIVE&#x60; - AMERICAN_INDIAN_OR_ALASKA_NATIVE * &#x60;ASIAN_OR_INDIAN_SUBCONTINENT&#x60; - ASIAN_OR_INDIAN_SUBCONTINENT * &#x60;BLACK_OR_AFRICAN_AMERICAN&#x60; - BLACK_OR_AFRICAN_AMERICAN * &#x60;HISPANIC_OR_LATINO&#x60; - HISPANIC_OR_LATINO * &#x60;NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER&#x60; - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER * &#x60;TWO_OR_MORE_RACES&#x60; - TWO_OR_MORE_RACES * &#x60;WHITE&#x60; - WHITE * &#x60;PREFER_NOT_TO_DISCLOSE&#x60; - PREFER_NOT_TO_DISCLOSE | [optional] 
+**MaritalStatus** | Pointer to [**NullableMaritalStatusEnum**](MaritalStatusEnum.md) | The employee&#39;s filing status as related to marital status.  * &#x60;SINGLE&#x60; - SINGLE * &#x60;MARRIED_FILING_JOINTLY&#x60; - MARRIED_FILING_JOINTLY * &#x60;MARRIED_FILING_SEPARATELY&#x60; - MARRIED_FILING_SEPARATELY * &#x60;HEAD_OF_HOUSEHOLD&#x60; - HEAD_OF_HOUSEHOLD * &#x60;QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD&#x60; - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD | [optional] 
 **DateOfBirth** | Pointer to **NullableTime** | The employee&#39;s date of birth. | [optional] 
 **HireDate** | Pointer to **NullableTime** | The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you&#39;re looking for the employee&#39;s start date, refer to the start_date field. | [optional] 
-**StartDate** | Pointer to **NullableTime** | The date that the employee started working. If an employee has multiple start dates from previous employments, this represents the most recent start date. | [optional] 
-**RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s employee was created. | [optional] 
-**EmploymentStatus** | Pointer to [**NullableEmploymentStatusEnum**](EmploymentStatusEnum.md) | The employment status of the employee. | [optional] 
+**StartDate** | Pointer to **NullableTime** | The date that the employee started working. If an employee was rehired, the most recent start date will be returned. | [optional] 
+**EmploymentStatus** | Pointer to [**NullableEmploymentStatusEnum**](EmploymentStatusEnum.md) | The employment status of the employee.  * &#x60;ACTIVE&#x60; - ACTIVE * &#x60;PENDING&#x60; - PENDING * &#x60;INACTIVE&#x60; - INACTIVE | [optional] 
 **TerminationDate** | Pointer to **NullableTime** | The employee&#39;s termination date. | [optional] 
 **Avatar** | Pointer to **NullableString** | The URL of the employee&#39;s avatar image. | [optional] 
-**CustomFields** | Pointer to **map[string]interface{}** | Custom fields configured for a given model. | [optional] 
+**IntegrationParams** | Pointer to **map[string]interface{}** |  | [optional] 
+**LinkedAccountParams** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -53,41 +52,6 @@ NewEmployeeRequestWithDefaults instantiates a new EmployeeRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRemoteId
-
-`func (o *EmployeeRequest) GetRemoteId() string`
-
-GetRemoteId returns the RemoteId field if non-nil, zero value otherwise.
-
-### GetRemoteIdOk
-
-`func (o *EmployeeRequest) GetRemoteIdOk() (*string, bool)`
-
-GetRemoteIdOk returns a tuple with the RemoteId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteId
-
-`func (o *EmployeeRequest) SetRemoteId(v string)`
-
-SetRemoteId sets RemoteId field to given value.
-
-### HasRemoteId
-
-`func (o *EmployeeRequest) HasRemoteId() bool`
-
-HasRemoteId returns a boolean if a field has been set.
-
-### SetRemoteIdNil
-
-`func (o *EmployeeRequest) SetRemoteIdNil(b bool)`
-
- SetRemoteIdNil sets the value for RemoteId to be an explicit nil
-
-### UnsetRemoteId
-`func (o *EmployeeRequest) UnsetRemoteId()`
-
-UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
 ### GetEmployeeNumber
 
 `func (o *EmployeeRequest) GetEmployeeNumber() string`
@@ -873,41 +837,6 @@ HasStartDate returns a boolean if a field has been set.
 `func (o *EmployeeRequest) UnsetStartDate()`
 
 UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
-### GetRemoteCreatedAt
-
-`func (o *EmployeeRequest) GetRemoteCreatedAt() time.Time`
-
-GetRemoteCreatedAt returns the RemoteCreatedAt field if non-nil, zero value otherwise.
-
-### GetRemoteCreatedAtOk
-
-`func (o *EmployeeRequest) GetRemoteCreatedAtOk() (*time.Time, bool)`
-
-GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteCreatedAt
-
-`func (o *EmployeeRequest) SetRemoteCreatedAt(v time.Time)`
-
-SetRemoteCreatedAt sets RemoteCreatedAt field to given value.
-
-### HasRemoteCreatedAt
-
-`func (o *EmployeeRequest) HasRemoteCreatedAt() bool`
-
-HasRemoteCreatedAt returns a boolean if a field has been set.
-
-### SetRemoteCreatedAtNil
-
-`func (o *EmployeeRequest) SetRemoteCreatedAtNil(b bool)`
-
- SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
-
-### UnsetRemoteCreatedAt
-`func (o *EmployeeRequest) UnsetRemoteCreatedAt()`
-
-UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
 ### GetEmploymentStatus
 
 `func (o *EmployeeRequest) GetEmploymentStatus() EmploymentStatusEnum`
@@ -1013,41 +942,76 @@ HasAvatar returns a boolean if a field has been set.
 `func (o *EmployeeRequest) UnsetAvatar()`
 
 UnsetAvatar ensures that no value is present for Avatar, not even an explicit nil
-### GetCustomFields
+### GetIntegrationParams
 
-`func (o *EmployeeRequest) GetCustomFields() map[string]interface{}`
+`func (o *EmployeeRequest) GetIntegrationParams() map[string]interface{}`
 
-GetCustomFields returns the CustomFields field if non-nil, zero value otherwise.
+GetIntegrationParams returns the IntegrationParams field if non-nil, zero value otherwise.
 
-### GetCustomFieldsOk
+### GetIntegrationParamsOk
 
-`func (o *EmployeeRequest) GetCustomFieldsOk() (*map[string]interface{}, bool)`
+`func (o *EmployeeRequest) GetIntegrationParamsOk() (*map[string]interface{}, bool)`
 
-GetCustomFieldsOk returns a tuple with the CustomFields field if it's non-nil, zero value otherwise
+GetIntegrationParamsOk returns a tuple with the IntegrationParams field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCustomFields
+### SetIntegrationParams
 
-`func (o *EmployeeRequest) SetCustomFields(v map[string]interface{})`
+`func (o *EmployeeRequest) SetIntegrationParams(v map[string]interface{})`
 
-SetCustomFields sets CustomFields field to given value.
+SetIntegrationParams sets IntegrationParams field to given value.
 
-### HasCustomFields
+### HasIntegrationParams
 
-`func (o *EmployeeRequest) HasCustomFields() bool`
+`func (o *EmployeeRequest) HasIntegrationParams() bool`
 
-HasCustomFields returns a boolean if a field has been set.
+HasIntegrationParams returns a boolean if a field has been set.
 
-### SetCustomFieldsNil
+### SetIntegrationParamsNil
 
-`func (o *EmployeeRequest) SetCustomFieldsNil(b bool)`
+`func (o *EmployeeRequest) SetIntegrationParamsNil(b bool)`
 
- SetCustomFieldsNil sets the value for CustomFields to be an explicit nil
+ SetIntegrationParamsNil sets the value for IntegrationParams to be an explicit nil
 
-### UnsetCustomFields
-`func (o *EmployeeRequest) UnsetCustomFields()`
+### UnsetIntegrationParams
+`func (o *EmployeeRequest) UnsetIntegrationParams()`
 
-UnsetCustomFields ensures that no value is present for CustomFields, not even an explicit nil
+UnsetIntegrationParams ensures that no value is present for IntegrationParams, not even an explicit nil
+### GetLinkedAccountParams
+
+`func (o *EmployeeRequest) GetLinkedAccountParams() map[string]interface{}`
+
+GetLinkedAccountParams returns the LinkedAccountParams field if non-nil, zero value otherwise.
+
+### GetLinkedAccountParamsOk
+
+`func (o *EmployeeRequest) GetLinkedAccountParamsOk() (*map[string]interface{}, bool)`
+
+GetLinkedAccountParamsOk returns a tuple with the LinkedAccountParams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinkedAccountParams
+
+`func (o *EmployeeRequest) SetLinkedAccountParams(v map[string]interface{})`
+
+SetLinkedAccountParams sets LinkedAccountParams field to given value.
+
+### HasLinkedAccountParams
+
+`func (o *EmployeeRequest) HasLinkedAccountParams() bool`
+
+HasLinkedAccountParams returns a boolean if a field has been set.
+
+### SetLinkedAccountParamsNil
+
+`func (o *EmployeeRequest) SetLinkedAccountParamsNil(b bool)`
+
+ SetLinkedAccountParamsNil sets the value for LinkedAccountParams to be an explicit nil
+
+### UnsetLinkedAccountParams
+`func (o *EmployeeRequest) UnsetLinkedAccountParams()`
+
+UnsetLinkedAccountParams ensures that no value is present for LinkedAccountParams, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -54,7 +54,7 @@ func (r ApiSyncStatusListRequest) Execute() (PaginatedSyncStatusList, *_nethttp.
 
 /*
  * SyncStatusList Method for SyncStatusList
- * Get syncing status. Possible values: `DISABLED`, `DONE`, `FAILED`, `PAUSED`, `SYNCING`
+ * Get syncing status. Possible values: `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @return ApiSyncStatusListRequest
  */

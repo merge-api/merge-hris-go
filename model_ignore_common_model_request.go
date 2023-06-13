@@ -19,8 +19,8 @@ import (
 type IgnoreCommonModelRequest struct {
 	Reason ReasonEnum `json:"reason"`
 	Message *string `json:"message,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewIgnoreCommonModelRequest instantiates a new IgnoreCommonModelRequest object

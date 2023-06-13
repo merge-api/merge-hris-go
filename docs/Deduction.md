@@ -5,12 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
+**RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **EmployeePayrollRun** | Pointer to **NullableString** |  | [optional] 
 **Name** | Pointer to **NullableString** | The deduction&#39;s name. | [optional] 
-**EmployeeDeduction** | Pointer to **NullableFloat32** | The amount the employee is deducting. | [optional] 
-**CompanyDeduction** | Pointer to **NullableFloat32** | The amount the company is deducting. | [optional] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**EmployeeDeduction** | Pointer to **NullableFloat64** | The amount of money that is withheld from an employee&#39;s gross pay by the employee. | [optional] 
+**CompanyDeduction** | Pointer to **NullableFloat64** | The amount of money that is withheld on behalf of an employee by the company. | [optional] 
 **RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted by third party webhooks. | [optional] 
+**FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**ModifiedAt** | Pointer to **time.Time** | This is the datetime that this object was last updated by Merge | [optional] [readonly] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -56,6 +59,41 @@ SetId sets Id field to given value.
 
 HasId returns a boolean if a field has been set.
 
+### GetRemoteId
+
+`func (o *Deduction) GetRemoteId() string`
+
+GetRemoteId returns the RemoteId field if non-nil, zero value otherwise.
+
+### GetRemoteIdOk
+
+`func (o *Deduction) GetRemoteIdOk() (*string, bool)`
+
+GetRemoteIdOk returns a tuple with the RemoteId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteId
+
+`func (o *Deduction) SetRemoteId(v string)`
+
+SetRemoteId sets RemoteId field to given value.
+
+### HasRemoteId
+
+`func (o *Deduction) HasRemoteId() bool`
+
+HasRemoteId returns a boolean if a field has been set.
+
+### SetRemoteIdNil
+
+`func (o *Deduction) SetRemoteIdNil(b bool)`
+
+ SetRemoteIdNil sets the value for RemoteId to be an explicit nil
+
+### UnsetRemoteId
+`func (o *Deduction) UnsetRemoteId()`
+
+UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
 ### GetEmployeePayrollRun
 
 `func (o *Deduction) GetEmployeePayrollRun() string`
@@ -128,20 +166,20 @@ HasName returns a boolean if a field has been set.
 UnsetName ensures that no value is present for Name, not even an explicit nil
 ### GetEmployeeDeduction
 
-`func (o *Deduction) GetEmployeeDeduction() float32`
+`func (o *Deduction) GetEmployeeDeduction() float64`
 
 GetEmployeeDeduction returns the EmployeeDeduction field if non-nil, zero value otherwise.
 
 ### GetEmployeeDeductionOk
 
-`func (o *Deduction) GetEmployeeDeductionOk() (*float32, bool)`
+`func (o *Deduction) GetEmployeeDeductionOk() (*float64, bool)`
 
 GetEmployeeDeductionOk returns a tuple with the EmployeeDeduction field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmployeeDeduction
 
-`func (o *Deduction) SetEmployeeDeduction(v float32)`
+`func (o *Deduction) SetEmployeeDeduction(v float64)`
 
 SetEmployeeDeduction sets EmployeeDeduction field to given value.
 
@@ -163,20 +201,20 @@ HasEmployeeDeduction returns a boolean if a field has been set.
 UnsetEmployeeDeduction ensures that no value is present for EmployeeDeduction, not even an explicit nil
 ### GetCompanyDeduction
 
-`func (o *Deduction) GetCompanyDeduction() float32`
+`func (o *Deduction) GetCompanyDeduction() float64`
 
 GetCompanyDeduction returns the CompanyDeduction field if non-nil, zero value otherwise.
 
 ### GetCompanyDeductionOk
 
-`func (o *Deduction) GetCompanyDeductionOk() (*float32, bool)`
+`func (o *Deduction) GetCompanyDeductionOk() (*float64, bool)`
 
 GetCompanyDeductionOk returns a tuple with the CompanyDeduction field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCompanyDeduction
 
-`func (o *Deduction) SetCompanyDeduction(v float32)`
+`func (o *Deduction) SetCompanyDeduction(v float64)`
 
 SetCompanyDeduction sets CompanyDeduction field to given value.
 
@@ -196,6 +234,91 @@ HasCompanyDeduction returns a boolean if a field has been set.
 `func (o *Deduction) UnsetCompanyDeduction()`
 
 UnsetCompanyDeduction ensures that no value is present for CompanyDeduction, not even an explicit nil
+### GetRemoteWasDeleted
+
+`func (o *Deduction) GetRemoteWasDeleted() bool`
+
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
+
+### GetRemoteWasDeletedOk
+
+`func (o *Deduction) GetRemoteWasDeletedOk() (*bool, bool)`
+
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteWasDeleted
+
+`func (o *Deduction) SetRemoteWasDeleted(v bool)`
+
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
+
+### HasRemoteWasDeleted
+
+`func (o *Deduction) HasRemoteWasDeleted() bool`
+
+HasRemoteWasDeleted returns a boolean if a field has been set.
+
+### GetFieldMappings
+
+`func (o *Deduction) GetFieldMappings() map[string]interface{}`
+
+GetFieldMappings returns the FieldMappings field if non-nil, zero value otherwise.
+
+### GetFieldMappingsOk
+
+`func (o *Deduction) GetFieldMappingsOk() (*map[string]interface{}, bool)`
+
+GetFieldMappingsOk returns a tuple with the FieldMappings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFieldMappings
+
+`func (o *Deduction) SetFieldMappings(v map[string]interface{})`
+
+SetFieldMappings sets FieldMappings field to given value.
+
+### HasFieldMappings
+
+`func (o *Deduction) HasFieldMappings() bool`
+
+HasFieldMappings returns a boolean if a field has been set.
+
+### SetFieldMappingsNil
+
+`func (o *Deduction) SetFieldMappingsNil(b bool)`
+
+ SetFieldMappingsNil sets the value for FieldMappings to be an explicit nil
+
+### UnsetFieldMappings
+`func (o *Deduction) UnsetFieldMappings()`
+
+UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetModifiedAt
+
+`func (o *Deduction) GetModifiedAt() time.Time`
+
+GetModifiedAt returns the ModifiedAt field if non-nil, zero value otherwise.
+
+### GetModifiedAtOk
+
+`func (o *Deduction) GetModifiedAtOk() (*time.Time, bool)`
+
+GetModifiedAtOk returns a tuple with the ModifiedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModifiedAt
+
+`func (o *Deduction) SetModifiedAt(v time.Time)`
+
+SetModifiedAt sets ModifiedAt field to given value.
+
+### HasModifiedAt
+
+`func (o *Deduction) HasModifiedAt() bool`
+
+HasModifiedAt returns a boolean if a field has been set.
+
 ### GetRemoteData
 
 `func (o *Deduction) GetRemoteData() []RemoteData`
@@ -231,31 +354,6 @@ HasRemoteData returns a boolean if a field has been set.
 `func (o *Deduction) UnsetRemoteData()`
 
 UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
-### GetRemoteWasDeleted
-
-`func (o *Deduction) GetRemoteWasDeleted() bool`
-
-GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
-
-### GetRemoteWasDeletedOk
-
-`func (o *Deduction) GetRemoteWasDeletedOk() (*bool, bool)`
-
-GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteWasDeleted
-
-`func (o *Deduction) SetRemoteWasDeleted(v bool)`
-
-SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
-
-### HasRemoteWasDeleted
-
-`func (o *Deduction) HasRemoteWasDeleted() bool`
-
-HasRemoteWasDeleted returns a boolean if a field has been set.
-
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

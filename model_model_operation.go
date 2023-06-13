@@ -21,8 +21,8 @@ type ModelOperation struct {
 	AvailableOperations []string `json:"available_operations"`
 	RequiredPostParameters []string `json:"required_post_parameters"`
 	SupportedFields []string `json:"supported_fields"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewModelOperation instantiates a new ModelOperation object

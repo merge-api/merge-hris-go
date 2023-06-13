@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-    category := "category_example" // string |  (optional)
+    category := "category_example" // string | Options: ('hris', 'ats', 'accounting', 'ticketing', 'crm', 'mktg', 'filestorage')  * `hris` - hris * `ats` - ats * `accounting` - accounting * `ticketing` - ticketing * `crm` - crm * `mktg` - mktg * `filestorage` - filestorage (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     endUserEmailAddress := "endUserEmailAddress_example" // string | If provided, will only return linked accounts associated with the given email address. (optional)
     endUserOrganizationName := "endUserOrganizationName_example" // string | If provided, will only return linked accounts associated with the given organization name. (optional)
@@ -66,7 +66,7 @@ Other parameters are passed through a pointer to a apiLinkedAccountsListRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **category** | **string** |  | 
+ **category** | **string** | Options: (&#39;hris&#39;, &#39;ats&#39;, &#39;accounting&#39;, &#39;ticketing&#39;, &#39;crm&#39;, &#39;mktg&#39;, &#39;filestorage&#39;)  * &#x60;hris&#x60; - hris * &#x60;ats&#x60; - ats * &#x60;accounting&#x60; - accounting * &#x60;ticketing&#x60; - ticketing * &#x60;crm&#x60; - crm * &#x60;mktg&#x60; - mktg * &#x60;filestorage&#x60; - filestorage | 
  **cursor** | **string** | The pagination cursor value. | 
  **endUserEmailAddress** | **string** | If provided, will only return linked accounts associated with the given email address. | 
  **endUserOrganizationName** | **string** | If provided, will only return linked accounts associated with the given organization name. | 

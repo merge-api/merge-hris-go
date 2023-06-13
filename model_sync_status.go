@@ -20,24 +20,23 @@ import (
 type SyncStatus struct {
 	ModelName string `json:"model_name"`
 	ModelId string `json:"model_id"`
-	LastSyncStart time.Time `json:"last_sync_start"`
-	NextSyncStart time.Time `json:"next_sync_start"`
+	LastSyncStart *time.Time `json:"last_sync_start,omitempty"`
+	NextSyncStart *time.Time `json:"next_sync_start,omitempty"`
 	Status SyncStatusStatusEnum `json:"status"`
 	IsInitialSync bool `json:"is_initial_sync"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	SelectiveSyncConfigurationsUsage *SelectiveSyncConfigurationsUsageEnum `json:"selective_sync_configurations_usage,omitempty"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewSyncStatus instantiates a new SyncStatus object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSyncStatus(modelName string, modelId string, lastSyncStart time.Time, nextSyncStart time.Time, status SyncStatusStatusEnum, isInitialSync bool) *SyncStatus {
+func NewSyncStatus(modelName string, modelId string, status SyncStatusStatusEnum, isInitialSync bool) *SyncStatus {
 	this := SyncStatus{}
 	this.ModelName = modelName
 	this.ModelId = modelId
-	this.LastSyncStart = lastSyncStart
-	this.NextSyncStart = nextSyncStart
 	this.Status = status
 	this.IsInitialSync = isInitialSync
 	return &this
@@ -99,52 +98,68 @@ func (o *SyncStatus) SetModelId(v string) {
 	o.ModelId = v
 }
 
-// GetLastSyncStart returns the LastSyncStart field value
+// GetLastSyncStart returns the LastSyncStart field value if set, zero value otherwise.
 func (o *SyncStatus) GetLastSyncStart() time.Time {
-	if o == nil {
+	if o == nil || o.LastSyncStart == nil {
 		var ret time.Time
 		return ret
 	}
-
-	return o.LastSyncStart
+	return *o.LastSyncStart
 }
 
-// GetLastSyncStartOk returns a tuple with the LastSyncStart field value
+// GetLastSyncStartOk returns a tuple with the LastSyncStart field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SyncStatus) GetLastSyncStartOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil || o.LastSyncStart == nil {
 		return nil, false
 	}
-	return &o.LastSyncStart, true
+	return o.LastSyncStart, true
 }
 
-// SetLastSyncStart sets field value
+// HasLastSyncStart returns a boolean if a field has been set.
+func (o *SyncStatus) HasLastSyncStart() bool {
+	if o != nil && o.LastSyncStart != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSyncStart gets a reference to the given time.Time and assigns it to the LastSyncStart field.
 func (o *SyncStatus) SetLastSyncStart(v time.Time) {
-	o.LastSyncStart = v
+	o.LastSyncStart = &v
 }
 
-// GetNextSyncStart returns the NextSyncStart field value
+// GetNextSyncStart returns the NextSyncStart field value if set, zero value otherwise.
 func (o *SyncStatus) GetNextSyncStart() time.Time {
-	if o == nil {
+	if o == nil || o.NextSyncStart == nil {
 		var ret time.Time
 		return ret
 	}
-
-	return o.NextSyncStart
+	return *o.NextSyncStart
 }
 
-// GetNextSyncStartOk returns a tuple with the NextSyncStart field value
+// GetNextSyncStartOk returns a tuple with the NextSyncStart field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SyncStatus) GetNextSyncStartOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil || o.NextSyncStart == nil {
 		return nil, false
 	}
-	return &o.NextSyncStart, true
+	return o.NextSyncStart, true
 }
 
-// SetNextSyncStart sets field value
+// HasNextSyncStart returns a boolean if a field has been set.
+func (o *SyncStatus) HasNextSyncStart() bool {
+	if o != nil && o.NextSyncStart != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNextSyncStart gets a reference to the given time.Time and assigns it to the NextSyncStart field.
 func (o *SyncStatus) SetNextSyncStart(v time.Time) {
-	o.NextSyncStart = v
+	o.NextSyncStart = &v
 }
 
 // GetStatus returns the Status field value
@@ -195,6 +210,38 @@ func (o *SyncStatus) SetIsInitialSync(v bool) {
 	o.IsInitialSync = v
 }
 
+// GetSelectiveSyncConfigurationsUsage returns the SelectiveSyncConfigurationsUsage field value if set, zero value otherwise.
+func (o *SyncStatus) GetSelectiveSyncConfigurationsUsage() SelectiveSyncConfigurationsUsageEnum {
+	if o == nil || o.SelectiveSyncConfigurationsUsage == nil {
+		var ret SelectiveSyncConfigurationsUsageEnum
+		return ret
+	}
+	return *o.SelectiveSyncConfigurationsUsage
+}
+
+// GetSelectiveSyncConfigurationsUsageOk returns a tuple with the SelectiveSyncConfigurationsUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SyncStatus) GetSelectiveSyncConfigurationsUsageOk() (*SelectiveSyncConfigurationsUsageEnum, bool) {
+	if o == nil || o.SelectiveSyncConfigurationsUsage == nil {
+		return nil, false
+	}
+	return o.SelectiveSyncConfigurationsUsage, true
+}
+
+// HasSelectiveSyncConfigurationsUsage returns a boolean if a field has been set.
+func (o *SyncStatus) HasSelectiveSyncConfigurationsUsage() bool {
+	if o != nil && o.SelectiveSyncConfigurationsUsage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSelectiveSyncConfigurationsUsage gets a reference to the given SelectiveSyncConfigurationsUsageEnum and assigns it to the SelectiveSyncConfigurationsUsage field.
+func (o *SyncStatus) SetSelectiveSyncConfigurationsUsage(v SelectiveSyncConfigurationsUsageEnum) {
+	o.SelectiveSyncConfigurationsUsage = &v
+}
+
 func (o SyncStatus) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -203,10 +250,10 @@ func (o SyncStatus) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["model_id"] = o.ModelId
 	}
-	if true {
+	if o.LastSyncStart != nil {
 		toSerialize["last_sync_start"] = o.LastSyncStart
 	}
-	if true {
+	if o.NextSyncStart != nil {
 		toSerialize["next_sync_start"] = o.NextSyncStart
 	}
 	if true {
@@ -214,6 +261,9 @@ func (o SyncStatus) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["is_initial_sync"] = o.IsInitialSync
+	}
+	if o.SelectiveSyncConfigurationsUsage != nil {
+		toSerialize["selective_sync_configurations_usage"] = o.SelectiveSyncConfigurationsUsage
 	}
 	return json.Marshal(toSerialize)
 }

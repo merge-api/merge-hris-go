@@ -13,9 +13,10 @@ package merge_hris_client
 
 import (
 	"encoding/json"
+	"time"
 )
 
-// Company # The Company Object ### Description The `Company` object is used to represent a Company within the HRIS / Payroll system.  ### Usage Example Fetch from the `LIST Companies` endpoint and filter by `ID` to show all companies.
+// Company # The Company Object ### Description The `Company` object is used to represent a company within the HRIS / Payroll system.  ### Usage Example Fetch from the `LIST Companies` endpoint and filter by `ID` to show all companies.
 type Company struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
@@ -26,11 +27,14 @@ type Company struct {
 	DisplayName NullableString `json:"display_name,omitempty"`
 	// The company's Employer Identification Numbers.
 	Eins []string `json:"eins,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// Indicates whether or not this object has been deleted by third party webhooks.
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	// This is the datetime that this object was last updated by Merge
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewCompany instantiates a new Company object
@@ -241,6 +245,103 @@ func (o *Company) SetEins(v []string) {
 	o.Eins = v
 }
 
+// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
+func (o *Company) GetRemoteWasDeleted() bool {
+	if o == nil || o.RemoteWasDeleted == nil {
+		var ret bool
+		return ret
+	}
+	return *o.RemoteWasDeleted
+}
+
+// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Company) GetRemoteWasDeletedOk() (*bool, bool) {
+	if o == nil || o.RemoteWasDeleted == nil {
+		return nil, false
+	}
+	return o.RemoteWasDeleted, true
+}
+
+// HasRemoteWasDeleted returns a boolean if a field has been set.
+func (o *Company) HasRemoteWasDeleted() bool {
+	if o != nil && o.RemoteWasDeleted != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
+func (o *Company) SetRemoteWasDeleted(v bool) {
+	o.RemoteWasDeleted = &v
+}
+
+// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Company) GetFieldMappings() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.FieldMappings
+}
+
+// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Company) GetFieldMappingsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.FieldMappings == nil {
+		return nil, false
+	}
+	return &o.FieldMappings, true
+}
+
+// HasFieldMappings returns a boolean if a field has been set.
+func (o *Company) HasFieldMappings() bool {
+	if o != nil && o.FieldMappings != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFieldMappings gets a reference to the given map[string]interface{} and assigns it to the FieldMappings field.
+func (o *Company) SetFieldMappings(v map[string]interface{}) {
+	o.FieldMappings = v
+}
+
+// GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
+func (o *Company) GetModifiedAt() time.Time {
+	if o == nil || o.ModifiedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.ModifiedAt
+}
+
+// GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Company) GetModifiedAtOk() (*time.Time, bool) {
+	if o == nil || o.ModifiedAt == nil {
+		return nil, false
+	}
+	return o.ModifiedAt, true
+}
+
+// HasModifiedAt returns a boolean if a field has been set.
+func (o *Company) HasModifiedAt() bool {
+	if o != nil && o.ModifiedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetModifiedAt gets a reference to the given time.Time and assigns it to the ModifiedAt field.
+func (o *Company) SetModifiedAt(v time.Time) {
+	o.ModifiedAt = &v
+}
+
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Company) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -274,38 +375,6 @@ func (o *Company) SetRemoteData(v []RemoteData) {
 	o.RemoteData = v
 }
 
-// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
-func (o *Company) GetRemoteWasDeleted() bool {
-	if o == nil || o.RemoteWasDeleted == nil {
-		var ret bool
-		return ret
-	}
-	return *o.RemoteWasDeleted
-}
-
-// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Company) GetRemoteWasDeletedOk() (*bool, bool) {
-	if o == nil || o.RemoteWasDeleted == nil {
-		return nil, false
-	}
-	return o.RemoteWasDeleted, true
-}
-
-// HasRemoteWasDeleted returns a boolean if a field has been set.
-func (o *Company) HasRemoteWasDeleted() bool {
-	if o != nil && o.RemoteWasDeleted != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
-func (o *Company) SetRemoteWasDeleted(v bool) {
-	o.RemoteWasDeleted = &v
-}
-
 func (o Company) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -323,11 +392,17 @@ func (o Company) MarshalJSON() ([]byte, error) {
 	if o.Eins != nil {
 		toSerialize["eins"] = o.Eins
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
-	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
+	}
+	if o.FieldMappings != nil {
+		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.ModifiedAt != nil {
+		toSerialize["modified_at"] = o.ModifiedAt
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

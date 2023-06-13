@@ -16,31 +16,36 @@ import (
 	"time"
 )
 
-// TimeOff # The TimeOff Object ### Description The `TimeOff` object is used to represent a Time Off Request filed by an employee.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
+// TimeOff # The TimeOff Object ### Description The `TimeOff` object is used to represent all employees' Time Off entries.  ### Usage Example Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
 type TimeOff struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
+	// The employee requesting time off.
 	Employee NullableString `json:"employee,omitempty"`
+	// The Merge ID of the employee with the ability to approve the time off request.
 	Approver NullableString `json:"approver,omitempty"`
-	// The status of this time off request.
+	// The status of this time off request.  * `REQUESTED` - REQUESTED * `APPROVED` - APPROVED * `DECLINED` - DECLINED * `CANCELLED` - CANCELLED * `DELETED` - DELETED
 	Status NullableTimeOffStatusEnum `json:"status,omitempty"`
 	// The employee note for this time off request.
 	EmployeeNote NullableString `json:"employee_note,omitempty"`
-	// The unit of time requested.
+	// The measurement that the third-party integration uses to count time requested.  * `HOURS` - HOURS * `DAYS` - DAYS
 	Units NullableUnitsEnum `json:"units,omitempty"`
-	// The number of time off units requested.
-	Amount NullableFloat32 `json:"amount,omitempty"`
-	// The type of time off request.
+	// The time off quantity measured by the prescribed “units”.
+	Amount NullableFloat64 `json:"amount,omitempty"`
+	// The type of time off request.  * `VACATION` - VACATION * `SICK` - SICK * `PERSONAL` - PERSONAL * `JURY_DUTY` - JURY_DUTY * `VOLUNTEER` - VOLUNTEER * `BEREAVEMENT` - BEREAVEMENT
 	RequestType NullableRequestTypeEnum `json:"request_type,omitempty"`
 	// The day and time of the start of the time requested off.
 	StartTime NullableTime `json:"start_time,omitempty"`
 	// The day and time of the end of the time requested off.
 	EndTime NullableTime `json:"end_time,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	// This is the datetime that this object was last updated by Merge
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTimeOff instantiates a new TimeOff object
@@ -345,9 +350,9 @@ func (o *TimeOff) UnsetUnits() {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TimeOff) GetAmount() float32 {
+func (o *TimeOff) GetAmount() float64 {
 	if o == nil || o.Amount.Get() == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Amount.Get()
@@ -356,7 +361,7 @@ func (o *TimeOff) GetAmount() float32 {
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TimeOff) GetAmountOk() (*float32, bool) {
+func (o *TimeOff) GetAmountOk() (*float64, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -372,8 +377,8 @@ func (o *TimeOff) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given NullableFloat32 and assigns it to the Amount field.
-func (o *TimeOff) SetAmount(v float32) {
+// SetAmount gets a reference to the given NullableFloat64 and assigns it to the Amount field.
+func (o *TimeOff) SetAmount(v float64) {
 	o.Amount.Set(&v)
 }
 // SetAmountNil sets the value for Amount to be an explicit nil
@@ -512,6 +517,103 @@ func (o *TimeOff) UnsetEndTime() {
 	o.EndTime.Unset()
 }
 
+// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
+func (o *TimeOff) GetRemoteWasDeleted() bool {
+	if o == nil || o.RemoteWasDeleted == nil {
+		var ret bool
+		return ret
+	}
+	return *o.RemoteWasDeleted
+}
+
+// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimeOff) GetRemoteWasDeletedOk() (*bool, bool) {
+	if o == nil || o.RemoteWasDeleted == nil {
+		return nil, false
+	}
+	return o.RemoteWasDeleted, true
+}
+
+// HasRemoteWasDeleted returns a boolean if a field has been set.
+func (o *TimeOff) HasRemoteWasDeleted() bool {
+	if o != nil && o.RemoteWasDeleted != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
+func (o *TimeOff) SetRemoteWasDeleted(v bool) {
+	o.RemoteWasDeleted = &v
+}
+
+// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TimeOff) GetFieldMappings() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.FieldMappings
+}
+
+// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TimeOff) GetFieldMappingsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.FieldMappings == nil {
+		return nil, false
+	}
+	return &o.FieldMappings, true
+}
+
+// HasFieldMappings returns a boolean if a field has been set.
+func (o *TimeOff) HasFieldMappings() bool {
+	if o != nil && o.FieldMappings != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFieldMappings gets a reference to the given map[string]interface{} and assigns it to the FieldMappings field.
+func (o *TimeOff) SetFieldMappings(v map[string]interface{}) {
+	o.FieldMappings = v
+}
+
+// GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
+func (o *TimeOff) GetModifiedAt() time.Time {
+	if o == nil || o.ModifiedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.ModifiedAt
+}
+
+// GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimeOff) GetModifiedAtOk() (*time.Time, bool) {
+	if o == nil || o.ModifiedAt == nil {
+		return nil, false
+	}
+	return o.ModifiedAt, true
+}
+
+// HasModifiedAt returns a boolean if a field has been set.
+func (o *TimeOff) HasModifiedAt() bool {
+	if o != nil && o.ModifiedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetModifiedAt gets a reference to the given time.Time and assigns it to the ModifiedAt field.
+func (o *TimeOff) SetModifiedAt(v time.Time) {
+	o.ModifiedAt = &v
+}
+
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TimeOff) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -543,38 +645,6 @@ func (o *TimeOff) HasRemoteData() bool {
 // SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
 func (o *TimeOff) SetRemoteData(v []RemoteData) {
 	o.RemoteData = v
-}
-
-// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
-func (o *TimeOff) GetRemoteWasDeleted() bool {
-	if o == nil || o.RemoteWasDeleted == nil {
-		var ret bool
-		return ret
-	}
-	return *o.RemoteWasDeleted
-}
-
-// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TimeOff) GetRemoteWasDeletedOk() (*bool, bool) {
-	if o == nil || o.RemoteWasDeleted == nil {
-		return nil, false
-	}
-	return o.RemoteWasDeleted, true
-}
-
-// HasRemoteWasDeleted returns a boolean if a field has been set.
-func (o *TimeOff) HasRemoteWasDeleted() bool {
-	if o != nil && o.RemoteWasDeleted != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
-func (o *TimeOff) SetRemoteWasDeleted(v bool) {
-	o.RemoteWasDeleted = &v
 }
 
 func (o TimeOff) MarshalJSON() ([]byte, error) {
@@ -612,11 +682,17 @@ func (o TimeOff) MarshalJSON() ([]byte, error) {
 	if o.EndTime.IsSet() {
 		toSerialize["end_time"] = o.EndTime.Get()
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
-	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
+	}
+	if o.FieldMappings != nil {
+		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.ModifiedAt != nil {
+		toSerialize["modified_at"] = o.ModifiedAt
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

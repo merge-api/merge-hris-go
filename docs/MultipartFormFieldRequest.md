@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The name of the form field | 
 **Data** | **string** | The data for the form field. | 
-**Encoding** | Pointer to [**NullableEncodingEnum**](EncodingEnum.md) | The encoding of the value of &#x60;data&#x60;. Defaults to &#x60;RAW&#x60; if not defined. | [optional] 
+**Encoding** | Pointer to [**NullableEncodingEnum**](EncodingEnum.md) | The encoding of the value of &#x60;data&#x60;. Defaults to &#x60;RAW&#x60; if not defined.  * &#x60;RAW&#x60; - RAW * &#x60;BASE64&#x60; - BASE64 * &#x60;GZIP_BASE64&#x60; - GZIP_BASE64 | [optional] 
 **FileName** | Pointer to **NullableString** | The file name of the form field, if the field is for a file. | [optional] 
 **ContentType** | Pointer to **NullableString** | The MIME type of the file, if the field is for a file. | [optional] 
 

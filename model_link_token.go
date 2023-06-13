@@ -18,20 +18,19 @@ import (
 // LinkToken struct for LinkToken
 type LinkToken struct {
 	LinkToken string `json:"link_token"`
-	IntegrationName string `json:"integration_name"`
+	IntegrationName *string `json:"integration_name,omitempty"`
 	MagicLinkUrl *string `json:"magic_link_url,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewLinkToken instantiates a new LinkToken object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLinkToken(linkToken string, integrationName string) *LinkToken {
+func NewLinkToken(linkToken string) *LinkToken {
 	this := LinkToken{}
 	this.LinkToken = linkToken
-	this.IntegrationName = integrationName
 	return &this
 }
 
@@ -67,28 +66,36 @@ func (o *LinkToken) SetLinkToken(v string) {
 	o.LinkToken = v
 }
 
-// GetIntegrationName returns the IntegrationName field value
+// GetIntegrationName returns the IntegrationName field value if set, zero value otherwise.
 func (o *LinkToken) GetIntegrationName() string {
-	if o == nil {
+	if o == nil || o.IntegrationName == nil {
 		var ret string
 		return ret
 	}
-
-	return o.IntegrationName
+	return *o.IntegrationName
 }
 
-// GetIntegrationNameOk returns a tuple with the IntegrationName field value
+// GetIntegrationNameOk returns a tuple with the IntegrationName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkToken) GetIntegrationNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.IntegrationName == nil {
 		return nil, false
 	}
-	return &o.IntegrationName, true
+	return o.IntegrationName, true
 }
 
-// SetIntegrationName sets field value
+// HasIntegrationName returns a boolean if a field has been set.
+func (o *LinkToken) HasIntegrationName() bool {
+	if o != nil && o.IntegrationName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationName gets a reference to the given string and assigns it to the IntegrationName field.
 func (o *LinkToken) SetIntegrationName(v string) {
-	o.IntegrationName = v
+	o.IntegrationName = &v
 }
 
 // GetMagicLinkUrl returns the MagicLinkUrl field value if set, zero value otherwise.
@@ -128,7 +135,7 @@ func (o LinkToken) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["link_token"] = o.LinkToken
 	}
-	if true {
+	if o.IntegrationName != nil {
 		toSerialize["integration_name"] = o.IntegrationName
 	}
 	if o.MagicLinkUrl != nil {

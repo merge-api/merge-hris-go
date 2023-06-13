@@ -5,12 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
-**Status** | Pointer to [**IssueStatusEnum**](IssueStatusEnum.md) |  | [optional] 
+**Status** | Pointer to [**IssueStatusEnum**](IssueStatusEnum.md) | Status of the issue. Options: (&#39;ONGOING&#39;, &#39;RESOLVED&#39;)  * &#x60;ONGOING&#x60; - ONGOING * &#x60;RESOLVED&#x60; - RESOLVED | [optional] 
 **ErrorDescription** | **string** |  | 
 **EndUser** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 **FirstIncidentTime** | Pointer to **NullableTime** |  | [optional] 
 **LastIncidentTime** | Pointer to **NullableTime** |  | [optional] 
 **IsMuted** | Pointer to **bool** |  | [optional] [readonly] 
+**ErrorDetails** | Pointer to **[]string** |  | [optional] [readonly] 
 
 ## Methods
 
@@ -220,6 +221,31 @@ SetIsMuted sets IsMuted field to given value.
 `func (o *Issue) HasIsMuted() bool`
 
 HasIsMuted returns a boolean if a field has been set.
+
+### GetErrorDetails
+
+`func (o *Issue) GetErrorDetails() []string`
+
+GetErrorDetails returns the ErrorDetails field if non-nil, zero value otherwise.
+
+### GetErrorDetailsOk
+
+`func (o *Issue) GetErrorDetailsOk() (*[]string, bool)`
+
+GetErrorDetailsOk returns a tuple with the ErrorDetails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErrorDetails
+
+`func (o *Issue) SetErrorDetails(v []string)`
+
+SetErrorDetails sets ErrorDetails field to given value.
+
+### HasErrorDetails
+
+`func (o *Issue) HasErrorDetails() bool`
+
+HasErrorDetails returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -16,12 +16,11 @@ import (
 	"time"
 )
 
-// EmployeeRequest # The Employee Object ### Description The `Employee` object is used to represent an Employee for a company.  ### Usage Example Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
+// EmployeeRequest # The Employee Object ### Description The `Employee` object is used to represent any person who has been employed by a company.  ### Usage Example Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
 type EmployeeRequest struct {
-	// The third-party API ID of the matching object.
-	RemoteId NullableString `json:"remote_id,omitempty"`
-	// The employee's number that appears in the remote UI. Note: This is distinct from the remote_id field, which is a unique identifier for the employee set by the remote API, and is not exposed to the user. This value can also change in many API providers.
+	// The employee's number that appears in the third-party integration's UI.
 	EmployeeNumber NullableString `json:"employee_number,omitempty"`
+	// The ID of the employee's company.
 	Company NullableString `json:"company,omitempty"`
 	// The employee's first name.
 	FirstName NullableString `json:"first_name,omitempty"`
@@ -40,37 +39,40 @@ type EmployeeRequest struct {
 	MobilePhoneNumber NullableString `json:"mobile_phone_number,omitempty"`
 	// Array of `Employment` IDs for this Employee.
 	Employments *[]string `json:"employments,omitempty"`
+	// The employee's home address.
 	HomeLocation NullableString `json:"home_location,omitempty"`
+	// The employee's work address.
 	WorkLocation NullableString `json:"work_location,omitempty"`
+	// The employee ID of the employee's manager.
 	Manager NullableString `json:"manager,omitempty"`
+	// The employee's team.
 	Team NullableString `json:"team,omitempty"`
+	// The employee's pay group
 	PayGroup NullableString `json:"pay_group,omitempty"`
 	// The employee's social security number.
 	Ssn NullableString `json:"ssn,omitempty"`
-	// The employee's gender.
+	// The employee's gender.  * `MALE` - MALE * `FEMALE` - FEMALE * `NON-BINARY` - NON-BINARY * `OTHER` - OTHER * `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
 	Gender NullableGenderEnum `json:"gender,omitempty"`
-	// The employee's ethnicity.
+	// The employee's ethnicity.  * `AMERICAN_INDIAN_OR_ALASKA_NATIVE` - AMERICAN_INDIAN_OR_ALASKA_NATIVE * `ASIAN_OR_INDIAN_SUBCONTINENT` - ASIAN_OR_INDIAN_SUBCONTINENT * `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN * `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO * `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER * `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES * `WHITE` - WHITE * `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
 	Ethnicity NullableEthnicityEnum `json:"ethnicity,omitempty"`
-	// The employee's marital status.
+	// The employee's filing status as related to marital status.  * `SINGLE` - SINGLE * `MARRIED_FILING_JOINTLY` - MARRIED_FILING_JOINTLY * `MARRIED_FILING_SEPARATELY` - MARRIED_FILING_SEPARATELY * `HEAD_OF_HOUSEHOLD` - HEAD_OF_HOUSEHOLD * `QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD` - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
 	MaritalStatus NullableMaritalStatusEnum `json:"marital_status,omitempty"`
 	// The employee's date of birth.
 	DateOfBirth NullableTime `json:"date_of_birth,omitempty"`
 	// The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you're looking for the employee's start date, refer to the start_date field.
 	HireDate NullableTime `json:"hire_date,omitempty"`
-	// The date that the employee started working. If an employee has multiple start dates from previous employments, this represents the most recent start date.
+	// The date that the employee started working. If an employee was rehired, the most recent start date will be returned.
 	StartDate NullableTime `json:"start_date,omitempty"`
-	// When the third party's employee was created.
-	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
-	// The employment status of the employee.
+	// The employment status of the employee.  * `ACTIVE` - ACTIVE * `PENDING` - PENDING * `INACTIVE` - INACTIVE
 	EmploymentStatus NullableEmploymentStatusEnum `json:"employment_status,omitempty"`
 	// The employee's termination date.
 	TerminationDate NullableTime `json:"termination_date,omitempty"`
 	// The URL of the employee's avatar image.
 	Avatar NullableString `json:"avatar,omitempty"`
-	// Custom fields configured for a given model.
-	CustomFields map[string]interface{} `json:"custom_fields,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	IntegrationParams map[string]interface{} `json:"integration_params,omitempty"`
+	LinkedAccountParams map[string]interface{} `json:"linked_account_params,omitempty"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEmployeeRequest instantiates a new EmployeeRequest object
@@ -88,48 +90,6 @@ func NewEmployeeRequest() *EmployeeRequest {
 func NewEmployeeRequestWithDefaults() *EmployeeRequest {
 	this := EmployeeRequest{}
 	return &this
-}
-
-// GetRemoteId returns the RemoteId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *EmployeeRequest) GetRemoteId() string {
-	if o == nil || o.RemoteId.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.RemoteId.Get()
-}
-
-// GetRemoteIdOk returns a tuple with the RemoteId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *EmployeeRequest) GetRemoteIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteId.Get(), o.RemoteId.IsSet()
-}
-
-// HasRemoteId returns a boolean if a field has been set.
-func (o *EmployeeRequest) HasRemoteId() bool {
-	if o != nil && o.RemoteId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteId gets a reference to the given NullableString and assigns it to the RemoteId field.
-func (o *EmployeeRequest) SetRemoteId(v string) {
-	o.RemoteId.Set(&v)
-}
-// SetRemoteIdNil sets the value for RemoteId to be an explicit nil
-func (o *EmployeeRequest) SetRemoteIdNil() {
-	o.RemoteId.Set(nil)
-}
-
-// UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
-func (o *EmployeeRequest) UnsetRemoteId() {
-	o.RemoteId.Unset()
 }
 
 // GetEmployeeNumber returns the EmployeeNumber field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1078,48 +1038,6 @@ func (o *EmployeeRequest) UnsetStartDate() {
 	o.StartDate.Unset()
 }
 
-// GetRemoteCreatedAt returns the RemoteCreatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *EmployeeRequest) GetRemoteCreatedAt() time.Time {
-	if o == nil || o.RemoteCreatedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.RemoteCreatedAt.Get()
-}
-
-// GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *EmployeeRequest) GetRemoteCreatedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteCreatedAt.Get(), o.RemoteCreatedAt.IsSet()
-}
-
-// HasRemoteCreatedAt returns a boolean if a field has been set.
-func (o *EmployeeRequest) HasRemoteCreatedAt() bool {
-	if o != nil && o.RemoteCreatedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteCreatedAt gets a reference to the given NullableTime and assigns it to the RemoteCreatedAt field.
-func (o *EmployeeRequest) SetRemoteCreatedAt(v time.Time) {
-	o.RemoteCreatedAt.Set(&v)
-}
-// SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
-func (o *EmployeeRequest) SetRemoteCreatedAtNil() {
-	o.RemoteCreatedAt.Set(nil)
-}
-
-// UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
-func (o *EmployeeRequest) UnsetRemoteCreatedAt() {
-	o.RemoteCreatedAt.Unset()
-}
-
 // GetEmploymentStatus returns the EmploymentStatus field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *EmployeeRequest) GetEmploymentStatus() EmploymentStatusEnum {
 	if o == nil || o.EmploymentStatus.Get() == nil {
@@ -1246,44 +1164,74 @@ func (o *EmployeeRequest) UnsetAvatar() {
 	o.Avatar.Unset()
 }
 
-// GetCustomFields returns the CustomFields field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *EmployeeRequest) GetCustomFields() map[string]interface{} {
+// GetIntegrationParams returns the IntegrationParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployeeRequest) GetIntegrationParams() map[string]interface{} {
 	if o == nil  {
 		var ret map[string]interface{}
 		return ret
 	}
-	return o.CustomFields
+	return o.IntegrationParams
 }
 
-// GetCustomFieldsOk returns a tuple with the CustomFields field value if set, nil otherwise
+// GetIntegrationParamsOk returns a tuple with the IntegrationParams field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *EmployeeRequest) GetCustomFieldsOk() (*map[string]interface{}, bool) {
-	if o == nil || o.CustomFields == nil {
+func (o *EmployeeRequest) GetIntegrationParamsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.IntegrationParams == nil {
 		return nil, false
 	}
-	return &o.CustomFields, true
+	return &o.IntegrationParams, true
 }
 
-// HasCustomFields returns a boolean if a field has been set.
-func (o *EmployeeRequest) HasCustomFields() bool {
-	if o != nil && o.CustomFields != nil {
+// HasIntegrationParams returns a boolean if a field has been set.
+func (o *EmployeeRequest) HasIntegrationParams() bool {
+	if o != nil && o.IntegrationParams != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomFields gets a reference to the given map[string]interface{} and assigns it to the CustomFields field.
-func (o *EmployeeRequest) SetCustomFields(v map[string]interface{}) {
-	o.CustomFields = v
+// SetIntegrationParams gets a reference to the given map[string]interface{} and assigns it to the IntegrationParams field.
+func (o *EmployeeRequest) SetIntegrationParams(v map[string]interface{}) {
+	o.IntegrationParams = v
+}
+
+// GetLinkedAccountParams returns the LinkedAccountParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EmployeeRequest) GetLinkedAccountParams() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.LinkedAccountParams
+}
+
+// GetLinkedAccountParamsOk returns a tuple with the LinkedAccountParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EmployeeRequest) GetLinkedAccountParamsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.LinkedAccountParams == nil {
+		return nil, false
+	}
+	return &o.LinkedAccountParams, true
+}
+
+// HasLinkedAccountParams returns a boolean if a field has been set.
+func (o *EmployeeRequest) HasLinkedAccountParams() bool {
+	if o != nil && o.LinkedAccountParams != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLinkedAccountParams gets a reference to the given map[string]interface{} and assigns it to the LinkedAccountParams field.
+func (o *EmployeeRequest) SetLinkedAccountParams(v map[string]interface{}) {
+	o.LinkedAccountParams = v
 }
 
 func (o EmployeeRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RemoteId.IsSet() {
-		toSerialize["remote_id"] = o.RemoteId.Get()
-	}
 	if o.EmployeeNumber.IsSet() {
 		toSerialize["employee_number"] = o.EmployeeNumber.Get()
 	}
@@ -1353,9 +1301,6 @@ func (o EmployeeRequest) MarshalJSON() ([]byte, error) {
 	if o.StartDate.IsSet() {
 		toSerialize["start_date"] = o.StartDate.Get()
 	}
-	if o.RemoteCreatedAt.IsSet() {
-		toSerialize["remote_created_at"] = o.RemoteCreatedAt.Get()
-	}
 	if o.EmploymentStatus.IsSet() {
 		toSerialize["employment_status"] = o.EmploymentStatus.Get()
 	}
@@ -1365,8 +1310,11 @@ func (o EmployeeRequest) MarshalJSON() ([]byte, error) {
 	if o.Avatar.IsSet() {
 		toSerialize["avatar"] = o.Avatar.Get()
 	}
-	if o.CustomFields != nil {
-		toSerialize["custom_fields"] = o.CustomFields
+	if o.IntegrationParams != nil {
+		toSerialize["integration_params"] = o.IntegrationParams
+	}
+	if o.LinkedAccountParams != nil {
+		toSerialize["linked_account_params"] = o.LinkedAccountParams
 	}
 	return json.Marshal(toSerialize)
 }

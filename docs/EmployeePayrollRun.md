@@ -6,18 +6,20 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**Employee** | Pointer to **NullableString** |  | [optional] 
-**PayrollRun** | Pointer to **NullableString** |  | [optional] 
-**GrossPay** | Pointer to **NullableFloat32** | The gross pay from the run. | [optional] 
-**NetPay** | Pointer to **NullableFloat32** | The net pay from the run. | [optional] 
+**Employee** | Pointer to **NullableString** | The employee whose payroll is being run. | [optional] 
+**PayrollRun** | Pointer to **NullableString** | The payroll being run. | [optional] 
+**GrossPay** | Pointer to **NullableFloat64** | The total earnings throughout a given period for an employee before any deductions are made. | [optional] 
+**NetPay** | Pointer to **NullableFloat64** | The take-home pay throughout a given period for an employee after deductions are made. | [optional] 
 **StartDate** | Pointer to **NullableTime** | The day and time the payroll run started. | [optional] 
 **EndDate** | Pointer to **NullableTime** | The day and time the payroll run ended. | [optional] 
 **CheckDate** | Pointer to **NullableTime** | The day and time the payroll run was checked. | [optional] 
 **Earnings** | Pointer to [**[]Earning**](Earning.md) |  | [optional] [readonly] 
 **Deductions** | Pointer to [**[]Deduction**](Deduction.md) |  | [optional] [readonly] 
 **Taxes** | Pointer to [**[]Tax**](Tax.md) |  | [optional] [readonly] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 **RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted by third party webhooks. | [optional] [readonly] 
+**FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**ModifiedAt** | Pointer to **time.Time** | This is the datetime that this object was last updated by Merge | [optional] [readonly] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -170,20 +172,20 @@ HasPayrollRun returns a boolean if a field has been set.
 UnsetPayrollRun ensures that no value is present for PayrollRun, not even an explicit nil
 ### GetGrossPay
 
-`func (o *EmployeePayrollRun) GetGrossPay() float32`
+`func (o *EmployeePayrollRun) GetGrossPay() float64`
 
 GetGrossPay returns the GrossPay field if non-nil, zero value otherwise.
 
 ### GetGrossPayOk
 
-`func (o *EmployeePayrollRun) GetGrossPayOk() (*float32, bool)`
+`func (o *EmployeePayrollRun) GetGrossPayOk() (*float64, bool)`
 
 GetGrossPayOk returns a tuple with the GrossPay field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGrossPay
 
-`func (o *EmployeePayrollRun) SetGrossPay(v float32)`
+`func (o *EmployeePayrollRun) SetGrossPay(v float64)`
 
 SetGrossPay sets GrossPay field to given value.
 
@@ -205,20 +207,20 @@ HasGrossPay returns a boolean if a field has been set.
 UnsetGrossPay ensures that no value is present for GrossPay, not even an explicit nil
 ### GetNetPay
 
-`func (o *EmployeePayrollRun) GetNetPay() float32`
+`func (o *EmployeePayrollRun) GetNetPay() float64`
 
 GetNetPay returns the NetPay field if non-nil, zero value otherwise.
 
 ### GetNetPayOk
 
-`func (o *EmployeePayrollRun) GetNetPayOk() (*float32, bool)`
+`func (o *EmployeePayrollRun) GetNetPayOk() (*float64, bool)`
 
 GetNetPayOk returns a tuple with the NetPay field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNetPay
 
-`func (o *EmployeePayrollRun) SetNetPay(v float32)`
+`func (o *EmployeePayrollRun) SetNetPay(v float64)`
 
 SetNetPay sets NetPay field to given value.
 
@@ -418,6 +420,91 @@ SetTaxes sets Taxes field to given value.
 
 HasTaxes returns a boolean if a field has been set.
 
+### GetRemoteWasDeleted
+
+`func (o *EmployeePayrollRun) GetRemoteWasDeleted() bool`
+
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
+
+### GetRemoteWasDeletedOk
+
+`func (o *EmployeePayrollRun) GetRemoteWasDeletedOk() (*bool, bool)`
+
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteWasDeleted
+
+`func (o *EmployeePayrollRun) SetRemoteWasDeleted(v bool)`
+
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
+
+### HasRemoteWasDeleted
+
+`func (o *EmployeePayrollRun) HasRemoteWasDeleted() bool`
+
+HasRemoteWasDeleted returns a boolean if a field has been set.
+
+### GetFieldMappings
+
+`func (o *EmployeePayrollRun) GetFieldMappings() map[string]interface{}`
+
+GetFieldMappings returns the FieldMappings field if non-nil, zero value otherwise.
+
+### GetFieldMappingsOk
+
+`func (o *EmployeePayrollRun) GetFieldMappingsOk() (*map[string]interface{}, bool)`
+
+GetFieldMappingsOk returns a tuple with the FieldMappings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFieldMappings
+
+`func (o *EmployeePayrollRun) SetFieldMappings(v map[string]interface{})`
+
+SetFieldMappings sets FieldMappings field to given value.
+
+### HasFieldMappings
+
+`func (o *EmployeePayrollRun) HasFieldMappings() bool`
+
+HasFieldMappings returns a boolean if a field has been set.
+
+### SetFieldMappingsNil
+
+`func (o *EmployeePayrollRun) SetFieldMappingsNil(b bool)`
+
+ SetFieldMappingsNil sets the value for FieldMappings to be an explicit nil
+
+### UnsetFieldMappings
+`func (o *EmployeePayrollRun) UnsetFieldMappings()`
+
+UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetModifiedAt
+
+`func (o *EmployeePayrollRun) GetModifiedAt() time.Time`
+
+GetModifiedAt returns the ModifiedAt field if non-nil, zero value otherwise.
+
+### GetModifiedAtOk
+
+`func (o *EmployeePayrollRun) GetModifiedAtOk() (*time.Time, bool)`
+
+GetModifiedAtOk returns a tuple with the ModifiedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModifiedAt
+
+`func (o *EmployeePayrollRun) SetModifiedAt(v time.Time)`
+
+SetModifiedAt sets ModifiedAt field to given value.
+
+### HasModifiedAt
+
+`func (o *EmployeePayrollRun) HasModifiedAt() bool`
+
+HasModifiedAt returns a boolean if a field has been set.
+
 ### GetRemoteData
 
 `func (o *EmployeePayrollRun) GetRemoteData() []RemoteData`
@@ -453,31 +540,6 @@ HasRemoteData returns a boolean if a field has been set.
 `func (o *EmployeePayrollRun) UnsetRemoteData()`
 
 UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
-### GetRemoteWasDeleted
-
-`func (o *EmployeePayrollRun) GetRemoteWasDeleted() bool`
-
-GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
-
-### GetRemoteWasDeletedOk
-
-`func (o *EmployeePayrollRun) GetRemoteWasDeletedOk() (*bool, bool)`
-
-GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteWasDeleted
-
-`func (o *EmployeePayrollRun) SetRemoteWasDeleted(v bool)`
-
-SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
-
-### HasRemoteWasDeleted
-
-`func (o *EmployeePayrollRun) HasRemoteWasDeleted() bool`
-
-HasRemoteWasDeleted returns a boolean if a field has been set.
-
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## BankInfoList
 
-> PaginatedBankInfoList BankInfoList(ctx).XAccountToken(xAccountToken).AccountType(accountType).BankName(bankName).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).OrderBy(orderBy).PageSize(pageSize).RemoteFields(remoteFields).RemoteId(remoteId).Execute()
+> PaginatedBankInfoList BankInfoList(ctx).XAccountToken(xAccountToken).AccountType(accountType).BankName(bankName).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).OrderBy(orderBy).PageSize(pageSize).RemoteFields(remoteFields).RemoteId(remoteId).ShowEnumOrigins(showEnumOrigins).Execute()
 
 
 
@@ -32,7 +32,7 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    accountType := "accountType_example" // string | If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING') (optional)
+    accountType := "accountType_example" // string | If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')  * `SAVINGS` - SAVINGS * `CHECKING` - CHECKING (optional)
     bankName := "bankName_example" // string | If provided, will only return BankInfo's with this bank name. (optional)
     createdAfter := time.Now() // time.Time | If provided, will only return objects created after this datetime. (optional)
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
@@ -40,16 +40,17 @@ func main() {
     employeeId := "employeeId_example" // string | If provided, will only return bank accounts for this employee. (optional)
     includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
-    modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
+    modifiedAfter := time.Now() // time.Time | If provided, only objects synced by Merge after this date time will be returned. (optional)
+    modifiedBefore := time.Now() // time.Time | If provided, only objects synced by Merge before this date time will be returned. (optional)
     orderBy := "orderBy_example" // string | Overrides the default ordering for this endpoint. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
-    remoteFields := "account_type" // string | Which fields should be returned in non-normalized form. (optional)
+    remoteFields := "account_type" // string | Deprecated. Use show_enum_origins. (optional)
     remoteId := "remoteId_example" // string | The API provider's ID for the given object. (optional)
+    showEnumOrigins := "account_type" // string | Which fields should be returned in non-normalized form. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BankInfoApi.BankInfoList(context.Background()).XAccountToken(xAccountToken).AccountType(accountType).BankName(bankName).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).OrderBy(orderBy).PageSize(pageSize).RemoteFields(remoteFields).RemoteId(remoteId).Execute()
+    resp, r, err := api_client.BankInfoApi.BankInfoList(context.Background()).XAccountToken(xAccountToken).AccountType(accountType).BankName(bankName).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).EmployeeId(employeeId).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).OrderBy(orderBy).PageSize(pageSize).RemoteFields(remoteFields).RemoteId(remoteId).ShowEnumOrigins(showEnumOrigins).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BankInfoApi.BankInfoList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -71,7 +72,7 @@ Other parameters are passed through a pointer to a apiBankInfoListRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
- **accountType** | **string** | If provided, will only return BankInfo&#39;s with this account type. Options: (&#39;SAVINGS&#39;, &#39;CHECKING&#39;) | 
+ **accountType** | **string** | If provided, will only return BankInfo&#39;s with this account type. Options: (&#39;SAVINGS&#39;, &#39;CHECKING&#39;)  * &#x60;SAVINGS&#x60; - SAVINGS * &#x60;CHECKING&#x60; - CHECKING | 
  **bankName** | **string** | If provided, will only return BankInfo&#39;s with this bank name. | 
  **createdAfter** | **time.Time** | If provided, will only return objects created after this datetime. | 
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
@@ -79,12 +80,13 @@ Name | Type | Description  | Notes
  **employeeId** | **string** | If provided, will only return bank accounts for this employee. | 
  **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
- **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
+ **modifiedAfter** | **time.Time** | If provided, only objects synced by Merge after this date time will be returned. | 
+ **modifiedBefore** | **time.Time** | If provided, only objects synced by Merge before this date time will be returned. | 
  **orderBy** | **string** | Overrides the default ordering for this endpoint. | 
  **pageSize** | **int32** | Number of results to return per page. | 
- **remoteFields** | **string** | Which fields should be returned in non-normalized form. | 
+ **remoteFields** | **string** | Deprecated. Use show_enum_origins. | 
  **remoteId** | **string** | The API provider&#39;s ID for the given object. | 
+ **showEnumOrigins** | **string** | Which fields should be returned in non-normalized form. | 
 
 ### Return type
 
@@ -106,7 +108,7 @@ Name | Type | Description  | Notes
 
 ## BankInfoRetrieve
 
-> BankInfo BankInfoRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).Execute()
+> BankInfo BankInfoRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).ShowEnumOrigins(showEnumOrigins).Execute()
 
 
 
@@ -128,11 +130,12 @@ func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     id := TODO // string | 
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    remoteFields := "account_type" // string | Which fields should be returned in non-normalized form. (optional)
+    remoteFields := "account_type" // string | Deprecated. Use show_enum_origins. (optional)
+    showEnumOrigins := "account_type" // string | Which fields should be returned in non-normalized form. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.BankInfoApi.BankInfoRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).Execute()
+    resp, r, err := api_client.BankInfoApi.BankInfoRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).ShowEnumOrigins(showEnumOrigins).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `BankInfoApi.BankInfoRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -160,7 +163,8 @@ Name | Type | Description  | Notes
  **xAccountToken** | **string** | Token identifying the end user. | 
 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **remoteFields** | **string** | Which fields should be returned in non-normalized form. | 
+ **remoteFields** | **string** | Deprecated. Use show_enum_origins. | 
+ **showEnumOrigins** | **string** | Which fields should be returned in non-normalized form. | 
 
 ### Return type
 
