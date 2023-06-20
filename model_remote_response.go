@@ -20,18 +20,19 @@ type RemoteResponse struct {
 	Method string `json:"method"`
 	Path string `json:"path"`
 	Status int32 `json:"status"`
-	Response map[string]interface{} `json:"response"`
+	Response interface{} `json:"response"`
 	ResponseHeaders *map[string]interface{} `json:"response_headers,omitempty"`
+	ResponseType *ResponseTypeEnum `json:"response_type,omitempty"`
 	Headers *map[string]interface{} `json:"headers,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewRemoteResponse instantiates a new RemoteResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRemoteResponse(method string, path string, status int32, response map[string]interface{}) *RemoteResponse {
+func NewRemoteResponse(method string, path string, status int32, response interface{}) *RemoteResponse {
 	this := RemoteResponse{}
 	this.Method = method
 	this.Path = path
@@ -121,9 +122,10 @@ func (o *RemoteResponse) SetStatus(v int32) {
 }
 
 // GetResponse returns the Response field value
-func (o *RemoteResponse) GetResponse() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *RemoteResponse) GetResponse() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -132,15 +134,16 @@ func (o *RemoteResponse) GetResponse() map[string]interface{} {
 
 // GetResponseOk returns a tuple with the Response field value
 // and a boolean to check if the value has been set.
-func (o *RemoteResponse) GetResponseOk() (*map[string]interface{}, bool) {
-	if o == nil  {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RemoteResponse) GetResponseOk() (*interface{}, bool) {
+	if o == nil || o.Response == nil {
 		return nil, false
 	}
 	return &o.Response, true
 }
 
 // SetResponse sets field value
-func (o *RemoteResponse) SetResponse(v map[string]interface{}) {
+func (o *RemoteResponse) SetResponse(v interface{}) {
 	o.Response = v
 }
 
@@ -174,6 +177,38 @@ func (o *RemoteResponse) HasResponseHeaders() bool {
 // SetResponseHeaders gets a reference to the given map[string]interface{} and assigns it to the ResponseHeaders field.
 func (o *RemoteResponse) SetResponseHeaders(v map[string]interface{}) {
 	o.ResponseHeaders = &v
+}
+
+// GetResponseType returns the ResponseType field value if set, zero value otherwise.
+func (o *RemoteResponse) GetResponseType() ResponseTypeEnum {
+	if o == nil || o.ResponseType == nil {
+		var ret ResponseTypeEnum
+		return ret
+	}
+	return *o.ResponseType
+}
+
+// GetResponseTypeOk returns a tuple with the ResponseType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RemoteResponse) GetResponseTypeOk() (*ResponseTypeEnum, bool) {
+	if o == nil || o.ResponseType == nil {
+		return nil, false
+	}
+	return o.ResponseType, true
+}
+
+// HasResponseType returns a boolean if a field has been set.
+func (o *RemoteResponse) HasResponseType() bool {
+	if o != nil && o.ResponseType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetResponseType gets a reference to the given ResponseTypeEnum and assigns it to the ResponseType field.
+func (o *RemoteResponse) SetResponseType(v ResponseTypeEnum) {
+	o.ResponseType = &v
 }
 
 // GetHeaders returns the Headers field value if set, zero value otherwise.
@@ -219,11 +254,14 @@ func (o RemoteResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["status"] = o.Status
 	}
-	if true {
+	if o.Response != nil {
 		toSerialize["response"] = o.Response
 	}
 	if o.ResponseHeaders != nil {
 		toSerialize["response_headers"] = o.ResponseHeaders
+	}
+	if o.ResponseType != nil {
+		toSerialize["response_type"] = o.ResponseType
 	}
 	if o.Headers != nil {
 		toSerialize["headers"] = o.Headers

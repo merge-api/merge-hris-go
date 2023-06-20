@@ -18,11 +18,12 @@ import (
 // MetaResponse struct for MetaResponse
 type MetaResponse struct {
 	RequestSchema map[string]interface{} `json:"request_schema"`
+	RemoteFieldClasses *map[string]interface{} `json:"remote_field_classes,omitempty"`
 	Status *LinkedAccountStatus `json:"status,omitempty"`
 	HasConditionalParams bool `json:"has_conditional_params"`
 	HasRequiredLinkedAccountParams bool `json:"has_required_linked_account_params"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewMetaResponse instantiates a new MetaResponse object
@@ -67,6 +68,38 @@ func (o *MetaResponse) GetRequestSchemaOk() (*map[string]interface{}, bool) {
 // SetRequestSchema sets field value
 func (o *MetaResponse) SetRequestSchema(v map[string]interface{}) {
 	o.RequestSchema = v
+}
+
+// GetRemoteFieldClasses returns the RemoteFieldClasses field value if set, zero value otherwise.
+func (o *MetaResponse) GetRemoteFieldClasses() map[string]interface{} {
+	if o == nil || o.RemoteFieldClasses == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return *o.RemoteFieldClasses
+}
+
+// GetRemoteFieldClassesOk returns a tuple with the RemoteFieldClasses field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetaResponse) GetRemoteFieldClassesOk() (*map[string]interface{}, bool) {
+	if o == nil || o.RemoteFieldClasses == nil {
+		return nil, false
+	}
+	return o.RemoteFieldClasses, true
+}
+
+// HasRemoteFieldClasses returns a boolean if a field has been set.
+func (o *MetaResponse) HasRemoteFieldClasses() bool {
+	if o != nil && o.RemoteFieldClasses != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteFieldClasses gets a reference to the given map[string]interface{} and assigns it to the RemoteFieldClasses field.
+func (o *MetaResponse) SetRemoteFieldClasses(v map[string]interface{}) {
+	o.RemoteFieldClasses = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -153,6 +186,9 @@ func (o MetaResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["request_schema"] = o.RequestSchema
+	}
+	if o.RemoteFieldClasses != nil {
+		toSerialize["remote_field_classes"] = o.RemoteFieldClasses
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status

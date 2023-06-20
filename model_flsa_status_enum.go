@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// FlsaStatusEnum the model 'FlsaStatusEnum'
+// FlsaStatusEnum * `EXEMPT` - EXEMPT * `SALARIED_NONEXEMPT` - SALARIED_NONEXEMPT * `NONEXEMPT` - NONEXEMPT * `OWNER` - OWNER
 type FlsaStatusEnum string
 
 // apologies but this is to get around an import error

@@ -18,8 +18,8 @@ import (
 // TimeOffEndpointRequest struct for TimeOffEndpointRequest
 type TimeOffEndpointRequest struct {
 	Model TimeOffRequest `json:"model"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTimeOffEndpointRequest instantiates a new TimeOffEndpointRequest object

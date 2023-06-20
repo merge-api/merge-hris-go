@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// AccountTypeEnum the model 'AccountTypeEnum'
+// AccountTypeEnum * `SAVINGS` - SAVINGS * `CHECKING` - CHECKING
 type AccountTypeEnum string
 
 // apologies but this is to get around an import error

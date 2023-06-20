@@ -4,16 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**Employee** | Pointer to **NullableString** |  | [optional] 
-**Approver** | Pointer to **NullableString** |  | [optional] 
-**Status** | Pointer to [**NullableTimeOffStatusEnum**](TimeOffStatusEnum.md) | The status of this time off request. | [optional] 
+**Employee** | Pointer to **NullableString** | The employee requesting time off. | [optional] 
+**Approver** | Pointer to **NullableString** | The Merge ID of the employee with the ability to approve the time off request. | [optional] 
+**Status** | Pointer to [**NullableTimeOffStatusEnum**](TimeOffStatusEnum.md) | The status of this time off request.  * &#x60;REQUESTED&#x60; - REQUESTED * &#x60;APPROVED&#x60; - APPROVED * &#x60;DECLINED&#x60; - DECLINED * &#x60;CANCELLED&#x60; - CANCELLED * &#x60;DELETED&#x60; - DELETED | [optional] 
 **EmployeeNote** | Pointer to **NullableString** | The employee note for this time off request. | [optional] 
-**Units** | Pointer to [**NullableUnitsEnum**](UnitsEnum.md) | The unit of time requested. | [optional] 
-**Amount** | Pointer to **NullableFloat32** | The number of time off units requested. | [optional] 
-**RequestType** | Pointer to [**NullableRequestTypeEnum**](RequestTypeEnum.md) | The type of time off request. | [optional] 
+**Units** | Pointer to [**NullableUnitsEnum**](UnitsEnum.md) | The measurement that the third-party integration uses to count time requested.  * &#x60;HOURS&#x60; - HOURS * &#x60;DAYS&#x60; - DAYS | [optional] 
+**Amount** | Pointer to **NullableFloat64** | The time off quantity measured by the prescribed “units”. | [optional] 
+**RequestType** | Pointer to [**NullableRequestTypeEnum**](RequestTypeEnum.md) | The type of time off request.  * &#x60;VACATION&#x60; - VACATION * &#x60;SICK&#x60; - SICK * &#x60;PERSONAL&#x60; - PERSONAL * &#x60;JURY_DUTY&#x60; - JURY_DUTY * &#x60;VOLUNTEER&#x60; - VOLUNTEER * &#x60;BEREAVEMENT&#x60; - BEREAVEMENT | [optional] 
 **StartTime** | Pointer to **NullableTime** | The day and time of the start of the time requested off. | [optional] 
 **EndTime** | Pointer to **NullableTime** | The day and time of the end of the time requested off. | [optional] 
+**IntegrationParams** | Pointer to **map[string]interface{}** |  | [optional] 
+**LinkedAccountParams** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -34,41 +35,6 @@ NewTimeOffRequestWithDefaults instantiates a new TimeOffRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRemoteId
-
-`func (o *TimeOffRequest) GetRemoteId() string`
-
-GetRemoteId returns the RemoteId field if non-nil, zero value otherwise.
-
-### GetRemoteIdOk
-
-`func (o *TimeOffRequest) GetRemoteIdOk() (*string, bool)`
-
-GetRemoteIdOk returns a tuple with the RemoteId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteId
-
-`func (o *TimeOffRequest) SetRemoteId(v string)`
-
-SetRemoteId sets RemoteId field to given value.
-
-### HasRemoteId
-
-`func (o *TimeOffRequest) HasRemoteId() bool`
-
-HasRemoteId returns a boolean if a field has been set.
-
-### SetRemoteIdNil
-
-`func (o *TimeOffRequest) SetRemoteIdNil(b bool)`
-
- SetRemoteIdNil sets the value for RemoteId to be an explicit nil
-
-### UnsetRemoteId
-`func (o *TimeOffRequest) UnsetRemoteId()`
-
-UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
 ### GetEmployee
 
 `func (o *TimeOffRequest) GetEmployee() string`
@@ -246,20 +212,20 @@ HasUnits returns a boolean if a field has been set.
 UnsetUnits ensures that no value is present for Units, not even an explicit nil
 ### GetAmount
 
-`func (o *TimeOffRequest) GetAmount() float32`
+`func (o *TimeOffRequest) GetAmount() float64`
 
 GetAmount returns the Amount field if non-nil, zero value otherwise.
 
 ### GetAmountOk
 
-`func (o *TimeOffRequest) GetAmountOk() (*float32, bool)`
+`func (o *TimeOffRequest) GetAmountOk() (*float64, bool)`
 
 GetAmountOk returns a tuple with the Amount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmount
 
-`func (o *TimeOffRequest) SetAmount(v float32)`
+`func (o *TimeOffRequest) SetAmount(v float64)`
 
 SetAmount sets Amount field to given value.
 
@@ -384,6 +350,76 @@ HasEndTime returns a boolean if a field has been set.
 `func (o *TimeOffRequest) UnsetEndTime()`
 
 UnsetEndTime ensures that no value is present for EndTime, not even an explicit nil
+### GetIntegrationParams
+
+`func (o *TimeOffRequest) GetIntegrationParams() map[string]interface{}`
+
+GetIntegrationParams returns the IntegrationParams field if non-nil, zero value otherwise.
+
+### GetIntegrationParamsOk
+
+`func (o *TimeOffRequest) GetIntegrationParamsOk() (*map[string]interface{}, bool)`
+
+GetIntegrationParamsOk returns a tuple with the IntegrationParams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegrationParams
+
+`func (o *TimeOffRequest) SetIntegrationParams(v map[string]interface{})`
+
+SetIntegrationParams sets IntegrationParams field to given value.
+
+### HasIntegrationParams
+
+`func (o *TimeOffRequest) HasIntegrationParams() bool`
+
+HasIntegrationParams returns a boolean if a field has been set.
+
+### SetIntegrationParamsNil
+
+`func (o *TimeOffRequest) SetIntegrationParamsNil(b bool)`
+
+ SetIntegrationParamsNil sets the value for IntegrationParams to be an explicit nil
+
+### UnsetIntegrationParams
+`func (o *TimeOffRequest) UnsetIntegrationParams()`
+
+UnsetIntegrationParams ensures that no value is present for IntegrationParams, not even an explicit nil
+### GetLinkedAccountParams
+
+`func (o *TimeOffRequest) GetLinkedAccountParams() map[string]interface{}`
+
+GetLinkedAccountParams returns the LinkedAccountParams field if non-nil, zero value otherwise.
+
+### GetLinkedAccountParamsOk
+
+`func (o *TimeOffRequest) GetLinkedAccountParamsOk() (*map[string]interface{}, bool)`
+
+GetLinkedAccountParamsOk returns a tuple with the LinkedAccountParams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinkedAccountParams
+
+`func (o *TimeOffRequest) SetLinkedAccountParams(v map[string]interface{})`
+
+SetLinkedAccountParams sets LinkedAccountParams field to given value.
+
+### HasLinkedAccountParams
+
+`func (o *TimeOffRequest) HasLinkedAccountParams() bool`
+
+HasLinkedAccountParams returns a boolean if a field has been set.
+
+### SetLinkedAccountParamsNil
+
+`func (o *TimeOffRequest) SetLinkedAccountParamsNil(b bool)`
+
+ SetLinkedAccountParamsNil sets the value for LinkedAccountParams to be an explicit nil
+
+### UnsetLinkedAccountParams
+`func (o *TimeOffRequest) UnsetLinkedAccountParams()`
+
+UnsetLinkedAccountParams ensures that no value is present for LinkedAccountParams, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

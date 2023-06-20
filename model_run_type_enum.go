@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// RunTypeEnum the model 'RunTypeEnum'
+// RunTypeEnum * `REGULAR` - REGULAR * `OFF_CYCLE` - OFF_CYCLE * `CORRECTION` - CORRECTION * `TERMINATION` - TERMINATION * `SIGN_ON_BONUS` - SIGN_ON_BONUS
 type RunTypeEnum string
 
 // apologies but this is to get around an import error

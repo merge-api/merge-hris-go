@@ -6,12 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**Employee** | Pointer to **NullableString** |  | [optional] 
-**Balance** | Pointer to **NullableFloat32** | The current remaining PTO balance in terms of hours. This does not represent the starting PTO balance. If the API provider only provides PTO balance in terms of days, we estimate 8 hours per day. | [optional] 
-**Used** | Pointer to **NullableFloat32** | The amount of PTO used in terms of hours. | [optional] 
-**PolicyType** | Pointer to [**NullablePolicyTypeEnum**](PolicyTypeEnum.md) | The policy type of this time off balance. | [optional] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**Employee** | Pointer to **NullableString** | The employee the balance belongs to. | [optional] 
+**Balance** | Pointer to **NullableFloat64** | The current remaining PTO balance, always measured in terms of hours. | [optional] 
+**Used** | Pointer to **NullableFloat64** | The amount of PTO used in terms of hours. | [optional] 
+**PolicyType** | Pointer to [**NullablePolicyTypeEnum**](PolicyTypeEnum.md) | The policy type of this time off balance.  * &#x60;VACATION&#x60; - VACATION * &#x60;SICK&#x60; - SICK * &#x60;PERSONAL&#x60; - PERSONAL * &#x60;JURY_DUTY&#x60; - JURY_DUTY * &#x60;VOLUNTEER&#x60; - VOLUNTEER * &#x60;BEREAVEMENT&#x60; - BEREAVEMENT | [optional] 
 **RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted by third party webhooks. | [optional] [readonly] 
+**FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**ModifiedAt** | Pointer to **time.Time** | This is the datetime that this object was last updated by Merge | [optional] [readonly] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -129,20 +131,20 @@ HasEmployee returns a boolean if a field has been set.
 UnsetEmployee ensures that no value is present for Employee, not even an explicit nil
 ### GetBalance
 
-`func (o *TimeOffBalance) GetBalance() float32`
+`func (o *TimeOffBalance) GetBalance() float64`
 
 GetBalance returns the Balance field if non-nil, zero value otherwise.
 
 ### GetBalanceOk
 
-`func (o *TimeOffBalance) GetBalanceOk() (*float32, bool)`
+`func (o *TimeOffBalance) GetBalanceOk() (*float64, bool)`
 
 GetBalanceOk returns a tuple with the Balance field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBalance
 
-`func (o *TimeOffBalance) SetBalance(v float32)`
+`func (o *TimeOffBalance) SetBalance(v float64)`
 
 SetBalance sets Balance field to given value.
 
@@ -164,20 +166,20 @@ HasBalance returns a boolean if a field has been set.
 UnsetBalance ensures that no value is present for Balance, not even an explicit nil
 ### GetUsed
 
-`func (o *TimeOffBalance) GetUsed() float32`
+`func (o *TimeOffBalance) GetUsed() float64`
 
 GetUsed returns the Used field if non-nil, zero value otherwise.
 
 ### GetUsedOk
 
-`func (o *TimeOffBalance) GetUsedOk() (*float32, bool)`
+`func (o *TimeOffBalance) GetUsedOk() (*float64, bool)`
 
 GetUsedOk returns a tuple with the Used field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsed
 
-`func (o *TimeOffBalance) SetUsed(v float32)`
+`func (o *TimeOffBalance) SetUsed(v float64)`
 
 SetUsed sets Used field to given value.
 
@@ -232,6 +234,91 @@ HasPolicyType returns a boolean if a field has been set.
 `func (o *TimeOffBalance) UnsetPolicyType()`
 
 UnsetPolicyType ensures that no value is present for PolicyType, not even an explicit nil
+### GetRemoteWasDeleted
+
+`func (o *TimeOffBalance) GetRemoteWasDeleted() bool`
+
+GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
+
+### GetRemoteWasDeletedOk
+
+`func (o *TimeOffBalance) GetRemoteWasDeletedOk() (*bool, bool)`
+
+GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteWasDeleted
+
+`func (o *TimeOffBalance) SetRemoteWasDeleted(v bool)`
+
+SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
+
+### HasRemoteWasDeleted
+
+`func (o *TimeOffBalance) HasRemoteWasDeleted() bool`
+
+HasRemoteWasDeleted returns a boolean if a field has been set.
+
+### GetFieldMappings
+
+`func (o *TimeOffBalance) GetFieldMappings() map[string]interface{}`
+
+GetFieldMappings returns the FieldMappings field if non-nil, zero value otherwise.
+
+### GetFieldMappingsOk
+
+`func (o *TimeOffBalance) GetFieldMappingsOk() (*map[string]interface{}, bool)`
+
+GetFieldMappingsOk returns a tuple with the FieldMappings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFieldMappings
+
+`func (o *TimeOffBalance) SetFieldMappings(v map[string]interface{})`
+
+SetFieldMappings sets FieldMappings field to given value.
+
+### HasFieldMappings
+
+`func (o *TimeOffBalance) HasFieldMappings() bool`
+
+HasFieldMappings returns a boolean if a field has been set.
+
+### SetFieldMappingsNil
+
+`func (o *TimeOffBalance) SetFieldMappingsNil(b bool)`
+
+ SetFieldMappingsNil sets the value for FieldMappings to be an explicit nil
+
+### UnsetFieldMappings
+`func (o *TimeOffBalance) UnsetFieldMappings()`
+
+UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetModifiedAt
+
+`func (o *TimeOffBalance) GetModifiedAt() time.Time`
+
+GetModifiedAt returns the ModifiedAt field if non-nil, zero value otherwise.
+
+### GetModifiedAtOk
+
+`func (o *TimeOffBalance) GetModifiedAtOk() (*time.Time, bool)`
+
+GetModifiedAtOk returns a tuple with the ModifiedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModifiedAt
+
+`func (o *TimeOffBalance) SetModifiedAt(v time.Time)`
+
+SetModifiedAt sets ModifiedAt field to given value.
+
+### HasModifiedAt
+
+`func (o *TimeOffBalance) HasModifiedAt() bool`
+
+HasModifiedAt returns a boolean if a field has been set.
+
 ### GetRemoteData
 
 `func (o *TimeOffBalance) GetRemoteData() []RemoteData`
@@ -267,31 +354,6 @@ HasRemoteData returns a boolean if a field has been set.
 `func (o *TimeOffBalance) UnsetRemoteData()`
 
 UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
-### GetRemoteWasDeleted
-
-`func (o *TimeOffBalance) GetRemoteWasDeleted() bool`
-
-GetRemoteWasDeleted returns the RemoteWasDeleted field if non-nil, zero value otherwise.
-
-### GetRemoteWasDeletedOk
-
-`func (o *TimeOffBalance) GetRemoteWasDeletedOk() (*bool, bool)`
-
-GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteWasDeleted
-
-`func (o *TimeOffBalance) SetRemoteWasDeleted(v bool)`
-
-SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
-
-### HasRemoteWasDeleted
-
-`func (o *TimeOffBalance) HasRemoteWasDeleted() bool`
-
-HasRemoteWasDeleted returns a boolean if a field has been set.
-
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

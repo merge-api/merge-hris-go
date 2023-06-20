@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LinkToken** | **string** |  | 
-**IntegrationName** | **string** |  | 
+**IntegrationName** | Pointer to **string** |  | [optional] 
 **MagicLinkUrl** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewLinkToken
 
-`func NewLinkToken(linkToken string, integrationName string, ) *LinkToken`
+`func NewLinkToken(linkToken string, ) *LinkToken`
 
 NewLinkToken instantiates a new LinkToken object
 This constructor will assign default values to properties that have it defined,
@@ -66,6 +66,11 @@ and a boolean to check if the value has been set.
 
 SetIntegrationName sets IntegrationName field to given value.
 
+### HasIntegrationName
+
+`func (o *LinkToken) HasIntegrationName() bool`
+
+HasIntegrationName returns a boolean if a field has been set.
 
 ### GetMagicLinkUrl
 

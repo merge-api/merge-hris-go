@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// RunStateEnum the model 'RunStateEnum'
+// RunStateEnum * `PAID` - PAID * `DRAFT` - DRAFT * `APPROVED` - APPROVED * `FAILED` - FAILED * `CLOSED` - CLOSED
 type RunStateEnum string
 
 // apologies but this is to get around an import error

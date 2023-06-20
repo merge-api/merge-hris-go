@@ -5,11 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Company name. | 
-**Categories** | Pointer to [**[]CategoriesEnum**](CategoriesEnum.md) | Category or categories this integration belongs to. Multiple categories should be comma separated.&lt;br/&gt;&lt;br&gt;Example: For [ats, hris], enter &lt;i&gt;ats,hris&lt;/i&gt; | [optional] 
+**Categories** | Pointer to [**[]CategoriesEnum**](CategoriesEnum.md) | Category or categories this integration belongs to. Multiple categories should be comma separated, i.e. [ats, hris]. | [optional] 
 **Image** | Pointer to **NullableString** | Company logo in rectangular shape. &lt;b&gt;Upload an image with a clear background.&lt;/b&gt; | [optional] 
 **SquareImage** | Pointer to **NullableString** | Company logo in square shape. &lt;b&gt;Upload an image with a white background.&lt;/b&gt; | [optional] 
 **Color** | Pointer to **string** | The color of this integration used for buttons and text throughout the app and landing pages. &lt;b&gt;Choose a darker, saturated color.&lt;/b&gt; | [optional] 
 **Slug** | Pointer to **string** |  | [optional] [readonly] 
+**IsInBeta** | Pointer to **bool** | If checked, this integration will not appear in the linking flow, and will appear elsewhere with a Beta tag. | [optional] 
+**ApiEndpointsToDocumentationUrls** | Pointer to **map[string]interface{}** | Mapping of API endpoints to documentation urls for support. Example: {&#39;GET&#39;: [[&#39;/common-model-scopes&#39;, &#39;https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve&#39;],[&#39;/common-model-actions&#39;, &#39;https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve&#39;]], &#39;POST&#39;: []} | [optional] 
 
 ## Methods
 
@@ -194,6 +196,56 @@ SetSlug sets Slug field to given value.
 `func (o *AccountIntegration) HasSlug() bool`
 
 HasSlug returns a boolean if a field has been set.
+
+### GetIsInBeta
+
+`func (o *AccountIntegration) GetIsInBeta() bool`
+
+GetIsInBeta returns the IsInBeta field if non-nil, zero value otherwise.
+
+### GetIsInBetaOk
+
+`func (o *AccountIntegration) GetIsInBetaOk() (*bool, bool)`
+
+GetIsInBetaOk returns a tuple with the IsInBeta field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsInBeta
+
+`func (o *AccountIntegration) SetIsInBeta(v bool)`
+
+SetIsInBeta sets IsInBeta field to given value.
+
+### HasIsInBeta
+
+`func (o *AccountIntegration) HasIsInBeta() bool`
+
+HasIsInBeta returns a boolean if a field has been set.
+
+### GetApiEndpointsToDocumentationUrls
+
+`func (o *AccountIntegration) GetApiEndpointsToDocumentationUrls() map[string]interface{}`
+
+GetApiEndpointsToDocumentationUrls returns the ApiEndpointsToDocumentationUrls field if non-nil, zero value otherwise.
+
+### GetApiEndpointsToDocumentationUrlsOk
+
+`func (o *AccountIntegration) GetApiEndpointsToDocumentationUrlsOk() (*map[string]interface{}, bool)`
+
+GetApiEndpointsToDocumentationUrlsOk returns a tuple with the ApiEndpointsToDocumentationUrls field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApiEndpointsToDocumentationUrls
+
+`func (o *AccountIntegration) SetApiEndpointsToDocumentationUrls(v map[string]interface{})`
+
+SetApiEndpointsToDocumentationUrls sets ApiEndpointsToDocumentationUrls field to given value.
+
+### HasApiEndpointsToDocumentationUrls
+
+`func (o *AccountIntegration) HasApiEndpointsToDocumentationUrls() bool`
+
+HasApiEndpointsToDocumentationUrls returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// GenderEnum the model 'GenderEnum'
+// GenderEnum * `MALE` - MALE * `FEMALE` - FEMALE * `NON-BINARY` - NON-BINARY * `OTHER` - OTHER * `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
 type GenderEnum string
 
 // apologies but this is to get around an import error

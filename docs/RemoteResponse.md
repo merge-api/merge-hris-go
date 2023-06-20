@@ -7,15 +7,16 @@ Name | Type | Description | Notes
 **Method** | **string** |  | 
 **Path** | **string** |  | 
 **Status** | **int32** |  | 
-**Response** | **map[string]interface{}** |  | 
+**Response** | **interface{}** |  | 
 **ResponseHeaders** | Pointer to **map[string]interface{}** |  | [optional] 
+**ResponseType** | Pointer to [**ResponseTypeEnum**](ResponseTypeEnum.md) |  | [optional] 
 **Headers** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewRemoteResponse
 
-`func NewRemoteResponse(method string, path string, status int32, response map[string]interface{}, ) *RemoteResponse`
+`func NewRemoteResponse(method string, path string, status int32, response interface{}, ) *RemoteResponse`
 
 NewRemoteResponse instantiates a new RemoteResponse object
 This constructor will assign default values to properties that have it defined,
@@ -92,24 +93,34 @@ SetStatus sets Status field to given value.
 
 ### GetResponse
 
-`func (o *RemoteResponse) GetResponse() map[string]interface{}`
+`func (o *RemoteResponse) GetResponse() interface{}`
 
 GetResponse returns the Response field if non-nil, zero value otherwise.
 
 ### GetResponseOk
 
-`func (o *RemoteResponse) GetResponseOk() (*map[string]interface{}, bool)`
+`func (o *RemoteResponse) GetResponseOk() (*interface{}, bool)`
 
 GetResponseOk returns a tuple with the Response field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResponse
 
-`func (o *RemoteResponse) SetResponse(v map[string]interface{})`
+`func (o *RemoteResponse) SetResponse(v interface{})`
 
 SetResponse sets Response field to given value.
 
 
+### SetResponseNil
+
+`func (o *RemoteResponse) SetResponseNil(b bool)`
+
+ SetResponseNil sets the value for Response to be an explicit nil
+
+### UnsetResponse
+`func (o *RemoteResponse) UnsetResponse()`
+
+UnsetResponse ensures that no value is present for Response, not even an explicit nil
 ### GetResponseHeaders
 
 `func (o *RemoteResponse) GetResponseHeaders() map[string]interface{}`
@@ -134,6 +145,31 @@ SetResponseHeaders sets ResponseHeaders field to given value.
 `func (o *RemoteResponse) HasResponseHeaders() bool`
 
 HasResponseHeaders returns a boolean if a field has been set.
+
+### GetResponseType
+
+`func (o *RemoteResponse) GetResponseType() ResponseTypeEnum`
+
+GetResponseType returns the ResponseType field if non-nil, zero value otherwise.
+
+### GetResponseTypeOk
+
+`func (o *RemoteResponse) GetResponseTypeOk() (*ResponseTypeEnum, bool)`
+
+GetResponseTypeOk returns a tuple with the ResponseType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResponseType
+
+`func (o *RemoteResponse) SetResponseType(v ResponseTypeEnum)`
+
+SetResponseType sets ResponseType field to given value.
+
+### HasResponseType
+
+`func (o *RemoteResponse) HasResponseType() bool`
+
+HasResponseType returns a boolean if a field has been set.
 
 ### GetHeaders
 

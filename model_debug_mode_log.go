@@ -20,8 +20,8 @@ type DebugModeLog struct {
 	LogId string `json:"log_id"`
 	DashboardView string `json:"dashboard_view"`
 	LogSummary DebugModelLogSummary `json:"log_summary"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewDebugModeLog instantiates a new DebugModeLog object

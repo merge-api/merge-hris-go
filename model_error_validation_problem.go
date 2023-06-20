@@ -21,8 +21,8 @@ type ErrorValidationProblem struct {
 	Title string `json:"title"`
 	Detail string `json:"detail"`
 	ProblemType string `json:"problem_type"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewErrorValidationProblem instantiates a new ErrorValidationProblem object

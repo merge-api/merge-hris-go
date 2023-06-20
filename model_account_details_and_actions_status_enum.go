@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// AccountDetailsAndActionsStatusEnum the model 'AccountDetailsAndActionsStatusEnum'
+// AccountDetailsAndActionsStatusEnum * `COMPLETE` - COMPLETE * `INCOMPLETE` - INCOMPLETE * `RELINK_NEEDED` - RELINK_NEEDED
 type AccountDetailsAndActionsStatusEnum string
 
 // apologies but this is to get around an import error

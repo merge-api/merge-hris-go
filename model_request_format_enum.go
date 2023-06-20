@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// RequestFormatEnum the model 'RequestFormatEnum'
+// RequestFormatEnum * `JSON` - JSON * `XML` - XML * `MULTIPART` - MULTIPART
 type RequestFormatEnum string
 
 // apologies but this is to get around an import error

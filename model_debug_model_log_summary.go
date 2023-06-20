@@ -20,8 +20,8 @@ type DebugModelLogSummary struct {
 	Url string `json:"url"`
 	Method string `json:"method"`
 	StatusCode int32 `json:"status_code"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewDebugModelLogSummary instantiates a new DebugModelLogSummary object

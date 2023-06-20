@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// IssueStatusEnum the model 'IssueStatusEnum'
+// IssueStatusEnum * `ONGOING` - ONGOING * `RESOLVED` - RESOLVED
 type IssueStatusEnum string
 
 // apologies but this is to get around an import error

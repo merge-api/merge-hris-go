@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// LocationTypeEnum the model 'LocationTypeEnum'
+// LocationTypeEnum * `HOME` - HOME * `WORK` - WORK
 type LocationTypeEnum string
 
 // apologies but this is to get around an import error

@@ -21,8 +21,8 @@ type TimeOffResponse struct {
 	Warnings []WarningValidationProblem `json:"warnings"`
 	Errors []ErrorValidationProblem `json:"errors"`
 	Logs *[]DebugModeLog `json:"logs,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTimeOffResponse instantiates a new TimeOffResponse object

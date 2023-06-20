@@ -197,7 +197,7 @@ func (r ApiEmployeesIgnoreCreateRequest) IgnoreCommonModelRequest(ignoreCommonMo
 	return r
 }
 
-func (r ApiEmployeesIgnoreCreateRequest) Execute() (IgnoreCommonModel, *_nethttp.Response, error) {
+func (r ApiEmployeesIgnoreCreateRequest) Execute() (*_nethttp.Response, error) {
 	return r.ApiService.EmployeesIgnoreCreateExecute(r)
 }
 
@@ -218,21 +218,19 @@ func (a *EmployeesApiService) EmployeesIgnoreCreate(ctx _context.Context, modelI
 
 /*
  * Execute executes the request
- * @return IgnoreCommonModel
  */
-func (a *EmployeesApiService) EmployeesIgnoreCreateExecute(r ApiEmployeesIgnoreCreateRequest) (IgnoreCommonModel, *_nethttp.Response, error) {
+func (a *EmployeesApiService) EmployeesIgnoreCreateExecute(r ApiEmployeesIgnoreCreateRequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  IgnoreCommonModel
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmployeesApiService.EmployeesIgnoreCreate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/employees/ignore/{model_id}"
@@ -242,10 +240,10 @@ func (a *EmployeesApiService) EmployeesIgnoreCreateExecute(r ApiEmployeesIgnoreC
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 	if r.xAccountToken == nil {
-		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
+		return nil, reportError("xAccountToken is required and must be specified")
 	}
 	if r.ignoreCommonModelRequest == nil {
-		return localVarReturnValue, nil, reportError("ignoreCommonModelRequest is required and must be specified")
+		return nil, reportError("ignoreCommonModelRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -258,7 +256,7 @@ func (a *EmployeesApiService) EmployeesIgnoreCreateExecute(r ApiEmployeesIgnoreC
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -284,19 +282,19 @@ func (a *EmployeesApiService) EmployeesIgnoreCreateExecute(r ApiEmployeesIgnoreC
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -304,19 +302,10 @@ func (a *EmployeesApiService) EmployeesIgnoreCreateExecute(r ApiEmployeesIgnoreC
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiEmployeesListRequest struct {
@@ -330,6 +319,7 @@ type ApiEmployeesListRequest struct {
 	displayFullName *string
 	employmentStatus *string
 	firstName *string
+	groups *string
 	includeDeletedData *bool
 	includeRemoteData *bool
 	includeSensitiveFields *bool
@@ -342,7 +332,12 @@ type ApiEmployeesListRequest struct {
 	personalEmail *string
 	remoteFields *string
 	remoteId *string
+	showEnumOrigins *string
+	startedAfter *time.Time
+	startedBefore *time.Time
 	teamId *string
+	terminatedAfter *time.Time
+	terminatedBefore *time.Time
 	workEmail *string
 	workLocationId *string
 }
@@ -377,6 +372,10 @@ func (r ApiEmployeesListRequest) EmploymentStatus(employmentStatus string) ApiEm
 }
 func (r ApiEmployeesListRequest) FirstName(firstName string) ApiEmployeesListRequest {
 	r.firstName = &firstName
+	return r
+}
+func (r ApiEmployeesListRequest) Groups(groups string) ApiEmployeesListRequest {
+	r.groups = &groups
 	return r
 }
 func (r ApiEmployeesListRequest) IncludeDeletedData(includeDeletedData bool) ApiEmployeesListRequest {
@@ -427,8 +426,28 @@ func (r ApiEmployeesListRequest) RemoteId(remoteId string) ApiEmployeesListReque
 	r.remoteId = &remoteId
 	return r
 }
+func (r ApiEmployeesListRequest) ShowEnumOrigins(showEnumOrigins string) ApiEmployeesListRequest {
+	r.showEnumOrigins = &showEnumOrigins
+	return r
+}
+func (r ApiEmployeesListRequest) StartedAfter(startedAfter time.Time) ApiEmployeesListRequest {
+	r.startedAfter = &startedAfter
+	return r
+}
+func (r ApiEmployeesListRequest) StartedBefore(startedBefore time.Time) ApiEmployeesListRequest {
+	r.startedBefore = &startedBefore
+	return r
+}
 func (r ApiEmployeesListRequest) TeamId(teamId string) ApiEmployeesListRequest {
 	r.teamId = &teamId
+	return r
+}
+func (r ApiEmployeesListRequest) TerminatedAfter(terminatedAfter time.Time) ApiEmployeesListRequest {
+	r.terminatedAfter = &terminatedAfter
+	return r
+}
+func (r ApiEmployeesListRequest) TerminatedBefore(terminatedBefore time.Time) ApiEmployeesListRequest {
+	r.terminatedBefore = &terminatedBefore
 	return r
 }
 func (r ApiEmployeesListRequest) WorkEmail(workEmail string) ApiEmployeesListRequest {
@@ -506,6 +525,9 @@ func (a *EmployeesApiService) EmployeesListExecute(r ApiEmployeesListRequest) (P
 	if r.firstName != nil {
 		localVarQueryParams.Add("first_name", parameterToString(*r.firstName, ""))
 	}
+	if r.groups != nil {
+		localVarQueryParams.Add("groups", parameterToString(*r.groups, ""))
+	}
 	if r.includeDeletedData != nil {
 		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
@@ -542,8 +564,23 @@ func (a *EmployeesApiService) EmployeesListExecute(r ApiEmployeesListRequest) (P
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
 	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
+	}
+	if r.startedAfter != nil {
+		localVarQueryParams.Add("started_after", parameterToString(*r.startedAfter, ""))
+	}
+	if r.startedBefore != nil {
+		localVarQueryParams.Add("started_before", parameterToString(*r.startedBefore, ""))
+	}
 	if r.teamId != nil {
 		localVarQueryParams.Add("team_id", parameterToString(*r.teamId, ""))
+	}
+	if r.terminatedAfter != nil {
+		localVarQueryParams.Add("terminated_after", parameterToString(*r.terminatedAfter, ""))
+	}
+	if r.terminatedBefore != nil {
+		localVarQueryParams.Add("terminated_before", parameterToString(*r.terminatedBefore, ""))
 	}
 	if r.workEmail != nil {
 		localVarQueryParams.Add("work_email", parameterToString(*r.workEmail, ""))
@@ -753,6 +790,7 @@ type ApiEmployeesRetrieveRequest struct {
 	includeRemoteData *bool
 	includeSensitiveFields *bool
 	remoteFields *string
+	showEnumOrigins *string
 }
 
 func (r ApiEmployeesRetrieveRequest) XAccountToken(xAccountToken string) ApiEmployeesRetrieveRequest {
@@ -769,6 +807,10 @@ func (r ApiEmployeesRetrieveRequest) IncludeSensitiveFields(includeSensitiveFiel
 }
 func (r ApiEmployeesRetrieveRequest) RemoteFields(remoteFields string) ApiEmployeesRetrieveRequest {
 	r.remoteFields = &remoteFields
+	return r
+}
+func (r ApiEmployeesRetrieveRequest) ShowEnumOrigins(showEnumOrigins string) ApiEmployeesRetrieveRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -828,6 +870,9 @@ func (a *EmployeesApiService) EmployeesRetrieveExecute(r ApiEmployeesRetrieveReq
 	}
 	if r.remoteFields != nil {
 		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

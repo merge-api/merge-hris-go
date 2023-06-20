@@ -13,27 +13,36 @@ package merge_hris_client
 
 import (
 	"encoding/json"
+	"time"
 )
 
-// Benefit # The Benefit Object ### Description The `Benefit` object is used to represent a Benefit for an employee.  ### Usage Example Fetch from the `LIST Benefits` endpoint and filter by `ID` to show all benefits.
+// Benefit # The Benefit Object ### Description The `Benefit` object is used to represent a benefit that an employee has enrolled in.  ### Usage Example Fetch from the `LIST Benefits` endpoint and filter by `ID` to show all benefits.
 type Benefit struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
+	// The employee on the plan.
 	Employee NullableString `json:"employee,omitempty"`
 	// The name of the benefit provider.
 	ProviderName NullableString `json:"provider_name,omitempty"`
 	// The type of benefit plan
 	BenefitPlanType NullableString `json:"benefit_plan_type,omitempty"`
 	// The employee's contribution.
-	EmployeeContribution NullableFloat32 `json:"employee_contribution,omitempty"`
+	EmployeeContribution NullableFloat64 `json:"employee_contribution,omitempty"`
 	// The company's contribution.
-	CompanyContribution NullableFloat32 `json:"company_contribution,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	CompanyContribution NullableFloat64 `json:"company_contribution,omitempty"`
+	// The day and time the benefit started.
+	StartDate NullableTime `json:"start_date,omitempty"`
+	// The day and time the benefit ended.
+	EndDate NullableTime `json:"end_date,omitempty"`
 	// Indicates whether or not this object has been deleted by third party webhooks.
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	// This is the datetime that this object was last updated by Merge
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewBenefit instantiates a new Benefit object
@@ -254,9 +263,9 @@ func (o *Benefit) UnsetBenefitPlanType() {
 }
 
 // GetEmployeeContribution returns the EmployeeContribution field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Benefit) GetEmployeeContribution() float32 {
+func (o *Benefit) GetEmployeeContribution() float64 {
 	if o == nil || o.EmployeeContribution.Get() == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.EmployeeContribution.Get()
@@ -265,7 +274,7 @@ func (o *Benefit) GetEmployeeContribution() float32 {
 // GetEmployeeContributionOk returns a tuple with the EmployeeContribution field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Benefit) GetEmployeeContributionOk() (*float32, bool) {
+func (o *Benefit) GetEmployeeContributionOk() (*float64, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -281,8 +290,8 @@ func (o *Benefit) HasEmployeeContribution() bool {
 	return false
 }
 
-// SetEmployeeContribution gets a reference to the given NullableFloat32 and assigns it to the EmployeeContribution field.
-func (o *Benefit) SetEmployeeContribution(v float32) {
+// SetEmployeeContribution gets a reference to the given NullableFloat64 and assigns it to the EmployeeContribution field.
+func (o *Benefit) SetEmployeeContribution(v float64) {
 	o.EmployeeContribution.Set(&v)
 }
 // SetEmployeeContributionNil sets the value for EmployeeContribution to be an explicit nil
@@ -296,9 +305,9 @@ func (o *Benefit) UnsetEmployeeContribution() {
 }
 
 // GetCompanyContribution returns the CompanyContribution field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Benefit) GetCompanyContribution() float32 {
+func (o *Benefit) GetCompanyContribution() float64 {
 	if o == nil || o.CompanyContribution.Get() == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.CompanyContribution.Get()
@@ -307,7 +316,7 @@ func (o *Benefit) GetCompanyContribution() float32 {
 // GetCompanyContributionOk returns a tuple with the CompanyContribution field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Benefit) GetCompanyContributionOk() (*float32, bool) {
+func (o *Benefit) GetCompanyContributionOk() (*float64, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -323,8 +332,8 @@ func (o *Benefit) HasCompanyContribution() bool {
 	return false
 }
 
-// SetCompanyContribution gets a reference to the given NullableFloat32 and assigns it to the CompanyContribution field.
-func (o *Benefit) SetCompanyContribution(v float32) {
+// SetCompanyContribution gets a reference to the given NullableFloat64 and assigns it to the CompanyContribution field.
+func (o *Benefit) SetCompanyContribution(v float64) {
 	o.CompanyContribution.Set(&v)
 }
 // SetCompanyContributionNil sets the value for CompanyContribution to be an explicit nil
@@ -335,6 +344,187 @@ func (o *Benefit) SetCompanyContributionNil() {
 // UnsetCompanyContribution ensures that no value is present for CompanyContribution, not even an explicit nil
 func (o *Benefit) UnsetCompanyContribution() {
 	o.CompanyContribution.Unset()
+}
+
+// GetStartDate returns the StartDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Benefit) GetStartDate() time.Time {
+	if o == nil || o.StartDate.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartDate.Get()
+}
+
+// GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Benefit) GetStartDateOk() (*time.Time, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.StartDate.Get(), o.StartDate.IsSet()
+}
+
+// HasStartDate returns a boolean if a field has been set.
+func (o *Benefit) HasStartDate() bool {
+	if o != nil && o.StartDate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetStartDate gets a reference to the given NullableTime and assigns it to the StartDate field.
+func (o *Benefit) SetStartDate(v time.Time) {
+	o.StartDate.Set(&v)
+}
+// SetStartDateNil sets the value for StartDate to be an explicit nil
+func (o *Benefit) SetStartDateNil() {
+	o.StartDate.Set(nil)
+}
+
+// UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
+func (o *Benefit) UnsetStartDate() {
+	o.StartDate.Unset()
+}
+
+// GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Benefit) GetEndDate() time.Time {
+	if o == nil || o.EndDate.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.EndDate.Get()
+}
+
+// GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Benefit) GetEndDateOk() (*time.Time, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.EndDate.Get(), o.EndDate.IsSet()
+}
+
+// HasEndDate returns a boolean if a field has been set.
+func (o *Benefit) HasEndDate() bool {
+	if o != nil && o.EndDate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEndDate gets a reference to the given NullableTime and assigns it to the EndDate field.
+func (o *Benefit) SetEndDate(v time.Time) {
+	o.EndDate.Set(&v)
+}
+// SetEndDateNil sets the value for EndDate to be an explicit nil
+func (o *Benefit) SetEndDateNil() {
+	o.EndDate.Set(nil)
+}
+
+// UnsetEndDate ensures that no value is present for EndDate, not even an explicit nil
+func (o *Benefit) UnsetEndDate() {
+	o.EndDate.Unset()
+}
+
+// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
+func (o *Benefit) GetRemoteWasDeleted() bool {
+	if o == nil || o.RemoteWasDeleted == nil {
+		var ret bool
+		return ret
+	}
+	return *o.RemoteWasDeleted
+}
+
+// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Benefit) GetRemoteWasDeletedOk() (*bool, bool) {
+	if o == nil || o.RemoteWasDeleted == nil {
+		return nil, false
+	}
+	return o.RemoteWasDeleted, true
+}
+
+// HasRemoteWasDeleted returns a boolean if a field has been set.
+func (o *Benefit) HasRemoteWasDeleted() bool {
+	if o != nil && o.RemoteWasDeleted != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
+func (o *Benefit) SetRemoteWasDeleted(v bool) {
+	o.RemoteWasDeleted = &v
+}
+
+// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Benefit) GetFieldMappings() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.FieldMappings
+}
+
+// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Benefit) GetFieldMappingsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.FieldMappings == nil {
+		return nil, false
+	}
+	return &o.FieldMappings, true
+}
+
+// HasFieldMappings returns a boolean if a field has been set.
+func (o *Benefit) HasFieldMappings() bool {
+	if o != nil && o.FieldMappings != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFieldMappings gets a reference to the given map[string]interface{} and assigns it to the FieldMappings field.
+func (o *Benefit) SetFieldMappings(v map[string]interface{}) {
+	o.FieldMappings = v
+}
+
+// GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
+func (o *Benefit) GetModifiedAt() time.Time {
+	if o == nil || o.ModifiedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.ModifiedAt
+}
+
+// GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Benefit) GetModifiedAtOk() (*time.Time, bool) {
+	if o == nil || o.ModifiedAt == nil {
+		return nil, false
+	}
+	return o.ModifiedAt, true
+}
+
+// HasModifiedAt returns a boolean if a field has been set.
+func (o *Benefit) HasModifiedAt() bool {
+	if o != nil && o.ModifiedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetModifiedAt gets a reference to the given time.Time and assigns it to the ModifiedAt field.
+func (o *Benefit) SetModifiedAt(v time.Time) {
+	o.ModifiedAt = &v
 }
 
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -370,38 +560,6 @@ func (o *Benefit) SetRemoteData(v []RemoteData) {
 	o.RemoteData = v
 }
 
-// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
-func (o *Benefit) GetRemoteWasDeleted() bool {
-	if o == nil || o.RemoteWasDeleted == nil {
-		var ret bool
-		return ret
-	}
-	return *o.RemoteWasDeleted
-}
-
-// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Benefit) GetRemoteWasDeletedOk() (*bool, bool) {
-	if o == nil || o.RemoteWasDeleted == nil {
-		return nil, false
-	}
-	return o.RemoteWasDeleted, true
-}
-
-// HasRemoteWasDeleted returns a boolean if a field has been set.
-func (o *Benefit) HasRemoteWasDeleted() bool {
-	if o != nil && o.RemoteWasDeleted != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
-func (o *Benefit) SetRemoteWasDeleted(v bool) {
-	o.RemoteWasDeleted = &v
-}
-
 func (o Benefit) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -425,11 +583,23 @@ func (o Benefit) MarshalJSON() ([]byte, error) {
 	if o.CompanyContribution.IsSet() {
 		toSerialize["company_contribution"] = o.CompanyContribution.Get()
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
+	if o.StartDate.IsSet() {
+		toSerialize["start_date"] = o.StartDate.Get()
+	}
+	if o.EndDate.IsSet() {
+		toSerialize["end_date"] = o.EndDate.Get()
 	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
+	}
+	if o.FieldMappings != nil {
+		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.ModifiedAt != nil {
+		toSerialize["modified_at"] = o.ModifiedAt
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

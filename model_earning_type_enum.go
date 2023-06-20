@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// EarningTypeEnum the model 'EarningTypeEnum'
+// EarningTypeEnum * `SALARY` - SALARY * `REIMBURSEMENT` - REIMBURSEMENT * `OVERTIME` - OVERTIME * `BONUS` - BONUS
 type EarningTypeEnum string
 
 // apologies but this is to get around an import error

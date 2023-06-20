@@ -19,8 +19,8 @@ import (
 type RemoteKey struct {
 	Name string `json:"name"`
 	Key string `json:"key"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewRemoteKey instantiates a new RemoteKey object

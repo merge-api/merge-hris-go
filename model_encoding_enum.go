@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// EncodingEnum the model 'EncodingEnum'
+// EncodingEnum * `RAW` - RAW * `BASE64` - BASE64 * `GZIP_BASE64` - GZIP_BASE64
 type EncodingEnum string
 
 // apologies but this is to get around an import error

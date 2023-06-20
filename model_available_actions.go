@@ -20,8 +20,8 @@ type AvailableActions struct {
 	Integration AccountIntegration `json:"integration"`
 	PassthroughAvailable bool `json:"passthrough_available"`
 	AvailableModelOperations *[]ModelOperation `json:"available_model_operations,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAvailableActions instantiates a new AvailableActions object

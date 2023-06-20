@@ -44,7 +44,7 @@ func (r ApiSyncStatusResyncCreateRequest) Execute() ([]SyncStatus, *_nethttp.Res
 
 /*
  * SyncStatusResyncCreate Method for SyncStatusResyncCreate
- * Force re-sync of all models. This is only available for organizations on Merge's Grow and Expand plans.
+ * Force re-sync of all models. This is available for all organizations via the dashboard. Force re-sync is also available programmatically via API for monthly, quarterly, and highest sync frequency customers on the Core, Professional, or Enterprise plans. Doing so will consume a sync credit for the relevant linked account.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @return ApiSyncStatusResyncCreateRequest
  */

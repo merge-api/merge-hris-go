@@ -13,25 +13,30 @@ package merge_hris_client
 
 import (
 	"encoding/json"
+	"time"
 )
 
-// TimeOffBalance # The TimeOffBalance Object ### Description The `TimeOffBalance` object is used to represent a Time Off Balance for an employee.  ### Usage Example Fetch from the `LIST TimeOffBalances` endpoint and filter by `ID` to show all time off balances.
+// TimeOffBalance # The TimeOffBalance Object ### Description The `TimeOffBalance` object is used to represent current balances for an employee's Time Off plan.  ### Usage Example Fetch from the `LIST TimeOffBalances` endpoint and filter by `ID` to show all time off balances.
 type TimeOffBalance struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
+	// The employee the balance belongs to.
 	Employee NullableString `json:"employee,omitempty"`
-	// The current remaining PTO balance in terms of hours. This does not represent the starting PTO balance. If the API provider only provides PTO balance in terms of days, we estimate 8 hours per day.
-	Balance NullableFloat32 `json:"balance,omitempty"`
+	// The current remaining PTO balance, always measured in terms of hours.
+	Balance NullableFloat64 `json:"balance,omitempty"`
 	// The amount of PTO used in terms of hours.
-	Used NullableFloat32 `json:"used,omitempty"`
-	// The policy type of this time off balance.
+	Used NullableFloat64 `json:"used,omitempty"`
+	// The policy type of this time off balance.  * `VACATION` - VACATION * `SICK` - SICK * `PERSONAL` - PERSONAL * `JURY_DUTY` - JURY_DUTY * `VOLUNTEER` - VOLUNTEER * `BEREAVEMENT` - BEREAVEMENT
 	PolicyType NullablePolicyTypeEnum `json:"policy_type,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// Indicates whether or not this object has been deleted by third party webhooks.
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	// This is the datetime that this object was last updated by Merge
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTimeOffBalance instantiates a new TimeOffBalance object
@@ -168,9 +173,9 @@ func (o *TimeOffBalance) UnsetEmployee() {
 }
 
 // GetBalance returns the Balance field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TimeOffBalance) GetBalance() float32 {
+func (o *TimeOffBalance) GetBalance() float64 {
 	if o == nil || o.Balance.Get() == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Balance.Get()
@@ -179,7 +184,7 @@ func (o *TimeOffBalance) GetBalance() float32 {
 // GetBalanceOk returns a tuple with the Balance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TimeOffBalance) GetBalanceOk() (*float32, bool) {
+func (o *TimeOffBalance) GetBalanceOk() (*float64, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -195,8 +200,8 @@ func (o *TimeOffBalance) HasBalance() bool {
 	return false
 }
 
-// SetBalance gets a reference to the given NullableFloat32 and assigns it to the Balance field.
-func (o *TimeOffBalance) SetBalance(v float32) {
+// SetBalance gets a reference to the given NullableFloat64 and assigns it to the Balance field.
+func (o *TimeOffBalance) SetBalance(v float64) {
 	o.Balance.Set(&v)
 }
 // SetBalanceNil sets the value for Balance to be an explicit nil
@@ -210,9 +215,9 @@ func (o *TimeOffBalance) UnsetBalance() {
 }
 
 // GetUsed returns the Used field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TimeOffBalance) GetUsed() float32 {
+func (o *TimeOffBalance) GetUsed() float64 {
 	if o == nil || o.Used.Get() == nil {
-		var ret float32
+		var ret float64
 		return ret
 	}
 	return *o.Used.Get()
@@ -221,7 +226,7 @@ func (o *TimeOffBalance) GetUsed() float32 {
 // GetUsedOk returns a tuple with the Used field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TimeOffBalance) GetUsedOk() (*float32, bool) {
+func (o *TimeOffBalance) GetUsedOk() (*float64, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -237,8 +242,8 @@ func (o *TimeOffBalance) HasUsed() bool {
 	return false
 }
 
-// SetUsed gets a reference to the given NullableFloat32 and assigns it to the Used field.
-func (o *TimeOffBalance) SetUsed(v float32) {
+// SetUsed gets a reference to the given NullableFloat64 and assigns it to the Used field.
+func (o *TimeOffBalance) SetUsed(v float64) {
 	o.Used.Set(&v)
 }
 // SetUsedNil sets the value for Used to be an explicit nil
@@ -293,6 +298,103 @@ func (o *TimeOffBalance) UnsetPolicyType() {
 	o.PolicyType.Unset()
 }
 
+// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
+func (o *TimeOffBalance) GetRemoteWasDeleted() bool {
+	if o == nil || o.RemoteWasDeleted == nil {
+		var ret bool
+		return ret
+	}
+	return *o.RemoteWasDeleted
+}
+
+// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimeOffBalance) GetRemoteWasDeletedOk() (*bool, bool) {
+	if o == nil || o.RemoteWasDeleted == nil {
+		return nil, false
+	}
+	return o.RemoteWasDeleted, true
+}
+
+// HasRemoteWasDeleted returns a boolean if a field has been set.
+func (o *TimeOffBalance) HasRemoteWasDeleted() bool {
+	if o != nil && o.RemoteWasDeleted != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
+func (o *TimeOffBalance) SetRemoteWasDeleted(v bool) {
+	o.RemoteWasDeleted = &v
+}
+
+// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TimeOffBalance) GetFieldMappings() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.FieldMappings
+}
+
+// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TimeOffBalance) GetFieldMappingsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.FieldMappings == nil {
+		return nil, false
+	}
+	return &o.FieldMappings, true
+}
+
+// HasFieldMappings returns a boolean if a field has been set.
+func (o *TimeOffBalance) HasFieldMappings() bool {
+	if o != nil && o.FieldMappings != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFieldMappings gets a reference to the given map[string]interface{} and assigns it to the FieldMappings field.
+func (o *TimeOffBalance) SetFieldMappings(v map[string]interface{}) {
+	o.FieldMappings = v
+}
+
+// GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
+func (o *TimeOffBalance) GetModifiedAt() time.Time {
+	if o == nil || o.ModifiedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.ModifiedAt
+}
+
+// GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TimeOffBalance) GetModifiedAtOk() (*time.Time, bool) {
+	if o == nil || o.ModifiedAt == nil {
+		return nil, false
+	}
+	return o.ModifiedAt, true
+}
+
+// HasModifiedAt returns a boolean if a field has been set.
+func (o *TimeOffBalance) HasModifiedAt() bool {
+	if o != nil && o.ModifiedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetModifiedAt gets a reference to the given time.Time and assigns it to the ModifiedAt field.
+func (o *TimeOffBalance) SetModifiedAt(v time.Time) {
+	o.ModifiedAt = &v
+}
+
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TimeOffBalance) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -326,38 +428,6 @@ func (o *TimeOffBalance) SetRemoteData(v []RemoteData) {
 	o.RemoteData = v
 }
 
-// GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
-func (o *TimeOffBalance) GetRemoteWasDeleted() bool {
-	if o == nil || o.RemoteWasDeleted == nil {
-		var ret bool
-		return ret
-	}
-	return *o.RemoteWasDeleted
-}
-
-// GetRemoteWasDeletedOk returns a tuple with the RemoteWasDeleted field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *TimeOffBalance) GetRemoteWasDeletedOk() (*bool, bool) {
-	if o == nil || o.RemoteWasDeleted == nil {
-		return nil, false
-	}
-	return o.RemoteWasDeleted, true
-}
-
-// HasRemoteWasDeleted returns a boolean if a field has been set.
-func (o *TimeOffBalance) HasRemoteWasDeleted() bool {
-	if o != nil && o.RemoteWasDeleted != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteWasDeleted gets a reference to the given bool and assigns it to the RemoteWasDeleted field.
-func (o *TimeOffBalance) SetRemoteWasDeleted(v bool) {
-	o.RemoteWasDeleted = &v
-}
-
 func (o TimeOffBalance) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -378,11 +448,17 @@ func (o TimeOffBalance) MarshalJSON() ([]byte, error) {
 	if o.PolicyType.IsSet() {
 		toSerialize["policy_type"] = o.PolicyType.Get()
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
-	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
+	}
+	if o.FieldMappings != nil {
+		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.ModifiedAt != nil {
+		toSerialize["modified_at"] = o.ModifiedAt
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

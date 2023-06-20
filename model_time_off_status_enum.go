@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// TimeOffStatusEnum the model 'TimeOffStatusEnum'
+// TimeOffStatusEnum * `REQUESTED` - REQUESTED * `APPROVED` - APPROVED * `DECLINED` - DECLINED * `CANCELLED` - CANCELLED * `DELETED` - DELETED
 type TimeOffStatusEnum string
 
 // apologies but this is to get around an import error

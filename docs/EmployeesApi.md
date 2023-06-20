@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## EmployeesIgnoreCreate
 
-> IgnoreCommonModel EmployeesIgnoreCreate(ctx, modelId).XAccountToken(xAccountToken).IgnoreCommonModelRequest(ignoreCommonModelRequest).Execute()
+> EmployeesIgnoreCreate(ctx, modelId).XAccountToken(xAccountToken).IgnoreCommonModelRequest(ignoreCommonModelRequest).Execute()
 
 
 
@@ -116,8 +116,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesIgnoreCreate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `EmployeesIgnoreCreate`: IgnoreCommonModel
-    fmt.Fprintf(os.Stdout, "Response from `EmployeesApi.EmployeesIgnoreCreate`: %v\n", resp)
 }
 ```
 
@@ -142,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IgnoreCommonModel**](IgnoreCommonModel.md)
+ (empty response body)
 
 ### Authorization
 
@@ -151,7 +149,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -160,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## EmployeesList
 
-> PaginatedEmployeeList EmployeesList(ctx).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).DisplayFullName(displayFullName).EmploymentStatus(employmentStatus).FirstName(firstName).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).LastName(lastName).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayGroupId(payGroupId).PersonalEmail(personalEmail).RemoteFields(remoteFields).RemoteId(remoteId).TeamId(teamId).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
+> PaginatedEmployeeList EmployeesList(ctx).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).DisplayFullName(displayFullName).EmploymentStatus(employmentStatus).FirstName(firstName).Groups(groups).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).LastName(lastName).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayGroupId(payGroupId).PersonalEmail(personalEmail).RemoteFields(remoteFields).RemoteId(remoteId).ShowEnumOrigins(showEnumOrigins).StartedAfter(startedAfter).StartedBefore(startedBefore).TeamId(teamId).TerminatedAfter(terminatedAfter).TerminatedBefore(terminatedBefore).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
 
 
 
@@ -186,27 +184,33 @@ func main() {
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     displayFullName := "displayFullName_example" // string | If provided, will only return employees with this display name. (optional)
-    employmentStatus := "employmentStatus_example" // string | If provided, will only return employees with this employment status. (optional)
+    employmentStatus := "employmentStatus_example" // string | If provided, will only return employees with this employment status.  * `ACTIVE` - ACTIVE * `PENDING` - PENDING * `INACTIVE` - INACTIVE (optional)
     firstName := "firstName_example" // string | If provided, will only return employees with this first name. (optional)
+    groups := "groups_example" // string | If provided, will only return employees matching the group ids; multiple groups can be separated by commas. (optional)
     includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     includeSensitiveFields := true // bool | Whether to include sensitive fields (such as social security numbers) in the response. (optional)
     lastName := "lastName_example" // string | If provided, will only return employees with this last name. (optional)
     managerId := "managerId_example" // string | If provided, will only return employees for this manager. (optional)
-    modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
-    modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
+    modifiedAfter := time.Now() // time.Time | If provided, only objects synced by Merge after this date time will be returned. (optional)
+    modifiedBefore := time.Now() // time.Time | If provided, only objects synced by Merge before this date time will be returned. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
     payGroupId := "payGroupId_example" // string | If provided, will only return employees for this pay group (optional)
     personalEmail := "personalEmail@example.com" // string | If provided, will only return Employees with this personal email (optional)
-    remoteFields := "employment_status,ethnicity,gender,marital_status" // string | Which fields should be returned in non-normalized form. (optional)
+    remoteFields := "employment_status,ethnicity,gender,marital_status" // string | Deprecated. Use show_enum_origins. (optional)
     remoteId := "remoteId_example" // string | The API provider's ID for the given object. (optional)
+    showEnumOrigins := "employment_status,ethnicity,gender,marital_status" // string | Which fields should be returned in non-normalized form. (optional)
+    startedAfter := time.Now() // time.Time | If provided, will only return employees that started after this datetime. (optional)
+    startedBefore := time.Now() // time.Time | If provided, will only return employees that started before this datetime. (optional)
     teamId := "teamId_example" // string | If provided, will only return employees for this team. (optional)
+    terminatedAfter := time.Now() // time.Time | If provided, will only return employees that were terminated after this datetime. (optional)
+    terminatedBefore := time.Now() // time.Time | If provided, will only return employees that were terminated before this datetime. (optional)
     workEmail := "workEmail@example.com" // string | If provided, will only return Employees with this work email (optional)
     workLocationId := "workLocationId_example" // string | If provided, will only return employees for this location. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeesApi.EmployeesList(context.Background()).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).DisplayFullName(displayFullName).EmploymentStatus(employmentStatus).FirstName(firstName).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).LastName(lastName).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayGroupId(payGroupId).PersonalEmail(personalEmail).RemoteFields(remoteFields).RemoteId(remoteId).TeamId(teamId).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
+    resp, r, err := api_client.EmployeesApi.EmployeesList(context.Background()).XAccountToken(xAccountToken).CompanyId(companyId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).DisplayFullName(displayFullName).EmploymentStatus(employmentStatus).FirstName(firstName).Groups(groups).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).LastName(lastName).ManagerId(managerId).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).PayGroupId(payGroupId).PersonalEmail(personalEmail).RemoteFields(remoteFields).RemoteId(remoteId).ShowEnumOrigins(showEnumOrigins).StartedAfter(startedAfter).StartedBefore(startedBefore).TeamId(teamId).TerminatedAfter(terminatedAfter).TerminatedBefore(terminatedBefore).WorkEmail(workEmail).WorkLocationId(workLocationId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -233,21 +237,27 @@ Name | Type | Description  | Notes
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
  **displayFullName** | **string** | If provided, will only return employees with this display name. | 
- **employmentStatus** | **string** | If provided, will only return employees with this employment status. | 
+ **employmentStatus** | **string** | If provided, will only return employees with this employment status.  * &#x60;ACTIVE&#x60; - ACTIVE * &#x60;PENDING&#x60; - PENDING * &#x60;INACTIVE&#x60; - INACTIVE | 
  **firstName** | **string** | If provided, will only return employees with this first name. | 
+ **groups** | **string** | If provided, will only return employees matching the group ids; multiple groups can be separated by commas. | 
  **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **includeSensitiveFields** | **bool** | Whether to include sensitive fields (such as social security numbers) in the response. | 
  **lastName** | **string** | If provided, will only return employees with this last name. | 
  **managerId** | **string** | If provided, will only return employees for this manager. | 
- **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
- **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
+ **modifiedAfter** | **time.Time** | If provided, only objects synced by Merge after this date time will be returned. | 
+ **modifiedBefore** | **time.Time** | If provided, only objects synced by Merge before this date time will be returned. | 
  **pageSize** | **int32** | Number of results to return per page. | 
  **payGroupId** | **string** | If provided, will only return employees for this pay group | 
  **personalEmail** | [**string**](string.md) | If provided, will only return Employees with this personal email | 
- **remoteFields** | **string** | Which fields should be returned in non-normalized form. | 
+ **remoteFields** | **string** | Deprecated. Use show_enum_origins. | 
  **remoteId** | **string** | The API provider&#39;s ID for the given object. | 
+ **showEnumOrigins** | **string** | Which fields should be returned in non-normalized form. | 
+ **startedAfter** | **time.Time** | If provided, will only return employees that started after this datetime. | 
+ **startedBefore** | **time.Time** | If provided, will only return employees that started before this datetime. | 
  **teamId** | **string** | If provided, will only return employees for this team. | 
+ **terminatedAfter** | **time.Time** | If provided, will only return employees that were terminated after this datetime. | 
+ **terminatedBefore** | **time.Time** | If provided, will only return employees that were terminated before this datetime. | 
  **workEmail** | [**string**](string.md) | If provided, will only return Employees with this work email | 
  **workLocationId** | **string** | If provided, will only return employees for this location. | 
 
@@ -337,7 +347,7 @@ Name | Type | Description  | Notes
 
 ## EmployeesRetrieve
 
-> Employee EmployeesRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).RemoteFields(remoteFields).Execute()
+> Employee EmployeesRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).RemoteFields(remoteFields).ShowEnumOrigins(showEnumOrigins).Execute()
 
 
 
@@ -360,11 +370,12 @@ func main() {
     id := TODO // string | 
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     includeSensitiveFields := true // bool | Whether to include sensitive fields (such as social security numbers) in the response. (optional)
-    remoteFields := "employment_status,ethnicity,gender,marital_status" // string | Which fields should be returned in non-normalized form. (optional)
+    remoteFields := "employment_status,ethnicity,gender,marital_status" // string | Deprecated. Use show_enum_origins. (optional)
+    showEnumOrigins := "employment_status,ethnicity,gender,marital_status" // string | Which fields should be returned in non-normalized form. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EmployeesApi.EmployeesRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).RemoteFields(remoteFields).Execute()
+    resp, r, err := api_client.EmployeesApi.EmployeesRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).IncludeSensitiveFields(includeSensitiveFields).RemoteFields(remoteFields).ShowEnumOrigins(showEnumOrigins).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EmployeesApi.EmployeesRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -393,7 +404,8 @@ Name | Type | Description  | Notes
 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **includeSensitiveFields** | **bool** | Whether to include sensitive fields (such as social security numbers) in the response. | 
- **remoteFields** | **string** | Which fields should be returned in non-normalized form. | 
+ **remoteFields** | **string** | Deprecated. Use show_enum_origins. | 
+ **showEnumOrigins** | **string** | Which fields should be returned in non-normalized form. | 
 
 ### Return type
 

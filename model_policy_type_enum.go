@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// PolicyTypeEnum the model 'PolicyTypeEnum'
+// PolicyTypeEnum * `VACATION` - VACATION * `SICK` - SICK * `PERSONAL` - PERSONAL * `JURY_DUTY` - JURY_DUTY * `VOLUNTEER` - VOLUNTEER * `BEREAVEMENT` - BEREAVEMENT
 type PolicyTypeEnum string
 
 // apologies but this is to get around an import error
